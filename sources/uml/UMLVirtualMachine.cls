@@ -914,7 +914,11 @@ processPrimitiveCall: primitiveNumber receiver: anUMLInstance withArguments: anA
 
 	(self class canUnderstand: primitiveSelector) ifFalse: [UMLPrimitiveNotFound signal: 'Primitive <', primitiveNumber printString, '> not found.' ].
 
-	^self perform: primitiveSelector withArguments: (Array with: anUMLInstance with: anArray with: anUMLExecutionSnapshot) 
+	^[self perform: primitiveSelector withArguments: (Array with: anUMLInstance with: anArray with: anUMLExecutionSnapshot)] 
+		on: Error 
+		do: [:ex | (MessageBox confirm: ('[', ex description, '].', String lineDelimiter,'Primitive call has failed do you want to open a Smalltalk debugger ?')) 
+				ifTrue: [ex signal] 
+				ifFalse: [self nilObject] ]
 "<primitiveNumber> CLASSIFICATION
 100 - Object Mapping between Dolphin VM and UML VM (smalltalkObject asUMLObject:)
 200 - UML Virtual Machine process
