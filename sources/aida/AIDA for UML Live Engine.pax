@@ -273,7 +273,7 @@ getUserRootObjectsFor: aWebUser model: anUMLModel
 
 	anUMLModel loginManager ifNil: [^'Error: you have to select a Login Manager Class in the UML Model Browser in order to login !!' asUMLObject: self defaultVirtualMachine ].
 
-	^anUMLModel loginManager vmPerform: #userRootObjectsFor:password: withArguments: arguments.
+	^anUMLModel loginManager vmPerform: #getLoginMainObjectFor:password: withArguments: arguments.
 
 
 !

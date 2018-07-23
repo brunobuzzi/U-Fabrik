@@ -223,7 +223,7 @@ licenciaPorDefecto
 loginImplementation
 	|  parsedMethod  |
 
-	parsedMethod := SmalltalkParser parseMethod: 'userRootObjectsFor: userName password: password
+	parsedMethod := SmalltalkParser parseMethod: 'getLoginMainObjectFor: userName password: password
 "Automatically generated, this method answer the objects to be showed after login"
 "^', self selectedModel loginManager name , ' getGlobalObjectSatisfying: [:each | each name = userName and: [each password = password]]"
 

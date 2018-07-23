@@ -35,7 +35,7 @@ ok
 		ifNil: 
 			[^MessageBox notify: 'You have to set the Login Manage Class for the UML Model in order to login'
 				caption: self applicationName].
-	initialObejcts := loginManagerClass vmPerform: #userRootObjectsFor:password:
+	initialObejcts := loginManagerClass vmPerform: #getLoginMainObjectFor:password:
 				withArguments: (Array with: (userPresenter value asUMLObject: self defaultVirtualMachine)
 						with: (passwordPresenter value asUMLObject: self defaultVirtualMachine)).
 	(initialObejcts belongToVirtualMachine and: [initialObejcts smalltalkObject isEmpty]) 

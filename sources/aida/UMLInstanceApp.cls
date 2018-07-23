@@ -834,7 +834,7 @@ getUserFromUMLApplication
 					with: ((self session user password) asUMLObject: self defaultVirtualMachine)
 					with: block.
 
-	umlApplicationUser := self umlApplicationLoginManager vmPerform: #userRootObjectsFor:password: withArguments: arguments.
+	umlApplicationUser := self umlApplicationLoginManager vmPerform: #getLoginMainObjectFor:password: withArguments: arguments.
 
 	^umlApplicationUser!
 
