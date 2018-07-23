@@ -1,0 +1,188 @@
+﻿| package |
+package := Package name: 'BB MVP Basic Support'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #BBDialog;
+	add: #BBEditingDialog;
+	add: #DetalleDeOpciones;
+	add: #MutipleSelectionListTreeView;
+	add: #RichTextComposite;
+	add: #RichTextShell;
+	add: #RichTextURLComposite;
+	yourself.
+
+package methodNames
+	add: #Date -> #printShortFormat;
+	add: #ListTreePresenter -> #hasMultipleSelection;
+	add: #Shell -> #isEditShell;
+	add: #String -> #completeTo:;
+	add: #Time -> #printShortFormat;
+	add: #TimeStamp -> #printShortFormat;
+	add: #TreeModel -> #addTree:asChildOf:;
+	add: 'ListTreePresenter class' -> #resource_Multiselection_view;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Connection Points\ActiveX Connection Points';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\OCX\ActiveX Control Hosting';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\ListTree\Dolphin List Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Deprecated\Dolphin MVP (Deprecated)';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\SysLink\Dolphin SysLink Control';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\SHDocVw\Internet Explorer';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Presenter subclass: #RichTextComposite
+	instanceVariableNames: 'richTextPresenter textoBuscarPresenter'
+	classVariableNames: 'RichTextCompositeZoom'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RichTextComposite subclass: #RichTextURLComposite
+	instanceVariableNames: 'urlPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #RichTextShell
+	instanceVariableNames: 'richComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dialog subclass: #BBDialog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDialog subclass: #BBEditingDialog
+	instanceVariableNames: 'atomicContainer domainModel state answer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDialog subclass: #DetalleDeOpciones
+	instanceVariableNames: 'listaP containerP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MultipleSelectionListView subclass: #MutipleSelectionListTreeView
+	instanceVariableNames: 'hasExplicitTreeModel treeModel selChangeCause expanded hiddenExpanded options indentSeparation getChildrenBlock hasChildrenBlock getParentBlock sortBlock doSortChildrenBlock dummy2 dummy1'
+	classVariableNames: ''
+	poolDictionaries: 'ListTreeConstants'
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Date methodsFor!
+
+printShortFormat
+	"
+Date today printUMLShortFormat. Date fromString: '20/04/2010' format: 'dd/MM/yyyy'.
+"
+	| str |
+
+	str := String writeStream.
+	self printOn: str format:'dd/MM/yyyy'.
+	^str contents asString! !
+!Date categoriesFor: #printShortFormat!public! !
+
+!ListTreePresenter methodsFor!
+
+hasMultipleSelection
+	"answer whether our view supports multiple selection"
+
+	"hack"
+	^ self view isKindOf: MultipleSelectionListView.! !
+!ListTreePresenter categoriesFor: #hasMultipleSelection!public! !
+
+!ListTreePresenter class methodsFor!
+
+resource_Multiselection_view
+	"Answer the literal data from which the 'Multiselection view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_Multiselection_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.MutipleSelectionListTreeView)  98 44 0 0 98 2 8 1140920393 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294902665 8 ##(Smalltalk.BasicListAbstract)  8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Column 1' 201 8 #left 688 8 ##(Smalltalk.SortedCollection)  0 0 416 0 3 0 0 8 #report 544 0 133217 0 0 32 1050438 3 ##(Smalltalk.VirtualTreeModel)  0 570 592 608 202 208 544 459270 ##(Smalltalk.Message)  8 #children 98 0 962 8 #parent 1008 0 962 8 #notNil 1008 8 #unknown 202 8 ##(Smalltalk.IdentitySet)  544 202 8 ##(Smalltalk.WeakIdentitySet)  544 37 1 0 0 0 0 0 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 1 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  1 1 1298 401 701 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 0 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 0 0 0 0 200 0 0 0 94 1 0 0] 98 0 1298 193 193 0 27 )! !
+!ListTreePresenter class categoriesFor: #resource_Multiselection_view!public! !
+
+!Shell methodsFor!
+
+isEditShell
+
+	^false! !
+!Shell categoriesFor: #isEditShell!public! !
+
+!String methodsFor!
+
+completeTo: aString
+	"Answer a new concatenated collection with the reciver to argument <aString> following the Ascii Table.
+	Both string must have size = 1 otherwise answer an empty string"
+	| newString |
+
+	newString := ''.
+	((self size = 1) and: [aString size = 1]) ifFalse: [^newString].
+	self first asciiValue to: aString first asciiValue do: [:index | newString := newString, (Character value: index) asString].
+	^newString! !
+!String categoriesFor: #completeTo:!public! !
+
+!Time methodsFor!
+
+printShortFormat
+
+	^self printString! !
+!Time categoriesFor: #printShortFormat!public! !
+
+!TimeStamp methodsFor!
+
+printShortFormat
+
+	^date printShortFormat , ' ', time printString! !
+!TimeStamp categoriesFor: #printShortFormat!public! !
+
+!TreeModel methodsFor!
+
+addTree: aTreeModel asChildOf: leaf
+
+	" Add aTreeModel as child of leaf in the receiver "
+
+	aTreeModel preOrderDo:[:each | (aTreeModel roots includes: each)
+					ifTrue:[self add: each asChildOf: leaf]
+					ifFalse:[self add: each asChildOf: (aTreeModel parentOf: each)]].
+
+
+! !
+!TreeModel categoriesFor: #addTree:asChildOf:!public! !
+
+"End of package definition"!
+

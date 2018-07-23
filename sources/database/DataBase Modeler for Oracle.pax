@@ -1,0 +1,167 @@
+﻿| package |
+package := Package name: 'DataBase Modeler for Oracle'.
+package paxVersion: 1;
+	basicComment: 'ORACLE QUERY for Oracle SQL Developer 1.5.0.53
+
+Select columnas.table_name 
+,columnas.column_name
+,columnas."Type"
+,columnas."Nullable"
+,pk."PK_Constraint_Name"
+,pk."PK_Columns"
+,pk."Status"
+,fk."FK_Constraint_Name"
+,fk."FK_Columns"
+,fk."FK_Related_Table"
+,fk."FK_Related_Constraint"
+from  (select table_name,
+              column_name ,
+              initcap(data_type) ||
+                    decode(data_type,  
+                          ''CHAR'',      ''(''|| char_length ||'')'',
+                          ''VARCHAR'',   ''(''|| char_length ||'')'',
+                          ''VARCHAR2'',  ''(''|| char_length ||'')'',
+                          ''NCHAR'',     ''(''|| char_length ||'')'',         
+                          ''NVARCHAR'',  ''(''|| char_length ||'')'',  
+                          ''NVARCHAR2'', ''(''|| char_length ||'')'', 
+                          ''NUMBER'',    ''(''||
+                           nvl(data_precision,data_length)||
+                               decode(data_scale,null,null,
+                                      '',''||data_scale)||'')'',
+                             null) "Type",
+                nullable "Nullable"                          
+          from sys.all_tab_columns
+          where owner = ''SGJF_PRIMARIO_0435''
+                and substr(table_name,1,4) !!= ''BIN$''
+                and substr(table_name,1,3) !!= ''DR$''
+                order by table_name
+          ) columnas
+          
+          left outer join 
+          
+          (
+          
+          
+          select  ac.table_name,
+        ac.constraint_name "PK_Constraint_Name",
+        initcap(ac.status) "Status",
+        (select max(decode(column_position,1 ,column_name))||
+                max(decode(column_position,2 ,'', ''||column_name))||
+                max(decode(column_position,3 ,'', ''||column_name))||
+                max(decode(column_position,4 ,'', ''||column_name))||
+                max(decode(column_position,5 ,'', ''||column_name))||
+                max(decode(column_position,6 ,'', ''||column_name))||
+                max(decode(column_position,7 ,'', ''||column_name))||
+                max(decode(column_position,8 ,'', ''||column_name))||
+                max(decode(column_position,9 ,'', ''||column_name))||
+                max(decode(column_position,10,'', ''||column_name))
+                columns
+          from sys.all_ind_columns dc,
+               sys.all_indexes di
+         where dc.table_owner = ''SGJF_PRIMARIO_0435''
+           and dc.table_name  = ac.table_name
+           and dc.index_name  = di.index_name
+           and dc.index_name  = ac.constraint_name
+           and dc.index_owner = di.owner
+       ) "PK_Columns"
+  from sys.all_constraints ac
+ where ac.owner = ''SGJF_PRIMARIO_0435''
+  and ac.constraint_type = ''P''
+            and substr(ac.table_name,1,4) !!= ''BIN$''
+            and substr(ac.table_name,1,3) !!= ''DR$''
+            order by ac.table_name
+          ) pk on pk.table_Name=columnas.table_name 
+          
+          
+         left outer join 
+         
+         (
+         
+         select    c.table_name,
+          c.constraint_name  "FK_Constraint_Name",
+          d.columns "FK_Columns",
+               (select r.table_name
+                  from sys.all_constraints r
+                 where c.r_owner           = r.owner
+                   and c.r_constraint_name = r.constraint_name) "FK_Related_Table",
+               c.r_constraint_name "FK_Related_Constraint"
+          from sys.all_constraints c,
+               (
+               select a.owner,
+                      a.table_name,
+                      a.constraint_name,
+                   max(decode(position, 1,     substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 2,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 3,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 4,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 5,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 6,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 7,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 8,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position, 9,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,10,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,11,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,12,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,13,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,14,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,15,'', ''||substr(column_name,1,30),NULL)) || 
+                   max(decode(position,16,'', ''||substr(column_name,1,30),NULL)) columns
+                  from sys.all_constraints a,
+                       sys.all_cons_columns b
+                 where a.owner = ''SGJF_PRIMARIO_0435''
+                   and a.constraint_name = b.constraint_name
+                   and a.owner = b.owner
+                   and a.constraint_type = ''R''
+                   and substr(a.table_name,1,4) !!= ''BIN$''
+                   and substr(a.table_name,1,3) !!= ''DR$''
+                   group by a.owner, a.table_name, a.constraint_name ) d
+         where c.owner           = d.owner
+           and c.table_name      = d.table_name
+           and c.constraint_name = d.constraint_name
+         order by c.table_name
+         
+         
+         ) fk on fk.table_Name=columnas.table_name '.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #OracleXMLReader;
+	add: #OracleXMLRowImport;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'DataBase Modeler';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+BBDataBaseXMLReader subclass: #OracleXMLReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDataBaseXMLReader subclass: #OracleXMLRowImport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

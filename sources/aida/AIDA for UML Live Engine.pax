@@ -1,0 +1,475 @@
+﻿| package |
+package := Package name: 'AIDA for UML Live Engine'.
+package paxVersion: 1;
+	basicComment: 'SwazooServer singleton removeAllSites.
+
+site := AIDASite new.
+site name: ''UML Almighty Web Server''.
+site host: ''*'' ip: ''*'' port: 8888.
+SwazooServer singleton addSite: site.
+site initialize.
+
+site stop.
+site start.
+'.
+
+package basicPackageVersion: '1.04'.
+
+package basicScriptAt: #postinstall put: 'UMLInstanceApp initializeWebComponentsDirectMap;
+	initializeWebComponentsMap.'.
+
+package classNames
+	add: #AIDAUMLObjectWebPageDescription;
+	add: #AIDAUMLSelectableItemsTable;
+	add: #UMLAbsoluteRedirectWebButton;
+	add: #UMLActionWebButton;
+	add: #UMLInstanceApp;
+	add: #UMLRedirectWebButton;
+	add: #UMLVerticalWebStyle;
+	add: #UMLVirtualMachineInstanceApp;
+	add: #UMLWebButton;
+	add: #UMLWebCheckBox;
+	add: #UMLWebDateInputField;
+	add: #UMLWebDialog;
+	add: #UMLWebDialogForList;
+	add: #UMLWebGrid;
+	add: #UMLWebGridColumn;
+	add: #UMLWebInputField;
+	add: #UMLWebNumberInputField;
+	add: #UMLWebStyle;
+	add: #UMLWebTextArea;
+	add: #UMLWebTimeInputField;
+	add: #WebCustomizedButton;
+	yourself.
+
+package methodNames
+	add: #AIDAAspectAdaptor -> #value;
+	add: #AIDACheckBox -> #webClass;
+	add: #Object -> #umlAlmightyWebPreferences;
+	add: #String -> #printShortFormat;
+	add: #UndefinedObject -> #printShortFormat;
+	add: #WebAdminApp -> #actionLogin;
+	add: #WebAdminApp -> #getUserRootObjectsFor:model:;
+	add: #WebAdminApp -> #viewLogin;
+	add: #WebApplication -> #defaultVirtualMachine;
+	add: #WebApplication -> #isUMLApplication;
+	add: #WebApplication -> #vmPerform:;
+	add: #WebApplication -> #vmPerform:withArguments:;
+	add: #WebElement -> #addUMLAbsoluteRedirectButtonText:action:destinationView:;
+	add: #WebElement -> #addUMLActionButtonBlueText:action:;
+	add: #WebElement -> #addUMLActionButtonGrayText:action:;
+	add: #WebElement -> #addUMLActionButtonGreenSquaredText:action:;
+	add: #WebElement -> #addUMLActionButtonText:action:;
+	add: #WebElement -> #addUMLActionButtonText:actionWithoutAjax:;
+	add: #WebElement -> #addUMLActionButtonWhiteText:action:;
+	add: #WebElement -> #addUMLActionCustomizedLateralButtonText:action:;
+	add: #WebElement -> #addUMLActionCustomizedObjectButtonText:action:;
+	add: #WebElement -> #addUMLActionCustomizedTopButtonText:action:;
+	add: #WebElement -> #addUMLRedirectButtonText:action:;
+	add: #WebElement -> #addUMLRedirectButtonText:action:destinationView:;
+	add: #WebElement -> #applyOptionsForReadOnly;
+	add: #WebElement -> #defaultVirtualMachine;
+	add: #WebGridColumn -> #defaultUMLViewBlock;
+	add: #WebGridColumn -> #vmPerform:;
+	add: #WebSecurityManager -> #initDefaultAccessRights;
+	add: #WebServerConfigurationShell -> #setStylePreferences;
+	add: #WebStyle -> #defaultVirtualMachine;
+	add: #WebUser -> #hasVariableNamed:;
+	add: #WebUser -> #vmPerform:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'AIDA Add Inn';
+	add: 'AIDAWeb';
+	add: '..\others\BBInteraccionOffice';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: '..\uml\UML Basic Views';
+	add: '..\uml\UML Live Engine';
+	add: '..\uml\UML Live Engine Views';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+AIDAObjectWebPageDescription subclass: #AIDAUMLObjectWebPageDescription
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebAddInApplication subclass: #UMLInstanceApp
+	instanceVariableNames: 'currentTabList currentPopupList umlApplicationUser'
+	classVariableNames: 'WebComponentsDirectMap WebComponentsMap'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebAddInApplication subclass: #UMLVirtualMachineInstanceApp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #UMLWebButton
+	instanceVariableNames: 'text'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASelectableItemsTable subclass: #AIDAUMLSelectableItemsTable
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLWebButton subclass: #UMLActionWebButton
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLWebButton subclass: #UMLRedirectWebButton
+	instanceVariableNames: 'destinationView'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRedirectWebButton subclass: #UMLAbsoluteRedirectWebButton
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebButton subclass: #WebCustomizedButton
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebCheckBox subclass: #UMLWebCheckBox
+	instanceVariableNames: 'applyChange'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #UMLWebInputField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLWebInputField subclass: #UMLWebNumberInputField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLWebInputField subclass: #UMLWebTimeInputField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebDateInputField subclass: #UMLWebDateInputField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebTextArea subclass: #UMLWebTextArea
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebDialog subclass: #UMLWebDialog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebDialog subclass: #UMLWebDialogForList
+	instanceVariableNames: 'component caption'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebGrid subclass: #UMLWebGrid
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebGridColumn subclass: #UMLWebGridColumn
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DefaultWebStyle subclass: #UMLVerticalWebStyle
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DefaultWebStyle subclass: #UMLWebStyle
+	instanceVariableNames: 'tabsPadding'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!AIDAAspectAdaptor methodsFor!
+
+value
+
+	(self subject class == WebUserGroup) ifTrue: [^self subject perform: self aspect].
+	^self subject vmPerform: self aspect! !
+!AIDAAspectAdaptor categoriesFor: #value!accessing!public! !
+
+!AIDACheckBox methodsFor!
+
+webClass
+
+	^UMLWebCheckBox! !
+!AIDACheckBox categoriesFor: #webClass!public! !
+
+!Object methodsFor!
+
+umlAlmightyWebPreferences
+
+	^WebUserPreference default! !
+!Object categoriesFor: #umlAlmightyWebPreferences!public! !
+
+!String methodsFor!
+
+printShortFormat
+	^self! !
+!String categoriesFor: #printShortFormat!public! !
+
+!UndefinedObject methodsFor!
+
+printShortFormat
+	^'Nil'! !
+!UndefinedObject categoriesFor: #printShortFormat!public! !
+
+!WebAdminApp methodsFor!
+
+actionLogin
+	| webUser umlUser |
+
+	webUser := self findLoggingUser.
+
+	self password: ''.
+	webUser notNil 
+		ifTrue: [self session user: webUser. self reportLogin] 	
+		ifFalse: [self error: 'error message from WebStyle!!'. self session logout. ^self].
+	(self site afterLogin = #myPage and: [self site autoLogout not])
+		ifTrue: [^self redirectTo: self user asPerson].
+	self site afterLogin = #lastPage ifFalse: [^self redirectTo: self site afterLogin]. 
+
+	umlModel selected isEmpty ifTrue: [self error: 'error message from WebStyle!!'. self session logout. ^self].
+
+	umlUser := self getUserRootObjectsFor: webUser model: umlModel selected last.
+	(umlUser class == UMLInstance) ifFalse: [self error: 'Login Error'. self session logout. ^self].
+	^self redirectTo: umlUser.!
+
+getUserRootObjectsFor: aWebUser model: anUMLModel
+	| arguments |
+
+	arguments := Array with: ((aWebUser username) asUMLObject: self defaultVirtualMachine)
+					with: ((aWebUser password) asUMLObject: self defaultVirtualMachine).
+
+	anUMLModel loginManager ifNil: [^'Error: you have to select a Login Manager Class in the UML Model Browser in order to login !!' asUMLObject: self defaultVirtualMachine ].
+
+	^anUMLModel loginManager vmPerform: #userRootObjectsFor:password: withArguments: arguments.
+
+
+!
+
+viewLogin
+	| e l b |
+
+	self preloginCheck ifFalse: [^self viewLoginSecondary].  "if some error etc."
+	self title: self style loginTitle.
+	e := WebElement new.
+	e style: 'background-color: lavender; padding-bottom: 140px; padding-top: 15px;'.
+"	e scriptBefore: 'Element.hide(''', self searchButton id, ''')'." "remove search button on navbar!!"
+	e addText: self style loginWelcomeMessage. 
+	l := (WebFieldSet newId: #login) legend: self style loginText.
+	l style: 'margin-left:auto; margin-right:auto; width:40%;'.
+	self inError ifTrue: 
+		[l cell colspan: 2; addText: self style loginErrorText. self error: nil.
+		l newRow. l cell addNbSp. l newRow].
+	l cell addText: self style usernameText. 
+	l newCell add: (WebInputField new aspect: #username for: self; focus; style: 'width: 90%; background-color: lightblue'; yourself). "let text cursor be there at the start!! "
+	l cell style: 'border-style: ridge; width: 90%'.
+	l newRow. l cell addText: self style passwordText. 
+	l newCell add: (WebInputField new type: #password; aspect: #password for: self; style: 'width: 90%; background-color: lightblue'; yourself).
+	l cell style: 'border-style: ridge; width: 90%'.
+
+	l newRow; newRow. l cell addText: ('UML Model:').
+	umlModel := (l newCell addMenuAspect: #name collection: (self defaultVirtualMachine umlModels asOrderedCollection) selected: OrderedCollection new) multiple: false; style: 'width: 90%; background-color: lightblue'; yourself.
+	l cell style: 'border-style: ridge; width: 90%;'.
+
+	l newRow. b := l newCell addButtonText: self style loginButton.
+	b style: 'width: 50%; height: 150%; background-color: lightsteelblue; border-style: outset'.
+	e add: l.
+	e addText: self style loginBelowMessage.
+ 	^self style pageFrameWith: e title: self title .! !
+!WebAdminApp categoriesFor: #actionLogin!actions!public! !
+!WebAdminApp categoriesFor: #getUserRootObjectsFor:model:!actions!public! !
+!WebAdminApp categoriesFor: #viewLogin!printing!public! !
+
+!WebApplication methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default
+!
+
+isUMLApplication
+
+	^false!
+
+vmPerform: aSymbol 
+
+	^self perform: aSymbol!
+
+vmPerform: aSymbol withArguments: anArray
+
+	^self perform: aSymbol withArguments: anArray! !
+!WebApplication categoriesFor: #defaultVirtualMachine!public! !
+!WebApplication categoriesFor: #isUMLApplication!public! !
+!WebApplication categoriesFor: #vmPerform:!public! !
+!WebApplication categoriesFor: #vmPerform:withArguments:!public! !
+
+!WebElement methodsFor!
+
+addUMLAbsoluteRedirectButtonText: aString action: aSymbol destinationView: stringDestination
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: ((UMLAbsoluteRedirectWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences topMenuButtonClassSymbol) destinationView: stringDestination)!
+
+addUMLActionButtonBlueText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: #buttonBlue)!
+
+addUMLActionButtonGrayText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: #buttonGray)!
+
+addUMLActionButtonGreenSquaredText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: #buttonGreenSquared)!
+
+addUMLActionButtonText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol)!
+
+addUMLActionButtonText: aString actionWithoutAjax: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString actionWithoutAjax: aSymbol)!
+
+addUMLActionButtonWhiteText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: #buttonWhite)!
+
+addUMLActionCustomizedLateralButtonText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol)!
+
+addUMLActionCustomizedObjectButtonText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences objectButtonClassSymbol)!
+
+addUMLActionCustomizedTopButtonText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences topMenuButtonClassSymbol)!
+
+addUMLRedirectButtonText: aString action: aSymbol
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: (UMLRedirectWebButton text: aString action: aSymbol)!
+
+addUMLRedirectButtonText: aString action: aSymbol destinationView: stringDestination
+	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
+	example: for view #main, action #addFolder is action method #actionMainAddFolder"
+	^self add: ((UMLRedirectWebButton text: aString action: aSymbol) destinationView: stringDestination)!
+
+applyOptionsForReadOnly!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default! !
+!WebElement categoriesFor: #addUMLAbsoluteRedirectButtonText:action:destinationView:!adding form buttons!css style!public! !
+!WebElement categoriesFor: #addUMLActionButtonBlueText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionButtonGrayText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionButtonGreenSquaredText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionButtonText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionButtonText:actionWithoutAjax:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionButtonWhiteText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLActionCustomizedLateralButtonText:action:!adding form buttons!css style!public! !
+!WebElement categoriesFor: #addUMLActionCustomizedObjectButtonText:action:!adding form buttons!css style!public! !
+!WebElement categoriesFor: #addUMLActionCustomizedTopButtonText:action:!adding form buttons!css style!public! !
+!WebElement categoriesFor: #addUMLRedirectButtonText:action:!adding form buttons!public! !
+!WebElement categoriesFor: #addUMLRedirectButtonText:action:destinationView:!adding form buttons!public! !
+!WebElement categoriesFor: #applyOptionsForReadOnly!public! !
+!WebElement categoriesFor: #defaultVirtualMachine!public! !
+
+!WebGridColumn methodsFor!
+
+defaultUMLViewBlock
+	^[:object | 
+		self aspect ifNil: [nil] ifNotNil: [:value | object perform: value]]!
+
+vmPerform: aSymbol 
+	^self perform: aSymbol! !
+!WebGridColumn categoriesFor: #defaultUMLViewBlock!private! !
+!WebGridColumn categoriesFor: #vmPerform:!public! !
+
+!WebSecurityManager methodsFor!
+
+initDefaultAccessRights
+	"to allow login, registering new user etc"
+	| views updates |
+	views := #(login logout forgoten registration passwordSent waitingConfirmation activation 
+		wakeupScriptaculous wakeupRichEditor) 
+			collect: [:each | WebAdminApp viewRightSymbolFor: each].
+	self setAccessRights: views for: self allUsersGroup on: WebAdminApp name.
+	updates := #(login registration passwordSent) 
+		collect: [:each | WebAdminApp updateRightSymbolFor: each].
+	self setAccessRights: updates for: self allUsersGroup on: WebAdminApp name.
+
+"WebSecurityManager allInstances do: [:each | each initDefaultAccessRights]"! !
+!WebSecurityManager categoriesFor: #initDefaultAccessRights!initialize-release!public! !
+
+!WebServerConfigurationShell methodsFor!
+
+setStylePreferences
+
+	UMLUserWebPreferenceShell showOn: WebUserPreference templates! !
+!WebServerConfigurationShell categoriesFor: #setStylePreferences!public! !
+
+!WebStyle methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default! !
+!WebStyle categoriesFor: #defaultVirtualMachine!public! !
+
+!WebUser methodsFor!
+
+hasVariableNamed: aSymbol 
+
+	^self class instVarNames includes: aSymbol asString!
+
+vmPerform: aSymbol 
+	^self perform: aSymbol! !
+!WebUser categoriesFor: #hasVariableNamed:!public! !
+!WebUser categoriesFor: #vmPerform:!public! !
+
+"End of package definition"!
+

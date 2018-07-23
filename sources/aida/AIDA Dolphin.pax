@@ -1,0 +1,1910 @@
+﻿| package |
+package := Package name: 'AIDA Dolphin'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package methodNames
+	add: #AidaProfiling -> #sampleRequest;
+	add: #AidaProfiling -> #static100KBRequest;
+	add: #AIDASite -> #answer:toGetOrPost:on:;
+	add: #AIDASite -> #answer:toLock:on:;
+	add: #AIDASite -> #answer:toOptions:on:;
+	add: #AIDASite -> #answer:toPropFind:on:;
+	add: #AIDASite -> #answer:toUnlock:on:;
+	add: #AIDASite -> #answerTo:;
+	add: #AIDASite -> #availability;
+	add: #AIDASite -> #backupToFile;
+	add: #AIDASite -> #createdTimestamp;
+	add: #AIDASite -> #finalizeExecutingRequest:;
+	add: #AIDASite -> #httpResponseOnException:;
+	add: #AIDASite -> #lastCommitTimestamp;
+	add: #AIDASite -> #lastRequestTimestamp;
+	add: #AIDASite -> #lastTimeAliveTimestamp;
+	add: #AIDASite -> #objectToWap:forSession:;
+	add: #AIDASite -> #objectToWeb:forSession:;
+	add: #AIDASite -> #properString:;
+	add: #AIDASite -> #redirectOn:;
+	add: #AIDASite -> #redirectToOtherHost:;
+	add: #AIDASite -> #registerTopHourHits:pages:;
+	add: #AIDASite -> #registerTopMinuteHits:pages:;
+	add: #AIDASite -> #reportException:;
+	add: #AIDASite -> #restoreSiteNamed:;
+	add: #AIDASite -> #runningHistory;
+	add: #AIDASite -> #setCreatedTimestamp;
+	add: #AIDASite -> #setLastCommitTimestamp;
+	add: #AIDASite -> #setLastRequestTimestamp;
+	add: #AIDASite -> #setLastTimeAliveTimestamp;
+	add: #AIDASite -> #setStartedTimestampCrashed:;
+	add: #AIDASite -> #startedTimestamp;
+	add: #AIDASite -> #style;
+	add: #AIDASite -> #topHour;
+	add: #AIDASite -> #topMinute;
+	add: #AIDASite -> #urlsWithSessionId;
+	add: #AIDASite -> #watchdogOther;
+	add: #Character -> #isAlphabetic;
+	add: #Date -> #dayOfYear;
+	add: #Date -> #daysInMonth;
+	add: #DefaultWebStyle -> #navHeader:;
+	add: #Exception -> #printMessageText;
+	add: #File -> #extension;
+	add: #File -> #readStream;
+	add: #FileProxy -> #filename;
+	add: #FileProxy -> #from:;
+	add: #FileProxy -> #printHTMLPageOn:for:on:;
+	add: #FileProxy -> #streamFileToResponse:;
+	add: #Object -> #webAppFor:;
+	add: #PositionableStream -> #upToSeparator;
+	add: #RDBTable -> #readFieldFrom:odbcType:;
+	add: #String -> #replaceSpecialCharacters;
+	add: #SwazooServer -> #allAidaInstancesReport;
+	add: #SwazooServer -> #isNewHour;
+	add: #TimeStamp -> #asDate;
+	add: #TimeStamp -> #asTime;
+	add: #TimeStamp -> #dayOfYear;
+	add: #TimeStamp -> #printSloString;
+	add: #URLResolver -> #start;
+	add: #URLResolver -> #stop;
+	add: #WebApplication -> #announceAction:onView:;
+	add: #WebApplication -> #announceView:;
+	add: #WebApplication -> #callActionMethodForButton:on:;
+	add: #WebApplication -> #copyToClipboard;
+	add: #WebApplication -> #findCreateOrSerializeContextFor:;
+	add: #WebApplication -> #printWebView:for:;
+	add: #WebApplication -> #title:;
+	add: #WebCache -> #respond:to:on:;
+	add: #WebCaptcha -> #prepareCaptchaImage;
+	add: #WebCaptcha -> #setRandomText;
+	add: #WebCounter -> #incCounter;
+	add: #WebCounter -> #initStarted;
+	add: #WebElement -> #identMore;
+	add: #WebElement -> #printAttribute:value:on:for:;
+	add: #WebElement -> #printString;
+	add: #WebElement -> #setCreationMethod;
+	add: #WebForm -> #acceptFormInputFrom:;
+	add: #WebGrid -> #sortColumnsIfNessesary;
+	add: #WebLiveImage -> #gif:;
+	add: #WebLiveImage -> #lastUsed;
+	add: #WebLiveImage -> #lastUsed:;
+	add: #WebLiveImage -> #printHTMLPageOn:for:on:;
+	add: #WebLiveImage -> #refreshed;
+	add: #WebLiveImage -> #resolver;
+	add: #WebLiveImage -> #resolver:;
+	add: #WebLivePDFCreator -> #convertToPdf:;
+	add: #WebMethodImage -> #lastUsed;
+	add: #WebMethodImage -> #makeRoomInCache;
+	add: #WebMethodResource -> #printHTMLPageOn:for:on:;
+	add: #WebPage -> #addGlobalKeywords;
+	add: #WebScheduledEvent -> #everyDayAt:runBlock:;
+	add: #WebScheduledEvent -> #everyHourAt:runBlock:;
+	add: #WebScheduledEvent -> #everyMinuteAt:runBlock:;
+	add: #WebScheduledEvent -> #reschedule;
+	add: #WebScheduler -> #lock;
+	add: #WebScheduler -> #removeMissedEvents;
+	add: #WebScheduler -> #startLoop;
+	add: #WebSecurityManager -> #copyAccessByObject;
+	add: #WebSession -> #setCreatedTimestamp;
+	add: #WebStyle -> #ensureJavascriptForLightboxInHeader;
+	add: #WebTableCell -> #setHeader;
+	add: #WebTranslator -> #translMethodsOn:;
+	add: 'AIDASite class' -> #advanceSubjectSpec;
+	add: 'AIDASite class' -> #charc;
+	add: 'AIDASite class' -> #chars;
+	add: 'AIDASite class' -> #convert:fromCodepage:;
+	add: 'AIDASite class' -> #convert:toCodepage:;
+	add: 'AIDASite class' -> #convertNextWebSpecialChar:fromPos:;
+	add: 'AIDASite class' -> #convertToWebStringAbstract:space:prefix:;
+	add: 'AIDASite class' -> #default;
+	add: 'AIDASite class' -> #default:;
+	add: 'AIDASite class' -> #initSloveneCharacters;
+	add: 'AIDASite class' -> #inOldEncoding:;
+	add: 'AIDASite class' -> #isSloveneCharacter:;
+	add: 'AIDASite class' -> #justToForceInstallation;
+	add: 'AIDASite class' -> #named:;
+	add: 'AIDASite class' -> #newNamed:;
+	add: 'AIDASite class' -> #oldconvert:fromCodepage:;
+	add: 'AIDASite class' -> #oldconvert:toCodepage:;
+	add: 'AIDASite class' -> #properArray:;
+	add: 'AIDASite class' -> #random;
+	add: 'AIDASite class' -> #slash;
+	add: 'AIDASite class' -> #slashCh;
+	add: 'HTTPException class' -> #raiseResponse:;
+	add: 'SortedCollection class' -> #withAll:sortBlock:;
+	add: 'SpDate class' -> #newDay:month:year:;
+	add: 'TimeStamp class' -> #fromDate:andTime:;
+	add: 'TimeStamp class' -> #now;
+	add: 'WebApplication class' -> #newFromNameFor:on:;
+	add: 'WebCaptcha class' -> #cache;
+	add: 'WebCaptcha class' -> #initCache;
+	add: 'WebCounter class' -> #throughMidnightTest;
+	add: 'WebCounter class' -> #throughNewYearTest;
+	add: 'WebElement class' -> #colorDictionary;
+	add: 'WebElement class' -> #initColorDictionary;
+	add: 'WebElement class' -> #new;
+	add: 'WebElement class' -> #printWebPageFor:;
+	add: 'WebFormElement class' -> #autoConvertString:toObject:;
+	add: 'WebFormElement class' -> #autoConvertToString:;
+	add: 'WebLiveImage class' -> #cache;
+	add: 'WebLiveImage class' -> #initCache;
+	add: 'WebSecurityManager class' -> #hashPassword:;
+	add: 'WebStatistics class' -> #analyzeAndStoreLine:into:forDate:;
+	add: 'WebText class' -> #attributeMarkup;
+	add: 'WebText class' -> #initialize;
+	add: 'WebTransactionMonitor class' -> #lock;
+	add: 'WebTransactionMonitor class' -> #noCommitFor10min;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'AIDAWeb';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream';
+	add: '..\others\Sport';
+	add: '..\swazoo\Swazoo';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!AidaProfiling methodsFor!
+
+sampleRequest
+	| requestStream req |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /admin.html?view=login&id=123456 HTTP/1.1';
+		crlf.
+	req := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	req task: SwazooTask new.  req task request: req.
+	req task connection: (HTTPConnection new stream: (SwazooStream on: String new)).
+	^req!
+
+static100KBRequest
+	| requestStream req |
+	requestStream := SwazooStream on: String new.
+	requestStream
+		nextPutLine: 'GET /test100K.jpg?id=123456 HTTP/1.1';
+		crlf.
+	req := HTTPRequest readFrom: (SwazooStream on: requestStream writeBuffer contents).
+	req task: SwazooTask new.  req task request: req.
+	req task connection: (HTTPConnection new stream: (SwazooStream on: String new)).
+	^req! !
+!AidaProfiling categoriesFor: #sampleRequest!aida port error!public! !
+!AidaProfiling categoriesFor: #static100KBRequest!aida port error!public! !
+
+!AIDASite methodsFor!
+
+answer: anObject toGetOrPost: aRequest on: aWebSession
+	| page stream response properContent |
+
+	(self cache isCached: anObject to: aRequest on: aWebSession)
+		ifTrue: [^self cache respond: anObject to: aRequest on: aWebSession].
+	[page := anObject printWebPageFor: aRequest on: aWebSession]
+		ifCurtailed: [self finalizeExecutingRequest: aRequest].
+
+	page isNil ifTrue: [^HTTPException notFound.].
+	page isNil ifTrue: [ | string |
+				"^HTTPException notFound."
+				self halt.
+				string := aWebSession lastRequest postData stream readBuffer collection asString.
+				string := string copyFrom: (string indexOfSubCollection: '<?xml version="1.0"') to: ((string indexOfSubCollection: '</form>') + 6).
+				response := HTTPResponse xml: string. 
+				^aRequest task response: response.].
+
+	aWebSession isHttpAuthenticationNeeded "because of logout" ifTrue:  [^self unauthorizedResponse].
+	aWebSession shouldRedirect ifTrue: [^self redirectOn: aWebSession].
+	self log: 'h'.
+	page isRespondingStreamed
+		ifTrue: 
+			[ [page printHTMLPageOn: nil for: aRequest on: aWebSession]
+				ensure: [self finalizeExecutingRequest: aRequest] .
+			self log: ' done'.
+			^aRequest streamedResponse]
+		ifFalse: 
+			[response := HTTPResponse ok.
+			aRequest task response: response.
+			self addResponseHeadersTo: response forPage: page on: aWebSession.
+			stream := WriteStream on: (String new: 10000).
+			[page printHTMLPageOn: stream for: aRequest on: aWebSession]
+				ensure: [self finalizeExecutingRequest: aRequest].
+			properContent := (AIDASite properArray: stream contents). "in case of TwoByteString"
+			response entity: properContent. 
+			(self cache shouldCache: anObject to: aRequest on: aWebSession)
+				ifTrue: [self cache store: properContent for: anObject to: aRequest on: aWebSession].
+			self log: ' done'.
+			^response]!
+
+answer: anObject toLock: aRequest on: aWebSession
+	"WebDAV lock request for that object"
+	|  rsp |
+	"Temporary!!!! just return a fake lock!!"
+	rsp := HTTPLockResponse new.
+	rsp start.
+	rsp addTagName: 'locktype' value: #write.
+	rsp addTagName: 'lockscope' value: #exclusive.
+	rsp addTagName: 'depth' value: '0'.
+	rsp addLockOwner: 'Administrator'.
+	rsp addTagName: 'timeout' value: 'Second-604800'.  "one week, temporary!!"
+	rsp addLockToken: 'opaquelocktoken:89001c0a-23f2-0310-b37d-c58bc335a1ff'.
+	^rsp!
+
+answer: anObject toOptions: aRequest on: aWebSession
+	| response |
+	response := HTTPResponse ok.
+	self isWebDAVEnabled ifTrue: 
+	 	[response addHeaderName: 'DAV' value: '1,2'.
+		"without the following header Windows refuse to add a new Web folder!! "
+		response addHeaderName: 'MS-Author-Via' value: 'DAV'].
+	self addAllowHeaderTo: response.
+	^response!
+
+answer: anObject toPropFind: aRequest on: aWebSession
+	"WebDAV properties request from object"
+	|  multiResponse |
+	"Temporary!!!! Now it just return empty collection, which is enough for MS web folders to add new!! "
+	multiResponse := HTTPPropFindResponse new.
+	multiResponse multiStart.
+	multiResponse startResponseFor: 
+		'http://', aRequest host, 
+		(aRequest uri port = 80 ifTrue: [''] ifFalse: [':', aRequest uri port printString]), 
+		aRequest uri asString.
+	multiResponse addPropertyName: 'getlastmodified' value: 'Mon, 21 Feb 2005 14:11:01 GMT'.
+	aRequest uri value last = $/ ifTrue: "directory"
+		[multiResponse addPropertyName: 'resourcetype' value: #collection].
+	multiResponse endResponseWithStatusCode: 200.
+	multiResponse multiEnd.
+	^multiResponse!
+
+answer: anObject toUnlock: aRequest on: aWebSession
+	"WebDAV unlock request for that object"
+	^HTTPResponse noContent. "204"!
+
+answerTo: aRequest 
+	"VW specific!! "
+	| session object errorResponse |
+
+	[self	log: self cr , (self logStringFor: aRequest) , self cr , '              s'.
+	self shouldRedirect ifTrue: [^self redirectToOtherHost: aRequest].
+	aRequest isPing ifTrue: [^HTTPResponse ok].  "/ping.html for monitoring the site"
+	session := self sessionManager findOrCreateSessionFor: aRequest.
+	aRequest session: session.
+	session isHttpAuthenticationNeeded ifTrue: [session authenticateFrom: aRequest].
+	session isHttpAuthenticationNeeded "still" ifTrue: [^self unauthorizedResponse].
+	self log: 'p'.
+	object := self objectTo: aRequest forSession: session.
+	object isNil ifTrue: [^HTTPResponse notFound].
+	^self answer: object to: aRequest on: session]  "VW specific!!"
+		on: Error, Exception
+		do: [:exception |
+			exception class == HTTPException ifTrue: [^exception response].
+			exception class == SpSocketError 
+				ifTrue: [self reportSocketError: exception request: aRequest] "temporary"
+				ifFalse:
+					[self reportException: exception.
+					exception defaultAction]. 
+			errorResponse := self httpResponseOnException: exception.
+			HTTPException raiseResponse: errorResponse.
+			^errorResponse].!
+
+availability
+	"return server availability from first run in %"
+	"AIDASite default availability"
+	| uptime downtime |
+	uptime := self totalUptime.
+	downtime := self totalDowntime.
+	^((uptime / ((uptime + downtime) max: 1)) * 100) asScaledDecimal: 3 "Dolphin fix #asScaledDecimal:"!
+
+backupToFile
+	"boss out all object tree to file aidasite-<sitename>.boss"
+	"(AIDASite named: 'biart') backupToFile"
+	"(AIDASite named: 'biart') deepSearchOfClass: 'ObsoleteIntranet'"
+	"(AIDASite named: 'biart') deepSearchOfObsoleteClasses"
+	| filename boss |
+	filename := ('aidasite-', self name, '.boss') asFilename.
+	filename exists ifTrue: [filename copyTo: ('aidasite-', self name, '-old.boss')].
+	self binaryStoreOn: filename writeStream.
+	filename writeStream close.!
+
+createdTimestamp
+	"time and date of  server creation"
+	^TimeStamp fromSeconds:
+		(self timestamps at: #Created ifAbsentPut: 	[TimeStamp now asSeconds])!
+
+finalizeExecutingRequest: aRequest
+	"do all necessary cleanup in execution context"
+	aRequest context isNil ifTrue: [^nil].
+	aRequest context finalizeExecutionOf: aRequest!
+
+httpResponseOnException: anException
+	| response |
+	response := HTTPResponse internalServerError.
+	response entity: '
+<HTML>
+<HEAD><TITLE>', response codeText, '</TITLE></HEAD>
+  <BODY>
+   <H2>', response code printString, ' ', response codeText, '</H2>
+   <P>The server experienced an error while processing this request. <BR>
+   If this problem persists, please contact the webmaster.</P>
+  <P>Error description:</P>
+  <P>', anException printMessageText, '</P>
+  <P>Stack:</P>
+  <P>
+, </P>
+  </BODY>
+</HTML>'.
+	^response!
+
+lastCommitTimestamp
+	"time and date of last commit to the database. If noone yet, return nil"
+	^TimeStamp fromSeconds: (self timestamps at: #LastCommit ifAbsent: [^nil])!
+
+lastRequestTimestamp
+	"time and date of last web request. If noone yet, return nil"
+	^TimeStamp fromSeconds: (self timestamps at: #LastRequest ifAbsent: [^nil])!
+
+lastTimeAliveTimestamp
+	"lastTimeAliveThread writes to timestamps every minute and commit. 
+	Used in case of crash to determine, when a server was last time alive 
+	and worked properly"
+	^TimeStamp fromSeconds: 
+		(self timestamps at: #LastTimeAlive ifAbsentPut: [TimeStamp now asSeconds])!
+
+objectToWap: aRequest  forSession: aSession
+	| object  |
+	object := self urlResolver  ooRefFromURL: aRequest path.
+	object notNil 
+		ifTrue: 
+			[self urlResolver incCounterFor: object.
+			self incRequestCounterFor: object]
+		ifFalse: 
+			[self incNotFoundCounter.
+			self log: ' not found: ', aRequest url, ' '.
+			^nil ].
+	self statistics collectStatsFrom: aRequest.
+	^object!
+
+objectToWeb: aRequest  forSession: aSession
+	| object  | 
+	object := self urlResolver  ooRefFromURL: aRequest uriString.
+	aSession shouldCountRequests ifFalse: [^object].    "to skip admin requests etc."
+	object notNil 
+		ifTrue: 
+			[self urlResolver incCounterFor: object.
+			self incRequestCounterFor: object]
+		ifFalse: 
+			[self incNotFoundCounter.
+			self log: ' not found: ', aRequest uriString, ' '.
+			^nil ].
+	self statistics collectStatsFrom: aRequest.
+	^object!
+
+properString: aString 
+	"if two byte string, convert it to one byte, cut twobyte characters, make them $? "
+
+	| stream |
+	stream := WriteStream on: String new.
+	aString 
+		do: [:char | stream nextPut: (char asInteger < 256 ifTrue: [char] ifFalse: [$?])].
+	^stream contents!
+
+redirectOn: aSession
+	"VW specific!! "
+	| loc response |
+	loc := aSession redirectLink composeURLOn: aSession.
+	loc := AIDASite convert: loc toCodepage: aSession codePage.
+	loc := loc notNil 
+		ifTrue: [loc copyReplaceAll: '&amp;' with: '&'] "well, why exactly?"
+		ifFalse: [''].
+	response := HTTPResponse redirectLink location: loc asString.  "asString for Dolphin version "  "VW specific!! "
+	aSession cookie ifFalse: [response cookie: (self cookieHeaderFor: aSession)].
+	aSession redirectLink: nil.
+	^response.!
+
+redirectToOtherHost: aRequest
+	| response |
+	response := HTTPResponse redirectLink 
+		location: (aRequest urlString copyReplaceAll: self host with: self redirectToHost).
+	^response.!
+
+registerTopHourHits: aHitNumber pages: aPageNumber
+	(self topHour at: 2) < aHitNumber ifTrue: 
+		[self topHour
+			at: 1 put: TimeStamp now;
+			at: 2 put: aHitNumber;
+			at: 3 put: aPageNumber].!
+
+registerTopMinuteHits: aHitNumber pages: aPageNumber
+	(self topMinute at: 2) < aHitNumber ifTrue: 
+		[self topMinute
+			at: 1 put: TimeStamp now;
+			at: 2 put: aHitNumber;
+			at: 3 put: aPageNumber].!
+
+reportException: anException
+	 | report |
+	Transcript cr; show: '*** error in web app code: ', anException description.
+	"report := DebuggerService shortStackFor: anException initialContext ofSize: 10.
+	(report  tokensBasedOn: Character cr) do: [:each |
+		Transcript cr; show: '     ', each]."!
+
+restoreSiteNamed: aString
+	"boss in from file aidasite-<sitename>.boss"
+	"AIDASite new restoreSiteNamed: 'test' "
+	| filename boss site |
+	filename := ('aidasite-', aString, '.boss') asFilename.
+	boss := Object binaryReadFrom: filename readStream.
+	filename readStream close.
+	^site!
+
+runningHistory
+	"return a collection of server runs as array of:
+		started timestamp,
+		last alive = stopped (more or less) timestamp,
+		uptime in seconds,
+		downtime from previous run in seconds,
+		crashed or not.
+	Used to determine history 
+	of server runnings and to calculate server avaiability. Last entry in collection is current run
+	with last alive no more than minute before current time"
+	"AIDASite default runningHistory"
+	| collection newArray  arry |
+	collection := OrderedCollection new.
+	self runningHistoryCollection do: [:array |
+		newArray := Array new: 5.
+		newArray 
+			at: 1 put: (TimeStamp fromSeconds: (array at: 1));
+			at: 2 put: (TimeStamp fromSeconds: (array at: 2));
+			at: 3 put: (((array at: 2) - (array at: 1)) max: 0);
+			at: 4 put: 0;  "we will calculate later"
+			at: 5 put: ((array size < 3) ifTrue: [true] ifFalse: [array at:3]).
+		collection add: newArray copy].
+	newArray := Array new: 5.
+	newArray
+		at: 1 put: self startedTimestamp;
+		at: 2 put: self lastTimeAliveTimestamp;
+		at: 3 put: (self lastTimeAliveTimestamp asSeconds - 
+			self startedTimestamp asSeconds);
+		at: 4 put: 0;  "we will calculate later"
+		at: 5 put: false. "current run not crashed"
+	collection add: newArray copy.
+	2 to: collection size do: [:inx |
+		arry := collection at: inx.
+		arry at: 4 put:   "this started - previous last alived"
+			((arry at: 1) asSeconds - ((collection at: inx-1) at: 2) asSeconds)
+		].
+	^collection!
+
+setCreatedTimestamp
+	"set the server creation timestamp to current date and time."
+	self timestamps 
+		at: #Created put: TimeStamp now asSeconds.!
+
+setLastCommitTimestamp
+	"set the last commit timestamp to current date and time"
+	self critical: [
+		self timestamps 
+			at: #LastCommit 
+			put: TimeStamp now asSeconds].!
+
+setLastRequestTimestamp
+	"set the last web request timestamp to current date and time"
+	self critical: [
+		self timestamps at: #LastRequest put: TimeStamp now asSeconds].!
+
+setLastTimeAliveTimestamp
+	"A lastTimeAliveThread sets this timestamp every minute"
+	self critical: [
+		self timestamps at: #LastTimeAlive put: TimeStamp now asSeconds].!
+
+setStartedTimestampCrashed: aBoolean
+	"set the last server startup timestamp to current date and time.  
+	Before that records old created and last alive timestamp to a running history.
+	Argument shows if server was running, therefore crashed, or was stoped normaly"
+	self addToRunningHistoryCrashed: aBoolean.
+	self timestamps 
+		at: #Started put: TimeStamp now asSeconds.!
+
+startedTimestamp
+	"time and date of last server startup"
+	^TimeStamp fromSeconds:
+		(self timestamps at: #Started ifAbsentPut: [TimeStamp now asSeconds])!
+
+style
+	style isNil ifTrue: [self style: ((Smalltalk at: self styleClass)  newOnSite: self)].
+	^style!
+
+topHour
+	"a hour of most hits, an array with timestamp, hits and pages"
+	(self counters includesKey: #TopHour) ifFalse: 
+ 		[self counters at: #TopHour put: (Array with: TimeStamp now with: 0 with: 0)].
+	^self counters at: #TopHour
+
+"WebServer default topHour"!
+
+topMinute
+	"a minute of most hits, an array with timestamp, hits and pages"
+	(self counters includesKey: #TopMinute) ifFalse: 
+ 		[self counters at: #TopMinute put:  (Array with: TimeStamp now with: 0 with: 0)].
+	^self counters at: #TopMinute
+!
+
+urlsWithSessionId
+	"is session id added to urls when browser cookie support is disabled?"
+	^self settings at: #urlsWithSessionId ifAbsentPut: [false]!
+
+watchdogOther
+	"override this if you like some other periodic activity"! !
+!AIDASite categoriesFor: #answer:toGetOrPost:on:!aida port error!public! !
+!AIDASite categoriesFor: #answer:toLock:on:!aida port error!private! !
+!AIDASite categoriesFor: #answer:toOptions:on:!aida port error!public! !
+!AIDASite categoriesFor: #answer:toPropFind:on:!aida port error!public! !
+!AIDASite categoriesFor: #answer:toUnlock:on:!aida port error!public! !
+!AIDASite categoriesFor: #answerTo:!public! !
+!AIDASite categoriesFor: #availability!aida port error!public!statistics! !
+!AIDASite categoriesFor: #backupToFile!aida port error!public! !
+!AIDASite categoriesFor: #createdTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #finalizeExecutingRequest:!private-serving!public! !
+!AIDASite categoriesFor: #httpResponseOnException:!aida port error!private!private-serving! !
+!AIDASite categoriesFor: #lastCommitTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #lastRequestTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #lastTimeAliveTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #objectToWap:forSession:!aida port error!private!private-serving! !
+!AIDASite categoriesFor: #objectToWeb:forSession:!aida port error!private!private-serving! !
+!AIDASite categoriesFor: #properString:!aida port error!public! !
+!AIDASite categoriesFor: #redirectOn:!aida port error!public! !
+!AIDASite categoriesFor: #redirectToOtherHost:!aida port error!private!private-serving! !
+!AIDASite categoriesFor: #registerTopHourHits:pages:!aida port error!public! !
+!AIDASite categoriesFor: #registerTopMinuteHits:pages:!aida port error!public! !
+!AIDASite categoriesFor: #reportException:!aida port error!public! !
+!AIDASite categoriesFor: #restoreSiteNamed:!aida port error!public! !
+!AIDASite categoriesFor: #runningHistory!aida port error!public! !
+!AIDASite categoriesFor: #setCreatedTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #setLastCommitTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #setLastRequestTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #setLastTimeAliveTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #setStartedTimestampCrashed:!aida port error!public! !
+!AIDASite categoriesFor: #startedTimestamp!aida port error!public! !
+!AIDASite categoriesFor: #style!accessing!aida port error!public! !
+!AIDASite categoriesFor: #topHour!aida port error!public! !
+!AIDASite categoriesFor: #topMinute!aida port error!public! !
+!AIDASite categoriesFor: #urlsWithSessionId!public!settings! !
+!AIDASite categoriesFor: #watchdogOther!aida port error!public! !
+
+!AIDASite class methodsFor!
+
+advanceSubjectSpec
+	^#(#('ICC.ADvance.AD2Subject') #classNames: #('AIDA.URLResolver' 'AIDA.AIDASite' 'AIDA.WebSession' 'AIDA.WebClipboard' 'AIDA.AppActionTrigered' 'Scheduler' 'AIDA.WebMsgs' 'AIDA.DirectoryProxy' 'AIDA.WebSecurityManager' 'ScheduledEvent' 'AIDA.WebUser' 'AIDA.WebSessionManager' 'MIMEMap' 'AIDA.WebStatistics' 'AIDA.WebUserGroup' 'AIDA.AppViewShowed' 'AIDA.FileProxy' 'AIDA.WebCounter' 'AIDA.WebTransactionMonitor'))!
+
+charc
+	"return internal  unicode code for slovene character: lowercase c"
+
+	^$c!
+
+chars
+	"return internal  unicode code for slovene character: lowercase s"
+	^$s!
+
+convert: aString fromCodepage: aSymbol
+	"convert aString to internal unicode"
+	| encoding |
+
+	aString isNil ifTrue: [^nil].
+
+	^aString asString"fix for now"
+
+"	(#(#'win-1250' #'win1250' #'Windows-1250' cp1250) includes: aSymbol) 
+		ifTrue: [encoding := #'Windows-1250'].
+	(#(#'iso-8859-2' #'iso8859-2' #'ISO-8859-2' iso2) includes: aSymbol) 
+		ifTrue: [encoding := #'ISO-8859-2'].
+	(#(#utf8 #'utf-8' #'utf_8' #UTF8 #'UTF-8' #'UTF_8') includes: aSymbol) ifTrue: [encoding := #'UTF_8'].
+	encoding isNil ifTrue: [^aString].
+	^(EncodedStream 
+		on: aString asIntegerArray readStream 
+		encodedBy: (StreamEncoder new: encoding)) contents"!
+
+convert: aString toCodepage: aSymbol
+	"convert internal unicode aString to codepage). "
+	| encoding |
+"	(self inOldEncoding: aString) ifTrue: [^self oldconvert: aString toCodepage: aSymbol]. "
+	"aString isNil ifTrue: [^nil].
+	(#(#'win-1250' #'win1250' #'Windows-1250' cp1250) includes: aSymbol) 
+		ifTrue: [encoding := #'Windows-1250'].
+	(#(#'iso-8859-2' #'iso8859-2' #'ISO-8859-2' iso2) includes: aSymbol) 
+		ifTrue: [encoding := #'ISO-8859-2'].
+	(#(#utf8 #'utf-8' #'utf_8' #UTF8 #'UTF-8' #'UTF_8') includes: aSymbol) ifTrue: [encoding := #'UTF_8'].
+	encoding isNil ifTrue: [^aString].
+	^([aString asByteArrayEncoding: encoding] on: Error do: [:ex | ^aString]) asByteString"
+
+	^aString "asByteArray"
+"AIDASite convert: (String with: 16r010D asCharacter) toCodepage: #iso2 "
+"AIDASite convert: (String with: 16r010D asCharacter) toCodepage: #utf8 "!
+
+convertNextWebSpecialChar: aString fromPos: aNumber 
+	"find first http special char in format %xx and converts all occurences in an appropriate
+	 ASCII char. Recursivelly repeat until all chars converted"
+	| index code chr newString |
+	index := aString findString: '%' startingAt: aNumber ifAbsent: [^aString].
+	(index + 2) <= aString size ifFalse: [^aString].
+	code := aString copyFrom: index to: index+2.
+	((self fromHexValue: (code at:2)) notNil & (self fromHexValue: (code at:3)) notNil) 
+		ifTrue:[chr := ( (self fromHexValue: (aString at: index+1))  * 16 + 
+				(self fromHexValue: (aString at: index+2)) ) asCharacter .
+				chr = 18 asCharacter ifTrue: [chr := AIDASite charc].
+			newString := aString copyReplaceAll: code with: chr asSymbol asString]
+		ifFalse: [newString := aString].
+	^self convertNextWebSpecialChar: newString fromPos: index+1.!
+
+convertToWebStringAbstract: aString space: aSpace prefix: aPrefix
+	"converts some special chars in CGI stream: 
+		' ' as '+'
+		%xx as appropriate ASCII char
+	"
+	| newString specialChars ISOString |
+	newString := String new.
+	specialChars := Dictionary new.
+	ISOString := AIDASite convert: aString toCodepage: #iso2.
+	specialChars at: $  put: (String with:aSpace).
+	ISOString do: [:each | 
+		(each isAlphaNumeric & (each ~= aPrefix) )
+			ifTrue: [newString := newString, each asSymbol asString] 
+			ifFalse: 
+				[(specialChars includesKey: each )
+					ifTrue:  [newString := 
+						newString, (specialChars at: each)]
+					ifFalse: 
+						[newString := newString, (String with: aPrefix),
+							(self hexCharFrom: 	(each asInteger // 16)) 
+								asSymbol asString,
+							(self hexCharFrom: (each asInteger \\ 16)) 
+								asSymbol asString]
+			]
+		].
+	^newString!
+
+default
+	"just return default instance set by default:"
+	| sites |
+	Default isNil ifTrue:
+		[sites := SwazooServer singleton allSites.
+		sites isEmpty ifTrue: [^self error: 'no default site'].
+		Default := sites first].
+	^Default!
+
+default: aString
+	"make a site with that name a default one"
+	| site |
+	site := SwazooServer singleton siteNamed: aString.
+	site isNil ifTrue: [^self error: 'site with that name does not exist!!'].
+	Default := site.
+	^site!
+
+initSloveneCharacters
+	"AIDASite initSloveneCharacters"
+	SloveneCharacters := Set new: 6.
+	^SloveneCharacters 
+		add: self charC;
+		add: self charc;
+		add: self charS;
+		add: self chars;
+		add: self charZ;
+		add: self charz;
+		yourself!
+
+inOldEncoding: aString
+	^aString contains: [:ch | #(61346 61552 252 9839 235 227) includes: ch asInteger].!
+
+isSloveneCharacter: aCharacter
+	"return true if character is slovene"
+	SloveneCharacters isNil ifTrue: [self initSloveneCharacters].
+	^SloveneCharacters includes: aCharacter
+
+"AIDASite isSloveneCharacter: AIDASite charC"!
+
+justToForceInstallation!
+
+named: aString
+	^SwazooServer singleton siteNamed: aString!
+
+newNamed: aString
+	| site |
+	site := self new name: aString.
+	SwazooServer singleton addSite: site.
+	site initialize.
+	^site!
+
+oldconvert: aString fromCodepage: aSymbol
+
+	"convert aString, which is in defined code page, defined in aSession to an internal 
+	Smalltalk codepage (Unicode in future). "
+
+	(aString isKindOf: String) ifTrue:
+		[aSymbol = #cp1250 ifTrue: [^self returnCP852FromCP1250String: aString].
+		aSymbol = #iso2 ifTrue: [^self returnCP852FromISO2String: aString].
+		aSymbol = #csz   ifTrue: [^aString].  "you cannot convert!!"
+		aSymbol = #'7bit' ifTrue: [^self returnCP852From7BitString: aString]. 
+		^aString].
+	^aString.  "if not String, then return whatever is"!
+
+oldconvert: aString toCodepage: aSymbol
+
+	"return aString in a proper code page"
+
+	aSymbol = #cp1250 ifTrue: [^self returnCP1250FromCP852String: aString].
+	aSymbol = #csz   ifTrue: [^self returnCSZFromCP852String: aString].
+	aSymbol = #'7bit' ifTrue: [^self return7BitFromCP852String: aString].
+	aSymbol = #iso2 ifTrue: [^self returnISO2FromCP852String: aString].
+	^aString!
+
+properArray: aStringOrByteArray
+	"if two byte string, convert it to one byte, cut twobyte characters, make them $? "
+	| stream |
+	"aStringOrByteArray class == ByteString ifTrue: [^aStringOrByteArray]."
+	aStringOrByteArray class == ByteArray ifTrue: [^aStringOrByteArray].
+	stream := WriteStream on: (String new: aStringOrByteArray size *2).
+	aStringOrByteArray 
+		do: [:char | stream nextPut: (char asInteger < 256 ifTrue: [char] ifFalse: [$?])].
+	^stream contents!
+
+random
+	"a random generator, always seeded and therefore ready to geenrate numbers which are really 
+       random"
+	Random isNil ifTrue: [Random := RandomParkMiller new].
+	^Random!
+
+slash
+	"return '/'  on Unix, '\' on PC platforms, for making full filenames"
+	^'\'!
+
+slashCh
+	"return '/'  on Unix, '\' on PC platforms, for making full filenames"
+	^'\'! !
+!AIDASite class categoriesFor: #advanceSubjectSpec!aida port error!public! !
+!AIDASite class categoriesFor: #charc!aida unicode error!public!slovenian characters! !
+!AIDASite class categoriesFor: #chars!aida unicode error!public!slovenian characters! !
+!AIDASite class categoriesFor: #convert:fromCodepage:!aida port error!http encoding!public! !
+!AIDASite class categoriesFor: #convert:toCodepage:!aida port error!codepage converting!public! !
+!AIDASite class categoriesFor: #convertNextWebSpecialChar:fromPos:!aida port error!public!web converting! !
+!AIDASite class categoriesFor: #convertToWebStringAbstract:space:prefix:!aida port error!private!web converting! !
+!AIDASite class categoriesFor: #default!aida port error!public! !
+!AIDASite class categoriesFor: #default:!accessing!aida port error!public! !
+!AIDASite class categoriesFor: #initSloveneCharacters!aida port error!initialize!public! !
+!AIDASite class categoriesFor: #inOldEncoding:!aida port error!codepages-obsolete!private! !
+!AIDASite class categoriesFor: #isSloveneCharacter:!aida port error!public!slovenian characters! !
+!AIDASite class categoriesFor: #justToForceInstallation!aida port error!private! !
+!AIDASite class categoriesFor: #named:!aida port error!public! !
+!AIDASite class categoriesFor: #newNamed:!aida port error!public! !
+!AIDASite class categoriesFor: #oldconvert:fromCodepage:!aida port error!codepages-obsolete!private! !
+!AIDASite class categoriesFor: #oldconvert:toCodepage:!aida port error!codepages-obsolete!private! !
+!AIDASite class categoriesFor: #properArray:!aida port error!public! !
+!AIDASite class categoriesFor: #random!aida port error!public! !
+!AIDASite class categoriesFor: #slash!aida port error!private!utilities! !
+!AIDASite class categoriesFor: #slashCh!aida port error!private!utilities! !
+
+!Character methodsFor!
+
+isAlphabetic
+	"Answer whether the receiver is in the English alphabet."
+
+	^UserLibrary default isCharAlpha: self! !
+!Character categoriesFor: #isAlphabetic!public! !
+
+!Date methodsFor!
+
+dayOfYear
+
+	^self day!
+
+daysInMonth
+
+	^self class daysInMonthIndex: self monthIndex forYear: self year! !
+!Date categoriesFor: #dayOfYear!aida port error!public! !
+!Date categoriesFor: #daysInMonth!accessing!aida port error!public! !
+
+!DefaultWebStyle methodsFor!
+
+navHeader: aString
+	^(WebText header: 3)
+		addText: aString; yourself.! !
+!DefaultWebStyle categoriesFor: #navHeader:!frame navigation!public! !
+
+!Exception methodsFor!
+
+printMessageText
+	"Answer the <readableString> message text supplied when the receiver was signalled,
+	or <nil> if none was provided."
+
+	^self messageText ifNil: [self description]! !
+!Exception categoriesFor: #printMessageText!accessing!public! !
+
+!File methodsFor!
+
+extension
+	^self class splitExtensionFrom: self name
+!
+
+readStream
+	"Answer a FileStream on the receiver initially configured to read/write text."
+
+	^FileStream on: self! !
+!File categoriesFor: #extension!public! !
+!File categoriesFor: #readStream!public!streaming! !
+
+!FileProxy methodsFor!
+
+filename
+	| separator homeDir |
+	separator := SpEnvironment onUnix ifTrue: ['/'] ifFalse: ['\'].
+	(filename isKindOf: SpFilename) ifTrue: [self filename: filename].
+	filename isNil ifTrue: [^''].
+	(filename includes: $: ) ifTrue:   " TEMPORARY !!!!!!"
+		[filename := filename copyReplaceAll: (filename copyUpTo: ':') with: ''.
+		homeDir := self site homeDirectory copyReplaceAll: (filename copyUpTo: ':') with: ''.
+		filename := filename copyReplaceAll: homeDir with: ''].
+	^SpFilename named:
+		(self site homeDirectory, filename)!
+
+from: aString
+	| file relFilename dolphinFileName |
+
+	self releaseContent. "if any from before"
+	((File exists: aString) or: [File exists: (SessionManager current imageBase, aString allButFirst)]) ifFalse: [^nil].
+	dolphinFileName := (aString first = $.) ifTrue: [SessionManager current imageBase, aString allButFirst] ifFalse: [aString].
+	file := File open: dolphinFileName mode: #read check: true share: #read.
+	relFilename := (aString copyReplaceAll: self site homeDirectory with: '').
+	self filename: (relFilename isEmpty ifTrue: ['\'] ifFalse: [relFilename]).
+	self refreshTimestamps.
+	self contentType: (self site mimeMap typeForExtension: file extension).
+	self size: file size.
+	self contentType = 'text/html' 
+		ifTrue:
+			[self content: file contentsOfEntireFile.
+			self codepage: (self detectCodepage: self content).
+			self content: (AIDASite convert: self content fromCodepage: self codepage).
+			self setSize
+			"self prepareHTMLPage. self makeAbsoluteImgTags. self content: nil"]
+		ifFalse: 
+			[self isToBeCached ifTrue:  "otherwise we will stream directly"
+				[| stream | 
+				[stream := file readStream "binary". self content: stream contents] ensure: [stream close] ] ]!
+
+printHTMLPageOn: aStream for: aRequest on: aSession
+	"stream content to a response"
+	| response |
+	response := aRequest streamedResponse.
+	response length: self size. "to stream on HTTP/1.0 too, because chunking is not allowed"
+	self site addResponseHeadersTo: response forPage: self on: aSession.
+	self content notNil "cached"
+		ifTrue: [response nextPutAll: (AIDASite properArray: self content)]
+		ifFalse: [self streamFileToResponse: response].
+	response close.
+	self isToBeCached ifFalse: [self releaseContent].  "for large files"
+
+" 
+	self contentType = 'text/html'
+		ifTrue:
+			[index := 1.
+			self elements do: [:each | 
+				each == self elements last ifTrue: [^self]. 
+				(self servletTagIndexes includes: index) 
+					ifTrue: [self printServlet: index on: aStream forSession: aSession]
+					ifFalse: [aStream nextPutAll: 
+						(AIDASite convertToWeb: each on: aSession)].
+				index := index + 1 ] ]
+		ifFalse: 
+			[aStream nextPutAll: self content asByteString].
+"!
+
+streamFileToResponse: aHTTPStreamedResponse
+"general, portable solution"
+	| stream | 
+	[stream := (File exists: SessionManager current imageBase, filename) 
+		ifTrue: [FileStream read: (SessionManager current imageBase, filename) text: false] 
+		ifFalse: [ReadStream on: ('File not exist (', (SessionManager current imageBase, filename), ')')].
+	[stream atEnd] whileFalse: [aHTTPStreamedResponse nextPut: stream next] ] 
+		ensure: [stream close]! !
+!FileProxy categoriesFor: #filename!accessing!aida port error!public! !
+!FileProxy categoriesFor: #from:!aida port error!initialize-release!public! !
+!FileProxy categoriesFor: #printHTMLPageOn:for:on:!printing!public! !
+!FileProxy categoriesFor: #streamFileToResponse:!aida port error!printing!public! !
+
+!HTTPException class methodsFor!
+
+raiseResponse: aHTTPResponse
+	"Raise an exception to immediatelly return that response."
+	^self new 
+		response: aHTTPResponse;
+		signal "raiseSignal - Dolphin fix".! !
+!HTTPException class categoriesFor: #raiseResponse:!aida port error!public! !
+
+!Object methodsFor!
+
+webAppFor: aSession
+	| webApp |
+
+	aSession isNil ifTrue: [^nil].
+	webApp := aSession webAppFor: self.
+	webApp notNil ifTrue: [^webApp].
+	webApp := WebApplication newFor: self on: aSession.
+	webApp notNil ifTrue: [aSession addWebApp: webApp for: self].
+	^webApp! !
+!Object categoriesFor: #webAppFor:!aida port error!public! !
+
+!PositionableStream methodsFor!
+
+upToSeparator
+	"Answer a subcollection from position to the occurrence (if any, exclusive) of a separator.
+	The stream is left positioned after the separator.
+	If no separator is found answer everything."
+
+	| newStream element |
+	newStream := (String new: 64) writeStream.
+	[self atEnd]
+		whileFalse:
+			[element := self next.
+			element isSeparator
+				ifTrue: [^newStream contents].
+			newStream nextPut: element.].
+	^newStream contents
+
+" '123 456' readStream upToSeparator"! !
+!PositionableStream categoriesFor: #upToSeparator!aida port error!public! !
+
+!RDBTable methodsFor!
+
+readFieldFrom: aString odbcType: aTypeString
+
+	"read one field from string, and convert to
+	appropriate object. Do a codepage converting also. Return that object"
+
+	aString isNil ifTrue: [^nil].
+	aTypeString = 'Char' ifTrue:
+		[self codepage = #cp1250 ifTrue: [^AIDASite returnCP852FromCP1250String: aString].
+		self codepage = #iso2 ifTrue: [^AIDASite returnCP852FromISO2String: aString].
+		self codepage = #csz   ifTrue: [^aString].  "you cannot convert!!"
+		self codepage = #'7bit' ifTrue: [^AIDASite returnCP852From7BitString: aString]. 
+		].
+	aTypeString = 'Date' ifTrue: [^aString]. "already converted"
+	^aString! !
+!RDBTable categoriesFor: #readFieldFrom:odbcType:!aida port error!public! !
+
+!SortedCollection class methodsFor!
+
+withAll: anArray sortBlock: aDyadicValuable 
+
+	^(self withAll: anArray)
+		sortBlock: aDyadicValuable;
+		yourself.! !
+!SortedCollection class categoriesFor: #withAll:sortBlock:!aida port error!public! !
+
+!SpDate class methodsFor!
+
+newDay: day month: month year: year 
+	^self new onDate: (Date newDay: day monthNumber: month year: year) ! !
+!SpDate class categoriesFor: #newDay:month:year:!aida port error!instance creation!public! !
+
+!String methodsFor!
+
+replaceSpecialCharacters
+	|str|
+
+	str := self copy.
+	str do: [:ch | | ascii |
+		ascii := ch asInteger.
+		((ascii  >= 65 and: [ ascii <= 90 ]) or: [((( ascii >= 97 and: [ ascii <= 122 ]) or: [ch isDigit]) or: [ch = $/]) or: [ch = $.]])
+		ifFalse: [str replaceAll: ch with: $-]].
+	^str! !
+!String categoriesFor: #replaceSpecialCharacters!aida port error!converting!public! !
+
+!SwazooServer methodsFor!
+
+allAidaInstancesReport
+	"report numbers of instances of all Aida namespace classes"
+	"SwazooServer singleton allAidaInstancesReport"
+	| namespace |
+	namespace := WebSession environment.
+	^SortedCollection
+		withAll: (namespace allClasses collect: [:each | each -> each allInstances size])
+		sortBlock: [:a :b | a value > b value]!
+
+isNewHour
+	" a new hour since last watchdog check"
+	"SwazooServer singleton isNewHour"
+
+	^TimeStamp now hour ~= 
+		(TimeStamp fromSeconds: TimeStamp now asSeconds - self watchdogPeriod) hour! !
+!SwazooServer categoriesFor: #allAidaInstancesReport!aida port error!public! !
+!SwazooServer categoriesFor: #isNewHour!aida port error!initialize-release!public! !
+
+!TimeStamp methodsFor!
+
+asDate
+
+	^date!
+
+asTime
+
+	^time!
+
+dayOfYear
+
+	^date day!
+
+printSloString
+
+	^self rfc1123String! !
+!TimeStamp categoriesFor: #asDate!aida port error!public! !
+!TimeStamp categoriesFor: #asTime!aida port error!public! !
+!TimeStamp categoriesFor: #dayOfYear!aida port error!public! !
+!TimeStamp categoriesFor: #printSloString!aida port error!printing!public! !
+
+!TimeStamp class methodsFor!
+
+fromDate: aDate andTime: aTime 
+	^self date: aDate time: aTime!
+
+now
+	^self current! !
+!TimeStamp class categoriesFor: #fromDate:andTime:!aida port error!public! !
+!TimeStamp class categoriesFor: #now!aida port error!public! !
+
+!URLResolver methodsFor!
+
+start!
+
+stop
+	"self randomGen: nil"! !
+!URLResolver categoriesFor: #start!aida port error!initialize - release!public! !
+!URLResolver categoriesFor: #stop!aida port error!initialize - release!public! !
+
+!WebApplication methodsFor!
+
+announceAction: anActionSymbol onView: aSymbol
+	"VW specific"
+self halt.
+"	self announce: 
+		(AppActionTrigered for: self observee on: self session view: aSymbol action: anActionSymbol)"
+
+	"#trigger:"
+
+"From VisualWorks:
+#announce: anAnnouncementOrClass "
+	"Broadcast an announcement. The argument can be an Announcement instance
+	or a (sub)class. When the argument is a class, a new instance is created
+	automatically for broadcast. Answer the announcement."
+"
+	| announcement |
+	announcement := anAnnouncementOrClass asAnnouncement.
+	(self mayAnnounce: announcement class) 
+		ifFalse: [self errorBadAnnouncementClass: announcement class].
+	self subscriptionRegistryOrNil ifNotNil:
+		[:registry | registry deliver: announcement from: self].
+	^announcement"!
+
+announceView: aSymbol
+	"VW specific"
+"	self  announce: 
+		(AppViewShowed for: self observee on: self session view: aSymbol)"
+
+	"#trigger:"
+
+	| method |
+
+	method := self class actionMethodForView: self view. 
+	method isNil ifTrue: [^nil].
+	(method asString last = $: )  
+		ifTrue: [self perform: method asSymbol with: self session]
+		ifFalse: [self perform: method asSymbol].!
+
+callActionMethodForButton: aString on: aContext
+	"name of button pressed is in argument"
+	"| methd |
+	methd := self class actionMethodForView: aContext view buttonName: aString. 
+	methd notNil ifTrue: [self perform: methd asSymbol].
+	self announceAction: aString asSymbol onView: aContext view "
+
+"AIDA 5 for Dolphin method"
+"callActionMethodForButton: aString"
+	"name of button pressed is in argument"
+	| method |
+
+	method := self class actionMethodForView: aContext view buttonName: aString. 
+	method isNil ifTrue: [^nil].
+	(method asString last = $: )  
+		ifTrue: [self perform: method asSymbol with: self session]
+		ifFalse: [self perform: method asSymbol].!
+
+copyToClipboard
+	"copy an url and title of current view of observee object to web clipboard"
+	| object title |
+	object := self observee isVersionedObject
+		ifTrue: [self observee currentVersion] "so that link will be aways same regardles of version!!"
+		ifFalse: [self observee].
+	title := (object class canUnderstand: #id) ifTrue: [object id, ' '] ifFalse: [''].
+	title := (object class canUnderstand: #title) ifTrue: [title, object title] ifFalse: [nil].
+	title isNil ifTrue: 
+		[title := (object class canUnderstand: #indexTitle) ifTrue: [object indexTitle] ].
+	title isNil ifTrue: [title := self title].
+	self clipboard 
+		title: title;
+		url: (self site urlResolver halfUrlFor: object);
+		object: object!
+
+findCreateOrSerializeContextFor: aRequest
+	"and set the current context and view"
+	"for posts and ajax request the context id must always be present in request!!"
+	"Serialize execution if some other request is already executing"
+	| ctx |
+
+	ctx := self findContextFor: aRequest.
+	(ctx isNil and: [aRequest isPost or: [aRequest isAjaxRequest]]) ifTrue: [^nil]. "this should not happen!!"
+	ctx isNil ifTrue: [ctx := self findContextSameViewFor: aRequest]. "temporary"
+	ctx isNil ifTrue: 
+		[ctx := (WebContextFirst newOn: self) view: aRequest view.
+		self addContext: ctx].
+	ctx isBusy ifTrue: [ctx serialize: aRequest]. "Dolphin fix"  "context is busy, serialize execution"
+	ctx request: aRequest.
+	aRequest context: ctx.
+	^ctx!
+
+printWebView: aViewSymbol for: aRequest
+ 	"build a web page for that view"
+	| method page form |
+
+	aRequest context page 
+		clear; initPageHeaderLinks.
+	method := self class viewMethodForView: aViewSymbol. 
+	method isNil ifTrue: [^WebElement new addTextH3: 'ERROR: view named ', aViewSymbol printString, ' does not exist'; yourself].
+	^(self viewAllowed: aViewSymbol)
+		ifTrue: [page := self perform: method. "like #viewMain etc. "
+			page isWebApplication ifTrue: 
+				[form := aRequest context form.
+				self session inTranslationMode ifTrue: [form prepareForTranslation]. "in-line edit"
+				form registerFormElements]. "after above transl.preparation!!"
+			self storeThisUrl.
+			"self announceView: aViewSymbol." "Dolphin fix"
+			page]
+		ifFalse: [self redirectTo: self site admin view: #login.
+			WebPage new].!
+
+title: aString
+	"delegate to the window of currently executing context"
+	^self context page title: aString! !
+!WebApplication categoriesFor: #announceAction:onView:!aida announcement error!aida port error!public! !
+!WebApplication categoriesFor: #announceView:!aida announcement error!aida port error!public! !
+!WebApplication categoriesFor: #callActionMethodForButton:on:!aida announcement error!aida port error!private-form inputs!public! !
+!WebApplication categoriesFor: #copyToClipboard!aida port error!public! !
+!WebApplication categoriesFor: #findCreateOrSerializeContextFor:!aida commented sentence!aida port error!private-contexts!public! !
+!WebApplication categoriesFor: #printWebView:for:!aida announcement error!aida port error!private-printing!public! !
+!WebApplication categoriesFor: #title:!aida port error!private-window delegation!public! !
+
+!WebApplication class methodsFor!
+
+newFromNameFor: anObject on: aSession
+	"Try to create of AnObjectApp instance if that class exist."
+	"VW specific!!"
+	| className class |
+	className := (anObject class name, 'App') asSymbol. "Dolphin fix"  "old: VW specific!!"
+	class := [Smalltalk at: className] "Dolphin fix"  "old: VW specific!!"
+		on: Error do: [:ex | ^nil].
+	(class allSuperclasses includes: WebApplication) ifFalse: [^nil].
+	^class basicNew 
+		observee: anObject; 
+		session: aSession.! !
+!WebApplication class categoriesFor: #newFromNameFor:on:!aida port error!private! !
+
+!WebCache methodsFor!
+
+respond: anObject to: aRequest on: aWebSession
+	| response |
+	response := HTTPResponse ok.
+	aRequest task response: response.
+	self site addResponseHeadersTo: response forPage: nil on: aWebSession.
+	response entity: (self entryForObject: anObject view: aRequest view) content. 
+	self site log: ' cached done'.
+	^response! !
+!WebCache categoriesFor: #respond:to:on:!aida port error!private! !
+
+!WebCaptcha methodsFor!
+
+prepareCaptchaImage
+	| textFName captchaFName |
+
+	textFName := 'captchatext', self random, '.png'. captchaFName := 'captcha', self random, '.png'.
+
+
+
+
+
+	(SpFilename named: textFName) delete.
+	self filename: captchaFName.
+	self setPreparedTimestamp.!
+
+setRandomText
+	"5 characters or numbers"
+	| rnd rgen |
+	rnd := String new: 5. rgen := Random new.
+	1 to: 5 do: [:inx | rnd at: inx put: (self randomCharacterOnGen: rgen)].
+	self text: rnd.! !
+!WebCaptcha categoriesFor: #prepareCaptchaImage!aida port error!private! !
+!WebCaptcha categoriesFor: #setRandomText!aida port error!private! !
+
+!WebCaptcha class methodsFor!
+
+cache
+	Cache isNil ifTrue: [self initCache].
+	^Cache!
+
+initCache
+	Cache := Set new.! !
+!WebCaptcha class categoriesFor: #cache!aida port error!private-cache!public! !
+!WebCaptcha class categoriesFor: #initCache!aida port error!private-cache!public! !
+
+!WebCounter methodsFor!
+
+incCounter
+
+	"increment daily, hourly and total counter with date and time now"
+
+	self incCounterOnTimestamp: TimeStamp now!
+
+initStarted
+	"set a timestamp to a current time"
+	started := TimeStamp now asSeconds.! !
+!WebCounter categoriesFor: #incCounter!aida port error!public! !
+!WebCounter categoriesFor: #initStarted!aida port error!public! !
+
+!WebCounter class methodsFor!
+
+throughMidnightTest
+
+	Janko := WebCounter new.
+	[100 timesRepeat: 
+		[Janko incCounter.
+		(Delay forSeconds: 1) wait]
+	] fork.
+	^Janko inspect!
+
+throughNewYearTest
+
+	Janko := WebCounter new.
+	[100 timesRepeat: 
+		[Janko incCounter.
+		(Delay forSeconds: 1) wait]
+	] fork.
+	^Janko inspect
+
+"WebCounter throughNewYearTest"! !
+!WebCounter class categoriesFor: #throughMidnightTest!aida port error!public! !
+!WebCounter class categoriesFor: #throughNewYearTest!aida port error!public!testing! !
+
+!WebElement methodsFor!
+
+identMore
+	"ident inside tag content to its level and one deepier"
+	self isNewline ifFalse: [self eol]. 
+	self identDepth: self identationLevel+1.
+	^String new: self identationLevel+1 withAll: $ !
+
+printAttribute: aNameSymbol value: aValue on: aStream for: aSession
+	"if value is true/false, then if true, just print an atribute name, otherwise ommit both"
+	"multivalue attributes are supposed to be javascript only!! "
+	| multiValue |
+	aStream nextPut:  $ . 
+	((aValue ~= false) | (aValue == true)) ifTrue: [aStream nextPutAll: aNameSymbol asString].
+	(aValue isKindOf: Boolean) ifTrue: [^self].
+	multiValue := aValue class == OrderedCollection.    aStream nextPutAll: '="'.
+	multiValue not ifTrue: [aStream 
+		nextPutAll: (AIDASite convertToWeb: aValue asString on: aSession) asString "asString added for Dolphin"; "UTF-8 encoding"
+		nextPutAll: '"'. ^self].
+	aValue do: [:value | 
+		aStream nextPutAll:  (AIDASite convertToWeb: value asString on: aSession) asString "asString added for Dolphin". "UTF-8"
+		aStream nextPutAll: '; ']. "javascript sentence separator"
+	aStream nextPutAll: '"'.!
+
+printString
+	^'a', self class printString, 
+		(self insideDivTag ifTrue: [' div'] ifFalse: ['']),
+		(self id notNil ifTrue: [' id: ', self id] ifFalse: ['']),
+		((self attributesAt: #class)  notNil ifTrue: [' class: ', (self attributesAt: #class) ] ifFalse: [''])!
+
+setCreationMethod
+	"find a name of a method which created me"
+	| stackFrame |
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: WebApplication) ifTrue: [^self method: stackFrame method selector].
+		stackFrame := stackFrame sender].! !
+!WebElement categoriesFor: #identMore!aida port error!attributes!public! !
+!WebElement categoriesFor: #printAttribute:value:on:for:!aida port error!printing!public! !
+!WebElement categoriesFor: #printString!aida port error!private! !
+!WebElement categoriesFor: #setCreationMethod!aida port error!private! !
+
+!WebElement class methodsFor!
+
+colorDictionary
+	"return a dictionary of color names as keys and hex values for colors in 
+	some web elements such as page and table background, text, links etc."
+	Colors isNil ifTrue: [self initColorDictionary].
+	^Colors!
+
+initColorDictionary
+	"WebElement initColorDictionary"
+	"WebElement colorDictionary"
+	Colors := IdentityDictionary new.
+	Colors 
+		at: #white				put: #'ffffff';
+		at: #red					put: #'ff0000' ;
+		at: #green				put: #'00ff00' ;
+		at: #blue				put: #'0000ff' ;
+		at: #magenda			put: #'ff00ff';
+		at: #cyan				put: #'00ffff' ;
+		at: #yellow				put: #'ffff00' ;
+		at: #black				put: #'000000';
+
+		at: #aquamarine			put: #'70db93';
+
+		at: #bakerschocolade	put: #'5c3317';
+		at: #blueviolet	put: #'9f5f9f';
+		at: #brass		put: #'b5a642';
+		at: #brightgold	put: #'d9d919';
+		at: #brown		put: #'a62a2a';
+		at: #bronze		put: #'8c7853';
+		at: #bronzeii		put: #'a67d3d';
+
+		at: #cadetblue		put: #'5f9f9f';
+		at: #coolcooper		put: #'d98719';
+		at: #cooper			put: #'b87333';
+		at: #coral			put: #'ff7f00';
+		at: #cornflowerblue	put: #'42426f';
+
+		at: #darkbrown		put: #'5c4033';
+		at: #darkgreen		put: #'2f4f2f';
+		at: #darkgreencooper put: #'4a766e';
+		at: #darkolivegreen	put: #'4f4f2f';
+		at: #darkorchid		put: #'9932cd';
+		at: #darkpurple		put: #'871f78';
+		at: #darkslateblue	put: #'6b238e';
+		at: #darkslategrey	put: #'2f4f4f';
+		at: #darktan			put: #'97694f';
+		at: #darkturquoise	put: #'7093db';
+		at: #darkwood		put: #'855e42';
+		at: #dimgrey		put: #'545454';
+		at: #dustyrose		put: #'856363';
+
+		at: #feldspar			put: #'d19275';
+		at: #firebrick			put: #'8e2323';
+		at: #forestgreen		put: #'238e23';
+
+		at: #gold			put: #'cd7f32';
+		at: #goldenrod		put: #'dbdb70';
+		at: #grey			put: #'c0c0c0';
+		at: #greencooper	put: #'527f76';
+		at: #greenyellow		put: #'93db70';
+
+		at: #huntergreen		put: #'215e21';
+
+		at: #indianred		put: #'4e2f2f';
+
+		at: #khaki		 	put: #'9f9f5f';
+
+		at: #lightblue		put: #'c0d9d9';
+		at: #lightgrey		put: #'a8a8a8';
+		at: #lightsteelblue	put: #'8f8fbd';
+		at: #lightwood		put: #'e9c2a6';
+		at: #limegreen		put: #'32cd32';
+
+		at: #mandarianorange	put: #'e47833';
+		at: #maroon			put: #'8e236b';
+		at: #mediumaquamarine	put: #'32cd99';
+		at: #mediumblue	put: #'3232cd';
+		at: #mediumforestgreen	put: #'6b8e23';
+		at: #mediumgoldenrod	put: #'eaeaae';
+		at: #mediumorchid	put: #'9370db';
+		at: #mediumseagreen	put: #'426f42';
+		at: #mediumslateblue	put: #'7f00ff';
+		at: #mediumspringgreen	put: #'7fff00';
+		at: #mediumturquoise	put: #'70dbdb';
+		at: #mediumvioletred		put: #'db7093';
+		at: #mediumwood	put: #'a68064';
+		at: #midnightblue	put: #'2f2f4f';
+		
+		at: #navyblue		put: #'23238e ';
+		at: #neonblue		put: #'4d4dff';
+		at: #neonpink		put: #'ff6ec7';
+		at: #newmidnightblue	put: #'00009c';
+		at: #newtan			put: #'ebc79e ';
+		
+		at: #oldgold			put: #'cfb53b ';
+		at: #orange			put: #'ff7f00';
+		at: #orangered		put: #'ff2400';
+		at: #orchid			put: #'db70db';
+
+		at: #palegreen		put: #'8fbc8f';
+		at: #pink			put: #'bc8f8f';
+		at: #plum			put: #'eaadea';
+
+		at: #quartz			put: #'d9d9f3';
+
+		at: #richblue			put: #'5959ab';
+
+		at: #salmon			put: #'6f4242';
+		at: #scarlet			put: #'8c1717';
+		at: #seagreen		put: #'238e68';
+		at: #semiswetchocolate		put: #'6b4226';
+		at: #sienna			put: #'8e6b23';
+		at: #silver			put: #'e6e8fa';
+		at: #skyblue			put: #'3299cc';
+		at: #slateblue		put: #'007fff';
+		at: #spicypink		put: #'ff1cae';
+		at: #springgreen		put: #'00ff7f';
+		at: #steelblue		put: #'236b8e';
+		at: #summersky		put: #'38b0de';
+
+		at: #tan				put: #'db9370';
+		at: #thistle			put: #'d8bfd8';
+		at: #turquoise		put: #'adeaea';
+
+		at: #verydarkbrown	put: #'5c4033';
+		at: #verylightgrey	put: #'cdcdcd';
+		at: #violet			put: #'4f2f4f';
+		at: #violetred		put: #'cc3299';
+
+		at: #wheat			put: #'d8d8bf';
+		at: #yellowgreen		put: #'99cc32'.!
+
+new
+	| instance ctx |
+	instance := super new.
+	self == WebElement ifTrue: 
+		[instance setCreationMethod.
+		ctx := instance context.
+		ctx currentReplacement notNil ifTrue: 
+			[ctx replaceIdIn: instance with: ctx currentReplacement. 
+			ctx cancelReplacement] ].
+	^instance!
+
+printWebPageFor: aSession
+
+	"do a page of all colors in a color dicionary"
+
+	| colors page table col |
+	colors := self colorDictionary keys.
+	page := WebPage new.
+	page title: 'Web Color Table'.
+	table := WebTable new.
+	col := 0. 
+	table add: WebTableRow new.
+	colors do: [:color |
+		(col \\ 5 = 0) ifTrue: [table add: WebTableRow new]. col := col + 1.
+		table add: (WebTableCell new bgColor: (self valueForColor: color); 
+			addBreak; 
+			addText: '<font face=helvetica size=-1>';
+			addText: (color printString); addBreak;
+			addText: ((self valueForColor: color) printString); addBreak;
+			addText: (color printString) color: #white; addBreak;
+			addText: ((self valueForColor: color) printString) color: #white; addBreak;
+			addText: '</font>').
+		].
+	page add: table.
+	^page
+
+"WebElement printWebPageFor: (WebSession new)"! !
+!WebElement class categoriesFor: #colorDictionary!aida port error!public! !
+!WebElement class categoriesFor: #initColorDictionary!aida port error!color values!public! !
+!WebElement class categoriesFor: #new!aida port error!instance creation!public! !
+!WebElement class categoriesFor: #printWebPageFor:!aida port error!printing!public! !
+
+!WebForm methodsFor!
+
+acceptFormInputFrom: aRequest
+ 	"read a post data from request and write values to the valueModels of fields in a form.
+	For checkboxes and radiobuttons, a set of values is expected under the same name"
+	"VW specific"
+	| postData |
+	postData := HTTPPostDataArray new. "like Dictionary, but multiple values per key" "VW specific"
+	self uncheckAllProperChecboxesFor: aRequest. self uncheckAllProperRadioButtonsFor: aRequest.
+	aRequest  postKeysAndValuesDo: [:key :value | postData at: key put: value].
+	self fields keysAndValuesDo: [:key :field | 
+		(postData includesKey: key) ifTrue:
+			[field isCheckBox ifTrue: [field acceptFormInputFrom: postData].
+			field isRadioButton ifTrue: [field acceptFormInputFrom: postData].
+			field isMenu ifTrue: [field acceptFormInputFrom: postData].
+			field isButton ifTrue: [field acceptFormInputFrom: postData].
+			field isFileInputField ifTrue: 
+				[field isStreamed ifFalse: [field value: (postData at: key)] "if streamed then already read". 
+				field acceptFileAttributesFrom: aRequest field: key].
+			(field isInputField | field isTextArea)  
+				ifTrue: [field saveThroughAdapterValue: (postData at: key)]
+				]]! !
+!WebForm categoriesFor: #acceptFormInputFrom:!aida port error!private-fields!public! !
+
+!WebFormElement class methodsFor!
+
+autoConvertString: aString toObject: anObject
+	"try to convert string depending on object type"
+	(anObject isKindOf: String) ifTrue: [^aString].
+	(anObject isKindOf: Integer) ifTrue: [^aString asInteger].
+	"(anObject isKindOf: FixedPoint) ifTrue: [^aString asFixedPoint: anObject scale]."
+	(anObject isKindOf: ScaledDecimal)  ifTrue: [^ScaledDecimal fromString: aString]. "Dolphin Fix"
+	(anObject isKindOf: Date) ifTrue: [^Date readSloFrom: aString readStream].
+	anObject isNil ifTrue: [^aString].
+	^aString!
+
+autoConvertToString: anObject
+	"try to convert object to string depending on object type"
+	"VW specific!!"
+	(anObject isKindOf: String) ifTrue: [^anObject].
+	(anObject isKindOf: Integer) ifTrue: [^anObject printString].
+	"(anObject isKindOf: FixedPoint) ifTrue: [^anObject printDotString]. "
+	(anObject isKindOf: ScaledDecimal)  ifTrue: [^anObject printString]. "Dolphin Fix"
+	(anObject isKindOf: Date) ifTrue: [^anObject shorterPrintSloString].
+	anObject aidaIsAssociation ifTrue: [^anObject]. "multilingual"
+	^anObject printString! !
+!WebFormElement class categoriesFor: #autoConvertString:toObject:!aida commented sentence!aida port error!public! !
+!WebFormElement class categoriesFor: #autoConvertToString:!aida commented sentence!aida port error!public! !
+
+!WebGrid methodsFor!
+
+sortColumnsIfNessesary
+	| column sortBlock | 
+	 self sortColumn isNil ifTrue: [^nil].
+	column := self columns at: self sortColumn.
+	column aspect isNil ifTrue: [^nil].
+	sortBlock := (self sortOrder = #ascending)
+		ifTrue: [ [:a :b | (a perform: column aspect) <= (b perform: column aspect)] ]
+		ifFalse: [ [:a :b | (a perform: column aspect) >= (b perform: column aspect)] ].
+	self collection: ((SortedCollection sortBlock: sortBlock) addAll: self collection).! !
+!WebGrid categoriesFor: #sortColumnsIfNessesary!aida port error!private-printing!public! !
+
+!WebLiveImage methodsFor!
+
+gif: aByteArray
+
+	"also set a refreshed timestamp"
+
+	gif := aByteArray.
+	self refreshed: TimeStamp now.!
+
+lastUsed
+	"timestamp of last usage. Used for caching algorithms. Set at HTML generation"
+
+	lastUsed isNil ifTrue: [self lastUsed: TimeStamp now].
+	^lastUsed!
+
+lastUsed: aTimestamp
+	"timestamp of last usage. Used for caching algorithms"
+
+	lastUsed := aTimestamp!
+
+printHTMLPageOn: aStream for: aRequest on: aSession
+	"refresh gif if nesessary and put it into a HTML stream"
+	Processor activeProcess priority: (Processor activeProcess priority - 3).
+	self refreshNeeded ifTrue: 
+		[self drawImage.
+		self addToCache].
+	aStream nextPutAll: self gif asByteString.
+	Processor activeProcess priority: (Processor activeProcess priority + 3).
+	self lastUsed: TimeStamp now.
+
+"	aSession server urlResolver removeObject: self "!
+
+refreshed
+	"timestamp of last gif creation. Used for caching algorithms. Set,when calling gif: method"
+
+	refreshed isNil ifTrue: [self refreshed: TimeStamp now].
+	^refreshed!
+
+resolver
+	^resolver!
+
+resolver: anObject
+	resolver := anObject! !
+!WebLiveImage categoriesFor: #gif:!accessing!aida port error!public! !
+!WebLiveImage categoriesFor: #lastUsed!accessing!aida port error!public! !
+!WebLiveImage categoriesFor: #lastUsed:!aida port error!private! !
+!WebLiveImage categoriesFor: #printHTMLPageOn:for:on:!aida port error!private! !
+!WebLiveImage categoriesFor: #refreshed!aida port error!public! !
+!WebLiveImage categoriesFor: #resolver!aida port error!private! !
+!WebLiveImage categoriesFor: #resolver:!aida port error!private! !
+
+!WebLiveImage class methodsFor!
+
+cache
+	Cache isNil ifTrue: [self initCache].
+	^Cache!
+
+initCache
+	Cache := Set new.! !
+!WebLiveImage class categoriesFor: #cache!aida port error!public! !
+!WebLiveImage class categoriesFor: #initCache!aida port error!public! !
+
+!WebLivePDFCreator methodsFor!
+
+convertToPdf: aHtmlString
+	| fname pdfname stream |
+	fname := (AIDASite random next * 1000) truncated printString, '.html'.
+	pdfname := (AIDASite random next * 1000) truncated printString, '.pdf'.
+	[stream := (SpFilename named: fname) writeStream. stream nextPutAll: aHtmlString] 
+		ensure: [stream close].
+	"UnixProcess cshOne: 'htmldoc --batch htmldoc.book --outfile ', pdfname, ' ', fname."
+	(SpFilename named: fname) delete.
+	[stream := (SpFilename named: pdfname) readStream binary. ^stream contents] 
+		ensure: [stream close. (SpFilename named: pdfname) delete].! !
+!WebLivePDFCreator categoriesFor: #convertToPdf:!aida commented sentence!aida port error!public! !
+
+!WebMethodImage methodsFor!
+
+lastUsed
+	"timestamp of last usage. Used for caching algorithms. Set at HTML generation"
+
+	lastUsed isNil ifTrue: [self lastUsed: TimeStamp now].
+	^lastUsed!
+
+makeRoomInCache
+	"if cache is full, remove least used images"
+	| cached  toRemove |
+	self class cache size < self maxCacheSize ifTrue: [^self].
+	cached := ((SortedCollection sortBlock: [:a :b | a lastUsed < b lastUsed])
+	addAll: self class cache) asOrderedCollection.
+	self cacheHysteresis timesRepeat:
+		[toRemove := cached first.
+		toRemove removeFromCache.
+		cached removeFirst]! !
+!WebMethodImage categoriesFor: #lastUsed!aida port error!public! !
+!WebMethodImage categoriesFor: #makeRoomInCache!caching!public! !
+
+!WebMethodResource methodsFor!
+
+printHTMLPageOn: aStream for: aRequest on: aSession
+	"stream content of method resource to a response"
+	| response content |
+	response := aRequest streamedResponse.
+	content := self object perform: self method.
+	response length: content size. "to stream on HTTP/1.0 too, because chunking is not allowed"
+	self site addResponseHeadersTo: response forPage: self on: aSession.
+	response nextPutAll: (AIDASite properArray: content). "in case of TwoByteString"
+	response close.! !
+!WebMethodResource categoriesFor: #printHTMLPageOn:for:on:!aida port error!printing!public! !
+
+!WebPage methodsFor!
+
+addGlobalKeywords
+	"global keywords to all pages on this website"
+	| app |
+	app := self firstAppFromStack.
+	(app isNil or: [app site keywords isEmpty]) ifTrue: [^nil].
+	self addMetaKeywords: app site keywords! !
+!WebPage categoriesFor: #addGlobalKeywords!aida port error!header elements!public! !
+
+!WebScheduledEvent methodsFor!
+
+everyDayAt: aTimeOrHour  runBlock: aBlock
+	| time |
+	time := aTimeOrHour class == Time 
+		ifTrue: [aTimeOrHour] ifFalse: [Time fromSeconds: aTimeOrHour*60*60].
+	self timestamp: (TimeStamp fromDate: Date today andTime: time).
+	self block: aBlock.
+	self periodType: #day value: time!
+
+everyHourAt: aMinuteNumber runBlock: aBlock
+	self timestamp: (TimeStamp fromDate: Date today andTime: 
+		(Time fromSeconds: (Time now hours * 3600) + (aMinuteNumber * 60))).
+	self block: aBlock.
+	self periodType: #hour value: aMinuteNumber!
+
+everyMinuteAt: aSecondNumber runBlock: aBlock
+	self timestamp: (TimeStamp fromDate: Date today andTime: 
+		(Time fromSeconds: (Time now hours * 3600) + (Time now minutes * 60) + aSecondNumber)).
+	self block: aBlock.
+	self periodType: #minute value: aSecondNumber!
+
+reschedule
+	"calculate and set a new time to run, according to a period"
+	self isDayPeriod ifTrue: 
+		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + (60*60*24)))].
+	self isHourPeriod ifTrue: 
+		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + (60*60)))].
+	self isMinutePeriod ifTrue: 
+		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + 60))].
+	self parent scheduleEvent: self.! !
+!WebScheduledEvent categoriesFor: #everyDayAt:runBlock:!accessing!aida port error!public! !
+!WebScheduledEvent categoriesFor: #everyHourAt:runBlock:!accessing!aida port error!public! !
+!WebScheduledEvent categoriesFor: #everyMinuteAt:runBlock:!accessing!aida port error!public! !
+!WebScheduledEvent categoriesFor: #reschedule!accessing!aida port error!public! !
+
+!WebScheduler methodsFor!
+
+lock
+	lock isNil ifTrue: [lock := Mutex new].
+	^lock!
+
+removeMissedEvents
+	| now event |
+	self lock critical:
+		[self queue isEmpty ifTrue: [^nil].
+		now := TimeStamp now asSeconds.
+		[now > self queue first timestamp asSeconds] whileTrue:
+			[event := self queue first.
+			self queue removeFirst.
+			event isPeriodic ifTrue: [event reschedule].
+			self queue isEmpty ifTrue: [^nil] ]
+		]!
+
+startLoop
+	self isLoopRunning ifTrue: [self stopLoop].
+	self loop: 
+		([ [true] whileTrue: 
+			[| event now |
+			self lock critical: 
+				[self queue notEmpty ifTrue:
+					[event := self queue first. now := TimeStamp now asSeconds.
+				 	now = event timestamp asSeconds
+						ifTrue:  [event run. self queue removeFirst]
+						ifFalse: [now > event timestamp asSeconds  ifTrue: [self removeMissedEvents]] ]].
+			(Delay forSeconds: 1) wait]
+		] forkAt: self schedulerPriority)! !
+!WebScheduler categoriesFor: #lock!aida port error!private! !
+!WebScheduler categoriesFor: #removeMissedEvents!aida port error!private! !
+!WebScheduler categoriesFor: #startLoop!aida port error!private! !
+
+!WebSecurityManager methodsFor!
+
+copyAccessByObject
+	|dict|
+
+	Janko := Dictionary new.
+	WebSecurityManager default accessByObject 
+	keysAndValuesDo:
+		[:key :value | 
+			dict := Dictionary new.
+			value keysAndValuesDo: [:key1 :value1 |
+				dict at: key1 put: (IdentitySet withAll: (value1 collect: [:el | el asString asSymbol] )) ].
+			Janko at: key put: dict].! !
+!WebSecurityManager categoriesFor: #copyAccessByObject!aida port error!public! !
+
+!WebSecurityManager class methodsFor!
+
+hashPassword: aString
+	"Security.SHA hashFrom: (AIDASite convert: aString toCodepage: #UTF8) asByteArray readStream."
+
+
+	"^(PC1Cipher withKeyString: 'XXX___aidasite__XXX') cipherString: (AIDASite convert: aString toCodepage: #UTF8)"
+	^aString! !
+!WebSecurityManager class categoriesFor: #hashPassword:!aida port error!public! !
+
+!WebSession methodsFor!
+
+setCreatedTimestamp
+	created := TimeStamp now.! !
+!WebSession categoriesFor: #setCreatedTimestamp!aida port error!public!security! !
+
+!WebStatistics class methodsFor!
+
+analyzeAndStoreLine: aLineAsArray into: aDictionary forDate:aDate
+
+	| datum |
+	((aLineAsArray at: 2) > ' ' ) ifTrue:
+		[(aLineAsArray at: 2) = '#Date:'
+			ifTrue: [datum := self parseDatum: (aLineAsArray at: 3).]
+			ifFalse: [datum:=aDate.].
+		((aLineAsArray at: 2) copyFrom: 1 to: 1) = '#' ifFalse: 
+			[aLineAsArray at: 2 put: 
+				(Time readFrom: (ReadStream on: (aLineAsArray at: 2))).
+			aLineAsArray at: 1 put: 
+				(TimeStamp new fromDate: datum andTime: (aLineAsArray at: 2)).
+			(aDictionary at:  (aLineAsArray at: 3) ifAbsentPut: [WebCounter new  ] )
+				 incCounterOnTimestamp: (aLineAsArray at: 1).
+			].
+		].
+	^datum! !
+!WebStatistics class categoriesFor: #analyzeAndStoreLine:into:forDate:!aida port error!public! !
+
+!WebStyle methodsFor!
+
+ensureJavascriptForLightboxInHeader
+	| page url headerValue |
+	page := self app context page.
+	url := '/lightbox.js'.
+	headerValue := ' src="', url, '" language="JavaScript" type="text/javascript"'.
+	(page headers contains: [:each | each key = 'script' and: [each value = headerValue] ]) ifFalse: 
+		[page addHeader: 'script' value: headerValue].! !
+!WebStyle categoriesFor: #ensureJavascriptForLightboxInHeader!aida port error!public!scripts-components! !
+
+!WebTableCell methodsFor!
+
+setHeader
+	"self changeClassTo: WebTableHeader."
+
+	self becomeAn: WebTableHeader.! !
+!WebTableCell categoriesFor: #setHeader!aida port error!attributes!public! !
+
+!WebText class methodsFor!
+
+attributeMarkup
+	AttributeMarkup isNil ifTrue: [self initialize].
+	^AttributeMarkup!
+
+initialize
+	"set the AttributeMarkup dictionary with the allowed atributes and their HTML markup symbols"
+	AttributeMarkup := IdentityDictionary new.
+	AttributeMarkup
+		at: #bold		put: 'b';
+		at: #italic		put: 'I';
+		at: #teletype 	put: 'tt';
+		at: #address 	put: 'address';
+		at: #cite			put: 'cite';
+		at: #code		put: 'code';
+		at: #sequence 	put: 'samp';
+		at: #blockquote 	put: 'blockquote';
+		at: #definition 	put: 'dfn';
+		at: #emphasized put: 'em';
+		at: #keyboard 	put: 'kbd';
+		at: #strong 		put: 'strong';
+		at: #variable 	put: 'var'.
+
+"WebText initialize"! !
+!WebText class categoriesFor: #attributeMarkup!aida port error!public! !
+!WebText class categoriesFor: #initialize!aida port error!initialization!public! !
+
+!WebTransactionMonitor class methodsFor!
+
+lock
+
+	Lock isNil ifTrue: [Lock := Mutex new].
+	^Lock.!
+
+noCommitFor10min
+
+	"check if there was no real odb commit more than 10min"
+
+	^(TimeStamp now asSeconds - self lastCommit asSeconds) > (10 * 60)! !
+!WebTransactionMonitor class categoriesFor: #lock!aida port error!public! !
+!WebTransactionMonitor class categoriesFor: #noCommitFor10min!aida port error!public! !
+
+!WebTranslator methodsFor!
+
+translMethodsOn: aClassWithTransl
+	"get all class method names holding translations"
+	"VW specific"
+	"^aClassWithTransl class organization listAtCategoryNamed: self translationsCategory"
+
+	^aClassWithTransl selectorsInCategory: self translationsCategory! !
+!WebTranslator categoriesFor: #translMethodsOn:!aida port error!private-classes!public! !
+
+"End of package definition"!
+

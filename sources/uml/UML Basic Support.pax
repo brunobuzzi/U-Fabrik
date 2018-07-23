@@ -1,0 +1,965 @@
+﻿| package |
+package := Package name: 'UML Basic Support'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.07'.
+
+package basicScriptAt: #postinstall put: 'UMLClassAttribute initializeTypeMapping.'.
+
+package classNames
+	add: #ParsedMethod;
+	add: #UMLAggregation;
+	add: #UMLAssociation;
+	add: #UMLAssociationClass;
+	add: #UMLAssociationClassAttribute;
+	add: #UMLAssociationMultiplicity;
+	add: #UMLAssociationSideMultiplicity;
+	add: #UMLAttributeTypeMapping;
+	add: #UMLAutocompletation;
+	add: #UMLBehavior;
+	add: #UMLBehaviorDescriptor;
+	add: #UMLClass;
+	add: #UMLClassAssociation;
+	add: #UMLClassAttribute;
+	add: #UMLClassDescription;
+	add: #UMLClassOrInstanceList;
+	add: #UMLComplexClassAttribute;
+	add: #UMLComposition;
+	add: #UMLDiagramModelMapping;
+	add: #UMLGeneralization;
+	add: #UMLManyToManyMultiplicity;
+	add: #UMLManyToOneMultiplicity;
+	add: #UMLMirrorMultiplicity;
+	add: #UMLModel;
+	add: #UMLObject;
+	add: #UMLObjectBehavior;
+	add: #UMLOneSM;
+	add: #UMLOneToManyMultiplicity;
+	add: #UMLOneToManySM;
+	add: #UMLOneToOneMultiplicity;
+	add: #UMLRelation;
+	add: #UMLRelationClassAttribute;
+	add: #UMLState;
+	add: #UMLStateMachine;
+	add: #UMLStateTransition;
+	add: #UMLTraitRequirement;
+	add: #UMLTreeNode;
+	add: #UMLUndefinedMultiplicity;
+	add: #UMLUndefinedSD;
+	add: #UMLValueSM;
+	add: #UMLValueToManySM;
+	add: #UMLValueToValueSM;
+	add: #UMLWebValueCache;
+	add: #UMLZeroOrOneSM;
+	add: #UMLZeroToManySM;
+	yourself.
+
+package methodNames
+	add: #Boolean -> #printUMLFormat;
+	add: #Date -> #printUMLFormat;
+	add: #Date -> #printUMLShortFormat;
+	add: #Number -> #printUMLFormat;
+	add: #Object -> #applicationName;
+	add: #Time -> #printUMLFormat;
+	add: #TimeStamp -> #printUMLFormat;
+	add: #XmiEnterpriseArchitect -> #createSideMultiplicityFor:xpath:for:;
+	add: #XmiEnterpriseArchitect -> #createTransitionsFor:;
+	add: #XmiEnterpriseArchitect -> #createUMLStateMachines;
+	add: #XmiEnterpriseArchitect -> #createUMLStates;
+	add: #XmiEnterpriseArchitect -> #generateAttributesToAll:;
+	add: #XmiEnterpriseArchitect -> #generateRelationFrom:;
+	add: #XmiMagicDraw -> #createRelationsOfClassAssociations;
+	add: #XmiMagicDraw -> #createSourceSideMultiplicityFor:for:;
+	add: #XmiMagicDraw -> #createSourceSideMultiplicityForAssociationClass:for:;
+	add: #XmiMagicDraw -> #createTargetSideMultiplicityFor:for:;
+	add: #XmiMagicDraw -> #createTargetSideMultiplicityForAssociationClass:for:;
+	add: #XmiMagicDraw -> #generateAttributesToAll:;
+	add: #XmiMagicDraw -> #generateRelationFrom:;
+	add: #XmiReader -> #createSideMultiplicityFor:relation:attributeID:isSource:;
+	add: #XmiReader -> #generateAttributesToAll:;
+	add: #XmiReader -> #generateUMLModelNamed:;
+	add: #XmiUModel -> #createRelationsOfClassAssociations;
+	add: #XmiUModel -> #createSideMultiplicityFor:relation:attributeID:isSource:;
+	add: #XmiUModel -> #createSourceSideMultiplicityForAssociationClass:for:sideNode:;
+	add: #XmiUModel -> #generateRelationFrom:;
+	add: #XmiVisualParadigm -> #createRelationsOfClassAssociations;
+	add: #XmiVisualParadigm -> #createSourceSideMultiplicityFor:for:sideNode:isNavigable:;
+	add: #XmiVisualParadigm -> #createSourceSideMultiplicityForAssociationClass:for:;
+	add: #XmiVisualParadigm -> #createTargetSideMultiplicityForAssociationClass:for:;
+	add: #XmiVisualParadigm -> #generateAttributesToAll:;
+	add: #XmiVisualParadigm -> #generateRelationFrom:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: 'XMI Import-Export Interfase II';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #UMLObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #ParsedMethod
+	instanceVariableNames: 'parsedImplementation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLAssociationMultiplicity
+	instanceVariableNames: 'association sourceMultiplicity targetMultiplicity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLAssociationSideMultiplicity
+	instanceVariableNames: 'association text isNavigable'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLAutocompletation
+	instanceVariableNames: 'originalName caretPosition umlObject parent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLBehavior
+	instanceVariableNames: 'comments'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLBehaviorDescriptor
+	instanceVariableNames: 'comments'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLClassAttribute
+	instanceVariableNames: 'name type umlClass originalType description alias isEnabled isLargeString'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLClassOrInstanceList
+	instanceVariableNames: 'umlclass isInstanceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLDiagramModelMapping
+	instanceVariableNames: 'mapping'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'current'!
+UMLObject subclass: #UMLModel
+	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLRelation
+	instanceVariableNames: 'sourceClass targetClass sourceNavigable targetNavigable sourceMultiplicity targetMultiplicity relationMultiplicity navigability alias hasDoubleRelation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLState
+	instanceVariableNames: 'name id transitions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLStateMachine
+	instanceVariableNames: 'name states umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLStateTransition
+	instanceVariableNames: 'name id startState endState'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLTraitRequirement
+	instanceVariableNames: 'message comments'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLTreeNode
+	instanceVariableNames: 'instVarName value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLWebValueCache
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationMultiplicity subclass: #UMLManyToManyMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationMultiplicity subclass: #UMLMirrorMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationMultiplicity subclass: #UMLOneToOneMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationMultiplicity subclass: #UMLUndefinedMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLMirrorMultiplicity subclass: #UMLManyToOneMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLMirrorMultiplicity subclass: #UMLOneToManyMultiplicity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLOneSM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLOneToManySM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLUndefinedSD
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLValueSM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLValueToManySM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLValueToValueSM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLZeroOrOneSM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAssociationSideMultiplicity subclass: #UMLZeroToManySM
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBehavior subclass: #UMLObjectBehavior
+	instanceVariableNames: 'instancesVariables implementations virtualMachine categoriesCatalogue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectBehavior subclass: #UMLClassDescription
+	instanceVariableNames: 'name subclasses umlSuperclass traits'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClassDescription subclass: #UMLClass
+	instanceVariableNames: 'relations metaclass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClass subclass: #UMLClassAssociation
+	instanceVariableNames: 'associationClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClassAttribute subclass: #UMLComplexClassAttribute
+	instanceVariableNames: 'relation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComplexClassAttribute subclass: #UMLAssociationClassAttribute
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComplexClassAttribute subclass: #UMLRelationClassAttribute
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDiagramModelMapping subclass: #UMLAttributeTypeMapping
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelation subclass: #UMLAggregation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelation subclass: #UMLAssociation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelation subclass: #UMLAssociationClass
+	instanceVariableNames: 'umlclass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelation subclass: #UMLComposition
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelation subclass: #UMLGeneralization
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Boolean methodsFor!
+
+printUMLFormat
+	^self printString! !
+!Boolean categoriesFor: #printUMLFormat!accessing!public! !
+
+!Date methodsFor!
+
+printUMLFormat
+	"
+Date today printUMLFormat
+"
+	| str |
+
+	str := String writeStream.
+	self printOn: str format:'dd/MM/yyyy'.
+	^str contents asString!
+
+printUMLShortFormat
+	"
+Date today printUMLShortFormat. Date fromString: '20/04/2010' format: 'dd/MM/yyyy'.
+"
+	| str |
+
+	str := String writeStream.
+	self printOn: str format:'dd/MM/yyyy'.
+	^str contents asString! !
+!Date categoriesFor: #printUMLFormat!accessing!public! !
+!Date categoriesFor: #printUMLShortFormat!accessing!public! !
+
+!Number methodsFor!
+
+printUMLFormat
+
+	^self printString! !
+!Number categoriesFor: #printUMLFormat!accessing!public! !
+
+!Object methodsFor!
+
+applicationName
+
+	^'U-Fabrik'! !
+!Object categoriesFor: #applicationName!public! !
+
+!Time methodsFor!
+
+printUMLFormat
+
+	^self printString! !
+!Time categoriesFor: #printUMLFormat!accessing!public! !
+
+!TimeStamp methodsFor!
+
+printUMLFormat
+
+	^date printUMLShortFormat , ' ', time printUMLFormat! !
+!TimeStamp categoriesFor: #printUMLFormat!accessing!public! !
+
+!XmiEnterpriseArchitect methodsFor!
+
+createSideMultiplicityFor: relationElement xpath: sourceTargetXpath for: anUMLRelation
+	"The receiver creates the <side multiplicity> for <anUMLRelation> geting the description form <relationElement> and xpath from <sourceTargetXpath>.
+	The argument <sourceTargetXpath> switch between -source/type- -target/type-"
+	| mutliplicityValue multiplicitySideClass isNavigable styleXPath navigableValue var |
+
+	styleXPath := (sourceTargetXpath subStrings: '/') first, '/style'. "we obtain <source/style> or <target/style>"
+	mutliplicityValue := (relationElement selectSingleNode: sourceTargetXpath) getAttribute: 'multiplicity'. "we get the multiplicity for that side"
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	navigableValue := (((relationElement selectSingleNode: styleXPath) getAttribute: 'value') subStrings: ';') last.
+	isNavigable := ((navigableValue subStrings: '=') last = 'Navigable') not. "if navigable is false then that part of the relation not generates any attribute"
+
+	var := multiplicitySideClass new. "we create the side multiplicity "
+	var	association: anUMLRelation.
+	var	text: mutliplicityValue.
+	var	isNavigable: isNavigable.
+	
+
+	^var!
+
+createTransitionsFor: anOrderedCollection
+	| transitionNodes |
+
+	transitionNodes := self getTransitionNodes.
+	anOrderedCollection do: [:eachState | | realTransitions |
+		realTransitions := OrderedCollection new.
+		eachState transitions do: [:eachNode | | transition startId endId start end name transitionNode | 
+			endId := eachNode getAttribute: 'end'.
+			startId := eachNode getAttribute: 'start'.
+			start := anOrderedCollection detect: [:each | each id = startId] ifNone: [nil].
+			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
+			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
+			name :=  transitionNode ifNil: [(start ifNil: ['-'] ifNotNil: [:value | value name]), ' --> ', (end ifNil: ['-'] ifNotNil: [:value | value name])] ifNotNil: [:value | value getAttribute: 'name'].
+			transition := UMLStateTransition name: name 
+						id: (eachNode getAttribute: 'xmi:id')
+						start: start 
+						end: end.
+			realTransitions add: transition.].
+		eachState transitions: realTransitions].
+	^anOrderedCollection!
+
+createUMLStateMachines
+	| stateMachines stateMachinesNodes umlStates transitionNodesId |
+
+	stateMachines := OrderedCollection new.
+	stateMachinesNodes := self getStatesMachineNamesAndXmiID.
+	umlStates := self createUMLStates.
+
+	stateMachinesNodes do: [:eachStateMachineArray |  | stateMachine |
+		stateMachine := UMLStateMachine new.
+		stateMachine name: (eachStateMachineArray third getAttribute: 'name').
+		stateMachines add: stateMachine.
+		transitionNodesId := (self getTransitionNodesFor: eachStateMachineArray third "node") collect: [:each | each getAttribute: 'xmi:id' ].
+		stateMachine addAllStates: (
+			umlStates select: [:eachState | transitionNodesId anySatisfy: [:eachId | eachState includesTransitionId: eachId]]).
+	].
+
+	^stateMachines
+!
+
+createUMLStates
+	| states |
+
+	states := OrderedCollection new.
+	self getStatesNamesAndXmiID do: [:eachArray | | umlState stateNode transitionNodes |
+		umlState := UMLState name: eachArray first  id: eachArray second.
+		states add: umlState.
+		stateNode := eachArray third. "we get the actual XMI node"
+		transitionNodes := stateNode selectNodes: 'links/StateFlow'.
+		umlState transitions: transitionNodes].
+	self createTransitionsFor: states.
+	^states!
+
+generateAttributesToAll: generatedClasses
+	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
+
+	generatedClasses do: [:eachClass | | classNode |
+		classNode := self getClassNodeOf: eachClass. "we get the XMI definition"
+		(classNode selectNodes: 'attributes/attribute') do: [:eachAttribute | | umlAttribute | "we iterate over class attributes"
+			umlAttribute := UMLClassAttribute new umlClass: eachClass. "we create the simple attribute"
+			umlAttribute name: ((eachAttribute getAttribute: 'name') copyWithoutAll: ' ');
+				originalType: ((eachAttribute selectSingleNode: 'properties') getAttribute: 'type');
+				description: (eachAttribute selectSingleNode: 'documentation') text.
+			eachClass addAttribute: umlAttribute].
+		]	!
+
+generateRelationFrom: relationElement
+	"Creates anUMLRelation from the XMI definition <relationElement> "
+	| umlRelation sourceTarget association |
+
+	sourceTarget := (self getSourceAndTargetClassesOf: (relationElement getAttribute: 'xmi:idref')) collect: [:each | each instanceClass]. "we get the source and target classes of the relation"
+	umlRelation := (self isAssociationRelationXmiID: (relationElement getAttribute: 'xmi:idref')) "the relation is anAssociaitonClass ?"
+		ifTrue: [ | xmlClass |
+			association := UMLAssociationClass new. "we create the association class"
+			xmlClass := self getClassElementWithId: ((relationElement selectSingleNode: 'extendedProperties') getAttribute: 'associationclass'). "we get the UMLClassAssociation xmi node"
+			association basicUmlclass: (umlClasses at: ((xmlClass getAttribute: 'name') copyWithoutAll: ' ')) instanceClass; "we set the relation with the UMLClassAssociation"
+				umlclass associationClass: association. "we set the UMLClassAssociation with the relation"
+			association.] 
+		ifFalse: [UMLRelation new].
+	umlRelation sourceClass: sourceTarget first;
+		targetClass: sourceTarget second;
+		yourself.
+"we create source and target SIDE multiplicity and relation multiplicity"
+	umlRelation sourceMultiplicity: (self createSourceSideMultiplicityFor: relationElement for: umlRelation);
+				targetMultiplicity: (self createTargetSideMultiplicityFor: relationElement for: umlRelation);
+				relationMultiplicity: (self createRelationMultiplicityFor: relationElement for: umlRelation).
+
+	^umlRelation! !
+!XmiEnterpriseArchitect categoriesFor: #createSideMultiplicityFor:xpath:for:!public!uml-class creation!xpath! !
+!XmiEnterpriseArchitect categoriesFor: #createTransitionsFor:!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #createUMLStateMachines!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #createUMLStates!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #generateAttributesToAll:!attributes!public!uml-class creation!xpath! !
+!XmiEnterpriseArchitect categoriesFor: #generateRelationFrom:!public!uml-class creation!xpath! !
+
+!XmiMagicDraw methodsFor!
+
+createRelationsOfClassAssociations
+	"EnterpriseArchitect do nothing because all Class Associations have been create at this point.
+	This is to maitain import compability with Magik Draw"
+
+	(self getDiagramElements select: [:eachElement | (eachElement getAttribute: 'xmi:type') = 'uml:AssociationClass']) 
+	do: [:eachAssClass | | currentClass sourceRelation targetRelation sourceAttribute targetAttribute association | 
+		currentClass := umlClasses at: (eachAssClass getAttribute: 'name').
+		sourceRelation := (eachAssClass selectNodes: 'memberEnd') first getAttribute: 'xmi:idref'.
+		targetRelation := (eachAssClass selectNodes: 'memberEnd') last getAttribute: 'xmi:idref'.
+		self getClassesNodes do: [:eachClass | (eachClass selectNodes: '//ownedAttribute')  
+			do: [:eachAttribute |  ((eachAttribute getAttribute: 'xmi:id') = sourceRelation) ifTrue: [sourceAttribute := eachAttribute]]].
+		self getClassesNodes do: [:eachClass | (eachClass selectNodes: '//ownedAttribute')  
+			do: [:eachAttribute |  ((eachAttribute getAttribute: 'xmi:id') = targetRelation) ifTrue: [targetAttribute := eachAttribute]]].
+		association := UMLAssociationClass new.
+		association basicUmlclass: currentClass instanceClass.
+		currentClass instanceClass associationClass: association.
+		association sourceClass: (umlClasses at: ((self getClassElementWithId: (sourceAttribute getAttribute: 'type')) getAttribute: 'name')) instanceClass;
+			targetClass: (umlClasses at: ((self getClassElementWithId: (targetAttribute getAttribute: 'type')) getAttribute: 'name')) instanceClass.
+		association sourceMultiplicity: (self createSourceSideMultiplicityForAssociationClass: sourceAttribute for: association);
+				targetMultiplicity: (self createTargetSideMultiplicityForAssociationClass: targetAttribute for: association);
+				relationMultiplicity: (self createRelationMultiplicityFor: eachAssClass for: association).
+		association sourceClass addRelation: association.
+		association targetClass addRelation: association.
+		].!
+
+createSourceSideMultiplicityFor: relationElement for: anUMLRelation 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable attributeID attributeElement |
+
+	attributeID := (relationElement selectNodes: 'memberEnd') first getAttribute: 'xmi:idref'.
+	attributeElement := self getAttributeElementWithID: attributeID.
+	mutliplicityValue := attributeElement notNil
+		ifTrue: [((attributeElement selectSingleNode: 'upperValue') ifNil: [attributeElement selectSingleNode: 'xmi:Extension//upperValue'] ifNotNil: [:value | value]) 
+				ifNotNil: [:value | value getAttribute: 'value']]
+		ifFalse: [nil].
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	isNavigable := ((self getClassNodeOf: anUMLRelation sourceClass) selectNodes: 'ownedAttribute') anySatisfy: [:each | (each getAttribute: 'association') = (relationElement getAttribute: 'xmi:id' )].
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+createSourceSideMultiplicityForAssociationClass: relationElement for: anUMLRelation 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable |
+
+	mutliplicityValue := ((relationElement selectSingleNode: 'upperValue') ifNil: [relationElement selectSingleNode: 'xmi:Extension//upperValue'] ifNotNil: [:value | value]) 
+				ifNotNil: [:value | value getAttribute: 'value'].
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+	
+	isNavigable := true.
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+createTargetSideMultiplicityFor: relationElement for: anUMLRelation 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable attributeID attributeElement |
+
+	attributeID := (relationElement selectNodes: 'memberEnd') last getAttribute: 'xmi:idref'.
+	attributeElement := self getAttributeElementWithID: attributeID.
+	mutliplicityValue := attributeElement notNil
+		ifTrue: [((attributeElement selectSingleNode: 'upperValue') ifNil: [attributeElement selectSingleNode: 'xmi:Extension//upperValue'] ifNotNil: [:value | value]) 
+				ifNotNil: [:value | value getAttribute: 'value']]
+		ifFalse: [nil].
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	isNavigable := ((self getClassNodeOf: anUMLRelation targetClass) selectNodes: 'ownedAttribute') anySatisfy: [:each | (each getAttribute: 'association') = (relationElement getAttribute: 'xmi:id' )].
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+createTargetSideMultiplicityForAssociationClass: relationElement for: anUMLAssociationClass 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable |
+
+	mutliplicityValue := ((relationElement selectSingleNode: 'upperValue') ifNil: [relationElement selectSingleNode: 'xmi:Extension//upperValue'] ifNotNil: [:value | value]) 
+				ifNotNil: [:value | value getAttribute: 'value'].
+
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+	
+	isNavigable := true.
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLAssociationClass;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+generateAttributesToAll: generatedClasses 
+	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
+
+	generatedClasses do: [:eachClass | | classNode |
+		classNode := self getClassNodeOf: eachClass. "we get the XMI definition"
+		((classNode selectNodes: 'ownedAttribute') select: [:each | (each getAttribute: 'name') notNil])
+		do: [:eachAttribute | | umlAttribute attributeValueType | "we iterate over class attributes"
+			umlAttribute := UMLClassAttribute new umlClass: eachClass. "we create the simple attribute"
+			attributeValueType := (eachAttribute selectSingleNode: 'type/xmi:Extension/referenceExtension')
+				ifNotNil: [:value | ((value getAttribute: 'referentPath') subStrings: ':') last]
+				ifNil: [self getTypeFromElement: eachAttribute].
+			umlAttribute name: ((eachAttribute getAttribute: 'name') copyWithoutAll: ' ');
+				originalType: attributeValueType.
+				"description: (eachAttribute selectSingleNode: 'documentation') text." "no description in Visual Paradigm"
+			eachClass addAttribute: umlAttribute].
+		]	!
+
+generateRelationFrom: relationElement 
+	"Creates anUMLRelation from the XMI definition <relationElement> "
+	| umlRelation sourceTarget association |
+
+	sourceTarget := (self getSourceAndTargetClassesOf: (relationElement getAttribute: 'xmi:id')) collect: [:each | each instanceClass]. "we get the source and target classes of the relation"
+	umlRelation := (self isAssociationRelationXmiID: (relationElement getAttribute: 'xmi:id')) "the relation is anAssociaitonClass ?"
+		ifTrue: [ | xmlClass |
+			association := UMLAssociationClass new. "we create the association class"
+			xmlClass := self getClassElementWithId: ((relationElement selectSingleNode: 'extendedProperties') getAttribute: 'associationclass'). "we get the UMLClassAssociation xmi node"
+			association basicUmlclass: (umlClasses at: ((xmlClass getAttribute: 'name') copyWithoutAll: ' ')) instanceClass; "we set the relation with the UMLClassAssociation"
+				umlclass associationClass: association. "we set the UMLClassAssociation with the relation"
+			association.] 
+		ifFalse: [UMLRelation new].
+	umlRelation sourceClass: sourceTarget first;
+		targetClass: sourceTarget second;
+		yourself.
+"we create source and target SIDE multiplicity and relation multiplicity"
+	umlRelation sourceMultiplicity: (self createTargetSideMultiplicityFor: relationElement for: umlRelation); "we switch source/target because MagicDraw do is in it's XML - the multiplicity is switched"
+				targetMultiplicity: (self createSourceSideMultiplicityFor: relationElement for: umlRelation);
+				relationMultiplicity: (self createRelationMultiplicityFor: relationElement for: umlRelation).
+	umlRelation switchNavigability. "Visual Paradigm store the <navigability> in opposites sides, so is more easy to switch in the end"
+
+	^umlRelation! !
+!XmiMagicDraw categoriesFor: #createRelationsOfClassAssociations!attributes!public!uml-class creation! !
+!XmiMagicDraw categoriesFor: #createSourceSideMultiplicityFor:for:!public! !
+!XmiMagicDraw categoriesFor: #createSourceSideMultiplicityForAssociationClass:for:!public! !
+!XmiMagicDraw categoriesFor: #createTargetSideMultiplicityFor:for:!public! !
+!XmiMagicDraw categoriesFor: #createTargetSideMultiplicityForAssociationClass:for:!public! !
+!XmiMagicDraw categoriesFor: #generateAttributesToAll:!public! !
+!XmiMagicDraw categoriesFor: #generateRelationFrom:!public! !
+
+!XmiReader methodsFor!
+
+createSideMultiplicityFor: relationElement relation: anUMLRelation  attributeID: attrID isSource: aBoolean
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable attributeElement classNode |
+
+	attributeElement := self getAttributeElementWithID: attrID.
+	mutliplicityValue := attributeElement notNil
+		ifTrue: [((attributeElement selectSingleNode: 'upperValue') ifNil: [attributeElement selectSingleNode: 'xmi:Extension//upperValue'] ifNotNil: [:value | value]) 
+				ifNotNil: [:value | value getAttribute: 'value']]
+		ifFalse: [(aBoolean ifTrue: [(relationElement selectNodes: 'ownedEnd/upperValue') first] ifFalse: [(relationElement selectNodes: 'ownedEnd/upperValue') last]) 
+				ifNil: [nil] 
+				ifNotNil: [:value | value getAttribute: 'value']].
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	classNode := self getClassNodeOf:  (aBoolean ifTrue: [anUMLRelation sourceClass] ifFalse: [anUMLRelation targetClass]).
+	isNavigable := (classNode selectNodes: 'ownedAttribute') anySatisfy: [:each | (each getAttribute: 'association') = (relationElement getAttribute: 'xmi:id' )].
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+generateAttributesToAll: generatedClasses
+	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
+
+	generatedClasses do: [:eachClass | | classNode |
+		classNode := self getClassNodeOf: eachClass. "we get the XMI definition"
+		((classNode selectNodes: 'ownedAttribute') select: [:each | (each getAttribute: 'name') notNil])
+		do: [:eachAttribute | | umlAttribute | "we iterate over class attributes"
+			umlAttribute := UMLClassAttribute new umlClass: eachClass. "we create the simple attribute"
+			umlAttribute name: ((eachAttribute getAttribute: 'name') copyWithoutAll: ' ');
+				originalType: (self getTypeFromElement: eachAttribute).
+				"description: (eachAttribute selectSingleNode: 'documentation') text." "no description in Visual Paradigm"
+			eachClass addAttribute: umlAttribute].
+		]	!
+
+generateUMLModelNamed: aString
+	"We generate the UML Model. "
+	| generatedClasses newUMLModel |
+
+	generatedClasses := self generateUMLClasses.
+
+	self createRelationsOfClassAssociations.
+
+	self generateUMLAttributesTo: generatedClasses.
+	newUMLModel := UMLModel new name: aString.
+
+	(generatedClasses collect: [:each | each instanceClass]) do: [:each | newUMLModel addClass: each].
+
+	^newUMLModel! !
+!XmiReader categoriesFor: #createSideMultiplicityFor:relation:attributeID:isSource:!public! !
+!XmiReader categoriesFor: #generateAttributesToAll:!public! !
+!XmiReader categoriesFor: #generateUMLModelNamed:!attributes!public!uml-class creation! !
+
+!XmiUModel methodsFor!
+
+createRelationsOfClassAssociations
+	"EnterpriseArchitect do nothing because all Class Associations have been create at this point.
+	This is to maitain import compability with Magik Draw"
+
+	(self getDiagramElements select: [:eachElement | (eachElement getAttribute: 'xmi:type') = 'uml:AssociationClass']) 
+	do: [:eachAssClass | | currentClass sourceAttribute targetAttribute association | 
+		currentClass := umlClasses at: (eachAssClass getAttribute: 'name').
+		sourceAttribute := (eachAssClass selectNodes: 'ownedEnd') first getAttribute: 'type'.
+		targetAttribute := (eachAssClass selectNodes: 'ownedEnd') last getAttribute: 'type'.
+		association := UMLAssociationClass new.
+		association basicUmlclass: currentClass instanceClass.
+		currentClass instanceClass associationClass: association.
+		association sourceClass: (umlClasses at: ((self getClassElementWithId: sourceAttribute) getAttribute: 'name')) instanceClass;
+			targetClass: (umlClasses at: ((self getClassElementWithId: targetAttribute) getAttribute: 'name')) instanceClass.
+		association sourceMultiplicity: (self createSourceSideMultiplicityForAssociationClass: eachAssClass for: association);
+				targetMultiplicity: (self createTargetSideMultiplicityForAssociationClass: eachAssClass for: association);
+				relationMultiplicity: (self createRelationMultiplicityFor: eachAssClass for: association).
+		association sourceClass addRelation: association.
+		association targetClass addRelation: association.
+		].!
+
+createSideMultiplicityFor: relationElement relation: anUMLRelation  attributeID: attrID isSource: aBoolean
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable attributeElement classNode |
+
+	attributeElement := self getAttributeElementWithID: attrID.
+	mutliplicityValue := (self isTwoEndRelations: relationElement) "normal relation"
+		ifTrue: [(aBoolean ifTrue: [(relationElement selectNodes: 'ownedEnd/upperValue') first] ifFalse: [(relationElement selectNodes: 'ownedEnd/upperValue') last]) 
+				ifNil: [nil] 
+				ifNotNil: [:value | value getAttribute: 'value']] 
+		"navigable relation - one side is missing"
+		ifFalse: [attributeElement 
+				ifNil: [nil] 
+				ifNotNil: [:atr | ((atr selectSingleNode: 'upperValue') 
+					ifNil: [attributeElement selectSingleNode: 'xmi:Extension//upperValue'] 
+					ifNotNil: [:value | value getAttribute: 'value'])]].
+
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	classNode := self getClassNodeOf:  (aBoolean ifTrue: [anUMLRelation sourceClass] ifFalse: [anUMLRelation targetClass]).
+	isNavigable := (classNode selectNodes: 'ownedAttribute') anySatisfy: [:each | (each getAttribute: 'association') = (relationElement getAttribute: 'xmi:id' )].
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+createSourceSideMultiplicityForAssociationClass: relationElement for: anUMLRelation sideNode: sideNode
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass isNavigable |
+
+	mutliplicityValue := sideNode getAttribute: 'value'.
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+	
+	isNavigable := true.
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+generateRelationFrom: relationElement 
+	"Creates anUMLRelation from the XMI definition <relationElement> "
+	| umlRelation sourceTarget association |
+
+	sourceTarget := (self getSourceAndTargetClassesOf: (relationElement getAttribute: 'xmi:id')) collect: [:each | each instanceClass]. "we get the source and target classes of the relation"
+	umlRelation := (self isAssociationRelationXmiID: (relationElement getAttribute: 'xmi:id')) "the relation is anAssociaitonClass ?"
+		ifTrue: [ | xmlClass |
+			association := UMLAssociationClass new. "we create the association class"
+			xmlClass := self getClassElementWithId: ((relationElement selectSingleNode: 'extendedProperties') getAttribute: 'associationclass'). "we get the UMLClassAssociation xmi node"
+			association basicUmlclass: (umlClasses at: ((xmlClass getAttribute: 'name') copyWithoutAll: ' ')) instanceClass; "we set the relation with the UMLClassAssociation"
+				umlclass associationClass: association. "we set the UMLClassAssociation with the relation"
+			association.] 
+		ifFalse: [UMLRelation new].
+	umlRelation sourceClass: sourceTarget first;
+		targetClass: sourceTarget second;
+		yourself.
+"we create source and target SIDE multiplicity and relation multiplicity"
+	umlRelation sourceMultiplicity: (self createSourceSideMultiplicityFor: relationElement for: umlRelation);
+				targetMultiplicity: (self createTargetSideMultiplicityFor: relationElement for: umlRelation);
+				relationMultiplicity: (self createRelationMultiplicityFor: relationElement for: umlRelation).
+	umlRelation switchNavigability. "Visual Paradigm store the <navigability> in opposites sides, so is more easy to switch in the end"
+	(self isTwoEndRelations: relationElement) ifFalse: [umlRelation switchMultiplicity].
+	^umlRelation! !
+!XmiUModel categoriesFor: #createRelationsOfClassAssociations!public! !
+!XmiUModel categoriesFor: #createSideMultiplicityFor:relation:attributeID:isSource:!public! !
+!XmiUModel categoriesFor: #createSourceSideMultiplicityForAssociationClass:for:sideNode:!public! !
+!XmiUModel categoriesFor: #generateRelationFrom:!public! !
+
+!XmiVisualParadigm methodsFor!
+
+createRelationsOfClassAssociations
+
+	(self getDiagramElements select: [:eachElement | (eachElement getAttribute: 'xmi:type') = 'uml:AssociationClass']) 
+	do: [:eachAssClass | | currentClass sourceRelation targetRelation sourceAttribute targetAttribute association | 
+		currentClass := umlClasses at: (eachAssClass getAttribute: 'name').
+		sourceRelation := (eachAssClass selectNodes: 'memberEnd') first getAttribute: 'xmi:idref'.
+		targetRelation := (eachAssClass selectNodes: 'memberEnd') last getAttribute: 'xmi:idref'.
+		self getClassesNodes do: [:eachClass | (eachClass selectNodes: '//ownedAttribute')  
+			do: [:eachAttribute |  ((eachAttribute getAttribute: 'xmi:id') = sourceRelation) ifTrue: [sourceAttribute := eachAttribute]]].
+		self getClassesNodes do: [:eachClass | (eachClass selectNodes: '//ownedAttribute')  
+			do: [:eachAttribute |  ((eachAttribute getAttribute: 'xmi:id') = targetRelation) ifTrue: [targetAttribute := eachAttribute]]].
+		association := UMLAssociationClass new.
+		association basicUmlclass: currentClass instanceClass.
+		currentClass instanceClass associationClass: association.
+		association sourceClass: (umlClasses at: ((self getClassElementWithId: (sourceAttribute getAttribute: 'type')) getAttribute: 'name')) instanceClass;
+			targetClass: (umlClasses at: ((self getClassElementWithId: (targetAttribute getAttribute: 'type')) getAttribute: 'name')) instanceClass.
+		association sourceMultiplicity: (self createSourceSideMultiplicityForAssociationClass: sourceAttribute for: association);
+				targetMultiplicity: (self createTargetSideMultiplicityForAssociationClass: targetAttribute for: association);
+				relationMultiplicity: (self createRelationMultiplicityFor: eachAssClass for: association).
+		association sourceClass addRelation: association.
+		association targetClass addRelation: association.
+		].
+!
+
+createSourceSideMultiplicityFor: relationElement for: anUMLRelation sideNode: sideNode isNavigable: aBoolean
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass |
+
+	mutliplicityValue := sideNode ifNil: [nil] ifNotNil: [:value | value getAttribute: 'value'].
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: aBoolean;
+		yourself.!
+
+createSourceSideMultiplicityForAssociationClass: relationElement for: anUMLRelation 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass sideNode isNavigable |
+
+	sideNode := (relationElement selectNodes: 'lowerValue') first.
+	mutliplicityValue := sideNode getAttribute: 'value'.
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+	
+	isNavigable := (relationElement getAttribute: 'isNavigable') = 'true'.
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLRelation;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+createTargetSideMultiplicityForAssociationClass: relationElement for: anUMLAssociationClass 
+	"Creates the multiplicity for the source part"
+	| mutliplicityValue multiplicitySideClass sideNode isNavigable |
+
+	sideNode := (relationElement selectNodes: 'lowerValue') first.
+	mutliplicityValue := sideNode getAttribute: 'value'.
+	multiplicitySideClass := mutliplicityValue 
+		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
+		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
+			detect: [:eachClass | eachClass multiplicityCharacters includes: value] ifNone: [UMLUndefinedSD] ].
+	
+	isNavigable := (relationElement getAttribute: 'isNavigable') = 'true'.
+
+	^multiplicitySideClass new "we create the side multiplicity "
+		association: anUMLAssociationClass;
+		text: mutliplicityValue;
+		isNavigable: isNavigable;
+		yourself.!
+
+generateAttributesToAll: generatedClasses
+	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
+
+	generatedClasses do: [:eachClass | | classNode |
+		classNode := self getClassNodeOf: eachClass. "we get the XMI definition"
+		((classNode selectNodes: 'ownedAttribute') select: [:each | (each getAttribute: 'name') notNil])
+		do: [:eachAttribute | | umlAttribute | "we iterate over class attributes"
+			umlAttribute := UMLClassAttribute new umlClass: eachClass. "we create the simple attribute"
+			umlAttribute name: ((eachAttribute getAttribute: 'name') copyWithoutAll: ' ');
+				originalType: (eachAttribute getAttribute: 'type').
+				"description: (eachAttribute selectSingleNode: 'documentation') text." "no description in Visual Paradigm"
+			eachClass addAttribute: umlAttribute].
+		]	!
+
+generateRelationFrom: relationElement 
+	"Creates anUMLRelation from the XMI definition <relationElement> "
+	| umlRelation sourceTarget association |
+
+	sourceTarget := (self getSourceAndTargetClassesOf: (relationElement getAttribute: 'xmi:id')) collect: [:each | each instanceClass]. "we get the source and target classes of the relation"
+	umlRelation := (self isAssociationRelationXmiID: (relationElement getAttribute: 'xmi:id')) "the relation is anAssociaitonClass ?"
+		ifTrue: [ | xmlClass |
+			association := UMLAssociationClass new. "we create the association class"
+			xmlClass := self getClassElementWithId: ((relationElement selectSingleNode: 'extendedProperties') getAttribute: 'associationclass'). "we get the UMLClassAssociation xmi node"
+			association basicUmlclass: (umlClasses at: ((xmlClass getAttribute: 'name') copyWithoutAll: ' ')) instanceClass; "we set the relation with the UMLClassAssociation"
+				umlclass associationClass: association. "we set the UMLClassAssociation with the relation"
+			association.] 
+		ifFalse: [UMLRelation new].
+	umlRelation sourceClass: sourceTarget first;
+		targetClass: sourceTarget second;
+		yourself.
+"we create source and target SIDE multiplicity and relation multiplicity"
+	umlRelation sourceMultiplicity: (self createSourceSideMultiplicityFor: relationElement for: umlRelation);
+				targetMultiplicity: (self createTargetSideMultiplicityFor: relationElement for: umlRelation);
+				relationMultiplicity: (self createRelationMultiplicityFor: relationElement for: umlRelation).
+	umlRelation switchNavigability. "Visual Paradigm store the <navigability> in opposites sides, so is more easy to switch in the end"
+
+	^umlRelation! !
+!XmiVisualParadigm categoriesFor: #createRelationsOfClassAssociations!attributes!public!uml-class creation! !
+!XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityFor:for:sideNode:isNavigable:!public! !
+!XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityForAssociationClass:for:!public! !
+!XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityForAssociationClass:for:!public! !
+!XmiVisualParadigm categoriesFor: #generateAttributesToAll:!attributes!public!uml-class creation!xpath! !
+!XmiVisualParadigm categoriesFor: #generateRelationFrom:!public! !
+
+"End of package definition"!
+

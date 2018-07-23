@@ -1,0 +1,72 @@
+﻿| package |
+package := Package name: 'BB_Object Server for ReStore'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '2.38'.
+
+
+package classNames
+	add: #BBReStoreServer;
+	add: #BBReStoreSession;
+	yourself.
+
+package methodNames
+	add: #DBResultSet -> #isObjectHolder;
+	add: #SSWReStore -> #executeSQLQuery:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'BB_Object Server';
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\restore\SSW ReStore Main';
+	add: '..\restore\SSW ReStore SQL Entities';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+BBPersistentServer subclass: #BBReStoreServer
+	instanceVariableNames: 'dsn usuarioActual usrId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBPersistentSession subclass: #BBReStoreSession
+	instanceVariableNames: 'reStore sqlDialect'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!DBResultSet methodsFor!
+
+isObjectHolder
+
+	^false! !
+!DBResultSet categoriesFor: #isObjectHolder!public! !
+
+!SSWReStore methodsFor!
+
+executeSQLQuery: aString
+
+	"12/5/01
+
+	Raw SQL execution - for privileged clients only"
+
+	^(self cachedStatementFor: #executeSQL: ifAbsentPut: [self connection newStatement]) exec: aString! !
+!SSWReStore categoriesFor: #executeSQLQuery:!connection!public! !
+
+"End of package definition"!
+

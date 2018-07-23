@@ -1,0 +1,124 @@
+﻿| package |
+package := Package name: 'UML Smalltalk Bridge'.
+package paxVersion: 1;
+	basicComment: 'map := (UMLSmalltalkMapper on: UMLVirtualMachine default).
+map createBaseClasses.
+map compileCollectionAspects.
+map compileWebViewTabs.
+
+dbServer := BBReStoreServer newNamed: ''U-Fabrik''.
+dbServer dsn: ''UFabrik''.
+session := dbServer  newSession.
+session closeSession.
+dbServer repository useTransactionsWithVersioning. 
+dbServer connectToDatabase.
+dbServer closeRepository.
+dbServer addAllClasses: UMLSmalltalkObject allSubclasses.
+dbServer createDatabase.
+p storeAsGlobalObject.
+p := Persona new nombre: ''bruno''. 
+o := Organismo new nombre: ''UTE''. 
+o add: p.
+session add: p.
+session commit.'.
+
+package basicPackageVersion: '0.028'.
+
+
+package classNames
+	add: #UMLSmalltalkMapper;
+	add: #UMLSmalltalkObject;
+	yourself.
+
+package methodNames
+	add: #UMLClass -> #createSmalltalkClass;
+	add: #UMLClass -> #createSmalltalkClassCascade;
+	add: 'Object class' -> #newInstance;
+	add: 'OrderedCollection class' -> #newInstance;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'UML Basic Support';
+	add: 'UML Live Engine';
+	add: 'XMI Import-Export Interfase II';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #UMLSmalltalkMapper
+	instanceVariableNames: 'virtualMachine newClasses dbServer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #UMLSmalltalkObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Object class methodsFor!
+
+newInstance
+	^self new! !
+!Object class categoriesFor: #newInstance!public! !
+
+!OrderedCollection class methodsFor!
+
+newInstance
+	^self new! !
+!OrderedCollection class categoriesFor: #newInstance!public! !
+
+!UMLClass methodsFor!
+
+createSmalltalkClass
+	| attributesString smalltalkSuperclass | 
+
+	smalltalkSuperclass := (umlSuperclass == virtualMachine objectClass) ifTrue: [UMLSmalltalkObject] ifFalse: [Smalltalk at: umlSuperclass name asSymbol].
+	attributesString := ''.
+	(instancesVariables keys reject: [:each | smalltalkSuperclass instVarNames includes: each asString]) "FALTA VER QUE HACER CUANDO HAY VARIABLES QUE SE REPITEN EN NOMBRE: SolicitudRepresentada>>PERSONA "
+		do: [:each | attributesString := attributesString, each, ' '.].
+
+	smalltalkSuperclass subclass: name asSymbol
+		instanceVariableNames: attributesString
+		classVariableNames: ''
+		poolDictionaries: ''
+		classInstanceVariableNames: ''.
+
+	(Smalltalk at: (smalltalkSuperclass name, 'App') asSymbol) subclass: (name, 'App') asSymbol
+		instanceVariableNames: attributesString
+		classVariableNames: ''
+		poolDictionaries: ''
+		classInstanceVariableNames: ''.
+
+	^Smalltalk at: name asSymbol!
+
+createSmalltalkClassCascade
+	| stTopclass stSubclasses |
+
+	stTopclass := self createSmalltalkClass.
+	stSubclasses := OrderedCollection new.
+	subclasses do: [:each | stSubclasses addAll: each createSmalltalkClassCascade].
+	^OrderedCollection new
+		add: stTopclass ;
+		addAll: stSubclasses;
+		yourself.
+! !
+!UMLClass categoriesFor: #createSmalltalkClass!public!remove on deployment! !
+!UMLClass categoriesFor: #createSmalltalkClassCascade!public!remove on deployment! !
+
+"End of package definition"!
+

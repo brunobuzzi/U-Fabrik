@@ -1,0 +1,1138 @@
+﻿| package |
+package := Package name: 'UML Live Engine Views'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.07'.
+
+package imageStripperBytes: (ByteArray fromBase64String: 'IVNUQiAzIEYPDQAEAAAASW1hZ2VTdHJpcHBlcgAAAABSAAAAFQAAAFVNTCBMaXZlIEVuZ2luZSBW
+aWV3c1IAAAAMAAAAVS1GYWJyaWsuZXhlmgAAAFIAAAAVAAAAVU1MIExpdmUgRW5naW5lIFZpZXdz
+UgAAABUAAABVRmFicmlrU2Vzc2lvbk1hbmFnZXILHSABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAA==').
+
+package classNames
+	add: #BBSGTExcelImportComposite;
+	add: #IconWrapper;
+	add: #LicenciaSoftwareComposite;
+	add: #LicenciaSoftwareDialog;
+	add: #UFabrikManagerShell;
+	add: #UFabrikSessionManager;
+	add: #UMLAttributeMappDialog;
+	add: #UMLBasicInspectorComposite;
+	add: #UMLBasicInspectorShell;
+	add: #UMLBasicWorkspaceComposite;
+	add: #UMLCategoryBrowser;
+	add: #UMLCategoryBrowserShell;
+	add: #UMLClassBrowserComposite;
+	add: #UMLClassDefinitionListComposite;
+	add: #UMLClassListShell;
+	add: #UMLClassWorkspaceComposite;
+	add: #UMLCommandListComposite;
+	add: #UMLCommandListShell;
+	add: #UMLCustomizedInspectorComposite;
+	add: #UMLCustomizedInspectorShell;
+	add: #UMLCustomizedInspectorWorkspaceComposite;
+	add: #UMLDebugerComposite;
+	add: #UMLDebugerDialog;
+	add: #UMLDebugerShell;
+	add: #UMLDebugerWorkspaceComposite;
+	add: #UMLDevelopmentEnvironment;
+	add: #UMLDoesNotUnderstadComposite;
+	add: #UMLDoesNotUnderstadoDialog;
+	add: #UMLEnvironmentTool;
+	add: #UMLIdeaSpaceShell;
+	add: #UMLImplementationComposite;
+	add: #UMLInspectorComposite;
+	add: #UMLInspectorWorkspaceComposite;
+	add: #UMLInterpreterArena;
+	add: #UMLListComposite;
+	add: #UMLLoginListComposite;
+	add: #UMLLoginShell;
+	add: #UMLMainShell;
+	add: #UMLMethodBrowserComposite;
+	add: #UMLMethodBrowserShell;
+	add: #UMLModelBrowser;
+	add: #UMLModelGlobalsBrowserComposite;
+	add: #UMLModelGlobalsShell;
+	add: #UMLModelParametricObjectBrowserComposite;
+	add: #UMLModelsBrowserShell;
+	add: #UMLModelSetupObjectsBrowserComposite;
+	add: #UMLModelSetupObjectsShell;
+	add: #UMLModelShell;
+	add: #UMLObjectWorkspaceComposite;
+	add: #UMLOneElementListComposite;
+	add: #UMLParametricListComposite;
+	add: #UMLParametricObjectsShell;
+	add: #UMLRelationShell;
+	add: #UMLShowHideAspectComposite;
+	add: #UMLShowHideAspectShell;
+	add: #UMLSimpleListComposite;
+	add: #UMLSimpleValueDialog;
+	add: #UMLToolShell;
+	add: #UMLTraitBrowserComposite;
+	add: #UMLTraitBrowserShell;
+	add: #UMLTraitComposite;
+	add: #UMLTraitWorkspaceComposite;
+	add: #UMLTreeImplementationsComposite;
+	add: #UMLTreeImplementationsShell;
+	add: #UMLTypeMappingComposite;
+	add: #UMLTypeMappingShell;
+	add: #UMLVirtualMachineBrowser;
+	add: #UMLVirtualMachineShell;
+	add: #UMLVMTransLogComposite;
+	add: #UMLVMTransLogShell;
+	add: #UMLWorkspaceShell;
+	add: #WebServerConfigurationShell;
+	yourself.
+
+package methodNames
+	add: #CheckButton -> #updatePerChar:;
+	add: #CommandQuery -> #commandDescription:;
+	add: #DateTimeCommonControl -> #updatePerChar:;
+	add: #DetalleDeOpciones -> #crearListPresenter;
+	add: #DetalleDeOpciones -> #inspectUMLInstance:;
+	add: #Presenter -> #gotoUFabrikWebSite;
+	add: #Presenter -> #goToUMLAlmightyBlog;
+	add: #Presenter -> #goToUMLAlmightyDocumentation;
+	add: #Presenter -> #goToUMLAlmightyEnglishVideos;
+	add: #Presenter -> #goToUMLAlmightyNewsGroup;
+	add: #Presenter -> #goToUMLAlmightySpanishVideos;
+	add: #Presenter -> #goToUMLAlmightyVideos;
+	add: #Presenter -> #registerUMLObjectAspect:;
+	add: #SWLinkButton -> #commandDescription:;
+	add: #UMLClass -> #inspectUMLInstance;
+	add: #UMLDialog -> #defaultVirtualMachine;
+	add: #UMLInstance -> #inspectUMLInstance;
+	add: #UMLInstance -> #isCollectionNode;
+	add: #UMLModel -> #showSetupObjects;
+	add: #UMLObjectBehavior -> #createListViewFor:;
+	add: #UMLObjectBehavior -> #resourceIdentifierFor:;
+	add: #UMLRelation -> #showForAdd;
+	add: #UMLRelation -> #showForEdit;
+	add: #UMLShell -> #defaultVirtualMachine;
+	add: #UMLShell -> #openCategoryBrowser;
+	add: #UMLShell -> #openTraitBrowser;
+	add: #UMLShell -> #openUMLBrowser;
+	add: #UMLShell -> #openUMLIdeaSpace;
+	add: #UMLShell -> #openUMLWorkspace;
+	add: #UMLShell -> #openVirtualMachineBrowser;
+	add: #UMLShell -> #showTransLog;
+	add: #UMLShell -> #showWebConfiguration;
+	add: #UMLShell -> #startDesktopLogin;
+	add: #UMLTrait -> #show;
+	add: #UMLVirtualMachine -> #errorImplementation:notFoundFor:in:isSuperSend:;
+	add: #UMLVirtualMachine -> #processPrimitiveCall_500:withArguments:snapshot:;
+	add: #UMLVirtualMachine -> #processPrimitiveCall_501:withArguments:snapshot:isScript:;
+	add: #UMLVirtualMachine -> #resourceIdentifierFor:;
+	add: #UMLVirtualMachine -> #show;
+	add: #UMLVirtualMachineInstance -> #onUpdateIn:;
+	add: #UndefinedObject -> #<=;
+	add: #UndefinedObject -> #>=;
+	add: 'BBDialog class' -> #defaultVirtualMachine;
+	add: 'DetalleDeOpciones class' -> #listaUMLDinamicaCon:titulo:;
+	add: 'ListPresenter class' -> #resource_UML_Classes_and_variables;
+	add: 'ListPresenter class' -> #resource_UMLAttributes_view;
+	add: 'ListPresenter class' -> #resource_UMLAttributes_with_class_view;
+	add: 'ListPresenter class' -> #resource_UMLCategory_list;
+	add: 'ListPresenter class' -> #resource_UMLCategory_virtual_list;
+	add: 'ListPresenter class' -> #resource_UMLClasses_view;
+	add: 'ListPresenter class' -> #resource_UMLClassOrInstanceList_view;
+	add: 'ListPresenter class' -> #resource_UMLImplementation_list;
+	add: 'ListPresenter class' -> #resource_UMLTools_view;
+	add: 'RichTextPresenter class' -> #resource_UML_Rich_text_header;
+	add: 'TextPresenter class' -> #resource_UML_Header_label_view;
+	add: 'TextPresenter class' -> #resource_UML_Header_view;
+	add: 'TextPresenter class' -> #resource_UML_interpreter;
+	add: 'Toolbar class' -> #resource_UML_Common;
+	add: 'Toolbar class' -> #resource_UMLDebugger_tools;
+	add: 'UMLVirtualMachine class' -> #resourceIdentifierFor:;
+	add: 'UMLVirtualMachine class' -> #resourceIdentifierMapping;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\aida\AIDA Add Inn';
+	add: '..\aida\AIDA Dolphin';
+	add: '..\aida\AIDAWeb';
+	add: '..\others\BB Interfase Goodies';
+	add: '..\others\BB MVP Basic Support';
+	add: '..\others\BBInteraccionOffice';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Choice Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Folder\Dolphin Folder Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Progress\Dolphin Progress Dialog';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Radio\Dolphin Radio Buttons';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Scintilla\Dolphin Scintilla View';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Sliding Tray\Dolphin Slidey-Inney-Outey Thing';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus ImageView';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\SHDocVw\Internet Explorer';
+	add: '..\..\..\Core\Contributions\Refactory\Refactoring Browser\Formatters\RBFormatters';
+	add: '..\..\..\Core\Object Arts\Samples\ActiveX\Web Browser\Simple Web Browser';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: '..\swazoo\Swazoo';
+	add: 'UML Basic Support';
+	add: 'UML Basic Views';
+	add: 'UML Compiler';
+	add: 'UML Database Mapper';
+	add: 'UML Licence Manager';
+	add: 'UML Live Engine';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	add: 'XMI Import-Export Interfase II';
+	yourself).
+
+package setManualPrerequisites: #(
+	'AIDA Add Inn'
+	'AIDA Dolphin'
+	'AIDAWeb').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #IconWrapper
+	instanceVariableNames: 'wIcon'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Presenter subclass: #BBSGTExcelImportComposite
+	instanceVariableNames: 'excel pathFilePresenter umlClassPresenter initialNumberPresenter endNumberPresenter initialColumnPresenter endColumnPresenter methodsPresenter allResults'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDialog subclass: #UMLSimpleValueDialog
+	instanceVariableNames: 'atomicContainer answer simplePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #LicenciaSoftwareDialog
+	instanceVariableNames: 'licenciaComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLAttributeMappDialog
+	instanceVariableNames: 'typePresenter classPresenter value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLDebugerDialog
+	instanceVariableNames: 'debugerComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLDoesNotUnderstadoDialog
+	instanceVariableNames: 'umlDoesNotUnderstadoComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLShowHideAspectShell
+	instanceVariableNames: 'showHideComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLTypeMappingShell
+	instanceVariableNames: 'typeMappingComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLModelsBrowserShell
+	instanceVariableNames: 'modelsComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLParametricObjectsShell
+	instanceVariableNames: 'parametricComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLRelationShell
+	instanceVariableNames: 'relationComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLToolShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLTreeImplementationsShell
+	instanceVariableNames: 'treeComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLVMTransLogShell
+	instanceVariableNames: 'logComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLParametricObjectsShell subclass: #UMLModelGlobalsShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLParametricObjectsShell subclass: #UMLModelSetupObjectsShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UFabrikManagerShell
+	instanceVariableNames: 'folderToolsPresenter folderLoginPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLBasicInspectorShell
+	instanceVariableNames: 'inspectorComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLCategoryBrowserShell
+	instanceVariableNames: 'categoryBrowser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLClassListShell
+	instanceVariableNames: 'classListComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLCommandListShell
+	instanceVariableNames: 'containerPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLCustomizedInspectorShell
+	instanceVariableNames: 'cardPresenter viewStructure headerContainer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLDebugerShell
+	instanceVariableNames: 'debugerComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLIdeaSpaceShell
+	instanceVariableNames: 'cardPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLLoginShell
+	instanceVariableNames: 'userPresenter passwordPresenter umlModelsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLMainShell
+	instanceVariableNames: 'container listPresenter umlApplicationUser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLMethodBrowserShell
+	instanceVariableNames: 'methodsComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLModelShell
+	instanceVariableNames: 'modelBrowser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLTraitBrowserShell
+	instanceVariableNames: 'traitBrowserComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLVirtualMachineShell
+	instanceVariableNames: 'virtualMachineBrowser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLWorkspaceShell
+	instanceVariableNames: 'workspaceComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #WebServerConfigurationShell
+	instanceVariableNames: 'ipAddressPresenter portPresenter hostPresenter isServingPresenter sitePresenter stylesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #LicenciaSoftwareComposite
+	instanceVariableNames: 'namePresenter numberPresenter lockedPresenter startDatePresenter expirationDatePresenter typePresenter cantidadClasesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLCustomizedInspectorComposite
+	instanceVariableNames: 'cardPresenter viewStructure headerContainer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLDoesNotUnderstadComposite
+	instanceVariableNames: 'classNamePresenter messageNamePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLEnvironmentTool
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLListComposite
+	instanceVariableNames: 'containerPresenter instVarName objectListPresenter listPresenterCreated cuantityPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLTypeMappingComposite
+	instanceVariableNames: 'typesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLVMTransLogComposite
+	instanceVariableNames: 'logIsActivePresenter errorLogIsActivePresenter logSizePresenter errorLogSizePresenter totalSizePresenter logsPresenter errorLogsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLBasicInspectorComposite
+	instanceVariableNames: 'instVarTreePresenter containerPresenter workspaceComposite urlPresenter aspectPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLBasicWorkspaceComposite
+	instanceVariableNames: 'workspacePresenter lastCharacter lastAutocompletation variables executionSnapshot lastCharacterCollection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLCategoryBrowser
+	instanceVariableNames: 'categoriesPresenter methodBrowser virtualCategoriesPresenter categoryCommentsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLClassBrowserComposite
+	instanceVariableNames: 'classesPresenter hierarchyPresenter categoryBrowser attributesPresenter relationsPresenter traitsPresenter radioButtonsPresenter diagramPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLClassDefinitionListComposite
+	instanceVariableNames: 'classesPresenter implementationsPresenter classCommentPresenter instVarPresenter relationsPresenter classSidePresenter metaclassSidePresenter radioButtonsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLDebugerComposite
+	instanceVariableNames: 'stackPresenter snapshotObjectsPresenter receiverWorkspace sourcePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLImplementationComposite
+	instanceVariableNames: 'commentsPresenter sourceComposite sanityPresenter referencesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLMethodBrowserComposite
+	instanceVariableNames: 'implementationsPresenter implementationComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLModelBrowser
+	instanceVariableNames: 'modelsPresenter classBrowser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLModelParametricObjectBrowserComposite
+	instanceVariableNames: 'parametricNamePresenter parametricsContainer parametricsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLShowHideAspectComposite
+	instanceVariableNames: 'methodsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLTraitBrowserComposite
+	instanceVariableNames: 'traitsPresenter traitComposite packagesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLTraitComposite
+	instanceVariableNames: 'traitNamePresenter methodsPresenter requirementsPresenter sourcePresenter requirementComentsPresenter methodCommentsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLTreeImplementationsComposite
+	instanceVariableNames: 'treePresenter implementationPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLVirtualMachineBrowser
+	instanceVariableNames: 'hierarchyPresenter classListPresenter implementationsPresenter implementationComposite classSidePresenter metaclassSidePresenter radioButtonsPresenter categoriesPresenter packagesPresenter traitsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBasicInspectorComposite subclass: #UMLInspectorComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBasicWorkspaceComposite subclass: #UMLObjectWorkspaceComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBasicWorkspaceComposite subclass: #UMLTraitWorkspaceComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectWorkspaceComposite subclass: #UMLClassWorkspaceComposite
+	instanceVariableNames: 'umlClass umlInstance'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectWorkspaceComposite subclass: #UMLCustomizedInspectorWorkspaceComposite
+	instanceVariableNames: 'aspectName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectWorkspaceComposite subclass: #UMLInspectorWorkspaceComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClassWorkspaceComposite subclass: #UMLDebugerWorkspaceComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLModelParametricObjectBrowserComposite subclass: #UMLModelGlobalsBrowserComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLModelParametricObjectBrowserComposite subclass: #UMLModelSetupObjectsBrowserComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLListComposite subclass: #UMLOneElementListComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLListComposite subclass: #UMLParametricListComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLListComposite subclass: #UMLSimpleListComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSimpleListComposite subclass: #UMLCommandListComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSimpleListComposite subclass: #UMLLoginListComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RuntimeSessionManager subclass: #UFabrikSessionManager
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLDevelopmentEnvironment
+	instanceVariableNames: 'currentOpenedTools'
+	classVariableNames: 'Default'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ScintillaView subclass: #UMLInterpreterArena
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!BBDialog class methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default! !
+!BBDialog class categoriesFor: #defaultVirtualMachine!public! !
+
+!CheckButton methodsFor!
+
+updatePerChar: aBoolean 
+	self! !
+!CheckButton categoriesFor: #updatePerChar:!public! !
+
+!CommandQuery methodsFor!
+
+commandDescription: anObject
+	"Answer the <commandDescription> being queried"
+
+	commandDescription := anObject! !
+!CommandQuery categoriesFor: #commandDescription:!accessing!public! !
+
+!DateTimeCommonControl methodsFor!
+
+updatePerChar: aBoolean 
+	^self! !
+!DateTimeCommonControl categoriesFor: #updatePerChar:!public! !
+
+!DetalleDeOpciones methodsFor!
+
+crearListPresenter
+	" Desplega en el receptor del mensaje una lista para desplegar los datos de un usuario (unIdentificadorDeView es un String) "
+
+	self vaciarContenedorDeListas.
+	listaP := UMLListComposite createIn: containerP.
+	self createSchematicWiring.
+	model isEmpty ifFalse: [model first createListViewFor: listaP].
+	listaP model: (ListModel on: self subject).
+	listaP view contextMenu: nil!
+
+inspectUMLInstance: anUMLInstance 
+	^anUMLInstance inspectUMLWithCustomizedView! !
+!DetalleDeOpciones categoriesFor: #crearListPresenter!listsViews!public! !
+!DetalleDeOpciones categoriesFor: #inspectUMLInstance:!public! !
+
+!DetalleDeOpciones class methodsFor!
+
+listaUMLDinamicaCon: anOrderedCollection titulo: unaCadena 
+	^(self
+		createOn: anOrderedCollection)
+		crearListPresenter;
+		caption: unaCadena;
+		showModal! !
+!DetalleDeOpciones class categoriesFor: #listaUMLDinamicaCon:titulo:!public! !
+
+!ListPresenter class methodsFor!
+
+resource_UML_Classes_and_variables
+	"Answer the literal data from which the 'UML Classes and variables' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_Classes_and_variables)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294904189 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 0 0 0 0 0 202 208 98 4 920646 5 ##(Smalltalk.ListViewColumn)  8 'Variable Name' 301 8 #left 690 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 688 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 928 976 7 513 0 0 0 416 0 1 0 0 850 8 'Class Name' 301 896 690 8 #className 944 962 0 0 994 2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a className <= b className]' 8 #[30 105 226 0 226 32 130 106] 1120 1136 7 513 0 0 0 416 0 1 0 0 850 8 'Type' 301 896 690 8 #printTypeName 944 962 0 0 994 3 1 688 8 'doIt' 8 '[:a :b | a type name  <= b type name]' 8 #[31 105 226 0 159 226 32 159 130 106] 8 #type 928 1328 7 513 0 0 0 416 0 1 0 0 850 8 'Original Type' 201 896 690 8 #originalType 544 962 0 0 994 2 1 688 8 'doIt' 8 '[:a :b | a originalType <= b originalType]' 8 #[30 105 226 0 226 32 130 106] 1472 1488 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1714 1121 311 416 1650 8 #text: 98 1 8 'Variable Name' 416 1650 8 #columnOrder: 98 1 98 4 5 3 7 9 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 207 7 0 0 165 0 0 0] 98 0 1714 193 193 0 27 )!
+
+resource_UMLAttributes_view
+	"Answer the literal data from which the 'UMLAttributes view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLAttributes_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294902437 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 6 920646 5 ##(Smalltalk.ListViewColumn)  8 'Attribute Name' 501 8 #left 658 8 #getName 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 912 8 'doIt' 8 '[:a :b | a getName <= b getName]' 8 #[30 105 226 0 226 32 130 106] 880 928 7 513 0 0 0 416 0 1 0 0 802 8 'Type' 301 848 658 8 #typeName 98 0 914 0 0 946 2 1 912 8 'doIt' 8 '[:a :b | a typeName <= b typeName]' 8 #[30 105 226 0 226 32 130 106] 1072 1104 7 513 0 0 0 416 0 1 0 0 802 8 'Original Type' 201 848 658 8 #originalType 98 0 914 0 0 946 2 1 656 8 'doIt' 8 '[:a :b | a originalType <= b originalType]' 8 #[30 105 226 0 226 32 130 106] 1232 1264 7 513 0 0 0 416 0 1 0 0 802 8 'Is Enabled' 201 848 658 8 #isEnabled 98 0 914 0 0 946 3 1 656 8 'doIt' 8 '[:a :b | a isEnabled printString <= b isEnabled printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1392 8 #printString 1424 7 513 0 0 0 416 0 1 0 0 802 8 'Alias' 201 848 658 8 #printAlias 98 0 914 0 0 946 2 1 912 8 'doIt' 8 '[:a :b | a printAlias <= b printAlias]' 8 #[30 105 226 0 226 32 130 106] 1568 1600 7 513 0 0 0 416 0 1 0 0 802 8 'Large String' 201 848 658 8 #printLargeString 98 0 914 0 0 946 2 1 912 8 'doIt' 8 '[:a :b | a printLargeString <= b printLargeString]' 8 #[30 105 226 0 226 32 130 106] 1728 1760 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 1986 1621 451 416 1922 8 #text: 98 1 8 'Attribute Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 105 9 0 0 235 0 0 0] 98 0 1986 193 193 0 27 )!
+
+resource_UMLAttributes_with_class_view
+	"Answer the literal data from which the 'UMLAttributes with class view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLAttributes_with_class_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294902903 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 7 920646 5 ##(Smalltalk.ListViewColumn)  8 'Class' 301 8 #left 658 8 #className 544 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 656 8 'doIt' 8 '[:a :b | a className <= b className]' 8 #[30 105 226 0 226 32 130 106] 880 912 7 513 0 0 0 416 0 1 0 0 802 8 'Attribute Name' 501 848 658 8 #getName 98 0 898 0 0 930 2 1 896 8 'doIt' 8 '[:a :b | a getName <= b getName]' 8 #[30 105 226 0 226 32 130 106] 1056 1088 7 513 0 0 0 416 0 1 0 0 802 8 'Type' 301 848 658 8 #typeName 98 0 898 0 0 930 2 1 896 8 'doIt' 8 '[:a :b | a typeName <= b typeName]' 8 #[30 105 226 0 226 32 130 106] 1216 1248 7 513 0 0 0 416 0 1 0 0 802 8 'Original Type' 201 848 658 8 #originalType 98 0 898 0 0 930 2 1 656 8 'doIt' 8 '[:a :b | a originalType <= b originalType]' 8 #[30 105 226 0 226 32 130 106] 1376 1408 7 513 0 0 0 416 0 1 0 0 802 8 'Is Enabled' 201 848 658 8 #isEnabled 98 0 898 0 0 930 3 1 656 8 'doIt' 8 '[:a :b | a isEnabled printString <= b isEnabled printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1536 8 #printString 1568 7 513 0 0 0 416 0 1 0 0 802 8 'Alias' 201 848 658 8 #printAlias 98 0 898 0 0 930 2 1 896 8 'doIt' 8 '[:a :b | a printAlias <= b printAlias]' 8 #[30 105 226 0 226 32 130 106] 1712 1744 7 513 0 0 0 416 0 1 0 0 802 8 'Large String' 201 848 658 8 #printLargeString 98 0 898 0 0 930 2 1 896 8 'doIt' 8 '[:a :b | a printLargeString <= b printLargeString]' 8 #[30 105 226 0 226 32 130 106] 1872 1904 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 2130 1851 451 416 2066 8 #text: 98 1 8 'Class' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 220 9 0 0 235 0 0 0] 98 0 2130 193 193 0 27 )!
+
+resource_UMLCategory_list
+	"Answer the literal data from which the 'UMLCategory list' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLCategory_list)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355849 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 21 265030 4 ##(Smalltalk.Menu)  0 16 98 8 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #addCategory 8 'Add New Category' 1 1 0 0 0 690 1 722 8 #addExistingCategory 8 'Add Existing Category' 1 1 0 0 0 690 1 722 8 #removeCategory 8 'Remove Category' 1 1 0 0 0 983366 1 ##(Smalltalk.DividerMenuItem)  4097 690 1 722 8 #browserImplementationOfCategory 8 'Browse Implementations' 1 1 0 0 0 914 4097 690 1 722 8 #fileOutMethodsOfCategory 8 'File out Category' 1 1 0 0 0 690 1 722 8 #fileInMethodsOfCategory 8 'File in Category' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294902437 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Categories' 401 8 #left 1186 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 1408 1456 7 513 0 0 0 416 0 1 0 1442 0 0 1474 7 1 8 ##(Smalltalk.UndefinedObject)  8 'doIt' 8 '[:ctx | 
+ctx forecolor: (ctx view presenter parentPresenter colorForCategory: ctx item)]' 8 #[35 105 17 226 0 159 160 226 3 180 181 106] 8 #view 8 #presenter 8 #parentPresenter 8 #item 8 #colorForCategory: 8 #forecolor: 1600 7 257 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 1938 425 521 416 1874 8 #contextMenu: 98 1 656 416 1874 8 #text: 98 1 8 'Categories' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 19 7 0 0 14 1 0 0] 98 0 1938 193 193 0 27 )!
+
+resource_UMLCategory_virtual_list
+	"Answer the literal data from which the 'UMLCategory virtual list' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLCategory_virtual_list)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355848 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 21 0 0 0 416 0 8 4294902559 459270 ##(Smalltalk.Message)  8 #name 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  7 1 8 ##(Smalltalk.UndefinedObject)  8 'doIt' 8 '[:ctx | 
+ctx forecolor: (ctx view presenter parentPresenter colorForCategory: ctx item)]' 8 #[35 105 17 226 0 159 160 226 3 180 181 106] 8 #view 8 #presenter 8 #parentPresenter 8 #item 8 #colorForCategory: 8 #forecolor: 784 7 257 0 328198 ##(Smalltalk.Point)  65 65 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Categories' 401 8 #left 658 688 98 0 770 0 0 802 2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 688 1152 7 513 0 0 0 416 0 1 0 770 0 0 802 7 1 832 8 'doIt' 8 '[:ctx | 
+ctx forecolor: (ctx view presenter parentPresenter colorForCategory: ctx item)]' 8 #[35 105 17 226 0 159 160 226 3 180 181 106] 896 912 928 944 960 976 1280 7 257 0 8 #largeIcons 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 994 2879 21 994 425 521 416 1442 8 #text: 98 1 8 'Categories' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 115 6 0 0 14 1 0 0] 98 0 994 193 193 0 27 )!
+
+resource_UMLClasses_view
+	"Answer the literal data from which the 'UMLClasses view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLClasses_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294903897 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Class Name' 1001 8 #left 690 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 960 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 928 976 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1218 1021 451 416 1154 8 #text: 98 1 8 'Class Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 157 7 0 0 235 0 0 0] 98 0 1218 193 193 0 27 )!
+
+resource_UMLClassOrInstanceList_view
+	"Answer the literal data from which the 'UMLClassOrInstanceList view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLClassOrInstanceList_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 265030 4 ##(Smalltalk.Menu)  0 16 98 1 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #switchListType 8 'Switch List Type' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294903079 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 2 920646 5 ##(Smalltalk.ListViewColumn)  8 'Class Name' 701 8 #left 818 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 1072 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 1040 1088 7 513 0 0 0 416 0 1 0 0 962 8 'Is Instance List ?' 201 1008 818 8 #isInstanceList 98 0 818 8 #<= 1248 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 1442 921 451 416 1378 8 #contextMenu: 98 1 656 416 1378 8 #text: 98 1 8 'Class Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 11 8 0 0 235 0 0 0] 98 0 1442 193 193 0 27 )!
+
+resource_UMLImplementation_list
+	"Answer the literal data from which the 'UMLImplementation list' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLImplementation_list)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1140920397 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 15 265030 4 ##(Smalltalk.Menu)  0 16 98 6 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #addParsedImplementation 8 'Add Parsed Implementation' 1 1 0 0 0 983366 1 ##(Smalltalk.DividerMenuItem)  4097 690 1 722 8 #browserImplementationDefenitions 8 'Browse Definitions' 1 1 0 0 0 690 1 722 8 #browserImplementationReferences 8 'Browse References' 1 1 0 0 0 786 4097 690 1 722 8 #removeImplementation 8 'Remove Implementation' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294902713 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Method Name' 601 8 #left 1058 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 1280 1328 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1618 621 661 416 1554 8 #contextMenu: 98 1 656 416 1554 8 #text: 98 1 8 'Method Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 213 6 0 0 84 1 0 0] 98 0 1618 193 193 0 27 )!
+
+resource_UMLTools_view
+	"Answer the literal data from which the 'UMLTools view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLTools_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294902901 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'UML Tool' 1001 8 #left 658 8 #displayName 544 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 896 8 'doIt' 8 '[:a :b | a displayName <= b displayName]' 8 #[30 105 226 0 226 32 130 106] 880 912 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 1154 1021 451 416 1090 8 #text: 98 1 8 'UML Tool' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 61 8 0 0 235 0 0 0] 98 0 1154 193 193 0 27 )! !
+!ListPresenter class categoriesFor: #resource_UML_Classes_and_variables!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLAttributes_view!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLAttributes_with_class_view!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLCategory_list!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLCategory_virtual_list!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLClasses_view!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLClassOrInstanceList_view!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLImplementation_list!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLTools_view!public!resources-views! !
+
+!Presenter methodsFor!
+
+gotoUFabrikWebSite
+	^ShellLibrary default shellOpen: 'http://umlalmighty.wordpress.com/'!
+
+goToUMLAlmightyBlog
+
+	^ShellLibrary default shellOpen: 'http://umlalmighty.wordpress.com/'!
+
+goToUMLAlmightyDocumentation
+
+	^ShellLibrary default shellOpen: 'http://www.uml-almighty.com/documentation.html'!
+
+goToUMLAlmightyEnglishVideos
+
+	^ShellLibrary default shellOpen: 'http://www.umlalmightyenglish.blip.tv/'!
+
+goToUMLAlmightyNewsGroup
+
+	^ShellLibrary default shellOpen: 'http://groups.google.com/group/uml-almighty/topics'!
+
+goToUMLAlmightySpanishVideos
+
+	^ShellLibrary default shellOpen: 'http://www.umlalmighty.blip.tv/'!
+
+goToUMLAlmightyVideos
+
+	^ShellLibrary default shellOpen: 'http://www.umlalmightyenglish.blip.tv/'!
+
+registerUMLObjectAspect: aspectName! !
+!Presenter categoriesFor: #gotoUFabrikWebSite!public! !
+!Presenter categoriesFor: #goToUMLAlmightyBlog!public! !
+!Presenter categoriesFor: #goToUMLAlmightyDocumentation!public! !
+!Presenter categoriesFor: #goToUMLAlmightyEnglishVideos!public! !
+!Presenter categoriesFor: #goToUMLAlmightyNewsGroup!public! !
+!Presenter categoriesFor: #goToUMLAlmightySpanishVideos!public! !
+!Presenter categoriesFor: #goToUMLAlmightyVideos!public! !
+!Presenter categoriesFor: #registerUMLObjectAspect:!public! !
+
+!RichTextPresenter class methodsFor!
+
+resource_UML_Rich_text_header
+	"Answer the literal data from which the 'UML Rich text header' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_Rich_text_header)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.RichTextEdit)  98 18 0 0 98 2 8 1142952260 1025 416 0 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 7 265030 4 ##(Smalltalk.Menu)  0 16 98 10 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #chooseSelectionFont 8 '&Font...' 1 1 0 0 0 983366 1 ##(Smalltalk.DividerMenuItem)  4097 594 1 626 8 #bePlain 8 '&Plain' 1 1 0 0 0 594 1 626 8 #toggleBold 8 '&Bold' 1 1 0 0 0 594 1 626 8 #toggleItalic 8 '&Italic' 1 1 0 0 0 594 1 626 8 #toggleUnderlined 8 '&Underlined' 1 1 0 0 0 690 4097 546 0 16 98 3 594 1025 626 8 #alignParagraphLeft 8 '&Left' 1 1 0 0 0 594 1025 626 8 #alignParagraphCenter 8 '&Centre' 1 1 0 0 0 594 1025 626 8 #alignParagraphRight 8 '&Right' 1 1 0 0 0 8 '&Align' 0 1 0 0 0 0 0 690 4097 594 1 626 8 #chooseSelectionColor 8 '&Colour...' 1 1 0 0 0 8 '' 0 1 0 0 0 0 0 0 0 416 0 8 1833912869 852486 ##(Smalltalk.NullConverter)  0 0 11 0 655622 ##(Smalltalk.EDITSTREAM)  8 #[0 0 0 0 0 0 0 0 192 0 27 2] 983302 ##(Smalltalk.MessageSequence)  202 208 98 6 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1554 421 211 416 1490 8 #contextMenu: 98 1 560 416 1490 8 #text: 98 1 524550 ##(Smalltalk.RichText)  8 '{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\froman Times New Roman;}}
+\viewkind4\uc1\pard\qc\f0\fs22 Type \b Rich \b0\i Static \i0 text \ul here\ulnone .\f1 
+\par }
+' 416 1490 8 #selectionRange: 98 1 525062 ##(Smalltalk.Interval)  3 1 3 416 1490 8 #isTextModified: 98 1 32 416 1490 8 #resetCharFormat 98 0 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 113 6 0 0 115 0 0 0] 98 0 1554 193 193 0 27 )! !
+!RichTextPresenter class categoriesFor: #resource_UML_Rich_text_header!public!resources-views! !
+
+!SWLinkButton methodsFor!
+
+commandDescription: anObject
+	"Private - Answers a CommandDescription for the receiver"
+
+	commandDescription := anObject! !
+!SWLinkButton categoriesFor: #commandDescription:!accessing!public! !
+
+!TextPresenter class methodsFor!
+
+resource_UML_Header_label_view
+	"Answer the literal data from which the 'UML Header label view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_Header_label_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.TextEdit)  98 16 0 0 98 2 8 1140916352 1025 416 0 721158 ##(Smalltalk.SystemColor)  31 0 7 0 263174 ##(Smalltalk.Font)  0 16 459014 ##(Smalltalk.LOGFONT)  8 #[240 255 255 255 0 0 0 0 0 0 0 0 0 0 0 0 188 2 0 0 255 0 0 0 3 2 1 34 84 114 101 98 117 99 104 101 116 32 77 83 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] 328198 ##(Smalltalk.Point)  193 193 0 416 0 8 4294902687 852486 ##(Smalltalk.NullConverter)  0 0 1 983302 ##(Smalltalk.MessageSequence)  202 208 98 4 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 610 2879 21 610 301 41 416 754 8 #selectionRange: 98 1 525062 ##(Smalltalk.Interval)  3 1 3 416 754 8 #isTextModified: 98 1 32 416 754 8 #setMarginWidths: 98 1 98 2 7 5 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 53 6 0 0 30 0 0 0] 98 0 610 193 193 0 27 )!
+
+resource_UML_Header_view
+	"Answer the literal data from which the 'UML Header view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_Header_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.MultilineTextEdit)  98 16 0 0 98 2 8 1143017540 1025 416 721990 2 ##(Smalltalk.ValueHolder)  0 32 1310726 ##(Smalltalk.EqualitySearchPolicy)  0 196934 1 ##(Smalltalk.RGB)  23838203 0 7 0 0 0 416 0 8 4294902527 852486 ##(Smalltalk.NullConverter)  0 0 9 983302 ##(Smalltalk.MessageSequence)  202 208 98 4 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 770 391 231 416 706 8 #selectionRange: 98 1 525062 ##(Smalltalk.Interval)  3 1 3 416 706 8 #isTextModified: 98 1 32 416 706 8 #setMarginWidths: 98 1 98 2 7 7 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 98 6 0 0 125 0 0 0] 98 0 770 193 193 0 27 )!
+
+resource_UML_interpreter
+	"Answer the literal data from which the 'UML interpreter' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_interpreter)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.UMLInterpreterArena)  98 46 0 0 98 2 8 1442910212 1025 416 721990 2 ##(Smalltalk.ValueHolder)  0 32 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #equality 0 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 506157709 852486 ##(Smalltalk.NullConverter)  0 0 13 0 234 256 98 6 8 #lineNumber 1182726 ##(Smalltalk.ScintillaTextStyle)  67 0 0 1 0 0 0 0 704 0 0 0 8 #indentGuide 722 75 0 0 1 0 0 0 0 752 0 0 0 8 #normal 722 1 0 0 1 0 0 0 0 784 0 0 0 98 40 800 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 736 0 0 0 768 0 0 1245510 1 ##(Smalltalk.NullScintillaStyler)  784 234 256 98 2 8 #default 1639942 ##(Smalltalk.ScintillaMarkerDefinition)  0 1 786694 ##(Smalltalk.IndexedColor)  33554433 946 33554471 416 8 #circle 202 208 98 0 0 63 0 0 0 0 0 946 33554447 0 0 0 0 0 0 8 '' 1 234 256 1024 0 0 0 0 1 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 7 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1218 1151 701 416 1154 8 #selectionRange: 98 1 525062 ##(Smalltalk.Interval)  3 1 3 416 1154 8 #isTextModified: 98 1 32 416 1154 8 #modificationEventMask: 98 1 9215 416 1154 8 #indicatorDefinitions: 98 1 98 3 1836038 ##(Smalltalk.ScintillaIndicatorDefinition)  1 416 65025 3 1506 3 416 33423361 5 1506 5 416 511 1 416 1154 8 #margins: 98 1 98 3 984582 ##(Smalltalk.ScintillaMargin)  1 416 41 3 32 1 1634 3 416 41 1 32 67108863 1634 5 416 41 1 32 1 416 1154 8 #tabIndents: 98 1 16 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 222 7 0 0 104 1 0 0] 98 0 1218 193 193 0 27 )! !
+!TextPresenter class categoriesFor: #resource_UML_Header_label_view!public!resources-views! !
+!TextPresenter class categoriesFor: #resource_UML_Header_view!public!resources-views! !
+!TextPresenter class categoriesFor: #resource_UML_interpreter!public!resources-views! !
+
+!Toolbar class methodsFor!
+
+resource_UML_Common
+	"Answer the literal data from which the 'UML Common' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UML_Common)
+	"
+
+	^#(#'!!STL' 4 788558 10 ##(Smalltalk.STBViewProxy) ##(Smalltalk.Toolbar) 34 25 nil nil 34 2 8 1409288972 131137 416 nil 524550 ##(Smalltalk.ColorRef) 8 4278190080 nil 517 nil 263174 ##(Smalltalk.Font) nil true 459014 ##(Smalltalk.LOGFONT) 8 #[243 255 255 255 0 0 0 0 0 0 0 0 0 0 0 0 144 1 0 0 0 0 0 0 3 2 1 34 65 114 105 97 108 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] 328198 ##(Smalltalk.Point) 193 193 nil 416 482 512 8 1819218097 170 192 8 #() 170 192 34 22 12467 1115206 1 ##(Smalltalk.ToolbarIconButton) 416 1 1180998 4 ##(Smalltalk.CommandDescription) #openUMLIdeaSpace 8 'Open Idea Space' 1 1 263494 3 ##(Smalltalk.Icon) nil true 1572870 ##(Smalltalk.ImageRelativeFileLocator) 8 'IdeaSpaceShell.ico' 2032142 ##(Smalltalk.STBExternalResourceLibraryProxy) 8 'dolphindr7.dll' nil 12467 12469 738 416 1 770 #openVirtualMachineBrowser 8 'Browse Virtual Machine' 1 1 818 nil true 864 8 'U-Fabrik/icons/vm01.ico' nil 12469 12471 738 416 1 770 #openUMLBrowser 8 'Browse UML Model' 1 1 818 nil true 864 8 'U-Fabrik/icons/umlmodel.ico' nil 12471 12473 738 416 1 770 #openCategoryBrowser 8 'Open Category Browser' 1 1 818 nil true 864 8 'category.ico' nil 12473 12475 738 416 1 770 #openTraitBrowser 8 'Open Trait Browser' 1 1 818 nil true 864 8 'U-Fabrik/icons/trait.ico' nil 12475 12477 738 416 1 770 #openUMLWorkspace 8 'Open Workspace - UML Scripts' 1 1 818 nil true 864 8 'U-Fabrik/icons/implementation02.ico' nil 12477 12479 738 416 1 770 #showTransLog 8 'View Trans Log' 1 1 818 nil true 864 8 'U-Fabrik/icons/translog.ico' nil 12479 12481 738 416 1 770 #showWebConfiguration 8 'Web Configuration' 1 1 818 nil true 864 8 'U-Fabrik/icons/webconfiguration.ico' nil 12481 12483 738 416 1 770 #releaseWebState 8 'Release Web State' 1 1 818 nil true 864 8 'U-Fabrik/icons/releasewebstate.ico' nil 12483 12485 738 416 1 770 #startDesktopLogin 8 'Desktop login' 1 1 818 nil true 864 8 'U-Fabrik/icons/desktoplogin.ico' nil 12485 12487 738 416 1 770 #startWebLogin 8 'Web login' 1 1 818 nil true 864 29 786694 ##(Smalltalk.ShellLibrary) 12487 34 15 1049158 1 ##(Smalltalk.ToolbarSeparator) 416 1 752 944 1024 1104 1184 1264 1778 416 1 1344 1778 416 1 1424 1504 1778 416 1 1584 1664 170 176 34 22 657990 3 ##(Smalltalk.DIBSection) nil true nil nil nil nil 3 610 33 33 65 nil 13 1890 nil true nil nil nil nil 3 610 33 33 65 nil 15 1890 nil true nil nil nil nil 3 610 33 33 65 nil 3 1890 nil true nil nil nil nil 3 610 33 33 65 nil 5 1890 nil true nil nil nil nil 3 610 33 33 65 nil 7 1890 nil true nil nil nil nil 3 610 33 33 65 nil 1 1890 nil true nil nil nil nil 3 610 33 33 65 nil 9 1890 nil true nil nil nil nil 3 610 33 33 65 nil 11 1890 nil true nil nil nil nil 3 610 33 33 65 nil 17 1890 nil true nil nil nil nil 3 610 33 33 65 nil 19 1890 nil true nil nil nil nil 3 610 33 33 65 nil 21 nil 1 nil 610 33 33 610 45 45 nil 656198 1 ##(Smalltalk.FlowLayout) 1 1 1 983302 ##(Smalltalk.MessageSequence) 138 144 34 2 721670 ##(Smalltalk.MessageSend) #createAt:extent: 34 2 610 2091 21 610 631 51 416 2386 #updateSizePosted 688 416 983302 ##(Smalltalk.WINDOWPLACEMENT) 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 21 4 0 0 10 0 0 0 80 5 0 0 35 0 0 0] 8 #() 610 193 193 nil 27 )!
+
+resource_UMLDebugger_tools
+	"Answer the literal data from which the 'UMLDebugger tools' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLDebugger_tools)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.Toolbar)  98 25 0 0 98 2 8 1409289036 131137 416 0 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 517 0 0 0 416 498 528 8 4294902957 234 256 98 0 234 256 98 10 43833 1115910 ##(Smalltalk.ToolbarIconButton)  43833 0 416 1 1180998 4 ##(Smalltalk.CommandDescription)  8 #showNextStatement 8 'Show Next Statement' 1 1 263494 3 ##(Smalltalk.Icon)  0 16 1572870 ##(Smalltalk.ImageRelativeFileLocator)  8 'ShowNextStatement.ico' 2032142 ##(Smalltalk.STBExternalResourceLibraryProxy)  8 'dolphindr006.dll' 0 395334 3 ##(Smalltalk.Bitmap)  0 16 0 0 0 0 3 328198 ##(Smalltalk.Point)  33 33 1 43835 642 43835 0 416 1 674 8 #stepInto 8 'Step Into' 1 1 738 0 16 784 8 'StepInto.ico' 832 866 0 16 0 0 0 0 3 898 33 33 1 43837 642 43837 0 416 1 674 8 #stepOver 8 'Step Over' 1 1 738 0 16 784 8 'StepOver.ico' 832 866 0 16 0 0 0 0 3 898 33 33 1 43839 642 43839 0 416 1 674 8 #stepOut 8 'Step Out' 1 1 738 0 16 784 8 'StepOut.ico' 832 866 0 16 0 0 0 0 3 898 33 33 1 43843 642 43843 0 416 1 674 8 #resumeProcess 8 'Go' 1 1 738 0 16 784 8 'Run.ico' 832 866 0 16 0 0 0 0 3 898 33 33 1 98 6 656 928 1056 1184 1312 1050118 ##(Smalltalk.ToolbarSeparator)  0 0 416 3 0 1 234 240 98 10 1152 5 880 1 1024 3 1280 7 1408 9 0 1 0 898 33 33 898 45 45 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 898 3199 21 898 251 51 416 1618 8 #updateSize 592 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 188 6 0 0 35 0 0 0] 98 0 898 193 193 0 27 )! !
+!Toolbar class categoriesFor: #resource_UML_Common!public!resources-views! !
+!Toolbar class categoriesFor: #resource_UMLDebugger_tools!public!resources-views! !
+
+!UMLClass methodsFor!
+
+inspectUMLInstance
+
+	^UMLBasicInspectorShell showOn: self! !
+!UMLClass categoriesFor: #inspectUMLInstance!gui!public! !
+
+!UMLDialog methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default! !
+!UMLDialog categoriesFor: #defaultVirtualMachine!public! !
+
+!UMLInstance methodsFor!
+
+inspectUMLInstance
+
+	^UMLBasicInspectorShell showOn: self!
+
+isCollectionNode
+
+	^false! !
+!UMLInstance categoriesFor: #inspectUMLInstance!gui!public! !
+!UMLInstance categoriesFor: #isCollectionNode!public! !
+
+!UMLModel methodsFor!
+
+showSetupObjects
+
+	^UMLModelSetupObjectsShell showOn: self! !
+!UMLModel categoriesFor: #showSetupObjects!public! !
+
+!UMLObjectBehavior methodsFor!
+
+createListViewFor: anUMLListComposite
+	| columns |
+
+	columns := SortedCollection sortBlock: [:a :b | a text <= b text].
+	anUMLListComposite listPresenterCreated: true.
+
+	(self vmPerform: #isBasic) smalltalkObject 
+	ifFalse: [self basicInstancesVariables keysAndValuesDo: [:eachKey :eachValue | | newColumn |
+		newColumn := ListViewColumn new. 
+		newColumn text: eachKey capitalized.
+		newColumn getContentsBlock:  [:e | e atVariableName: eachKey ifAbsent: [e printName]].
+		newColumn sortBlock: [:a :b | a printName <= b printName].
+		columns add: newColumn.].]
+	ifTrue: [| newColumn |
+		newColumn := ListViewColumn new. 
+		newColumn text: 'Self'.
+		newColumn getContentsBlock:  [:e | e smalltalkObject].
+		newColumn sortBlock: [:a :b | a smalltalkObject <= b smalltalkObject].
+		columns add: newColumn.].
+
+	columns do: [:each | anUMLListComposite addColumn: each].
+
+	anUMLListComposite columnsList first
+		text: 'Type';
+		getContentsBlock:  [:e | e className];
+		sortBlock: [:a :b | a  <= b ].!
+
+resourceIdentifierFor: anUMLInstance 
+ 
+	^self virtualMachine resourceIdentifierFor: anUMLInstance ! !
+!UMLObjectBehavior categoriesFor: #createListViewFor:!public! !
+!UMLObjectBehavior categoriesFor: #resourceIdentifierFor:!public! !
+
+!UMLRelation methodsFor!
+
+showForAdd
+
+	^UMLRelationShell showOn: self!
+
+showForEdit
+	| relationShell |
+
+	relationShell := UMLRelationShell showOn: self.
+	relationShell disableComboClasses.
+	^relationShell! !
+!UMLRelation categoriesFor: #showForAdd!public! !
+!UMLRelation categoriesFor: #showForEdit!public! !
+
+!UMLShell methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default!
+
+openCategoryBrowser
+
+	UMLCategoryBrowserShell show!
+
+openTraitBrowser
+	UMLTraitBrowserShell show!
+
+openUMLBrowser
+
+	UMLModelShell show
+	!
+
+openUMLIdeaSpace
+
+	^UMLIdeaSpaceShell show!
+
+openUMLWorkspace
+	UMLWorkspaceShell show!
+
+openVirtualMachineBrowser
+
+	^self defaultVirtualMachine show!
+
+showTransLog
+
+	^UMLVMTransLogShell show!
+
+showWebConfiguration
+	^WebServerConfigurationShell show!
+
+startDesktopLogin
+
+	UMLLoginShell show! !
+!UMLShell categoriesFor: #defaultVirtualMachine!public! !
+!UMLShell categoriesFor: #openCategoryBrowser!public! !
+!UMLShell categoriesFor: #openTraitBrowser!public! !
+!UMLShell categoriesFor: #openUMLBrowser!public! !
+!UMLShell categoriesFor: #openUMLIdeaSpace!public! !
+!UMLShell categoriesFor: #openUMLWorkspace!public! !
+!UMLShell categoriesFor: #openVirtualMachineBrowser!public! !
+!UMLShell categoriesFor: #showTransLog!public! !
+!UMLShell categoriesFor: #showWebConfiguration!public! !
+!UMLShell categoriesFor: #startDesktopLogin!public! !
+
+!UMLTrait methodsFor!
+
+show
+	^UMLTraitComposite showOn: self! !
+!UMLTrait categoriesFor: #show!public! !
+
+!UMLVirtualMachine methodsFor!
+
+errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapshot isSuperSend: aBoolean
+
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snap: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
+
+	anUMLExecutionSnapshot ifNotNil: [:executionSnapshot | 
+		executionSnapshot hasDNU: true.
+		executionSnapshot hasOnErrorDo 
+		ifTrue: [^self errorClass 
+			vmPerform: #message: 
+			withArguments: (Array with: (('Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>') asUMLObject: self))].].
+
+	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean)
+	
+	"^UMLImplementationNotFoundError signal: 'Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>.' "!
+
+processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
+	"The receiver answer <anUMLInstance> that represent a Collection for collect (and relate) instance of <anArray>"
+	"Object>>halt"
+	| debuggerSnapshot haltNode executedNodes index debugger |
+
+	debuggerSnapshot := anUMLExecutionSnapshot generateDebugSnapshot.
+
+	haltNode := anArray last.
+
+	index := debuggerSnapshot nodes indexOf: haltNode.
+	executedNodes := debuggerSnapshot nodes copyFrom: 1 to: index.
+
+	debuggerSnapshot setExecutedNodesWith: executedNodes.
+	executedNodes do: [:each | debuggerSnapshot nodesToExecute remove: each].
+
+	debuggerSnapshot currentMainNode: (debuggerSnapshot nodesToExecute isEmpty ifTrue: [debuggerSnapshot currentMainNode] ifFalse: [debuggerSnapshot nodesToExecute first]).
+
+	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
+
+	debugger := ((debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]) 
+				ifFalse: [(UMLDebugerShell showOn: debuggerSnapshot)] 
+				ifTrue: [(UMLDebugerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+
+	debuggerSnapshot allSnapshots reverse do: [:each | debugger addSnapshot: each].
+
+	^anUMLInstance!
+
+processPrimitiveCall_501: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot isScript: aBoolean
+	"The receiver answer <anUMLInstance> that represent a Collection for collect (and relate) instance of <anArray>"
+	"Open a debuger when a message implementation does NOT exist"
+	"Different of primitive 500 because the node that prompt the debuger (the DNU) is selected but not executed.
+	In primitive 500 we select the next node to <halt> node.
+	In this primitive 501 we select the DNU node"
+	| debuggerSnapshot dnuNode executedNodes index |
+
+	debuggerSnapshot := aBoolean 
+		ifTrue: [UMLScriptDebugerSnapshot snapshot: anUMLExecutionSnapshot sequence: anUMLExecutionSnapshot sequence] 
+		ifFalse: [UMLImplementationDebugerSnapshot snapshot: anUMLExecutionSnapshot].
+
+	dnuNode := anArray last.
+
+	index := debuggerSnapshot nodes indexOf: dnuNode.
+	executedNodes :=  (index > 2)
+		ifFalse: [OrderedCollection new] 
+		ifTrue: [debuggerSnapshot nodes copyFrom: 1 to: index - 2.].
+
+	debuggerSnapshot setExecutedNodesWith: executedNodes.
+	executedNodes do: [:each | debuggerSnapshot nodesToExecute remove: each].
+
+	debuggerSnapshot currentMainNode: debuggerSnapshot nodesToExecute first.
+	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
+
+	(index = 1)
+	ifTrue: [UMLDebugerShell showOn: debuggerSnapshot]
+	ifFalse: [(UMLDebugerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+
+	^anUMLInstance!
+
+resourceIdentifierFor: anUMLObject
+
+	^self class resourceIdentifierFor: anUMLObject!
+
+show
+	"^UMLVirtualMachineSystemBrowserShell showOn: self"
+	^UMLVirtualMachineShell showOn: self! !
+!UMLVirtualMachine categoriesFor: #errorImplementation:notFoundFor:in:isSuperSend:!debug!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #processPrimitiveCall_500:withArguments:snapshot:!debug!primitive processing!public! !
+!UMLVirtualMachine categoriesFor: #processPrimitiveCall_501:withArguments:snapshot:isScript:!debug!primitive processing!public! !
+!UMLVirtualMachine categoriesFor: #resourceIdentifierFor:!public! !
+!UMLVirtualMachine categoriesFor: #show!public! !
+
+!UMLVirtualMachine class methodsFor!
+
+resourceIdentifierFor: anUMLObject
+
+	^self resourceIdentifierMapping 
+		at: anUMLObject name 
+		ifAbsent:[ResourceIdentifier class: UMLCustomizedInspectorWorkspaceComposite name: 'Default view']!
+
+resourceIdentifierMapping
+
+	^Dictionary new
+		at: 'Boolean' put: (ResourceIdentifier class: BooleanPresenter name: 'CheckBox view');
+		at: 'True' put: (ResourceIdentifier class: BooleanPresenter name: 'CheckBox view');
+		at: 'False' put: (ResourceIdentifier class: BooleanPresenter name: 'CheckBox view');
+		at: 'Number' put: (ResourceIdentifier class: NumberPresenter name: 'Default view');
+		at: 'Array' put: (ResourceIdentifier class: UMLListComposite name: 'Default view');
+		at: 'Dictionary' put: (ResourceIdentifier class: UMLListComposite name: 'Default view');
+		at: 'OrderedCollection' put: (ResourceIdentifier class: UMLListComposite name: 'Default view');
+		at: 'String' put: (ResourceIdentifier class: TextPresenter name: 'Multiline text');
+		at: 'Date' put: (ResourceIdentifier class: DatePresenter name: 'Picker view');
+		at: 'Time' put: (ResourceIdentifier class: TimePresenter name: 'Picker view');
+		at: 'TimeStamp' put: (ResourceIdentifier class: TimeStampPresenter name: 'Default view');
+		yourself.
+! !
+!UMLVirtualMachine class categoriesFor: #resourceIdentifierFor:!public! !
+!UMLVirtualMachine class categoriesFor: #resourceIdentifierMapping!public! !
+
+!UMLVirtualMachineInstance methodsFor!
+
+onUpdateIn: aTextPresenter 
+
+	smalltalkObject := aTextPresenter value.! !
+!UMLVirtualMachineInstance categoriesFor: #onUpdateIn:!public! !
+
+!UndefinedObject methodsFor!
+
+<= anObject
+
+	^self printString <= anObject printString!
+
+>= anObject
+	^self printString >= anObject printString! !
+!UndefinedObject categoriesFor: #<=!public! !
+!UndefinedObject categoriesFor: #>=!public! !
+
+"End of package definition"!
+

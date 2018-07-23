@@ -1,0 +1,82 @@
+﻿| package |
+package := Package name: 'UML Development Add In'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #MoenTreeInspectorComposite;
+	yourself.
+
+package methodNames
+	add: #Object -> #asMoenTree;
+	add: #Object -> #inspectInMoenTree;
+	add: 'UMLAssociationSideMultiplicity class' -> #publishedAspectsOfInstances;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter';
+	add: 'UML Basic Support';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Presenter subclass: #MoenTreeInspectorComposite
+	instanceVariableNames: 'treePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Object methodsFor!
+
+asMoenTree
+	| treeModel instancesVariables |
+
+	treeModel := TreeModel withRoots: (OrderedCollection with: self).
+
+	instancesVariables := self class allInstVarNames collect: [:each | self instVarNamed: each].
+
+	instancesVariables do: [:each | treeModel add: each asChildOf: self].
+
+	^treeModel!
+
+inspectInMoenTree
+
+	MoenTreeInspectorComposite showOn: self asMoenTree! !
+!Object categoriesFor: #asMoenTree!public! !
+!Object categoriesFor: #inspectInMoenTree!public! !
+
+!UMLAssociationSideMultiplicity class methodsFor!
+
+publishedAspectsOfInstances
+
+    	^(super publishedAspectsOfInstances)
+    		add: (Aspect string: #text);
+    		add: (Aspect name: #association);
+    		add: (Aspect name: #isNavigable);
+    		yourself! !
+!UMLAssociationSideMultiplicity class categoriesFor: #publishedAspectsOfInstances!public! !
+
+"End of package definition"!
+

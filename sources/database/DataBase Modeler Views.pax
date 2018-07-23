@@ -1,0 +1,280 @@
+﻿| package |
+package := Package name: 'DataBase Modeler Views'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #DBAttributeComposite;
+	add: #DBComposite;
+	add: #DBFKCascadeTreeComposite;
+	add: #DBFKCascadeTreeShell;
+	add: #DBForeignKeyComposite;
+	add: #DBForeignKeyExplorerComposite;
+	add: #DBMigrationRuleComposite;
+	add: #DBModelComposite;
+	add: #DBModelForeignKeyExplorer;
+	add: #DBModelListShell;
+	add: #DBModelShell;
+	add: #DBPrimaryKeyComposite;
+	add: #DBShell;
+	add: #DBTableComposite;
+	add: #DBTableForeignKeyExplorerShell;
+	add: #DBTableShell;
+	yourself.
+
+package methodNames
+	add: #BBDataBaseModel -> #defaultComposite;
+	add: #BBDataBaseModel -> #show;
+	add: #BBDBAttribute -> #defaultComposite;
+	add: #BBDBForeignKey -> #defaultComposite;
+	add: #BBDBForeignKey -> #show;
+	add: #BBDBPrimaryKey -> #defaultComposite;
+	add: #BBDBTable -> #defaultComposite;
+	add: #BBDBTable -> #show;
+	add: 'BBDataBaseModel class' -> #showDatabaseCache;
+	add: 'ListPresenter class' -> #resource_Database_models;
+	add: 'ListPresenter class' -> #resource_Database_Tables_and_Attributes;
+	add: 'ListPresenter class' -> #resource_ForeignKey_list;
+	add: 'ListPresenter class' -> #resource_ListViewTables;
+	add: 'OracleXMLReader class' -> #showExample;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\others\BB MVP Basic Support';
+	add: 'DataBase Migration';
+	add: 'DataBase Modeler';
+	add: 'DataBase Modeler Comparision';
+	add: 'DataBase Modeler for Oracle';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Sliding Tray\Dolphin Slidey-Inney-Outey Thing';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Presenter subclass: #DBComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBAttributeComposite
+	instanceVariableNames: 'namePresenter typePresenter isNullablePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBFKCascadeTreeComposite
+	instanceVariableNames: 'tablesPresenter foreignTreePresenter scriptPresenter sqlCommandsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBForeignKeyComposite
+	instanceVariableNames: 'localNamePresenter tableNamePresenter relatedTableNamePresenter attibutesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBForeignKeyExplorerComposite
+	instanceVariableNames: 'foreignTreePresenter tablesPresenter tableComposite modelTablesPresenter dependentTablesPresenter dependentTableAttributes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBMigrationRuleComposite
+	instanceVariableNames: 'idPresenter categoryPresenter descriptionComposite mappingDonePresenter isDefinedPresenter ruleComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBModelComposite
+	instanceVariableNames: 'tablesPresenter tableComposite tableDescriptionComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBPrimaryKeyComposite
+	instanceVariableNames: 'primaryKeyNamePresenter primaryKeyAttributesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBComposite subclass: #DBTableComposite
+	instanceVariableNames: 'namePresenter attributesPresenter foreignKeysPresenter primaryKeyNamePresenter primaryKeyAttributesPresenter keyImagePresenter attributeDescriptionComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #DBShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBFKCascadeTreeShell
+	instanceVariableNames: 'fkCascadeComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBModelForeignKeyExplorer
+	instanceVariableNames: 'treePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBModelListShell
+	instanceVariableNames: 'dbListPresenter dbModelPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBModelShell
+	instanceVariableNames: 'dbmodelComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBTableForeignKeyExplorerShell
+	instanceVariableNames: 'foreignKeyComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBTableShell
+	instanceVariableNames: 'tableComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!BBDataBaseModel methodsFor!
+
+defaultComposite
+
+	^DBModelComposite!
+
+show
+
+	^DBModelShell showOn: self! !
+!BBDataBaseModel categoriesFor: #defaultComposite!public! !
+!BBDataBaseModel categoriesFor: #show!public! !
+
+!BBDataBaseModel class methodsFor!
+
+showDatabaseCache
+
+	DBModelListShell showOn: self databaseCacheAsSortedCollection! !
+!BBDataBaseModel class categoriesFor: #showDatabaseCache!public! !
+
+!BBDBAttribute methodsFor!
+
+defaultComposite
+
+	^DBAttributeComposite! !
+!BBDBAttribute categoriesFor: #defaultComposite!public! !
+
+!BBDBForeignKey methodsFor!
+
+defaultComposite
+
+	^DBForeignKeyComposite!
+
+show
+	^table show! !
+!BBDBForeignKey categoriesFor: #defaultComposite!public! !
+!BBDBForeignKey categoriesFor: #show!public! !
+
+!BBDBPrimaryKey methodsFor!
+
+defaultComposite
+
+	^DBPrimaryKeyComposite! !
+!BBDBPrimaryKey categoriesFor: #defaultComposite!public! !
+
+!BBDBTable methodsFor!
+
+defaultComposite
+
+	^DBTableComposite!
+
+show
+
+	^DBTableShell showOn: self! !
+!BBDBTable categoriesFor: #defaultComposite!public! !
+!BBDBTable categoriesFor: #show!public! !
+
+!ListPresenter class methodsFor!
+
+resource_Database_models
+	"Answer the literal data from which the 'Database models' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_Database_models)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 265030 4 ##(Smalltalk.Menu)  0 16 98 1 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #compareWith 8 'Compare With' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294902589 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Database' 281 8 #left 818 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 1040 1088 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1378 541 261 416 1314 8 #contextMenu: 98 1 656 416 1314 8 #text: 98 1 8 'Database' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 173 6 0 0 140 0 0 0] 98 0 1378 193 193 0 27 )!
+
+resource_Database_Tables_and_Attributes
+	"Answer the literal data from which the 'Database Tables and Attributes' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_Database_Tables_and_Attributes)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 265030 4 ##(Smalltalk.Menu)  0 16 98 1 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #copyAttributeToClipboard 8 'Copy to Clipboard' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294902671 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  3 1 8 ##(Smalltalk.UndefinedObject)  8 'doIt' 8 '[:e | e description asString]' 8 #[31 105 226 0 159 106] 8 #description 8 #asString 992 7 257 0 0 0 0 0 202 208 98 7 920646 5 ##(Smalltalk.ListViewColumn)  8 'Table' 301 8 #left 850 8 #tableName 98 0 978 0 0 1010 2 1 976 8 'doIt' 8 '[:a :b | a tableName <= b tableName]' 8 #[30 105 226 0 226 32 130 106] 1248 1280 7 513 0 0 0 416 0 1 0 0 1170 8 'Attribute Name' 301 1216 850 8 #name 98 0 978 0 0 1010 2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 1408 1440 7 513 0 0 0 416 0 1 0 0 1170 8 'Type' 301 1216 850 8 #printType 1424 978 0 0 1010 2 1 848 8 'doIt' 8 '[:a :b | a printType <= b printType]' 8 #[30 105 226 0 226 32 130 106] 1616 1632 7 513 0 0 0 416 0 1 0 0 1170 8 'Nullable' 141 1216 850 8 #nullable 1424 978 0 0 1010 3 1 976 8 'doIt' 8 '[:a :b | a nullable printString <= b nullable printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1760 8 #printString 1776 7 513 0 0 0 416 0 1 0 0 1170 8 'Is Primary Key ?' 191 1216 850 8 #isPrimaryKey 98 0 978 0 0 1010 3 1 976 8 'doIt' 8 '[:a :b | a isPrimaryKey printString <= b isPrimaryKey printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1920 1856 1952 7 513 0 0 0 416 0 1 0 0 1170 8 'Is Foreign Key ?' 201 1216 850 8 #isForeignKey 98 0 978 0 0 1010 3 1 848 8 'doIt' 8 '[:a :b | a isForeignKey printString <= b isForeignKey printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 2080 1856 2112 7 513 0 0 0 416 0 1 0 0 1170 8 'Is Basic Attribute ?' 221 1216 850 8 #isBasic 98 0 978 0 0 1010 3 1 976 8 'doIt' 8 '[:a :b | a isBasic printString <= b isBasic printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 2240 1856 2272 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 2498 1671 421 416 2434 8 #contextMenu: 98 1 688 416 2434 8 #text: 98 1 8 'Table' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 226 8 0 0 220 0 0 0] 98 0 2498 193 193 0 27 )!
+
+resource_ForeignKey_list
+	"Answer the literal data from which the 'ForeignKey list' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_ForeignKey_list)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 265030 4 ##(Smalltalk.Menu)  0 16 98 1 984134 2 ##(Smalltalk.CommandMenuItem)  1 1180998 4 ##(Smalltalk.CommandDescription)  8 #gotoRelatedTable 8 'Goto Related Table' 1 1 0 0 0 8 '' 0 134217729 0 0 0 0 0 0 0 416 0 8 4294902475 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 0 0 0 0 0 202 208 98 4 920646 5 ##(Smalltalk.ListViewColumn)  8 'Foreign Key Name' 561 8 #left 850 8 #localName 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a localName <= b localName]' 8 #[30 105 226 0 226 32 130 106] 1088 1136 7 513 0 0 0 416 0 1 0 0 1010 8 'Attribute' 601 1056 850 8 #printAttributeName 98 0 1122 0 0 1154 2 1 1120 8 'doIt' 8 '[:a :b | a printAttributeName <= b printAttributeName]' 8 #[30 105 226 0 226 32 130 106] 1328 1360 7 513 0 0 0 416 0 1 0 0 1010 8 'Table' 301 1056 850 8 #tableName 544 1122 0 0 1154 2 1 848 8 'doIt' 8 '[:a :b | a tableName <= b tableName]' 8 #[30 105 226 0 226 32 130 106] 1488 1504 7 513 0 0 0 416 0 1 0 0 1010 8 'Related Table' 401 1056 850 8 #printRelatedTableName 98 0 1122 0 0 1154 2 1 848 8 'doIt' 8 '[:a :b | a printRelatedTableName <= b printRelatedTableName]' 8 #[30 105 226 0 226 32 130 106] 1632 1664 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1890 1885 421 416 1826 8 #contextMenu: 98 1 688 416 1826 8 #text: 98 1 8 'Foreign Key Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 77 9 0 0 220 0 0 0] 98 0 1890 193 193 0 27 )!
+
+resource_ListViewTables
+	"Answer the literal data from which the 'ListViewTables' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_ListViewTables)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1140920397 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 31 0 0 0 416 0 8 4294903229 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Table Name' 601 8 #left 658 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 880 928 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 1218 631 641 416 1154 8 #text: 98 1 8 'Table Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 122 7 0 0 74 1 0 0] 98 0 1218 193 193 0 27 )! !
+!ListPresenter class categoriesFor: #resource_Database_models!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_Database_Tables_and_Attributes!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_ForeignKey_list!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_ListViewTables!public!resources-views! !
+
+!OracleXMLReader class methodsFor!
+
+showExample
+	^DBModelShell showOn: self newForExample! !
+!OracleXMLReader class categoriesFor: #showExample!public! !
+
+"End of package definition"!
+

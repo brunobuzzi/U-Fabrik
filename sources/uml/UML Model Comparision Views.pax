@@ -1,0 +1,68 @@
+﻿| package |
+package := Package name: 'UML Model Comparision Views'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #UMLModelComparisionComposite;
+	add: #UMLModelComparisionShell;
+	yourself.
+
+package methodNames
+	add: #UMLModelComparision -> #show;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\ListTree\Dolphin List Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: 'UML Basic Views';
+	add: 'UML Model Comparision';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+UMLShell subclass: #UMLModelComparisionShell
+	instanceVariableNames: 'comparisionComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLModelComparisionComposite
+	instanceVariableNames: 'firstNamePresenter secondNamePresenter differencesPresenter diffTypesPresenter detailPresenter totalDifferencePresenter colorPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!UMLModelComparision methodsFor!
+
+show
+
+	^UMLModelComparisionShell showOn: self! !
+!UMLModelComparision categoriesFor: #show!public! !
+
+"End of package definition"!
+

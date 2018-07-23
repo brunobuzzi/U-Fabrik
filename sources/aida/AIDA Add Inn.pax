@@ -1,0 +1,292 @@
+﻿| package |
+package := Package name: 'AIDA Add Inn'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #AIDAAbstractWebElement;
+	add: #AIDACheckBox;
+	add: #AIDADate;
+	add: #AIDAElement;
+	add: #AIDAExpandableMenu;
+	add: #AIDAExpandableTable;
+	add: #AIDAExpandableTable2;
+	add: #AIDAExpandableTableWithArguments;
+	add: #AIDAGrid;
+	add: #AIDAGridViewer;
+	add: #AIDAObjectWebPageDescription;
+	add: #AIDAPageElement;
+	add: #AIDARedirectTableCell;
+	add: #AIDASelectableItemsTable;
+	add: #AIDASimpleAspectComponent;
+	add: #AIDASimpleObjectWebPageDescription;
+	add: #AIDATable;
+	add: #AIDAText;
+	add: #AIDATextArea;
+	add: #AIDATimeStamp;
+	add: #AIDAWebLinkAspect;
+	add: #AIDAWebObjectAspect;
+	add: #AIDAWebPageBuilder;
+	add: #WebAddInApplication;
+	add: #WebDateInputFieldForTimeStamp;
+	add: #WebDateTimeInputField;
+	add: #WebExpandableLinkMenu;
+	add: #WebExpandableMenu;
+	add: #WebImageButton;
+	add: #WebInputFieldForTimeStamp;
+	add: #WebObjectViewer;
+	yourself.
+
+package methodNames
+	add: #Boolean -> #printSpanish;
+	add: #False -> #printSpanish;
+	add: #True -> #printSpanish;
+	add: #WebElement -> #addImageButtonText:;
+	add: #WebElement -> #addImageButtonText:action:;
+	add: #WebElement -> #addImageCancelButtonText:action:;
+	add: #WebElement -> #allCheckboxes;
+	add: #WebElement -> #allCheckedCheckboxes;
+	add: #WebElement -> #halign:;
+	add: 'WebImage class' -> #image:size:align:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'AIDAWeb';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #AIDAElement
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #AIDAWebPageBuilder
+	instanceVariableNames: 'aidaApplication object'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAElement subclass: #AIDAAbstractWebElement
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAAbstractWebElement subclass: #AIDAPageElement
+	instanceVariableNames: 'selector hasLink row secondarySelector viewFirstObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAAbstractWebElement subclass: #AIDASimpleObjectWebPageDescription
+	instanceVariableNames: 'object cells'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAAbstractWebElement subclass: #AIDATable
+	instanceVariableNames: 'objects rowDescription'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAPageElement subclass: #AIDARedirectTableCell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAPageElement subclass: #AIDAWebObjectAspect
+	instanceVariableNames: 'caption groupName backgroundImage backgroundColor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAWebObjectAspect subclass: #AIDAGridViewer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAWebObjectAspect subclass: #AIDASimpleAspectComponent
+	instanceVariableNames: 'aidaComponent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAWebObjectAspect subclass: #AIDAWebLinkAspect
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleAspectComponent subclass: #AIDACheckBox
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleAspectComponent subclass: #AIDADate
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleAspectComponent subclass: #AIDAText
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleAspectComponent subclass: #AIDATextArea
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleAspectComponent subclass: #AIDATimeStamp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDASimpleObjectWebPageDescription subclass: #AIDAObjectWebPageDescription
+	instanceVariableNames: 'caption'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebAddInApplication
+	instanceVariableNames: 'objectViewer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #AIDAExpandableMenu
+	instanceVariableNames: 'menuName options'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #AIDAGrid
+	instanceVariableNames: 'aidaComponent tableName objects mainTitles mainEvenColor mainOddColor mainAspectsSelectors hasAddBehavior hasRemoveBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebExpandableMenu
+	instanceVariableNames: 'menuName options'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebObjectViewer
+	instanceVariableNames: 'object rowDescription'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAGrid subclass: #AIDAExpandableTable
+	instanceVariableNames: 'expandableSelector expandTitles expandAspectSelectors collapseGif expandGif subEvenColor subOddColor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAGrid subclass: #AIDASelectableItemsTable
+	instanceVariableNames: 'hasCheckBoxes checkBoxTitle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAExpandableTable subclass: #AIDAExpandableTable2
+	instanceVariableNames: 'rowDescription hasCheckBoxes checkBoxTitle expandableTableHasCheckBoxes expandableTableCheckBoxesTitle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAExpandableTable2 subclass: #AIDAExpandableTableWithArguments
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebExpandableMenu subclass: #WebExpandableLinkMenu
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebButton subclass: #WebImageButton
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebDateTimeInputField
+	instanceVariableNames: 'dateInputField timeInputField'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebInputFieldForTimeStamp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebDateInputField subclass: #WebDateInputFieldForTimeStamp
+	instanceVariableNames: 'stringDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Boolean methodsFor!
+
+printSpanish
+	^'Booleano'! !
+!Boolean categoriesFor: #printSpanish!public! !
+
+!False methodsFor!
+
+printSpanish
+	^'No'! !
+!False categoriesFor: #printSpanish!public! !
+
+!True methodsFor!
+
+printSpanish
+	^'Si'! !
+!True categoriesFor: #printSpanish!public! !
+
+!WebElement methodsFor!
+
+addImageButtonText: aString
+	| button |
+
+	button := WebImageButton text: aString.
+	^self add: button!
+
+addImageButtonText: aString action: aSymbol
+	| button |
+
+	button := WebImageButton text: aString.
+	button action: aSymbol.
+	^self add: button
+!
+
+addImageCancelButtonText: aString action: aSymbol
+
+	^(self addImageButtonText: aString action: aSymbol) becomeCancelButton!
+
+allCheckboxes
+	^self allElements select: [:each | each class == WebCheckBox]!
+
+allCheckedCheckboxes
+	^self allCheckboxes select: [:each | each checked]!
+
+halign: aSymbol
+	self attributesAt: #'horizontal-align' put: aSymbol! !
+!WebElement categoriesFor: #addImageButtonText:!adding form elements!private! !
+!WebElement categoriesFor: #addImageButtonText:action:!adding form elements!private! !
+!WebElement categoriesFor: #addImageCancelButtonText:action:!adding form elements!private! !
+!WebElement categoriesFor: #allCheckboxes!public! !
+!WebElement categoriesFor: #allCheckedCheckboxes!public! !
+!WebElement categoriesFor: #halign:!attributes!private! !
+
+!WebImage class methodsFor!
+
+image: anImage size: aPoint align: aSymbol
+	^self new image: anImage; size: aPoint; align: aSymbol; yourself.! !
+!WebImage class categoriesFor: #image:size:align:!instance creation!private! !
+
+"End of package definition"!
+

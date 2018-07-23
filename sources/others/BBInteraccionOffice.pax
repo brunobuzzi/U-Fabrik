@@ -1,0 +1,117 @@
+﻿| package |
+package := Package name: 'BBInteraccionOffice'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #BBMSExcelReport;
+	add: #ExternalFile;
+	add: #LectorExcel;
+	add: #LectorMSWord;
+	add: #LectorOffice;
+	add: #MSExcel;
+	add: #MSOffice;
+	add: #MSPowerPoint;
+	add: #MSText;
+	add: #MSWord;
+	yourself.
+
+package methodNames
+	add: #RichTextComposite -> #saveAsWordDocument;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
+	add: 'BB MVP Basic Support';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: 'Excel';
+	add: '..\..\..\Core\Object Arts\Samples\MVP\Notepad\Notepad';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #BBMSExcelReport
+	instanceVariableNames: 'excel range'
+	classVariableNames: ''
+	poolDictionaries: 'ExcelConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #ExternalFile
+	instanceVariableNames: 'name document'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #LectorOffice
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalFile subclass: #MSOffice
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalFile subclass: #MSText
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MSOffice subclass: #MSExcel
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MSOffice subclass: #MSPowerPoint
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MSOffice subclass: #MSWord
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LectorOffice subclass: #LectorExcel
+	instanceVariableNames: 'excelReport'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LectorOffice subclass: #LectorMSWord
+	instanceVariableNames: 'archivo'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!RichTextComposite methodsFor!
+
+saveAsWordDocument
+	| doc |
+
+	doc := MSWord create: 'Temporal.doc'.
+
+	doc showApplication.
+
+	richTextPresenter model value copyToClipboard.
+
+	doc setTextFromClipboard! !
+!RichTextComposite categoriesFor: #saveAsWordDocument!public! !
+
+"End of package definition"!
+

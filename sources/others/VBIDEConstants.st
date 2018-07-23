@@ -1,0 +1,54 @@
+﻿"Filed out from Dolphin Smalltalk 7"!
+
+Smalltalk at: #VBIDEConstants put: (PoolConstantsDictionary named: #VBIDEConstants)!
+VBIDEConstants at: 'vbext_ct_ActiveXDesigner' put: 16rB!
+VBIDEConstants at: 'vbext_ct_ClassModule' put: 16r2!
+VBIDEConstants at: 'vbext_ct_Document' put: 16r64!
+VBIDEConstants at: 'vbext_ct_MSForm' put: 16r3!
+VBIDEConstants at: 'vbext_ct_StdModule' put: 16r1!
+VBIDEConstants at: 'vbext_cv_FullModuleView' put: 16r1!
+VBIDEConstants at: 'vbext_cv_ProcedureView' put: 16r0!
+VBIDEConstants at: 'vbext_pk_Get' put: 16r3!
+VBIDEConstants at: 'vbext_pk_Let' put: 16r1!
+VBIDEConstants at: 'vbext_pk_Proc' put: 16r0!
+VBIDEConstants at: 'vbext_pk_Set' put: 16r2!
+VBIDEConstants at: 'vbext_pp_locked' put: 16r1!
+VBIDEConstants at: 'vbext_pp_none' put: 16r0!
+VBIDEConstants at: 'vbext_pt_HostProject' put: 16r64!
+VBIDEConstants at: 'vbext_pt_StandAlone' put: 16r65!
+VBIDEConstants at: 'vbext_rk_Project' put: 16r1!
+VBIDEConstants at: 'vbext_rk_TypeLib' put: 16r0!
+VBIDEConstants at: 'vbext_vm_Break' put: 16r1!
+VBIDEConstants at: 'vbext_vm_Design' put: 16r2!
+VBIDEConstants at: 'vbext_vm_Run' put: 16r0!
+VBIDEConstants at: 'vbext_ws_Maximize' put: 16r2!
+VBIDEConstants at: 'vbext_ws_Minimize' put: 16r1!
+VBIDEConstants at: 'vbext_ws_Normal' put: 16r0!
+VBIDEConstants at: 'vbext_wt_Browser' put: 16r2!
+VBIDEConstants at: 'vbext_wt_CodeWindow' put: 16r0!
+VBIDEConstants at: 'vbext_wt_Designer' put: 16r1!
+VBIDEConstants at: 'vbext_wt_Find' put: 16r8!
+VBIDEConstants at: 'vbext_wt_FindReplace' put: 16r9!
+VBIDEConstants at: 'vbext_wt_Immediate' put: 16r5!
+VBIDEConstants at: 'vbext_wt_LinkedWindowFrame' put: 16rB!
+VBIDEConstants at: 'vbext_wt_Locals' put: 16r4!
+VBIDEConstants at: 'vbext_wt_MainWindow' put: 16rC!
+VBIDEConstants at: 'vbext_wt_ProjectWindow' put: 16r6!
+VBIDEConstants at: 'vbext_wt_PropertyWindow' put: 16r7!
+VBIDEConstants at: 'vbext_wt_Toolbox' put: 16rA!
+VBIDEConstants at: 'vbext_wt_ToolWindow' put: 16rF!
+VBIDEConstants at: 'vbext_wt_Watch' put: 16r3!
+VBIDEConstants at: 'vbextFileTypeBinary' put: 16rA!
+VBIDEConstants at: 'vbextFileTypeClass' put: 16r2!
+VBIDEConstants at: 'vbextFileTypeDesigners' put: 16rC!
+VBIDEConstants at: 'vbextFileTypeDocObject' put: 16r9!
+VBIDEConstants at: 'vbextFileTypeExe' put: 16r4!
+VBIDEConstants at: 'vbextFileTypeForm' put: 16r0!
+VBIDEConstants at: 'vbextFileTypeFrx' put: 16r5!
+VBIDEConstants at: 'vbextFileTypeGroupProject' put: 16rB!
+VBIDEConstants at: 'vbextFileTypeModule' put: 16r1!
+VBIDEConstants at: 'vbextFileTypeProject' put: 16r3!
+VBIDEConstants at: 'vbextFileTypePropertyPage' put: 16r8!
+VBIDEConstants at: 'vbextFileTypeRes' put: 16r6!
+VBIDEConstants at: 'vbextFileTypeUserControl' put: 16r7!
+VBIDEConstants shrink!

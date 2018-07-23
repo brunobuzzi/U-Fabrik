@@ -1,0 +1,252 @@
+﻿| package |
+package := Package name: 'Sport'.
+package paxVersion: 1;
+	basicComment: 'Sport is a Smalltalk Portability library.
+All Sport implementations are available under the LGPL.
+
+Sport provides a consistent interface to things which are implemented differently in most Smalltalk dialects. Sport provides wrappers for:
+    * Exceptions
+    * Times & Dates
+    * Files
+    * Sockets
+     ... and more.
+
+So far, Sport is implemented in: 
+ - VisualWorks
+ - Gemstone
+ - Squeak
+ - Visual Age for Smalltalk
+ - Dolphin Smalltalk X6
+
+Website: http://wiki.cs.uiuc.edu/VisualWorks/Sport
+
+===============
+Dolphin X6 port by:
+Esteban A. Maringolo <eMaringolo at gmail dot com>
+Jose Sebastian Calvo <fxgallego at gmail dot com>
+working at InfOil S.A.
+
+This work was done based on the previous port of Esteban A. Maringolo
+and the newest version loaded from the Seaside 2.9 alpha 4 Sport for Squeak
+package on its version 2.031
+
+It may include methods not yet implemented, and other unknown errors. 
+If you fix some, please report them to my mail address. Thank you.
+
+================
+'.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #SpAbstractError;
+	add: #SpDate;
+	add: #SpEnvironment;
+	add: #SpError;
+	add: #SpExceptionContext;
+	add: #SpFilename;
+	add: #SpFileStream;
+	add: #SpIPAddress;
+	add: #SpSocket;
+	add: #SpSocketAddress;
+	add: #SpSocketError;
+	add: #SpStringUtilities;
+	add: #SpTimestamp;
+	add: #SpTranscript;
+	add: #SpWeakArray;
+	yourself.
+
+package methodNames
+	add: #Compiler -> #evaluate:in:to:;
+	add: #SequencedStream -> #throughAll:;
+	add: #TimeStamp -> #asSpTimestamp;
+	add: #TimeStamp -> #printRFC1123StringOn:;
+	add: #TimeStamp -> #rfc1123String;
+	add: 'Locale class' -> #englishUS;
+	add: 'Locale class' -> #evaluate:usingLocale:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Base64\Dolphin Base64';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream';
+	add: '..\..\..\Core\Object Arts\Dolphin\Sockets\Dolphin Sockets';
+	add: '..\..\..\Core\Object Arts\Dolphin\Sockets\Sockets Connection';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SpDate
+	instanceVariableNames: 'underlyingDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpEnvironment
+	instanceVariableNames: ''
+	classVariableNames: 'ImageShutdownTaskBlocks ImageStartupTaskBlocks'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpExceptionContext
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpFilename
+	instanceVariableNames: 'filename'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpFileStream
+	instanceVariableNames: 'underlyingStream filename'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpSocket
+	instanceVariableNames: 'communicationDomain socketType protocolNumber underlyingSocket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpSocketAddress
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpStringUtilities
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpTimestamp
+	instanceVariableNames: 'underlyingTimestamp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpTranscript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SpWeakArray
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Error subclass: #SpAbstractError
+	instanceVariableNames: 'parameter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpAbstractError subclass: #SpError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SpSocketError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpSocketAddress subclass: #SpIPAddress
+	instanceVariableNames: 'hostAddress portNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Compiler methodsFor!
+
+evaluate: aString in: context to: anObject
+
+	^SpEnvironment evaluate: aString receiver: anObject in: context! !
+!Compiler categoriesFor: #evaluate:in:to:!public! !
+
+!Locale class methodsFor!
+
+englishUS
+	"Answer the English (United States) system locale."
+
+	^Locale lcid: 1033!
+
+evaluate: aBlock usingLocale: aLocale
+	"Evaluate aBlock setting aLocale as the receiver default locale,
+	and restoring the previous default locale after the evaluation of aBlock."
+
+	| previousLocale |
+	[ 
+		previousLocale := self default.
+		UserDefault := aLocale. 
+		aBlock value 
+	] ensure: [ UserDefault := previousLocale ]! !
+!Locale class categoriesFor: #englishUS!accessing!public! !
+!Locale class categoriesFor: #evaluate:usingLocale:!accessing!public! !
+
+!SequencedStream methodsFor!
+
+throughAll: aString 
+	"Answer a collection of elements starting with the next element accessed by the receiver,
+	and up to, and inclusive of, the next element that is equal to anObject. Positions the
+	stream after anObject if found. If anObject is not in the collection, answer the entire rest
+	of the collection. If the receiver is at its end, answer an empty Collection."
+
+	|  newStream prevPosition |
+	#eamAdded.
+	newStream := self contentsSpecies writeStream: 128.
+	prevPosition := self position.
+	prevPosition = 0 ifTrue: [prevPosition := 1].
+	(self skipToAll: aString) 
+		ifTrue: [self position > 1 ifTrue: [newStream nextPutAll: (self copyFrom: prevPosition to: self position)]]
+		ifFalse: [newStream nextPutAll: (self copyFrom: prevPosition to: self size )] .
+	^newStream contents
+! !
+!SequencedStream categoriesFor: #throughAll:!public! !
+
+!TimeStamp methodsFor!
+
+asSpTimestamp
+	"Answer an instance of SpTimestamp built from receiver."
+
+	^SpTimestamp fromTimestamp: self!
+
+printRFC1123StringOn: stream
+	" Private - Prints the receiver in RFC1123 format over stream.
+	E.g. Sun, 06 Nov 1994 08:49:37 GMT "
+
+	| lcEnglishUS |
+	lcEnglishUS := Locale englishUS.
+	stream
+		nextPutAll: (lcEnglishUS nameOfDay: self date weekdayIndex abbrev: true);
+		nextPutAll: ', '.
+	self date printOn: stream locale: lcEnglishUS format: 'dd MMM yyyy'.
+	stream space.
+	self time printOn: stream format: 'HH:mm:ss'.
+	stream nextPutAll: ' GMT'!
+
+rfc1123String
+	"Answer a string representing receiver in RFC1123 date and time format.
+	E.g. Sun, 06 Nov 1994 08:49:37 GMT . "
+
+	| stream |
+	#swAdded. #eamAdded.
+	stream := String writeStream: 32.
+	self printRFC1123StringOn: stream.
+	^stream contents! !
+!TimeStamp categoriesFor: #asSpTimestamp!converting!public! !
+!TimeStamp categoriesFor: #printRFC1123StringOn:!printing!private! !
+!TimeStamp categoriesFor: #rfc1123String!printing!public! !
+
+"End of package definition"!
+

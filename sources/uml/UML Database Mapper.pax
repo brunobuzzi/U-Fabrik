@@ -1,0 +1,66 @@
+﻿| package |
+package := Package name: 'UML Database Mapper'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #UMLDatabaseMapper;
+	yourself.
+
+package methodNames
+	add: #UMLClass -> #createTableWithAttributes;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\database\DataBase Modeler';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'UML Basic Support';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #UMLDatabaseMapper
+	instanceVariableNames: 'umlModel database mappedClasses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!UMLClass methodsFor!
+
+createTableWithAttributes
+	| table primaryKey primaryKeyAttribute |
+
+	table := BBDBTable newNamed: name.
+	(self allAttributes select: [:each | each isBasic]) do: [:eachVar | | newAttribute |
+		newAttribute := BBDBAttribute newNamed: eachVar name for: table.
+		newAttribute type: (BBDBAttributeType type: eachVar originalType).
+		table addAttribute: newAttribute].
+
+	primaryKey := BBDBPrimaryKey newNamed: (name, '.Id') for: table.
+	primaryKeyAttribute := BBDBAttribute newNamed: (name, '.Id') for: table.
+	table addAttribute: primaryKeyAttribute.
+	primaryKey addKey: primaryKeyAttribute.
+	table primaryKey: primaryKey.
+
+	^table
+	! !
+!UMLClass categoriesFor: #createTableWithAttributes!public! !
+
+"End of package definition"!
+

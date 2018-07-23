@@ -1,0 +1,66 @@
+﻿| package |
+package := Package name: 'VBIDE'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #VBIDE_ProjectTemplate;
+	add: #VBIDE_VBProject;
+	add: #VBIDE_VBProject_Old;
+	add: #VBIDEApplication;
+	add: #VBIDEVBE;
+	yourself.
+
+package globalNames
+	add: #VBIDEConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+IDispatch subclass: #VBIDE_ProjectTemplate
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'VBIDEConstants'
+	classInstanceVariableNames: ''!
+IDispatch subclass: #VBIDEApplication
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'VBIDEConstants'
+	classInstanceVariableNames: ''!
+VBIDE_ProjectTemplate subclass: #VBIDE_VBProject_Old
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'VBIDEConstants'
+	classInstanceVariableNames: ''!
+VBIDE_VBProject_Old subclass: #VBIDE_VBProject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'VBIDEConstants'
+	classInstanceVariableNames: ''!
+VBIDEApplication subclass: #VBIDEVBE
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'VBIDEConstants'
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

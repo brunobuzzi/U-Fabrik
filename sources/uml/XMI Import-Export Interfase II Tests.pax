@@ -1,0 +1,53 @@
+﻿| package |
+package := Package name: 'XMI Import-Export Interfase II Tests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #IXMLDOMDocumentTest;
+	add: #XmiEnterpriseArchitectTest;
+	add: #XmiReaderTest;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
+	add: 'XMI Import-Export Interfase II';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	add: '..\..\..\Core\Contributions\ITC Gorisek\Yaxo\YAXO DOM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+TestCase subclass: #XmiReaderTest
+	instanceVariableNames: 'xmiReader'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReaderTest subclass: #IXMLDOMDocumentTest
+	instanceVariableNames: 'document'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReaderTest subclass: #XmiEnterpriseArchitectTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

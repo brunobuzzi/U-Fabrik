@@ -1,0 +1,2423 @@
+﻿| package |
+package := Package name: 'AIDAWeb'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '6.41'.
+
+
+package classNames
+	add: #Address;
+	add: #AIDAAspectAdaptor;
+	add: #AIDAIndexedAdaptor;
+	add: #AidaProfiling;
+	add: #AIDAProtocolAdaptor;
+	add: #AIDASite;
+	add: #BmpImageStream;
+	add: #BosImageStream;
+	add: #Company;
+	add: #DailyCollection;
+	add: #DailyValues;
+	add: #DefaultWebStyle;
+	add: #DelimitedFile;
+	add: #DirectoryProxy;
+	add: #DocLink;
+	add: #FileProxy;
+	add: #GifImageStream;
+	add: #History;
+	add: #HTTPCopy;
+	add: #HTTPLock;
+	add: #HTTPLockResponse;
+	add: #HTTPMkCol;
+	add: #HTTPMove;
+	add: #HTTPPropFind;
+	add: #HTTPPropFindResponse;
+	add: #HTTPPropPatch;
+	add: #HTTPUnlock;
+	add: #HTTPWebDAVResponse;
+	add: #ImageStream;
+	add: #JoomlaMenu;
+	add: #JoomlaModule;
+	add: #JoomlaStyle;
+	add: #MemberRole;
+	add: #MIMEMap;
+	add: #Numberer;
+	add: #OrganizationUnit;
+	add: #Party;
+	add: #PartyCollection;
+	add: #PersistentDictionary;
+	add: #PersistentIdentityDictionary;
+	add: #Person;
+	add: #RDBTable;
+	add: #Role;
+	add: #RoleGroup;
+	add: #SwazooAida;
+	add: #UMLWebDialogListSelect;
+	add: #URLResolver;
+	add: #VersionedExample;
+	add: #VersionedExampleApp;
+	add: #VersionedObject;
+	add: #VersionSpec;
+	add: #ViewTabs;
+	add: #WebAdmin;
+	add: #WebAdminApp;
+	add: #WebAnchor;
+	add: #WebApplication;
+	add: #WebAutocompleteField;
+	add: #WebButton;
+	add: #WebCache;
+	add: #WebCacheEntry;
+	add: #WebCaptcha;
+	add: #WebCheckBox;
+	add: #WebClipboard;
+	add: #WebComment;
+	add: #WebContext;
+	add: #WebContextFirst;
+	add: #WebCounter;
+	add: #WebCountry;
+	add: #WebDateInputField;
+	add: #WebDelayedField;
+	add: #WebDemo;
+	add: #WebDemoApp;
+	add: #WebDialog;
+	add: #WebElement;
+	add: #WebFieldSet;
+	add: #WebFileInputField;
+	add: #WebForm;
+	add: #WebFormElement;
+	add: #WebGraph;
+	add: #WebGrid;
+	add: #WebGridColumn;
+	add: #WebHelp;
+	add: #WebHelpApp;
+	add: #WebHelpPage;
+	add: #WebHelpPageApp;
+	add: #WebIFrame;
+	add: #WebImage;
+	add: #WebImageMap;
+	add: #WebIndex;
+	add: #WebIndexApp;
+	add: #WebInPlaceEditableText;
+	add: #WebInputField;
+	add: #WebLanguage;
+	add: #WebLightbox;
+	add: #WebLink;
+	add: #WebList;
+	add: #WebListItem;
+	add: #WebLiveImage;
+	add: #WebLivePDFCreator;
+	add: #WebMenu;
+	add: #WebMethodImage;
+	add: #WebMethodResource;
+	add: #WebMsgs;
+	add: #WebMsgsApp;
+	add: #WebNonHTMLResource;
+	add: #WebPage;
+	add: #WebRadioButton;
+	add: #WebRawText;
+	add: #WebRichEditor;
+	add: #WebRichEditorWakeup;
+	add: #WebScheduledEvent;
+	add: #WebScheduler;
+	add: #WebScript;
+	add: #WebSecurityManager;
+	add: #WebSecurityManagerApp;
+	add: #WebSeparator;
+	add: #WebSession;
+	add: #WebSessionManager;
+	add: #WebSiteOwnerRole;
+	add: #WebStatistics;
+	add: #WebStatisticsApp;
+	add: #WebStubElement;
+	add: #WebStyle;
+	add: #WebTable;
+	add: #WebTableCell;
+	add: #WebTableHeader;
+	add: #WebTableRow;
+	add: #WebTabs;
+	add: #WebText;
+	add: #WebTextArea;
+	add: #WebTransactionMonitor;
+	add: #WebTranslator;
+	add: #WebTranslDict;
+	add: #WebUser;
+	add: #WebUserApp;
+	add: #WebUserGroup;
+	add: #WebUserGroupApp;
+	add: #WebUserRole;
+	add: #WebWidget;
+	add: #WebWindow;
+	yourself.
+
+package methodNames
+	add: #Association -> #aidaIsAssociation;
+	add: #BlockClosure -> #aidaDeepCopyNotIn:;
+	add: #Class -> #aidaDeepCopyNotIn:;
+	add: #Collection -> #allDailyCollectionDated:;
+	add: #Collection -> #allDailyCollectionDates;
+	add: #Collection -> #allDailyCollectionDays;
+	add: #Collection -> #allDailyCollectionEntries;
+	add: #Collection -> #allDailyCollectionFromDate:to:;
+	add: #Collection -> #allDailyCollectionYear:;
+	add: #Collection -> #allDailyCollectionYears;
+	add: #Collection -> #allDailyCollectionYearsForKindOf:;
+	add: #Collection -> #isRespondingStreamed;
+	add: #Collection -> #isWebElement;
+	add: #Collection -> #isWebPage;
+	add: #Collection -> #printHTMLPageOn:for:on:;
+	add: #Date -> #-;
+	add: #Date -> #+;
+	add: #Date -> #monthAndDayString;
+	add: #Date -> #printISOString;
+	add: #Date -> #shorterPrintSloString;
+	add: #Date -> #shortPrintSloString;
+	add: #HTTPConnection -> #representBinaryOn:;
+	add: #HTTPPost -> #ajaxSingleInputName;
+	add: #HTTPPost -> #postDataKeysNotStreamed;
+	add: #HTTPRequest -> #ajaxContentElementId;
+	add: #HTTPRequest -> #ajaxElementId;
+	add: #HTTPRequest -> #context;
+	add: #HTTPRequest -> #context:;
+	add: #HTTPRequest -> #contextId;
+	add: #HTTPRequest -> #idFromCookie;
+	add: #HTTPRequest -> #isAjaxAutocompleteRequest;
+	add: #HTTPRequest -> #isAjaxCloseWindowRequest;
+	add: #HTTPRequest -> #isAjaxInPlaceEditingRequest;
+	add: #HTTPRequest -> #isAjaxPopupWindowRequest;
+	add: #HTTPRequest -> #isAjaxPostRequest;
+	add: #HTTPRequest -> #isAjaxPostWithInput;
+	add: #HTTPRequest -> #isAjaxPostWithSingleInput;
+	add: #HTTPRequest -> #isAjaxRequest;
+	add: #HTTPRequest -> #isAjaxWikiFormatedRequest;
+	add: #HTTPRequest -> #isCopy;
+	add: #HTTPRequest -> #isLock;
+	add: #HTTPRequest -> #isMkCol;
+	add: #HTTPRequest -> #isMove;
+	add: #HTTPRequest -> #isPing;
+	add: #HTTPRequest -> #isPropFind;
+	add: #HTTPRequest -> #isPropPatch;
+	add: #HTTPRequest -> #isUnlock;
+	add: #HTTPRequest -> #view;
+	add: #HTTPServer -> #representBinaryOn:;
+	add: #Magnitude -> #asString;
+	add: #Number -> #printDotString;
+	add: #Number -> #withZeros;
+	add: #Object -> #aidaCacheTimeout;
+	add: #Object -> #aidaCacheView:on:;
+	add: #Object -> #aidaCanBeLocked;
+	add: #Object -> #aidaDeepCopy;
+	add: #Object -> #aidaDeepCopyNotIn:;
+	add: #Object -> #aidaDontCache;
+	add: #Object -> #aidaIsAssociation;
+	add: #Object -> #aidaIsLocked;
+	add: #Object -> #aidaLock;
+	add: #Object -> #aidaUnlock;
+	add: #Object -> #app;
+	add: #Object -> #contentType;
+	add: #Object -> #deepSearchOfClass:;
+	add: #Object -> #deepSearchOfObsoleteClasses;
+	add: #Object -> #expiresTimestamp;
+	add: #Object -> #firstAppFromStack;
+	add: #Object -> #firstContextFromStack;
+	add: #Object -> #firstRequestFromStack;
+	add: #Object -> #firstSessionFromStack;
+	add: #Object -> #forLanguage:;
+	add: #Object -> #isMultilingual;
+	add: #Object -> #isVersionedObject;
+	add: #Object -> #isWebApplication;
+	add: #Object -> #isWebStyle;
+	add: #Object -> #modifiedTimestamp;
+	add: #Object -> #notEmpty;
+	add: #Object -> #preferedUrl;
+	add: #Object -> #printWebAppNotFoundFor:;
+	add: #Object -> #printWebPageFor:on:;
+	add: #Object -> #sendOver:;
+	add: #OrderedCollection -> #moveDown:;
+	add: #OrderedCollection -> #moveUp:;
+	add: #PositionableStream -> #bcrlf;
+	add: #PositionableStream -> #insensitivePeekForAll:;
+	add: #PositionableStream -> #insensitiveSkipThroughAll:;
+	add: #PositionableStream -> #insensitiveUpToAll:;
+	add: #PositionableStream -> #peekForAll:;
+	add: #PositionableStream -> #readLimit;
+	add: #SpDate -> #currentMonth;
+	add: #SpDate -> #currentYear;
+	add: #SpDate -> #firstDayInMonth;
+	add: #SpDate -> #firstDayInNextMonth;
+	add: #SpDate -> #firstDayInNextYear;
+	add: #SpDate -> #firstDayInPreviousMonth;
+	add: #SpDate -> #firstDayInPreviousYear;
+	add: #SpDate -> #lastDayInMonth;
+	add: #SpDate -> #shortPrintSloString;
+	add: #SpTimestamp -> #printSloString;
+	add: #Stream -> #lf;
+	add: #Stream -> #upTo:escaper:;
+	add: #String -> #aidaIsAssociation;
+	add: #String -> #asCollectionOfHtmlHeadings;
+	add: #String -> #asDouble;
+	add: #String -> #asFloat;
+	add: #String -> #asHttpFriendly;
+	add: #String -> #asInteger;
+	add: #String -> #asSloveneWithoutCircumflexes;
+	add: #String -> #containsSubstring:;
+	add: #String -> #contentsAsMethod;
+	add: #String -> #convertToSloveneChars;
+	add: #String -> #ensureUnicodeSloveneChars;
+	add: #String -> #isValidEMailAddress;
+	add: #String -> #lineCount;
+	add: #String -> #lineCount:;
+	add: #String -> #plainEMailAddress;
+	add: #String -> #sendOver:;
+	add: #String -> #shortPrintSloString;
+	add: #String -> #shrinkTo:;
+	add: #String -> #trimNewlines;
+	add: #String -> #upToNumber;
+	add: #String -> #withHeadingAnchors;
+	add: #String -> #withHtmlBreaks;
+	add: #String -> #withoutHtmlTags;
+	add: #SwazooServer -> #aidaDemoSite;
+	add: #SwazooServer -> #aidaDemoStart;
+	add: #SwazooServer -> #aidaDemoStop;
+	add: #SwazooServer -> #aidaSites;
+	add: #SwazooServer -> #aidaStartOn:;
+	add: #SwazooServer -> #isNightlyBackupTime;
+	add: #SwazooServer -> #isWatchdogRunning;
+	add: #SwazooServer -> #prepareAidaDemoSiteOnPort:;
+	add: #SwazooServer -> #representBinaryOn:;
+	add: #SwazooServer -> #watchdogOther;
+	add: #SwazooServer -> #watchdogSites;
+	add: #Time -> #printSloString;
+	add: 'Date class' -> #nameOfSloDay:;
+	add: 'Date class' -> #nameOfSloMonth:;
+	add: 'Date class' -> #readSloFrom:;
+	add: 'HTTPException class' -> #failedDependency;
+	add: 'HTTPException class' -> #insufficientStorage;
+	add: 'HTTPException class' -> #locked;
+	add: 'HTTPException class' -> #multiStatus;
+	add: 'HTTPException class' -> #processing;
+	add: 'HTTPException class' -> #unprocessableEntity;
+	add: 'HTTPResponse class' -> #failedDependency;
+	add: 'HTTPResponse class' -> #insufficientStorage;
+	add: 'HTTPResponse class' -> #locked;
+	add: 'HTTPResponse class' -> #multiStatus;
+	add: 'HTTPResponse class' -> #noContent;
+	add: 'HTTPResponse class' -> #processing;
+	add: 'HTTPResponse class' -> #unprocessableEntity;
+	add: 'SwazooServer class' -> #aidaDemoStart;
+	add: 'SwazooServer class' -> #aidaDemoStop;
+	add: 'SwazooServer class' -> #aidaStartOn:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\others\Sport';
+	add: '..\swazoo\Swazoo';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #Address
+	instanceVariableNames: 'title firstName middleName lastName company street city stateProvince postalCode country phones fax emails'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #AidaProfiling
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #AIDAProtocolAdaptor
+	instanceVariableNames: 'subject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DailyCollection
+	instanceVariableNames: 'days'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DailyValues
+	instanceVariableNames: 'days'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DelimitedFile
+	instanceVariableNames: 'filename delimiter codepage records'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DirectoryProxy
+	instanceVariableNames: 'server filename fileDates origContent origCodepage contentType elements bodyTagIndex imgTagIndexes linkTagIndexes servletTagIndexes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DocLink
+	instanceVariableNames: 'title url object'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #FileProxy
+	instanceVariableNames: 'site filename timestamps content contentType size caching codepage elements bodyTagIndex imgTagIndexes linkTagIndexes servletTagIndexes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #History
+	instanceVariableNames: 'dates values changedDates authors comments historyCollection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ImageStream
+	instanceVariableNames: 'imageStream progressValue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #MIMEMap
+	instanceVariableNames: 'mimeTypes fileExtensions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Numberer
+	instanceVariableNames: 'counters'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Party
+	instanceVariableNames: 'id name description addresses roles relatedPartyRoles events relatedObjects otherValues'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #PartyCollection
+	instanceVariableNames: 'parent parties'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #RDBTable
+	instanceVariableNames: 'environment username password codepage table columns records'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Role
+	instanceVariableNames: 'name party relatedParty'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #RoleGroup
+	instanceVariableNames: 'name subroles'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooAida
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #URLResolver
+	instanceVariableNames: 'site allWebPages allURLLinks counters totalCounter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #VersionedObject
+	instanceVariableNames: 'version'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #VersionSpec
+	instanceVariableNames: 'object number current parent next'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebAdmin
+	instanceVariableNames: 'host ip port'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebApplication
+	instanceVariableNames: 'session observee contexts other'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebCache
+	instanceVariableNames: 'parent objects settings other'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebCacheEntry
+	instanceVariableNames: 'content created timeout'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebClipboard
+	instanceVariableNames: 'title url object'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebContext
+	instanceVariableNames: 'id parent child state window ids process semaphore request answer result'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebCounter
+	instanceVariableNames: 'started day year dailyCounts hourlyCounts todayHourlyCounts total yearlyHistory'
+	classVariableNames: 'Janko'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebCountry
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebDemo
+	instanceVariableNames: 'introduction date input delayedInput field1 field2 editField content submitValue deleted'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebElement
+	instanceVariableNames: 'parent elements attributes other'
+	classVariableNames: 'Colors'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebGridColumn
+	instanceVariableNames: 'parent id name width align aspect linkAspect linkView viewBlock addBlock sorted filter filterWidth summaryType summary'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebHelp
+	instanceVariableNames: 'pages'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebHelpPage
+	instanceVariableNames: 'parent app view title body'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebIndex
+	instanceVariableNames: 'index indexedObjects popularWords workQueue indexer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebLanguage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebMethodResource
+	instanceVariableNames: 'site object method contentType preferedUrl'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebMsgs
+	instanceVariableNames: 'messagesByLanguage language'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebScheduledEvent
+	instanceVariableNames: 'parent timestamp period method object block'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebScheduler
+	instanceVariableNames: 'site queue loop lock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebSecurityManager
+	instanceVariableNames: 'site users groups authenticationScheme accessByObject'
+	classVariableNames: 'Janko'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebSession
+	instanceVariableNames: 'ids created cookies parent user language country appsForObjects userValues other'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebSessionManager
+	instanceVariableNames: 'site sessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebStatistics
+	instanceVariableNames: 'site referers refererStopList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebStyle
+	instanceVariableNames: 'site style resources searchButton'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebTransactionMonitor
+	instanceVariableNames: ''
+	classVariableNames: 'BusySessions LocalServers NotificationSent Transactions'
+	poolDictionaries: ''
+	classInstanceVariableNames: 'Lock'!
+Object subclass: #WebTranslator
+	instanceVariableNames: 'parent cache other'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebUser
+	instanceVariableNames: 'parent id username password name surname company address city zip country website email phone fax otherValues'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #WebUserGroup
+	instanceVariableNames: 'name users'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAProtocolAdaptor subclass: #AIDAAspectAdaptor
+	instanceVariableNames: 'aspect'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AIDAProtocolAdaptor subclass: #AIDAIndexedAdaptor
+	instanceVariableNames: 'index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dictionary variableSubclass: #PersistentDictionary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dictionary variableSubclass: #WebTranslDict
+	instanceVariableNames: 'changes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+IdentityDictionary variableSubclass: #PersistentIdentityDictionary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FileProxy subclass: #WebCaptcha
+	instanceVariableNames: 'text random'
+	classVariableNames: 'Cache'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPCopy
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPLock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPMkCol
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPPropFind
+	instanceVariableNames: 'properties'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPPropPatch
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPUnlock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPResponse subclass: #HTTPWebDAVResponse
+	instanceVariableNames: 'xmlResponse'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPWebDAVResponse subclass: #HTTPLockResponse
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPWebDAVResponse subclass: #HTTPPropFindResponse
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ImageStream subclass: #BmpImageStream
+	instanceVariableNames: 'bfType bfSize bfReserved1 bfReserved2 bfOffBits biSize biWidth biHeight biPlanes biBitCount biCompression biSizeImage biXPelsPerMeter biYPelsPerMeter biClrUsed biClrImportant imagePalette imageObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ImageStream subclass: #BosImageStream
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ImageStream subclass: #GifImageStream
+	instanceVariableNames: 'width height bitsPerPixel colorPalette rowByteSize xpos ypos pass interlace codeSize clearCode eoiCode freeCode maxCode prefixTable suffixTable remainBitCount bufByte bufStream transparentPixel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Party subclass: #OrganizationUnit
+	instanceVariableNames: 'type parent units specialRoles'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Party subclass: #Person
+	instanceVariableNames: 'surname'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrganizationUnit subclass: #Company
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Role subclass: #MemberRole
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Role subclass: #WebSiteOwnerRole
+	instanceVariableNames: 'webSite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Role subclass: #WebUserRole
+	instanceVariableNames: 'username password'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooSite subclass: #AIDASite
+	instanceVariableNames: 'style settings systemServices userServices timestamps counters'
+	classVariableNames: 'Default SloveneCharacters'
+	poolDictionaries: ''
+	classInstanceVariableNames: 'Random'!
+VersionedObject subclass: #VersionedExample
+	instanceVariableNames: 'title body'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #VersionedExampleApp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebAdminApp
+	instanceVariableNames: 'username password newUser newSite umlModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebDemoApp
+	instanceVariableNames: 'liveImage selectedClasses filename fileContentType fileStream startStamp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebHelpApp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebHelpPageApp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebIndexApp
+	instanceVariableNames: 'searchString results page'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebMsgsApp
+	instanceVariableNames: 'webMsgs assocs texts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebSecurityManagerApp
+	instanceVariableNames: 'selectedUsers selectedGroups usr group aclObject aclForWho'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebStatisticsApp
+	instanceVariableNames: 'date domainObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebUserApp
+	instanceVariableNames: 'newPassword newPasswordConfirmation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebApplication subclass: #WebUserGroupApp
+	instanceVariableNames: 'usersInGroup'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebContext subclass: #WebContextFirst
+	instanceVariableNames: 'view mainSemaphore'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #JoomlaModule
+	instanceVariableNames: 'header body'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebComment
+	instanceVariableNames: 'text'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebFieldSet
+	instanceVariableNames: 'legend'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebForm
+	instanceVariableNames: 'fields action tabOrder'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebFormElement
+	instanceVariableNames: 'aspect object adaptor value enterTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebIFrame
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebImage
+	instanceVariableNames: 'image imageMap'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebImageMap
+	instanceVariableNames: 'areas'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebList
+	instanceVariableNames: 'name kind type'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebListItem
+	instanceVariableNames: 'tag'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebLiveImage
+	instanceVariableNames: 'gif refreshed width height painter lastUsed resolver'
+	classVariableNames: 'Cache'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebScript
+	instanceVariableNames: 'script source'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebSeparator
+	instanceVariableNames: 'type size length'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebStubElement
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebTable
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebTableCell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebTableRow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebText
+	instanceVariableNames: 'text size textAttributes header paragraph font'
+	classVariableNames: 'AttributeMarkup'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebElement subclass: #WebWidget
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+JoomlaModule subclass: #JoomlaMenu
+	instanceVariableNames: 'pages'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebButton
+	instanceVariableNames: 'type image size'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebCheckBox
+	instanceVariableNames: 'checked selected'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebInPlaceEditableText
+	instanceVariableNames: 'size attribute formated allow triggerElement'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebInputField
+	instanceVariableNames: 'size maxLength type'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebMenu
+	instanceVariableNames: 'multiple collection selected aspectToStore objectToStore sort'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebRadioButton
+	instanceVariableNames: 'checked'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebFormElement subclass: #WebTextArea
+	instanceVariableNames: 'rows columns'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebAutocompleteField
+	instanceVariableNames: 'choicesAspect choicesObject choiceAspect elementToUpdate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebDateInputField
+	instanceVariableNames: 'button'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebDelayedField
+	instanceVariableNames: 'update parameter delay'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebInputField subclass: #WebFileInputField
+	instanceVariableNames: 'filenameAspect contentTypeAspect writeStream writeBlock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebTextArea subclass: #WebRichEditor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebList subclass: #WebTabs
+	instanceVariableNames: 'selected'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebTabs subclass: #ViewTabs
+	instanceVariableNames: 'views'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebLiveImage subclass: #WebGraph
+	instanceVariableNames: 'data margin title graphics'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebTableCell subclass: #WebTableHeader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebText subclass: #WebAnchor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebText subclass: #WebLink
+	instanceVariableNames: 'ooReference urlReference parms anchor security'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebText subclass: #WebRawText
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebDialog
+	instanceVariableNames: 'type text'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebGrid
+	instanceVariableNames: 'collection filtered columns page settings'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebLightbox
+	instanceVariableNames: 'component'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebNonHTMLResource
+	instanceVariableNames: 'contentType content filename'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebRichEditorWakeup
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWidget subclass: #WebWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebDialog subclass: #UMLWebDialogListSelect
+	instanceVariableNames: 'component'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebWindow subclass: #WebPage
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebMethodResource subclass: #WebLivePDFCreator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WebMethodResource subclass: #WebMethodImage
+	instanceVariableNames: 'lastUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'Cache'!
+WebStyle subclass: #DefaultWebStyle
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DefaultWebStyle subclass: #JoomlaStyle
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Association methodsFor!
+
+aidaIsAssociation
+	"used for Aida/Web translation support, multilingual strings are namelly assocs: #fr->'Bonjour'"
+	^true! !
+!Association categoriesFor: #aidaIsAssociation!public!testing! !
+
+!BlockClosure methodsFor!
+
+aidaDeepCopyNotIn: aDict
+	^nil! !
+!BlockClosure categoriesFor: #aidaDeepCopyNotIn:!private! !
+
+!Class methodsFor!
+
+aidaDeepCopyNotIn: aDict
+	^nil! !
+!Class categoriesFor: #aidaDeepCopyNotIn:!fileIn/Out!public! !
+
+!Collection methodsFor!
+
+allDailyCollectionDated: aDate
+	"all on that date in any of daily collections"
+	^self inject: OrderedCollection new into: [:col :each | col addAll: (each allDated: aDate). col]
+
+"DailyCollection allInstances allDailyCollectionDated: 
+		DailyCollection allInstances allDailyCollectionDates asOrderedCollection last."!
+
+allDailyCollectionDates
+	"all dates which occur of any of daily collections"
+	^self allDailyCollectionDays collect: [:each | Date fromDays: each].
+
+"DailyCollection allInstances allDailyCollectionDates"!
+
+allDailyCollectionDays
+	"all day numbers which occur of any of daily collections"
+	^self inject: Set new into: [:set :each | set addAll: each allDays. set].
+
+"DailyCollection allInstances allDailyCollectionDays"!
+
+allDailyCollectionEntries
+	"sorted by date"
+	| days |
+	days := self allDailyCollectionDays.
+	days := days asSortedCollection. 
+	^days inject: OrderedCollection new into: [:col :day | 
+		self do: [:daily | (daily days includesKey: day) ifTrue: [col addAll: (daily days at: day)] ].
+		col].
+
+"DailyCollection allInstances allDailyCollectionEntries"!
+
+allDailyCollectionFromDate: aStartDate to: anEndDate
+	"sorted by date"
+	| startDay endDay daysInRange |
+	startDay := aStartDate asDays. endDay := anEndDate asDays.
+	daysInRange := self allDailyCollectionDays select: [:each | each >= startDay and: [each <= endDay] ].
+	daysInRange := daysInRange asSortedCollection. 
+	^daysInRange inject: OrderedCollection new into: [:col :day | 
+		self do: [:daily | (daily days includesKey: day) ifTrue: [col addAll: (daily days at: day)] ].
+		col].
+
+"DailyCollection allInstances allDailyCollectionFromDate: (Date readSloFrom: '1.1.2004' readStream) 
+  	to: (Date readSloFrom: '31.12.2006' readStream)"!
+
+allDailyCollectionYear: aNumber
+	^self 
+		allDailyCollectionFromDate: (Date newDay: 1 monthNumber: 1 year: aNumber)
+		to: (Date newDay: 31 monthNumber: 12 year: aNumber)
+
+"DailyCollection allInstances allDailyCollectionYear: 2004 "!
+
+allDailyCollectionYears
+	"all years on which occur of anything of daily collections. Sorted!!"
+	^SortedCollection 
+		withAll: (self allDailyCollectionDates inject: Set new into: [:set :each | set add: each year. set])
+		sortBlock: [:a :b | a < b].
+
+"DailyCollection allInstances allDailyCollectionYears"!
+
+allDailyCollectionYearsForKindOf: aClass
+	"all years on which occur of anything of that class. Sorted!!"
+	"optimize that!!"
+	^(self inject: Set new into: [:set :each | set addAll: (each allYearsForKindOf: aClass). set])
+		asSortedCollection
+
+"DailyCollection allInstances allDailyCollectionYearsForKindOf: AIDA.Invoice"!
+
+isRespondingStreamed
+	^false!
+
+isWebElement
+	^true "more or less"!
+
+isWebPage
+	^false!
+
+printHTMLPageOn: aStream for: aRequest on: aSession
+	"only inner html, for ajax element updates"
+	self do: [:element | 
+		element notNil ifTrue: [element printHTMLPageOn: aStream for: aRequest on: aSession] ].! !
+!Collection categoriesFor: #allDailyCollectionDated:!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionDates!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionDays!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionEntries!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionFromDate:to:!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionYear:!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionYears!daily collections!public! !
+!Collection categoriesFor: #allDailyCollectionYearsForKindOf:!daily collections!public! !
+!Collection categoriesFor: #isRespondingStreamed!AIDA web!public! !
+!Collection categoriesFor: #isWebElement!AIDA web!public! !
+!Collection categoriesFor: #isWebPage!AIDA web!public! !
+!Collection categoriesFor: #printHTMLPageOn:for:on:!AIDA web!public! !
+
+!Date methodsFor!
+
+- aNumber 
+
+	"Janko Mivsek, dec97"
+	"subtract number of days from a date."
+
+	^self subtractDays: aNumber!
+
++ aNumber 
+
+	"Janko Mivsek, dec97"
+	"add one day to a date."
+
+	^self addDays: aNumber!
+
+monthAndDayString
+	"with leading zeros, example: 05-16 for 16may"
+	^(self monthIndex < 10 ifTrue: ['0'] ifFalse: ['']), self monthIndex printString, '-',
+	 	(self dayOfMonth < 10 ifTrue: ['0'] ifFalse: ['']), self dayOfMonth printString
+
+"Date today monthAndDayString"!
+
+printISOString
+	^self year printString, 
+		(self monthIndex < 10 ifTrue: ['0'] ifFalse: ['']), self monthIndex printString,
+		(self dayOfMonth < 10 ifTrue: ['0'] ifFalse: ['']), self dayOfMonth printString
+
+"Date today printISOString   "!
+
+shorterPrintSloString
+	"year in two digits only"
+	| yeart |
+	yeart := (self year \\ 100) printString. yeart size = 1 ifTrue: [yeart := '0', yeart].
+	^self dayOfMonth printString, '.', self monthIndex printString, '.', yeart.
+
+"Date today shorterPrintSloString"!
+
+shortPrintSloString
+	^self dayOfMonth printString, '.', self monthIndex printString, '.', self year printString.
+
+"Date today shortPrintSloString   "! !
+!Date categoriesFor: #-!arithmetic!public! !
+!Date categoriesFor: #+!arithmetic!public! !
+!Date categoriesFor: #monthAndDayString!accessing!public! !
+!Date categoriesFor: #printISOString!printing!public! !
+!Date categoriesFor: #shorterPrintSloString!printing!public! !
+!Date categoriesFor: #shortPrintSloString!printing!public! !
+
+!Date class methodsFor!
+
+nameOfSloDay: dayIndex 
+	"Answer a symbol representing the slovenian name of the day indexed by 
+	dayIndex, 1 - 7."
+	^#('Ponedeljek' 'Torek' 'Sreda' 'C^etrtek' 'Petek' 'Sobota' 'Nedelja') at: dayIndex
+
+"Date nameOfSloDay: 4"!
+
+nameOfSloMonth: monthIndex 
+	"Answer a symbol representing the slovenian name of the month indexed by 
+	monthIndex, 1 - 12."
+	^#(Januar Februar Marec April Maj Junij 
+		Julij Avgust September Oktober November December)
+		at: monthIndex!
+
+readSloFrom: aStream
+	"Answer a Date read from the argument aStream in any of
+	 the forms:
+		<day> <monthName> <year>		(5.April 198  5.april 1982 5.apr 82 5.apr 1982)
+		<day><monthNumber> <year>	(5.4.82 5.4.1982 050482 05041992)
+	If year missing, then current year is used!!
+"
+
+	"Date readSloFrom: '12.12' readStream"
+
+	| string withDots alphaMonth day month year |
+	string := aStream contents.
+	(string size < 4) ifTrue: [^nil].
+	withDots := string includes: $. .
+	alphaMonth := true. string detect: [:ch | ch isAlphabetic] ifNone: [alphaMonth := false].
+	withDots
+		ifTrue: [alphaMonth 
+			ifTrue: 
+				[day := (aStream upTo: $. ) asInteger.
+				[aStream peek = $ ] whileTrue: [aStream skip: 1].
+				month := (aStream upTo: $ ).
+				year := (aStream upToEnd) asInteger.
+				(year = 0) ifTrue: [year := Date today year].
+
+				]
+			ifFalse: 	
+				[day := (aStream upTo: $. ) asInteger.
+				month := (aStream upTo: $. ) asInteger.
+				year := (aStream upTo: $. ) asInteger.
+				(year = 0) ifTrue: [year := Date today year].
+				] ]
+		ifFalse: [alphaMonth 
+			ifTrue: []
+			ifFalse: [
+				day := (string copyFrom: 1 to: 2) asInteger.
+				month := (string copyFrom: 3 to: 4) asInteger.
+				(string size > 4)	
+					ifTrue: [year := (string copyFrom: 5 to: string size) asInteger]
+					ifFalse: [year := Date today year].
+				] ].
+
+	(year isKindOf: Integer) ifTrue:
+		[(year < 100) ifTrue: 
+			[(year < 20) ifTrue: [year := year + 2000] ifFalse: [year := year + 1900]].
+		].
+	(month isKindOf: String) ifTrue:
+		[month := month select: [:ch | ch isAlphaNumeric].
+		(month  isEmpty not & (month at: 1) isAlphabetic) ifTrue:
+			[month := (month copyFrom: 1 to: 3) asLowercase.
+			(month = 'jan') ifTrue: [month := 1]
+				ifFalse: [(month = 'jan') ifTrue: [month := 1]
+				ifFalse: [(month = 'feb') ifTrue: [month := 2]
+				ifFalse: [(month = 'mar') ifTrue: [month := 3]
+				ifFalse: [(month = 'apr') ifTrue: [month := 4]
+				ifFalse: [(month = 'maj') ifTrue: [month := 5]
+				ifFalse: [(month = 'jun') ifTrue: [month := 6]
+				ifFalse: [(month = 'jul') ifTrue: [month := 7]
+				ifFalse: [(month = 'avg') ifTrue: [month := 8]
+				ifFalse: [(month = 'sep') ifTrue: [month := 9]
+				ifFalse: [(month = 'okt') ifTrue: [month := 10]
+				ifFalse: [(month = 'nov') ifTrue: [month := 11]
+				ifFalse: [(month = 'dec') ifTrue: [month := 12]]]]]]]]]]]]].
+			]
+		].
+	((day isKindOf: Integer) and:
+		[(day between: 1 and: 31) and: 
+			[(month isKindOf: Integer) and:
+				[(month between: 1 and: 12) ]]]) ifFalse: [^nil].
+
+	^Date newDay: day monthNumber: month year: year.! !
+!Date class categoriesFor: #nameOfSloDay:!general inquiries!public! !
+!Date class categoriesFor: #nameOfSloMonth:!general inquiries!public! !
+!Date class categoriesFor: #readSloFrom:!instance creation!public! !
+
+!HTTPConnection methodsFor!
+
+representBinaryOn: aBossWriter
+	^0 "don't boss-out it !! "! !
+!HTTPConnection categoriesFor: #representBinaryOn:!private! !
+
+!HTTPException class methodsFor!
+
+failedDependency
+	^self raiseResponse: (HTTPResponse new code: 424)!
+
+insufficientStorage
+	^self raiseResponse: (HTTPResponse new code: 507)!
+
+locked
+	^self raiseResponse: (HTTPResponse new code: 423)!
+
+multiStatus
+	^self raiseResponse: (HTTPResponse new code: 207)!
+
+processing
+	^self raiseResponse: (HTTPResponse new code: 102)!
+
+unprocessableEntity
+	^self raiseResponse: (HTTPResponse new code: 422)! !
+!HTTPException class categoriesFor: #failedDependency!public!responses-client error! !
+!HTTPException class categoriesFor: #insufficientStorage!public!responses-server error! !
+!HTTPException class categoriesFor: #locked!public!responses-client error! !
+!HTTPException class categoriesFor: #multiStatus!public!responses-succesfull! !
+!HTTPException class categoriesFor: #processing!public!responses-informational! !
+!HTTPException class categoriesFor: #unprocessableEntity!public!responses-client error! !
+
+!HTTPPost methodsFor!
+
+ajaxSingleInputName
+	"Single form field Ajax posts have additional parameter carying the name of that field"
+	^(self postDataAt: 'ajaxSingleField' ifAbsent: [^nil]) value!
+
+postDataKeysNotStreamed
+	"keys for a postData which is not streamed"
+	self ensureFullRead. "defered parsing of postData"
+	^(self postData underlyingCollection select: [:assoc | assoc value isStreamed not])
+		collect: [:assoc | assoc key]! !
+!HTTPPost categoriesFor: #ajaxSingleInputName!accessing!public! !
+!HTTPPost categoriesFor: #postDataKeysNotStreamed!accessing!public! !
+
+!HTTPRequest methodsFor!
+
+ajaxContentElementId
+	"for Ajax updates from contents of another element "
+	"see WebElement>>onClickPopup:, WebApplication>>ajaxUpdate:with: etc."
+	| id |
+	id := self queryAt: 'ajaxContentElementId' ifAbsent: [nil].
+	id notNil ifTrue: [^id asSymbol].
+	^self isPost 
+		ifTrue: [(self postDataAt: 'ajaxContentElementId' ifAbsent: [^nil]) value asSymbol]
+		ifFalse: [nil]!
+
+ajaxElementId
+	"Asynchronous JavaScript (AJAX) request, it has additional parameter ajaxGetElementId"
+	| id |
+	id := self queryAt: 'ajaxGetElementId' ifAbsent: [nil].
+	id notNil ifTrue: [^id asSymbol].
+	^self isPost 
+		ifTrue: [(self postDataAt: 'ajaxGetElementId' ifAbsent: [^nil]) value asSymbol]
+		ifFalse: [nil]!
+
+context
+	"an execution context for that request"
+	^self environmentAt: #context ifAbsent: [nil]!
+
+context: aWebContext
+	"an execution context for that request"
+	self environmentAt: #context put: aWebContext!
+
+contextId
+	"unique id of the web context this request is executing. May be in query part or post data"
+	| id |
+	id := self queryAt: WebContext contextIdName "aidaCtx" ifAbsent: [nil].
+	id notNil ifTrue: [^id asInteger].
+	^self isPost 
+		ifTrue: [(self postDataAt: WebContext contextIdName ifAbsent: [^nil]) value asInteger]
+		ifFalse: [nil]!
+
+idFromCookie
+	"return session id from our cookie. nil if not aida field present in cookie"
+	| stream part |
+	stream := self cookie readStream.
+	[stream atEnd] whileFalse:
+		[part := stream upTo: $; .
+		('*aida9357*' match: part) ifTrue:
+			[^part readStream upTo: $=; upToEnd] ].
+	^nil!
+
+isAjaxAutocompleteRequest
+	"AJAX autocomplete input field request, see WebAutocompleteField"
+	self isAjaxRequest ifFalse: [^false].
+	^self includesQuery: 'ajaxAutocompleteField'!
+
+isAjaxCloseWindowRequest
+	"to Ajax close the window and its context (by WebElement>>addCloseWindowText: )"
+	| parm2 |
+	(self isPost and: [self isAjaxRequest]) ifFalse: [^false].
+	parm2 := (self postDataAt: 'parm2').
+	^parm2 notNil and: [parm2 value = 'aidaCloseWindow']!
+
+isAjaxInPlaceEditingRequest
+	"AJAX in place editor request, see WebInPlaceEditingText"
+	self isAjaxRequest ifFalse: [^false].
+	^self includesQuery: 'ajaxInPlaceEditing'!
+
+isAjaxPopupWindowRequest
+	"to Ajax open some element in a popup window, (WebElement>>onClickPopup: )"
+	| parm2 |
+	(self isPost and: [self isAjaxRequest]) ifFalse: [^false].
+	parm2 := (self postDataAt: 'parm2').
+	^parm2 notNil and: [parm2 value = 'aidaPopupWindow']!
+
+isAjaxPostRequest
+	"Asynchronous JavaScript (AJAX) request, with posting an input field in a query"
+	^self isAjaxRequest and: [self isPost]!
+
+isAjaxPostWithInput
+	"Asynchronous JavaScript (AJAX) request, with posting an input field in a post data"
+	(self isPost and: [self isAjaxRequest]) ifFalse: [^false].
+	^(self postDataKeys contains: [:each | 'field*' match: each]) 
+		or: [self isAjaxPostWithSingleInput "uncheck a single checkbox doesn't have any additional field !! "
+			or: [self postDataKeys includes: 'ajaxPressedButton'] ]!
+
+isAjaxPostWithSingleInput
+	"Ajax post with of one form element only"
+	(self isPost and: [self isAjaxRequest]) ifFalse: [^false].
+	^(self postDataKeys includes: 'ajaxSingleField')
+		or: [self isAjaxAutocompleteRequest | self isAjaxInPlaceEditingRequest]!
+
+isAjaxRequest
+	"Asynchronous JavaScript (AJAX) request, it has additional parameter ajaxRequest"
+	^(self headerAt: 'X-Requested-With' ifAbsent: [^false]) value = 'XMLHttpRequest'!
+
+isAjaxWikiFormatedRequest
+	"AJAX in place editor request, see WebInPlaceEditingText"
+	self isAjaxRequest ifFalse: [^false].
+	^self includesQuery: 'wikiFormated'!
+
+isCopy
+	^false!
+
+isLock
+	^false!
+
+isMkCol
+	^false!
+
+isMove
+	^false!
+
+isPing
+	"/ping.html, for monitoring the site etc."
+	^self requestLine requestURI identifier = '/ping.html'!
+
+isPropFind
+	^false!
+
+isPropPatch
+	^false!
+
+isUnlock
+	^false!
+
+view
+	| view |
+	view := self queryAt: 'view' ifAbsent: [nil].
+	view notNil ifTrue: [^(view readStream upTo: $# )  asSymbol]. "skip #anchor if any"
+	^self isPost 
+		ifTrue: [(self postDataAt: 'view' ifAbsent: [^nil]) value asSymbol]
+		ifFalse: [nil]! !
+!HTTPRequest categoriesFor: #ajaxContentElementId!accessing-queries!public! !
+!HTTPRequest categoriesFor: #ajaxElementId!accessing-queries!public! !
+!HTTPRequest categoriesFor: #context!accessing!public! !
+!HTTPRequest categoriesFor: #context:!accessing!public! !
+!HTTPRequest categoriesFor: #contextId!accessing-queries!public! !
+!HTTPRequest categoriesFor: #idFromCookie!accessing!public! !
+!HTTPRequest categoriesFor: #isAjaxAutocompleteRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxCloseWindowRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxInPlaceEditingRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxPopupWindowRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxPostRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxPostWithInput!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxPostWithSingleInput!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxRequest!public!testing! !
+!HTTPRequest categoriesFor: #isAjaxWikiFormatedRequest!public!testing! !
+!HTTPRequest categoriesFor: #isCopy!public!testing! !
+!HTTPRequest categoriesFor: #isLock!public!testing! !
+!HTTPRequest categoriesFor: #isMkCol!public!testing! !
+!HTTPRequest categoriesFor: #isMove!public!testing! !
+!HTTPRequest categoriesFor: #isPing!public!testing! !
+!HTTPRequest categoriesFor: #isPropFind!public!testing! !
+!HTTPRequest categoriesFor: #isPropPatch!public!testing! !
+!HTTPRequest categoriesFor: #isUnlock!public!testing! !
+!HTTPRequest categoriesFor: #view!accessing-queries!public! !
+
+!HTTPResponse class methodsFor!
+
+failedDependency
+	^super new code: 424!
+
+insufficientStorage
+	^super new code: 507!
+
+locked
+	^super new code: 423!
+
+multiStatus
+	^super new code: 207!
+
+noContent
+	^super new code: 204; entity: ''!
+
+processing
+	^super new code: 102!
+
+unprocessableEntity
+	^super new code: 422! !
+!HTTPResponse class categoriesFor: #failedDependency!public!response types! !
+!HTTPResponse class categoriesFor: #insufficientStorage!public!response types! !
+!HTTPResponse class categoriesFor: #locked!public!response types! !
+!HTTPResponse class categoriesFor: #multiStatus!public!response types! !
+!HTTPResponse class categoriesFor: #noContent!public!response types! !
+!HTTPResponse class categoriesFor: #processing!public!response types! !
+!HTTPResponse class categoriesFor: #unprocessableEntity!public!response types! !
+
+!HTTPServer methodsFor!
+
+representBinaryOn: aBossWriter
+	"don't boss-out http server "
+	^0! !
+!HTTPServer categoriesFor: #representBinaryOn:!private! !
+
+!Magnitude methodsFor!
+
+asString
+	^self printString! !
+!Magnitude categoriesFor: #asString!public!squeak-converting! !
+
+!Number methodsFor!
+
+printDotString
+
+	"Janko Mivsek, 1997"
+	"format and return the number with dots between thousandths:  '3.120.123' "
+
+	| mrds millions thousanths rest text number |
+	number := self abs.
+	mrds := number // 1000000000.
+	millions := (number \\ 1000000000)  // 1000000.
+	thousanths := (number \\ 1000000) // 1000.
+	rest := (number \\ 1000).
+	text := ''.
+	mrds > 0 ifTrue: 
+		[text := mrds printString, '.', (millions withZeros), '.', 
+		(thousanths withZeros), '.', (rest withZeros).
+		^text].
+	millions > 0 	ifTrue: 
+		[text := millions printString, '.', 
+		(thousanths withZeros), '.', (rest withZeros).
+		^text].
+	thousanths > 0 
+		ifTrue: 
+			[text := thousanths printString, '.', 
+			(rest withZeros)]
+		ifFalse: [text := rest printString].
+	^(self < 0 ifTrue: ['- '] ifFalse: ['']), text
+
+"
+-123 printDotString  '- 123'
+"!
+
+withZeros
+
+	"return three digit number with leading zeros"
+
+	^(self < 100 ifTrue: ['0'] ifFalse: ['']), 
+	(self < 10 ifTrue: ['0'] ifFalse: ['']), 
+	self printString.! !
+!Number categoriesFor: #printDotString!printing!public! !
+!Number categoriesFor: #withZeros!printing!public! !
+
+!Object methodsFor!
+
+aidaCacheTimeout
+	"how many seconds this object is globally cached in site's global cache"
+	"nil = global default, set in site's global cache settings"
+	^nil!
+
+aidaCacheView: aSymbol on: aWebSession
+	"if true, then this object's view will be globally cached in site's cache"
+	^false!
+
+aidaCanBeLocked
+	"can we get an exclusive lock on that object (not already locked)?"
+	^false!
+
+aidaDeepCopy
+	"Answer a copy of the receiver and copy down all its objects reachable from him"
+
+	| objectDictionary |
+	objectDictionary := IdentityDictionary new.
+	^self aidaDeepCopyNotIn: objectDictionary.!
+
+aidaDeepCopyNotIn: aDictionary
+
+	"Answer a copy of the receiver and copy down all its objects reachable from him. If altready in aDictionary, then not copy, return reference to already copied object"
+
+	| class newObject index |
+
+	self isNil ifTrue: [^self].
+	(aDictionary includesKey: self) ifTrue:
+		[^aDictionary at: self].
+
+	class := self class.
+	newObject := self copy.
+	aDictionary at: self put: newObject.
+	class isVariable
+		ifTrue: 
+			[class isPointers 
+				ifTrue: 
+					[index := self basicSize.
+					1 to: index do:
+						[ :i |  newObject basicAt: i put: 
+							((self basicAt: i) aidaDeepCopyNotIn: aDictionary)  ]]
+				ifFalse: ["already copied by self copy"] ]
+
+		ifFalse: ["already copied by self copy"].
+		
+	1 to: class instSize do:
+		[ :inx |  newObject 
+				instVarAt: inx
+				put: ((self instVarAt: inx) aidaDeepCopyNotIn: aDictionary)  
+		].
+	^newObject!
+
+aidaDontCache
+	"don't cache web content in a browser. Appropriate header is added to http response"
+	^false!
+
+aidaIsAssociation
+	"used for Aida/Web translation support, multilingual strings are namelly assocs: #fr->'Bonjour'"
+	^false!
+
+aidaIsLocked
+	"is object locked exclusively?"
+	^false!
+
+aidaLock
+	"get an exclusive lock on that object. Until unlocked, noone else can get that lock. Return false if already locked, true if successfull"
+	^false!
+
+aidaUnlock
+	"release an exclusive lock if any"
+	^true!
+
+app
+	"fastest and most convinient way to find a web app for that object"
+	^self webAppFor: self firstSessionFromStack!
+
+contentType
+
+	"Janko Mivsek, apr98"
+	"return 'text/html' as content type for web pages"
+
+	^'text/html'!
+
+deepSearchOfClass: aClassName
+	"finf all objects of that class down in object hierarchy"
+	| objectDictionary class |
+	objectDictionary := IdentityDictionary new.
+	self aidaDeepCopyNotIn: objectDictionary.
+	class := aClassName asSymbol.
+	^objectDictionary keys select: [:each | each class name = class].!
+
+deepSearchOfObsoleteClasses
+	"finf all objects of obsolete classes down in object hierarchy"
+	| objectDictionary |
+	objectDictionary := IdentityDictionary new.
+	self aidaDeepCopyNotIn: objectDictionary.
+	^objectDictionary keys select: [:each | each class isObsolete].!
+
+expiresTimestamp
+	"until when content of this object wont be changed"
+	"used in http response, override if you like to be included"
+	^self modifiedTimestamp  "to reload pages immediately"!
+
+firstAppFromStack
+	"try to find a first sender up in calling stack, who is  WebApplication"
+	"FROM AIDA 5 for Dolphin"
+
+	| stackFrame |
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: WebApplication) ifTrue: [^stackFrame receiver].
+		stackFrame := stackFrame sender].
+	^self firstContextFromStack app
+
+"	| stContext |
+	stContext := thisContext.
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: WebApplication) ifTrue: [^stContext receiver].
+		stContext := stContext sender].
+	^self firstContextFromStack app"!
+
+firstContextFromStack
+	"try to find a first web execution context"
+	"have we something faster?"
+	| request |
+	request := self firstRequestFromStack.
+	^request notNil 
+		ifTrue: [request context] 
+		ifFalse: [nil]!
+
+firstRequestFromStack
+	"try to find a first sender up in calling stack, which is AIDASite or WebContext and get request of that call"
+	"VW specific!! "
+	| stackFrame |
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: AIDASite) ifTrue: [^stackFrame at: 2].
+		stackFrame := stackFrame sender].
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: WebContext) ifTrue: [^stackFrame receiver request].
+		stackFrame := stackFrame sender].
+
+	^nil
+
+	"| stContext |
+
+	stContext := thisContext.
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: AIDASite) ifTrue: [^(stContext localAt: 2) ].
+		stContext := stContext sender].
+	stContext := thisContext.         
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: WebContext) ifTrue: [^stContext receiver request].
+		stContext := stContext sender].
+	^nil"!
+
+firstSessionFromStack
+	"try to find a first sender up in calling stack, which is App, AIDASite or WebContext and get session if that call"
+	"	FROM AIDA 5 for Dolphin"
+	| stackFrame |
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: WebApplication) ifTrue: [^stackFrame receiver session].
+		stackFrame := stackFrame sender].
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: WebContext) ifTrue: [^stackFrame receiver app session].
+		stackFrame := stackFrame sender].
+
+	stackFrame := Processor activeProcess frameAtAddress: thisContext.
+	[stackFrame class == StackFrame or: [stackFrame class == BlockFrame] ] whileTrue: [
+		(stackFrame receiver isKindOf: AIDASite) ifTrue: [^stackFrame at: 3].
+		stackFrame := stackFrame sender].
+	^nil
+
+"	| stContext |
+	stContext := thisContext.
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: WebApplication) ifTrue: [^stContext receiver session].
+		stContext := stContext sender].
+	stContext := thisContext.
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: WebContext) ifTrue: [^stContext receiver app session].
+		stContext := stContext sender].
+	stContext := thisContext.
+	[stContext notNil] whileTrue: [
+		(stContext receiver isKindOf: AIDASite) ifTrue: [^(stContext localAt: 3)].
+		stContext := stContext sender].
+	^nil"!
+
+forLanguage: aLanguageCodeSymbol
+	"for multilingual support: returns an apropriate instance of itself for that language. Langage is defined 
+	by ISO 639 2-letter language code, see http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+	^false!
+
+isMultilingual
+	"for multilingual support: override this if your domain object responds to #forLanguage: and returns an        apropriate instance of itself for that language"
+	^false!
+
+isVersionedObject
+	^false!
+
+isWebApplication
+	^false!
+
+isWebStyle
+	^false!
+
+modifiedTimestamp
+	"when this object was last modified"
+	"used in http response, override if you like to be included"
+	^nil!
+
+notEmpty
+	" Private.  GBS.  Answer true if the receiver contains at least one element.
+	   NOTE:  This really belongs in class Collection, but it conflicts with the ENVY method of the same name. "
+
+	^ self isEmpty not!
+
+preferedUrl
+	"override with a suggestion for url of this method!! If not already used, 
+	it will be considered by URLResolver during automatic url generation"
+	^nil!
+
+printWebAppNotFoundFor: aSession 
+	| page |
+	page := WebPage new.
+	page addText: 'Cannot find aWebApplication for object a', self class name.
+	^page!
+
+printWebPageFor: aRequest on: aSession 
+	"find appropriate web application to represent self as web page"
+
+	| webApp |
+	webApp := self webAppFor: aSession.
+	^webApp notNil 
+		ifTrue: [webApp printWebPageFor: aRequest]
+		ifFalse: [self printWebAppNotFoundFor: aSession]!
+
+sendOver: aStream 
+	"from Wiki rendering"
+	self printOn: aStream! !
+!Object categoriesFor: #aidaCacheTimeout!AIDA web!public! !
+!Object categoriesFor: #aidaCacheView:on:!AIDA web!public! !
+!Object categoriesFor: #aidaCanBeLocked!AIDA web-locks!public! !
+!Object categoriesFor: #aidaDeepCopy!copying!public! !
+!Object categoriesFor: #aidaDeepCopyNotIn:!copying!public! !
+!Object categoriesFor: #aidaDontCache!AIDA web!public! !
+!Object categoriesFor: #aidaIsAssociation!AIDA web!public! !
+!Object categoriesFor: #aidaIsLocked!AIDA web-locks!public! !
+!Object categoriesFor: #aidaLock!AIDA web-locks!public! !
+!Object categoriesFor: #aidaUnlock!AIDA web-locks!public! !
+!Object categoriesFor: #app!AIDA web!public! !
+!Object categoriesFor: #contentType!AIDA web!public! !
+!Object categoriesFor: #deepSearchOfClass:!copying!public! !
+!Object categoriesFor: #deepSearchOfObsoleteClasses!copying!public! !
+!Object categoriesFor: #expiresTimestamp!AIDA web!public! !
+!Object categoriesFor: #firstAppFromStack!aida port error!AIDA web-stack climbing!public! !
+!Object categoriesFor: #firstContextFromStack!aida port error!AIDA web-stack climbing!public! !
+!Object categoriesFor: #firstRequestFromStack!aida port error!AIDA web-stack climbing!public! !
+!Object categoriesFor: #firstSessionFromStack!aida port error!AIDA web-stack climbing!public! !
+!Object categoriesFor: #forLanguage:!AIDA web!public! !
+!Object categoriesFor: #isMultilingual!AIDA web!public! !
+!Object categoriesFor: #isVersionedObject!AIDA web!public! !
+!Object categoriesFor: #isWebApplication!AIDA web!public! !
+!Object categoriesFor: #isWebStyle!AIDA web!public! !
+!Object categoriesFor: #modifiedTimestamp!AIDA web!public! !
+!Object categoriesFor: #notEmpty!public!testing! !
+!Object categoriesFor: #preferedUrl!AIDA web!public! !
+!Object categoriesFor: #printWebAppNotFoundFor:!AIDA web!public! !
+!Object categoriesFor: #printWebPageFor:on:!AIDA web!public! !
+!Object categoriesFor: #sendOver:!printing!public! !
+
+!OrderedCollection methodsFor!
+
+moveDown: anElement
+	"move that element down (after current position) in a collection"
+	| inx |
+	(self notEmpty and: [self last = anElement]) ifTrue: [^self].
+	inx := self indexOf: anElement.
+	self add: anElement beforeIndex: inx+2.
+	self removeAtIndex: inx
+
+"#(1 2 3) asOrderedCollection moveDown: 1"!
+
+moveUp: anElement
+	"move that element up (before current position) in a collection"
+	| inx |
+	(self notEmpty and: [self first = anElement]) ifTrue: [^self].
+	inx := self indexOf: anElement.
+	self add: anElement beforeIndex: inx-1.
+	self removeAtIndex: inx+1
+
+"#(1 2 3) asOrderedCollection moveUp: 3"! !
+!OrderedCollection categoriesFor: #moveDown:!adding!public! !
+!OrderedCollection categoriesFor: #moveUp:!adding!public! !
+
+!PositionableStream methodsFor!
+
+bcrlf
+
+	"Janko Mivsek, Oct1996"
+	"write to a stream binary codes for CR and LF"
+
+	self nextPut: (Character cr) asInteger.
+	self nextPut: (Character lf) asInteger.!
+
+insensitivePeekForAll: aCollection 
+	| orig |
+	self atEnd ifTrue: [^false].
+	orig := self position.
+	((self nextAvailable: aCollection size) sameAs: aCollection) 
+		ifTrue: [^true].
+	self position: orig.
+	^false!
+
+insensitiveSkipThroughAll: aCollection 
+	| first length |
+	(length := aCollection size) = 0 ifTrue: [^self].
+	first := aCollection at: 1.
+	[self atEnd] whileFalse: 
+			[(self next sameAs: first) 
+				ifTrue: 
+					[| nonMatch |
+					nonMatch := 2.
+					
+					[nonMatch > length ifTrue: [^self	"Success."].
+					self atEnd ifTrue: [^nil].	"Not found."
+					self next sameAs: (aCollection at: nonMatch)] 
+							whileTrue: [nonMatch := nonMatch + 1].
+					self skip: 1 - nonMatch	"Didn't match, back up."]].
+	^nil	"Not found."!
+
+insensitiveUpToAll: aCollection 
+	| first length newStream |
+	(length := aCollection size) = 0 ifTrue: [^self].
+	first := aCollection at: 1.
+	newStream := (self contentsSpecies new: 64) writeStream.
+	[self atEnd] whileFalse: 
+			[| element |
+			element := self next.
+			(element sameAs: first) 
+				ifTrue: 
+					[| nonMatch |
+					nonMatch := 2.
+					
+					[nonMatch > length ifTrue: [^newStream contents	"Success."].
+					self atEnd 
+						ifTrue: 
+							[1 to: nonMatch - 1 do: [:i | newStream nextPut: (aCollection at: i)].
+							^newStream contents	"Not found."].
+					self next sameAs: (aCollection at: nonMatch)] 
+							whileTrue: [nonMatch := nonMatch + 1].
+					self skip: 1 - nonMatch	"Didn't match, back up."].
+			newStream nextPut: element].
+	^newStream contents	"Not found."!
+
+peekForAll: aCollection 
+	| orig |
+	self atEnd ifTrue: [^false].
+	orig := self position.
+	(self nextAvailable: aCollection size) = aCollection ifTrue: [^true].
+	self position: orig.
+	^false!
+
+readLimit
+	^readLimit! !
+!PositionableStream categoriesFor: #bcrlf!constants!public! !
+!PositionableStream categoriesFor: #insensitivePeekForAll:!positioning!public! !
+!PositionableStream categoriesFor: #insensitiveSkipThroughAll:!positioning!public! !
+!PositionableStream categoriesFor: #insensitiveUpToAll:!positioning!public! !
+!PositionableStream categoriesFor: #peekForAll:!positioning!public! !
+!PositionableStream categoriesFor: #readLimit!accessing!public! !
+
+!SpDate methodsFor!
+
+currentMonth
+	^self currentYear and: [self monthIndex = SpDate today monthIndex]!
+
+currentYear
+	^self year = SpDate today year!
+
+firstDayInMonth
+	^SpDate newDay: 1 month: self monthIndex year: self year!
+
+firstDayInNextMonth
+	^SpDate 
+		newDay: 1 
+		month: (self lastDayInMonth addDays: 1) monthIndex
+		year: (self lastDayInMonth addDays: 1) year!
+
+firstDayInNextYear
+	^SpDate 
+		newDay: 1
+		month: self firstDayInMonth monthIndex
+		year: self firstDayInMonth year + 1!
+
+firstDayInPreviousMonth
+	^SpDate 
+		newDay: 1
+		month: (self firstDayInMonth subtractDays: 1) monthIndex
+		year: (self firstDayInMonth subtractDays: 1) year!
+
+firstDayInPreviousYear
+	^SpDate 
+		newDay: 1
+		month: self firstDayInMonth monthIndex
+		year: self firstDayInMonth year + 1!
+
+lastDayInMonth
+	^SpDate newDay: self daysInMonth month: self monthIndex year: self year!
+
+shortPrintSloString
+	^self dayOfMonth printString, '.', self monthIndex printString, '.', self year printString.
+
+"SpDate today shortPrintSloString   "! !
+!SpDate categoriesFor: #currentMonth!accessing!public! !
+!SpDate categoriesFor: #currentYear!accessing!public! !
+!SpDate categoriesFor: #firstDayInMonth!accessing!public! !
+!SpDate categoriesFor: #firstDayInNextMonth!accessing!public! !
+!SpDate categoriesFor: #firstDayInNextYear!accessing!public! !
+!SpDate categoriesFor: #firstDayInPreviousMonth!accessing!public! !
+!SpDate categoriesFor: #firstDayInPreviousYear!accessing!public! !
+!SpDate categoriesFor: #lastDayInMonth!accessing!public! !
+!SpDate categoriesFor: #shortPrintSloString!printing!public! !
+
+!SpTimestamp methodsFor!
+
+printSloString
+	^self underlyingTimestamp printSloString! !
+!SpTimestamp categoriesFor: #printSloString!private! !
+
+!Stream methodsFor!
+
+lf
+	"Janko Mivsek"
+	"Append a linefeed character to the receiver."
+
+	self nextPut: Character lf!
+
+upTo: anObject escaper: anotherObject 
+	"from WikiWorks"
+	| newStream |
+	newStream := (self contentsSpecies new: 64) writeStream.
+	[self atEnd] whileFalse: 
+			[| element |
+			(element := self next) = anotherObject 
+				ifTrue: 
+					[newStream nextPut: ((self peekFor: anObject) 
+								ifTrue: [anObject]
+								ifFalse: [anotherObject])]
+				ifFalse: 
+					[element = anObject ifTrue: [^newStream contents].
+					newStream nextPut: element]].
+	^newStream contents! !
+!Stream categoriesFor: #lf!character writing!public! !
+!Stream categoriesFor: #upTo:escaper:!accessing!public! !
+
+!String methodsFor!
+
+aidaIsAssociation
+	"used for Aida/Web translation support, multilingual strings are namelly assocs: #fr->'Bonjour'"
+	^false!
+
+asCollectionOfHtmlHeadings
+	"find all headings H1-5 and return a collection of headings, complete with tags"
+	| in tag collection line |
+	in := self readStream. collection := OrderedCollection new.
+	[in atEnd] whileFalse:
+		[in upTo: $<. in atEnd ifFalse: [tag := in upTo: $>].
+		(tag size >= 2 and: [tag first asLowercase = $h and: [(tag at: 2) isDigit]] ) ifTrue:
+			[tag := String with: $h with: (tag at: 2). "cleaned, without any parms!!"
+			line := '<', tag, '>', (in upToAll: '</', tag, '>'), '</', tag, '>'. 
+			collection add: line] ].
+	^collection
+
+" '<h1>Heading1</h1><h2>Heading2</h2>' asCollectionOfHtmlHeadings"
+" '<h1><b>Heading1</b></h1>' asCollectionOfHtmlHeadings"!
+
+asDouble
+
+	"Janko Mivsek, TRIS A d.o.o. dec97"
+	"convert a string to a double precision floating point number"
+
+	| clean pos exponent result sign |
+	sign := self detect: [:ch | ch = $- | ch isDigit].
+	sign = $- ifTrue: [sign := -1] ifFalse: [sign := 1].
+	clean := self select: [:ch | ch isDigit | (ch = $,)].
+	pos := clean indexOf: $,.
+	pos = 0 
+		ifTrue: [result := clean asInteger asFloat]
+		ifFalse: 
+			[exponent := pos - 2.
+			clean := clean select: [:ch | ch isDigit].
+			result := 0.0d.
+			clean do: [:digit | 
+				result := result + ((digit asInteger - $0 asInteger) * (10**exponent)).
+				exponent := exponent - 1]].
+	^result * sign
+"
+'-2.445.444,988899987' asDouble 
+"!
+
+asFloat
+
+	"Janko Mivsek, TRIS A d.o.o. dec97"
+	"convert a string to a floating point number"
+
+	| clean pos exponent result sign |
+	sign := self detect: [:ch | ch = $- | ch isDigit].
+	sign = $- ifTrue: [sign := -1] ifFalse: [sign := 1].
+	clean := self select: [:ch | ch isDigit | (ch = $,)].
+	pos := clean indexOf: $,.
+	pos = 0 
+		ifTrue: [result := clean asInteger asFloat]
+		ifFalse: 
+			[exponent := pos - 2.
+			clean := clean select: [:ch | ch isDigit].
+			result := 0.0.
+			clean do: [:digit | 
+				result := result + ((digit asInteger - $0 asInteger) * (10**exponent)).
+				exponent := exponent - 1]].
+	^result * sign
+"
+'-24,9' asFloat
+"!
+
+asHttpFriendly
+	"Usefull specially for Url composition (like in preferedUrl). Converts all non Url friendly 
+	characters to '-'. 	Caution, / is also converted!! Unicode is allowed "
+	| nonallowed |
+	nonallowed := #($ $+ $: $> $< $= $/ #\ $~).
+	^self collect: 
+		[:ch | (nonallowed includes: ch)
+			ifTrue: [$-]
+			ifFalse: [ch] ]
+
+" '1+1=3/4' asHttpFriendlyUrl"!
+
+asInteger
+
+	"Janko Mivsek, TRIS A d.o.o. sep96"
+	"convert a string to an integer number"
+
+	| number sign |
+	self isEmpty ifTrue: [^0].
+	sign := self detect: [:ch | ch = $- | ch isDigit] ifNone: [$+].
+	sign = $- ifTrue: [sign := -1] ifFalse: [sign := 1].
+	number := 0.
+	self do: [:char | char isDigit ifTrue: 
+		[number := number * 10.
+		number := number + (char asInteger - $0 asInteger)]].
+	^number * sign
+
+"
+' ' asInteger
+"!
+
+asSloveneWithoutCircumflexes
+	"convert Unicode csz string with ^ (sumniki) to plain ascii csz"
+	"'c^s^z^C^S^Z^' convertToSloveneChars asSloveneWithoutCircumflexes"
+	^self collect: 
+		[:ch | ch asInteger > 127 
+			ifTrue:
+				[ch = AIDASite charc ifTrue: [$c]
+					ifFalse: [ ch  = AIDASite charC ifTrue: [$C]
+					ifFalse: [ ch  = AIDASite chars ifTrue: [$s]
+					ifFalse: [ ch  = AIDASite charS ifTrue: [$S]
+					ifFalse: [ ch  = AIDASite charz ifTrue: [$z] 
+					ifFalse: [ ch  = AIDASite charZ ifTrue: [$Z]
+					ifFalse: [$- ] ]]]]]
+				]
+			ifFalse: [ch] ]!
+
+containsSubstring: aString
+	^(self 
+		indexOfSubCollection: aString 
+		startingAt: 1) > 0!
+
+contentsAsMethod
+	"return a body of method with a literal array with contents of that string"
+	| input output |
+	input := self readStream.
+	output := WriteStream with: String new.
+	output nextPutAll: '^#['.
+	[input atEnd] whileFalse: [output nextPutAll: input next asInteger asString; nextPut: $ ].
+	output nextPutAll: ']'.
+	^output contents
+
+" 'visual.cha' contentsAsMethod "!
+
+convertToSloveneChars
+	"convert csz string with ^ as 'sumnik' to proper unicode string. 
+	Only pure ASCII strings are converted!!"
+	"'Mivs^ek' convertToSloveneChars"
+	| in out ch |
+"	self class == ByteString ifFalse: [^self]. " "what if there is a mixed string, some unicode already?"
+	in := self readStream. out := WriteStream on: String new.
+	[in atEnd] whileFalse: 
+		[ch := in next.
+		(in peek = $^ ) ifTrue: [(#($c $C $s $S $z $Z) includes: ch) ifTrue: 
+			[in next. 
+			ch = $c ifTrue: [ch := AIDASite charc]. ch = $C ifTrue: [ch := AIDASite charC].
+			ch = $s ifTrue: [ch := AIDASite chars]. 	ch = $S ifTrue: [ch := AIDASite charS].
+			ch = $z ifTrue: [ch := AIDASite charz]. ch = $Z ifTrue: [ch := AIDASite charZ] ] ].
+		out nextPut: ch].
+	^out contents!
+
+ensureUnicodeSloveneChars
+	"if string has other that unicode slovene chars, try to correct them!!"
+	"'Miv©ek' ensureUnicodeSloveneChars"
+	| in out ch uniSet |
+	in := self readStream. out := WriteStream on: String new. uniSet := AIDASite charCszSet. 
+	[in atEnd] whileFalse: 
+		[ch := in next.
+		(ch asInteger < 128 or: [uniSet includes: ch])
+			ifTrue: [out nextPut: ch]
+			ifFalse: [out nextPut: 
+				([(AIDASite convert: (String with: ch) fromCodepage: #'iso-8859-2') first]
+					on: Error do: [:ex | ch]) ] ].
+	^out contents!
+
+isValidEMailAddress
+	(self includes: $@) ifFalse: [^false].
+	^(self trimBlanks contains: [:char | 
+		char isAlphaNumeric not and: [(#($. $- $_  $@) includes: char) not] ]) not
+
+" 'janko.mivsek@eranova.si' isValidEMailAddress"!
+
+lineCount
+	^(self occurrencesOf: Character cr) + 1!
+
+lineCount: aNumber
+	"count lines, consider breaks too if line is longer than aNumber chars"
+	^self asArrayOfLines inject: 0 into: [:sum :each | sum + (each size // aNumber + 1) ]
+
+"'12345 789 12345' lineCount: 10"
+"'12345 789' lineCount: 10"!
+
+plainEMailAddress
+	"only plain email address, see example below"
+	^(self includes: $<) 
+		ifTrue: [self readStream upTo: $<; upTo: $>]
+		ifFalse: [self].
+	
+" 'Janko Mivsek <janko.mivsek@eranova.si>' cleanEMailAddress"!
+
+sendOver: aStream 
+	"from Wiki rendering"
+	aStream nextPutAll: self!
+
+shortPrintSloString
+	^self!
+
+shrinkTo: aNumber
+	"shrink to such characters and add ..."
+	^((self contractTo: aNumber) readStream upToAll: '...'), 
+		((self size > aNumber) ifTrue: ['...'] ifFalse: [''])
+
+" 'sdwsfaaa  fdfaf adfddf' shrinkTo: 10 "!
+
+trimNewlines
+	"replace new lines with space"
+	| in out |
+	in := self readStream.
+	out := WriteStream on: String new.
+	[in atEnd] whileFalse:
+		[out nextPutAll: (in upTo: Character cr).
+		in atEnd ifFalse: [in peek = Character cr ifTrue: [in upTo: Character cr] ].
+		out nextPut: $  ].
+	^out contents
+
+" 'y Michael A. <br>Prospero</span>' withoutHtmlTags trimNewlines "!
+
+upToNumber
+	"up to first number or separator"
+	| out |
+	out := String new writeStream.
+	self do: [:ch | ch isDigit | ch isSeparator ifTrue: [^out contents]. out nextPut: ch].
+	^out contents
+
+" 'NAV-00-23' upToNumber "!
+
+withHeadingAnchors
+	"add anchors before all H1-5 tags, each with sequence number of that tag, eg: <a name=h-15>"
+	| in out tag number |
+	in := self readStream. number := 1.
+	out := WriteStream on: String new.
+	[in atEnd] whileFalse:
+		[out nextPutAll: (in upTo: $<).
+		in atEnd ifFalse: [tag := in upTo: $>] ifTrue: [^out contents].
+		(tag size = 2 and: [tag first asLowercase = $h and: [tag last isDigit]] ) ifTrue:
+			[out nextPutAll: '<a name="h-', number printString, '"></a>'. 
+			number := number +1].
+		out nextPutAll: '<', tag, '>'].
+	^out contents
+
+"'<h1>Heading1</h1><h2>Heading2</h2>' withHeadingAnchors"!
+
+withHtmlBreaks
+	"changes all cr with <br>"
+	^self copyReplaceAll: (String with: Character cr) with: '<br>'
+
+"('aaa', (String with: Character cr), 'bbb') withHtmlBreaks"!
+
+withoutHtmlTags
+	"strip all tags, replace <br> and <p> with cr"
+	| in out tag |
+	in := self readStream.
+	out := WriteStream on: String new.
+	[in atEnd] whileFalse:
+		[out nextPutAll: (in upTo: $<).
+		in atEnd ifFalse: [tag := in upTo: $>].
+		(tag = 'br') | (tag = 'p') ifTrue: [out nextPut: Character cr ] ].
+	^out contents
+
+"'<span>by Michael A. <br>Prospero</span>' withoutHtmlTags"! !
+!String categoriesFor: #aidaIsAssociation!public!testing! !
+!String categoriesFor: #asCollectionOfHtmlHeadings!converting!public! !
+!String categoriesFor: #asDouble!converting!public! !
+!String categoriesFor: #asFloat!converting!public! !
+!String categoriesFor: #asHttpFriendly!converting!public! !
+!String categoriesFor: #asInteger!converting!public! !
+!String categoriesFor: #asSloveneWithoutCircumflexes!converting!public! !
+!String categoriesFor: #containsSubstring:!public!testing! !
+!String categoriesFor: #contentsAsMethod!converting!public! !
+!String categoriesFor: #convertToSloveneChars!converting!public! !
+!String categoriesFor: #ensureUnicodeSloveneChars!converting!public! !
+!String categoriesFor: #isValidEMailAddress!public!testing! !
+!String categoriesFor: #lineCount!accessing!public! !
+!String categoriesFor: #lineCount:!accessing!public! !
+!String categoriesFor: #plainEMailAddress!converting!public! !
+!String categoriesFor: #sendOver:!printing!public! !
+!String categoriesFor: #shortPrintSloString!converting!public! !
+!String categoriesFor: #shrinkTo:!converting!public! !
+!String categoriesFor: #trimNewlines!converting!public! !
+!String categoriesFor: #upToNumber!converting!public! !
+!String categoriesFor: #withHeadingAnchors!converting!public! !
+!String categoriesFor: #withHtmlBreaks!converting!public! !
+!String categoriesFor: #withoutHtmlTags!converting!public! !
+
+!SwazooServer methodsFor!
+
+aidaDemoSite
+	"return aidademo site. Create and make it default, if it not yet there"
+	| siteName |
+	siteName := 'aidademo'.
+	(self siteNamed: siteName) isNil ifTrue:
+		[AIDASite newNamed: siteName.
+		AIDASite default: siteName.
+		(AIDASite named: siteName) host: '*' ip: '*'  port: 8888].
+	^self siteNamed: siteName!
+
+aidaDemoStart
+	self aidaDemoSite start.!
+
+aidaDemoStop
+	self aidaDemoSite stop.!
+
+aidaSites
+	^self sites select: [:each | each isKindOf: AIDASite]!
+
+aidaStartOn: aPortNumber
+	| site |
+	site := self siteAnyHostAllInterfacesOnPort: aPortNumber.
+	site isNil ifTrue: [site := self prepareAidaDemoSiteOnPort: aPortNumber].
+	site start.
+	^site!
+
+isNightlyBackupTime
+	"backup should be done at 4:30:00"
+	"SwazooServer singleton isNightlyBackupTime"
+	| backupTime |
+	backupTime := SpTimestamp fromDate: Date today andTime: (Time readFrom: '4:30:00' readStream).
+	^(SpTimestamp now asSeconds > backupTime asSeconds) & 
+		(SpTimestamp now asSeconds < (backupTime asSeconds + self watchdogPeriod))!
+
+isWatchdogRunning
+	^self watchdog notNil "and: [self watchdog is not].  ?!!?"!
+
+prepareAidaDemoSiteOnPort: aNumber
+	"this site will run on all IP interfaces on that port"
+	| name site |
+	name := 'aidaOn', aNumber printString.
+	site := AIDASite newNamed: name. "which is now also added to SwazoServer"
+	site host: '*' ip: '*' port: aNumber.
+	^site!
+
+representBinaryOn: aBossWriter
+	^0 "don't boss-out SwazoServer singleton!! "!
+
+watchdogOther
+	"override this if you like some other periodic activity"!
+
+watchdogSites
+	self sites do: [:each | each isServing ifTrue: 
+		[(each isKindOf: AIDASite) ifTrue: [each setLastTimeAliveTimestamp]] ]! !
+!SwazooServer categoriesFor: #aidaDemoSite!public!start/stop! !
+!SwazooServer categoriesFor: #aidaDemoStart!public!start/stop! !
+!SwazooServer categoriesFor: #aidaDemoStop!public!start/stop! !
+!SwazooServer categoriesFor: #aidaSites!accessing!public! !
+!SwazooServer categoriesFor: #aidaStartOn:!public!start/stop! !
+!SwazooServer categoriesFor: #isNightlyBackupTime!private! !
+!SwazooServer categoriesFor: #isWatchdogRunning!private! !
+!SwazooServer categoriesFor: #prepareAidaDemoSiteOnPort:!private! !
+!SwazooServer categoriesFor: #representBinaryOn:!private! !
+!SwazooServer categoriesFor: #watchdogOther!private! !
+!SwazooServer categoriesFor: #watchdogSites!private! !
+
+!SwazooServer class methodsFor!
+
+aidaDemoStart
+	"SwazooServer aidaStart"
+	"will start an Aida demo site on http://localhost:8888 "
+	self singleton aidaDemoStart!
+
+aidaDemoStop
+	"SwazooServer aidaStop"
+	self singleton aidaDemoStop!
+
+aidaStartOn: aPortNumber
+	"will start an Aida site on all ip interfaces, ignoring host"
+	"if there is no Aida site yet, it created one named 'aidademo''"
+	"be sure that it is only site!!"
+	"SwazooServer aidaStartOn: 8765"
+	self singleton aidaStartOn: aPortNumber! !
+!SwazooServer class categoriesFor: #aidaDemoStart!public!start/stop! !
+!SwazooServer class categoriesFor: #aidaDemoStop!public!start/stop! !
+!SwazooServer class categoriesFor: #aidaStartOn:!public!start/stop! !
+
+!Time methodsFor!
+
+printSloString
+	^"(self hours < 10 ifTrue: ['0'] ifFalse: [''])," self hours printString, ':',
+		(self minutes < 10 ifTrue: ['0'] ifFalse: ['']), self minutes printString
+
+"Time now printSloString"! !
+!Time categoriesFor: #printSloString!printing!public! !
+
+"End of package definition"!
+

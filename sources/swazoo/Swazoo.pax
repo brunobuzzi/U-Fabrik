@@ -1,0 +1,578 @@
+﻿| package |
+package := Package name: 'Swazoo'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '6.40'.
+
+
+package classNames
+	add: #CompositeResource;
+	add: #ContentDispositionField;
+	add: #ContentTypeField;
+	add: #FileMappingResource;
+	add: #FileResource;
+	add: #FileResponse;
+	add: #GenericHeaderField;
+	add: #HeaderField;
+	add: #HelloWorldResource;
+	add: #HomeResource;
+	add: #HTTPAcceptField;
+	add: #HTTPAllowField;
+	add: #HTTPAuthorizationBasicField;
+	add: #HTTPAuthorizationDigestField;
+	add: #HTTPAuthorizationField;
+	add: #HTTPCacheControlField;
+	add: #HTTPConnection;
+	add: #HTTPConnectionField;
+	add: #HTTPContentLengthField;
+	add: #HTTPCookieField;
+	add: #HTTPDateField;
+	add: #HTTPDelete;
+	add: #HTTPETagField;
+	add: #HTTPException;
+	add: #HTTPExpiresField;
+	add: #HTTPGet;
+	add: #HTTPHead;
+	add: #HTTPHeaders;
+	add: #HTTPHostField;
+	add: #HTTPIfMatchField;
+	add: #HTTPIfModifiedSinceField;
+	add: #HTTPIfNoneMatchField;
+	add: #HTTPIfRangeField;
+	add: #HTTPIfUnmodifiedSinceField;
+	add: #HTTPLastModifiedField;
+	add: #HTTPLocationField;
+	add: #HTTPMatchField;
+	add: #HTTPMessage;
+	add: #HTTPOptions;
+	add: #HTTPPost;
+	add: #HTTPPostDataArray;
+	add: #HTTPPostDatum;
+	add: #HTTPPut;
+	add: #HTTPRefererField;
+	add: #HTTPRequest;
+	add: #HTTPRequestLine;
+	add: #HTTPResponse;
+	add: #HTTPServer;
+	add: #HTTPServerField;
+	add: #HTTPSetCookieField;
+	add: #HTTPStreamedResponse;
+	add: #HTTPString;
+	add: #HTTPTrace;
+	add: #HTTPUserAgentField;
+	add: #HTTPWWWAuthenticateBasicField;
+	add: #HTTPWWWAuthenticateDigestField;
+	add: #HTTPWWWAuthenticateField;
+	add: #MimeObject;
+	add: #RedirectionResource;
+	add: #ServerRootComposite;
+	add: #SiteIdentifier;
+	add: #SpecificHeaderField;
+	add: #SwazooBenchmarks;
+	add: #SwazooBuffer;
+	add: #SwazooCacheControl;
+	add: #SwazooCompiler;
+	add: #SwazooHeaderFieldParseError;
+	add: #SwazooHTTPParseError;
+	add: #SwazooHTTPPostError;
+	add: #SwazooHTTPPutError;
+	add: #SwazooHTTPRequestError;
+	add: #SwazooResource;
+	add: #SwazooServer;
+	add: #SwazooSite;
+	add: #SwazooSiteError;
+	add: #SwazooSocket;
+	add: #SwazooStream;
+	add: #SwazooStreamNoDataError;
+	add: #SwazooTask;
+	add: #SwazooURI;
+	add: #TestPseudoSocket;
+	add: #URIIdentifier;
+	add: #URIResolution;
+	yourself.
+
+package methodNames
+	add: #Collection -> #contains:;
+	add: #SequenceableCollection -> #copyUpTo:;
+	add: #SpFilename -> #etag;
+	add: #SpFilename -> #lastModified;
+	add: #String -> #asByteString;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream';
+	add: '..\others\Sport';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #HeaderField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'httpFieldNameToClassDictionary'!
+Object subclass: #HTTPConnection
+	instanceVariableNames: 'stream loop server task'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPHeaders
+	instanceVariableNames: 'fields'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPMessage
+	instanceVariableNames: 'task headers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPPostDataArray
+	instanceVariableNames: 'underlyingCollection stream parsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPRequestLine
+	instanceVariableNames: 'method requestURI httpVersion'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPServer
+	instanceVariableNames: 'ip port connections sites socket loop isMultiThreading'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #HTTPString
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #MimeObject
+	instanceVariableNames: 'contentType value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooBenchmarks
+	instanceVariableNames: 'server content'
+	classVariableNames: 'Singleton'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooCacheControl
+	instanceVariableNames: 'request cacheTarget etag lastModified'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooCompiler
+	instanceVariableNames: 'accessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooResource
+	instanceVariableNames: 'enabled uriPattern parent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooServer
+	instanceVariableNames: 'sites servers watchdog'
+	classVariableNames: 'Singleton'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooSocket
+	instanceVariableNames: 'accessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooStream
+	instanceVariableNames: 'socket readBuffer writeBuffer chunked'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooTask
+	instanceVariableNames: 'connection request response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SwazooURI
+	instanceVariableNames: 'protocol hostname port identifier queries'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #TestPseudoSocket
+	instanceVariableNames: 'byteStreamToServer byteStreamFromServer clientWaitSemaphore serverWaitSemaphore ipAddress'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #URIIdentifier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #URIResolution
+	instanceVariableNames: 'position request'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Error subclass: #HTTPException
+	instanceVariableNames: 'response'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SwazooHeaderFieldParseError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SwazooHTTPParseError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SwazooHTTPRequestError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SwazooSiteError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpError subclass: #SwazooStreamNoDataError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooHTTPRequestError subclass: #SwazooHTTPPostError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooHTTPRequestError subclass: #SwazooHTTPPutError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HeaderField subclass: #GenericHeaderField
+	instanceVariableNames: 'name value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HeaderField subclass: #SpecificHeaderField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #ContentDispositionField
+	instanceVariableNames: 'type parameters'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #ContentTypeField
+	instanceVariableNames: 'mediaType transferCodings'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPAcceptField
+	instanceVariableNames: 'mediaTypes'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPAllowField
+	instanceVariableNames: 'methods'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPAuthorizationField
+	instanceVariableNames: 'credentials'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPCacheControlField
+	instanceVariableNames: 'directives private maxAge noStore noCache mustRevalidate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPConnectionField
+	instanceVariableNames: 'connectionToken'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPContentLengthField
+	instanceVariableNames: 'contentLength'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPCookieField
+	instanceVariableNames: 'values'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPDateField
+	instanceVariableNames: 'date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPETagField
+	instanceVariableNames: 'entityTag'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPExpiresField
+	instanceVariableNames: 'timestamp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPHostField
+	instanceVariableNames: 'hostName portNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPIfModifiedSinceField
+	instanceVariableNames: 'date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPIfRangeField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPIfUnmodifiedSinceField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPLastModifiedField
+	instanceVariableNames: 'timestamp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPLocationField
+	instanceVariableNames: 'uri'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPMatchField
+	instanceVariableNames: 'entityTags'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPRefererField
+	instanceVariableNames: 'uri'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPServerField
+	instanceVariableNames: 'productTokens'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPSetCookieField
+	instanceVariableNames: 'cookies'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPUserAgentField
+	instanceVariableNames: 'productTokens'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SpecificHeaderField subclass: #HTTPWWWAuthenticateField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPAuthorizationField subclass: #HTTPAuthorizationBasicField
+	instanceVariableNames: 'userid password'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPAuthorizationField subclass: #HTTPAuthorizationDigestField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPMatchField subclass: #HTTPIfMatchField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPMatchField subclass: #HTTPIfNoneMatchField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPWWWAuthenticateField subclass: #HTTPWWWAuthenticateBasicField
+	instanceVariableNames: 'realm'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPWWWAuthenticateField subclass: #HTTPWWWAuthenticateDigestField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPMessage subclass: #HTTPRequest
+	instanceVariableNames: 'requestLine peer timestamp ip environmentData resolution encrypted authenticated'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPMessage subclass: #HTTPResponse
+	instanceVariableNames: 'code entity'
+	classVariableNames: 'StatusCodes'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPDelete
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPGet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPHead
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPOptions
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPPost
+	instanceVariableNames: 'postData entityBody readPosition'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPPut
+	instanceVariableNames: 'putData'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPRequest subclass: #HTTPTrace
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPResponse subclass: #FileResponse
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+HTTPResponse subclass: #HTTPStreamedResponse
+	instanceVariableNames: 'stream count length state semaphore'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MimeObject subclass: #HTTPPostDatum
+	instanceVariableNames: 'filename writeStream writeBlock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ReadWriteStream subclass: #SwazooBuffer
+	instanceVariableNames: 'type resize'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooResource subclass: #CompositeResource
+	instanceVariableNames: 'children'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooResource subclass: #FileMappingResource
+	instanceVariableNames: 'directoryIndex filePath'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooResource subclass: #HelloWorldResource
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SwazooResource subclass: #RedirectionResource
+	instanceVariableNames: 'targetUri'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CompositeResource subclass: #ServerRootComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CompositeResource subclass: #SwazooSite
+	instanceVariableNames: 'name serving'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FileMappingResource subclass: #FileResource
+	instanceVariableNames: ''
+	classVariableNames: 'ContentTypes'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FileResource subclass: #HomeResource
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+URIIdentifier subclass: #SiteIdentifier
+	instanceVariableNames: 'ip port host'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Collection methodsFor!
+
+contains: aBlock
+        "VW compatibility"
+
+        ^self anySatisfy: aBlock ! !
+!Collection categoriesFor: #contains:!public! !
+
+!SequenceableCollection methodsFor!
+
+copyUpTo: target
+	^ self upTo: target! !
+!SequenceableCollection categoriesFor: #copyUpTo:!copying!public! !
+
+!SpFilename methodsFor!
+
+etag
+	"^a String
+	The etag of a file entity is taken to be the date last modified as a String. 
+	We use the SpTimestamp in "
+
+	^self lastModified asRFC1123String!
+
+lastModified
+
+	^self modifiedTimestamp! !
+!SpFilename categoriesFor: #etag!*Swazoo-accessing!public! !
+!SpFilename categoriesFor: #lastModified!*Swazoo-accessing!public! !
+
+!String methodsFor!
+
+asByteString
+	"Swazoo compatibility"
+
+	^self copy! !
+!String categoriesFor: #asByteString!converting!public! !
+
+"End of package definition"!
+

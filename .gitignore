@@ -1,0 +1,10 @@
+*.chg
+*.ERRORS
+*.img
+*.img7
+*.pac
+*.sml
+*.exe
+*.dll
+installer/
+sources/restore

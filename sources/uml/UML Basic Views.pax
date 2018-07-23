@@ -1,0 +1,256 @@
+﻿| package |
+package := Package name: 'UML Basic Views'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.03'.
+
+
+package classNames
+	add: #TimeStampPresenter;
+	add: #UMLAbstractButtonStructureComposite;
+	add: #UMLAbstractCommandStructureDialog;
+	add: #UMLAttributeBrowserComposite;
+	add: #UMLAttributeComposite;
+	add: #UMLButtonCollectionStructureComposite;
+	add: #UMLButtonCollectionStructureDialog;
+	add: #UMLButtonCollectionWithUserStructureComposite;
+	add: #UMLButtonCollectionWithUserStructureDialog;
+	add: #UMLButtonStoredArgumentsStructureComposite;
+	add: #UMLButtonStoredArgumentsStructureDialog;
+	add: #UMLComposite;
+	add: #UMLDialog;
+	add: #UMLDuplicatedAttributesComposite;
+	add: #UMLListAttributeShell;
+	add: #UMLListRelationsShell;
+	add: #UMLRelationBrowser;
+	add: #UMLRelationComposite;
+	add: #UMLShell;
+	add: #UMLSimpleAttributeComposite;
+	add: #UMLSimpleAttributeDialog;
+	add: #UMLStateMachineImportComposite;
+	add: #UMLStateMachineImportShell;
+	add: #UMLUserWebPreferenceComposite;
+	add: #UMLUserWebPreferenceShell;
+	add: #WebUserPreference;
+	yourself.
+
+package methodNames
+	add: #Keyboard -> #isControlDown;
+	add: #Object -> #printUMLFormat;
+	add: 'ListPresenter class' -> #resource_UMLModels_view;
+	add: 'ListPresenter class' -> #resource_UMLRelations_view;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\aida\AIDAWeb';
+	add: '..\others\BB MVP Basic Support';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: 'UML Basic Support';
+	add: 'UML Compiler';
+	add: 'UML Live Engine';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	add: 'XMI Import-Export Interfase II';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #WebUserPreference
+	instanceVariableNames: 'objectButtonClassSymbol lateralMenuButtonClassSymbol topMenuButtonClassSymbol headersHtmlLabelBackground headersHtmlValueBackground headerLabelFontColor headerValueFontColor referencesHtmlLabelBackground referencesLabelFontColor referencesValueFontColor basicValuesHtmlLabelBackground basicValuesHtmlValueBackground basicValuesLabelFontColor basicValuesValueFontColor webHeaderLabel webReferencesLabel webBasicLabel showHeader showReferences showBasicValues objectBackgroundColor listEvenColor listEvenTextColor listOddColor listOddTextColor bodyBackcolor'
+	classVariableNames: 'Default Templates'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Presenter subclass: #TimeStampPresenter
+	instanceVariableNames: 'datePresenter timePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Presenter subclass: #UMLComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #UMLShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dialog subclass: #UMLDialog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDialog subclass: #UMLSimpleAttributeDialog
+	instanceVariableNames: 'attributeComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDialog subclass: #UMLAbstractCommandStructureDialog
+	instanceVariableNames: 'newMethod'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAbstractCommandStructureDialog subclass: #UMLButtonCollectionStructureDialog
+	instanceVariableNames: 'buttonCollectionStructureComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAbstractCommandStructureDialog subclass: #UMLButtonStoredArgumentsStructureDialog
+	instanceVariableNames: 'umlButtonCommandStructureComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLButtonCollectionStructureDialog subclass: #UMLButtonCollectionWithUserStructureDialog
+	instanceVariableNames: 'loginManager'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLListAttributeShell
+	instanceVariableNames: 'attributesComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLListRelationsShell
+	instanceVariableNames: 'relationsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLStateMachineImportShell
+	instanceVariableNames: 'composite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLShell subclass: #UMLUserWebPreferenceShell
+	instanceVariableNames: 'preferencesComposite templatesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLAbstractButtonStructureComposite
+	instanceVariableNames: 'methodPresenter tabsPresenter methodName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLAttributeBrowserComposite
+	instanceVariableNames: 'attributesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLAttributeComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLDuplicatedAttributesComposite
+	instanceVariableNames: 'attributesComposite classesPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLRelationBrowser
+	instanceVariableNames: 'relationsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLRelationComposite
+	instanceVariableNames: 'multiplicityClassesPresenter sourceClassesPresenter sourceTextPresenter sourceMultiplicityPresenter targetClassesPresenter targetTextPresenter targetMultiplicityPresenter relationTypePresenter isEditOperation aliasPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLStateMachineImportComposite
+	instanceVariableNames: 'fileNamePresenter stateMachineListPresenter stateMachineNamePresenter stateMachineVariableNamePresenter umlModelPresenter stateMachineClassPresenter transitionVariableNamePresenter currentStateMessagePresenter nextStateMessagePresenter transitionClassPresenter stateVariableNamePresenter stateClassPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLUserWebPreferenceComposite
+	instanceVariableNames: 'lateralButtonsPresenter topButtonsPresenter objectButtonsPresenter headersHtmlLabelBackgroundPresenter headersHtmlValueBackgroundPresenter headerLabelFontColorPresenter headerValueFontColorPresenter referencesHtmlLabelBackgroundPresenter referencesLabelFontColorPresenter referencesValueFontColorPresenter basicValuesHtmlLabelBackgroundPresenter basicValuesHtmlValueBackgroundPresenter basicValuesLabelFontColorPresenter basicValuesValueFontColorPresenter webHeaderLabelPresenter webReferencesLabelPresenter webBasicLabelPresenter showHeaderPresenter showReferencesPresenter showBasicValuesPresenter objectBackgroundPresenter listEvenColorPresenter listOddColorPresenter listEvenTextColorPresenter listOddTextColorPresenter backgroundColorPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAbstractButtonStructureComposite subclass: #UMLButtonCollectionStructureComposite
+	instanceVariableNames: 'argumentsMethodPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAbstractButtonStructureComposite subclass: #UMLButtonStoredArgumentsStructureComposite
+	instanceVariableNames: 'classesPresenter methodNamePresenter classListBooleanPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLButtonCollectionStructureComposite subclass: #UMLButtonCollectionWithUserStructureComposite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAttributeComposite subclass: #UMLSimpleAttributeComposite
+	instanceVariableNames: 'namePresenter aliasPresenter descriptionPresenter originalTypePresenter typePresenter ownerClassPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Keyboard methodsFor!
+
+isControlDown
+	"Answer whether the <ALT> key is down."
+
+	^self isKeyDown: VK_CONTROL! !
+!Keyboard categoriesFor: #isControlDown!public!testing! !
+
+!ListPresenter class methodsFor!
+
+resource_UMLModels_view
+	"Answer the literal data from which the 'UMLModels view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLModels_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1114638 ##(Smalltalk.STBSingletonProxy)  8 ##(Smalltalk.SearchPolicy)  8 #identity 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294904861 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  570 8 ##(Smalltalk.IconImageManager)  8 #current 0 0 0 0 0 0 202 208 98 1 920646 5 ##(Smalltalk.ListViewColumn)  8 'Model Name' 1001 8 #left 690 8 #name 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 960 8 'doIt' 8 '[:a :b | a name <= b name]' 8 #[30 105 226 0 226 32 130 106] 928 976 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 2 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  2879 21 1218 1021 451 416 1154 8 #text: 98 1 8 'Model Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 159 5 0 0 10 0 0 0 157 7 0 0 235 0 0 0] 98 0 1218 193 193 0 27 )!
+
+resource_UMLRelations_view
+	"Answer the literal data from which the 'UMLRelations view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLRelations_view)
+	"
+
+	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ListView)  98 30 0 0 98 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel)  202 208 98 0 0 1310726 ##(Smalltalk.IdentitySearchPolicy)  524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 416 0 8 4294903209 459270 ##(Smalltalk.Message)  8 #displayString 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 0 202 208 98 7 920646 5 ##(Smalltalk.ListViewColumn)  8 'Multiplicity' 151 8 #left 658 8 #printMultiplicityText 98 0 787814 3 ##(Smalltalk.BlockClosure)  0 0 1180966 ##(Smalltalk.CompiledExpression)  2 1 656 8 'doIt' 8 '[:a :b | a printMultiplicity <= b printMultiplicity]' 8 #[30 105 226 0 226 32 130 106] 8 #printMultiplicity 928 7 513 0 0 0 416 0 1 0 0 802 8 'Source Class' 301 848 658 8 #sourceClassName 98 0 914 0 0 946 2 1 170 8 'Dolphin' 8 'SortedCollection' 8 'doIt' 8 '[:a :b | a sourceClassName <= b sourceClassName ]' 8 #[30 105 226 0 226 32 130 106] 1088 1120 7 513 0 0 0 416 0 1 0 0 802 8 'Target Class Name' 301 848 658 8 #targetClassName 1104 914 0 0 946 2 1 656 8 'doIt' 8 '[:a :b | a targetClassName <= b targetClassName ]' 8 #[30 105 226 0 226 32 130 106] 1296 1312 7 513 0 0 0 416 0 1 0 0 802 8 'Type' 201 848 658 8 #printTypeName 1104 914 0 0 946 2 1 656 8 'doIt' 8 '[:a :b | a printTypeName <= b printTypeName]' 8 #[30 105 226 0 226 32 130 106] 1440 1456 7 513 0 0 0 416 0 1 0 0 802 8 'Alias' 201 848 658 8 #printAlias 98 0 914 0 0 946 2 1 656 8 'doIt' 8 '[:a :b  | a printAlias <= b printAlias]' 8 #[30 105 226 0 226 32 130 106] 1584 1616 7 513 0 0 0 416 0 1 0 0 802 8 'Source Navigable' 201 848 658 8 #isSourceNavigable 544 914 0 0 946 3 1 912 8 'doIt' 8 '[:a :b | a isSourceNavigable printString <= b isSourceNavigable printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1744 8 #printString 1760 7 513 0 0 0 416 0 1 0 0 802 8 'Target Navigable' 201 848 658 8 #isTargetNavigable 544 914 0 0 946 3 1 656 8 'doIt' 8 '[:a :b | a isTargetNavigable printString <= b isTargetNavigable printString]' 8 #[31 105 226 0 159 226 32 159 130 106] 1904 1840 1920 7 513 0 0 0 416 0 1 0 0 8 #report 544 0 131169 0 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 3 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  3199 21 2146 1561 311 416 2082 8 #text: 98 1 8 'Multiplicity' 416 2082 8 #columnOrder: 98 1 98 7 5 3 7 9 11 13 15 416 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 63 6 0 0 10 0 0 0 75 9 0 0 165 0 0 0] 98 0 2146 193 193 0 27 )! !
+!ListPresenter class categoriesFor: #resource_UMLModels_view!public!resources-views! !
+!ListPresenter class categoriesFor: #resource_UMLRelations_view!public!resources-views! !
+
+!Object methodsFor!
+
+printUMLFormat
+
+	^self printString! !
+!Object categoriesFor: #printUMLFormat!public! !
+
+"End of package definition"!
+

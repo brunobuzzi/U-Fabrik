@@ -1,0 +1,95 @@
+﻿| package |
+package := Package name: 'BB Interfase Goodies'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #SWDropContainerLayout;
+	add: #SWDropExtent;
+	add: #SWDropSplitterExtent;
+	add: #SWLinkButton;
+	yourself.
+
+package methodNames
+	add: #Splitter -> #swLayoutDropExtentClass;
+	add: #View -> #swLayoutDropExtentClass;
+	add: #WinImageList -> #drawEx:on:at:backcolor:forecolor:flags:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Deprecated\Dolphin Base (Deprecated)';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SWDropExtent
+	instanceVariableNames: 'outsets closeHeight openHeight isOpen trackedHeight un1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SWDropSplitterExtent
+	instanceVariableNames: 'height un1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LayoutManager subclass: #SWDropContainerLayout
+	instanceVariableNames: 'dropExtents minWidth un1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+View subclass: #SWLinkButton
+	instanceVariableNames: 'swu1 swu2 flag imageExtent commandDescription overState hoverColor outColor disabledColor blendColor swu3 padLeft padRight swu4 swu5 swu6'
+	classVariableNames: 'HandCursor IsBlendHotMask IsIconAlignLeftMask IsUnderlineHotMask'
+	poolDictionaries: 'CommCtrlConstants'
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Splitter methodsFor!
+
+swLayoutDropExtentClass
+	^SWDropSplitterExtent! !
+!Splitter categoriesFor: #swLayoutDropExtentClass!public! !
+
+!View methodsFor!
+
+swLayoutDropExtentClass
+	^SWDropExtent! !
+!View categoriesFor: #swLayoutDropExtentClass!public! !
+
+!WinImageList methodsFor!
+
+drawEx: imageIndex on: target at: position backcolor: aBackColor forecolor: aForeColor flags: flags
+	"Draw the image at <integer> index, imageIndex, in the receiver onto the <Canvas>,
+	target, at the <Point>, position, with <integer> style mask, flags."
+
+	^CommCtrlLibrary default 
+		imageList_DrawEx: self asParameter
+		i: imageIndex - 1
+		hdcDst: target asParameter
+		x: position x
+		y: position y
+		dx: 0
+		dy: 0
+		rgbBk: (aBackColor ifNil: [CLR_NONE] ifNotNil: [:o1 | o1 asParameter])
+		rgbFg: (aForeColor ifNil: [CLR_DEFAULT] ifNotNil: [:o2 | o2 asParameter])
+		fStyle: flags! !
+!WinImageList categoriesFor: #drawEx:on:at:backcolor:forecolor:flags:!public! !
+
+"End of package definition"!
+

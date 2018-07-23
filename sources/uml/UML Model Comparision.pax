@@ -1,0 +1,162 @@
+﻿| package |
+package := Package name: 'UML Model Comparision'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #UMLClassComparision;
+	add: #UMLClassDifference;
+	add: #UMLClassNotExistDifference;
+	add: #UMLElementComparision;
+	add: #UMLElementDifference;
+	add: #UMLEntireMultiplicityDifference;
+	add: #UMLInstVarAbstractDifference;
+	add: #UMLInstVarDifference;
+	add: #UMLInstVarTypeDifference;
+	add: #UMLModelComparision;
+	add: #UMLModelDifference;
+	add: #UMLMultiplicityDifference;
+	add: #UMLNavigabilityDifference;
+	add: #UMLRelationAbstractDifference;
+	add: #UMLRelationComparision;
+	add: #UMLRelationDoesNotExistDifference;
+	add: #UMLSideMultiplicityDifference;
+	add: #UMLSourceSideMultiplicityDifference;
+	add: #UMLSubclassesDifference;
+	add: #UMLSuperclassDifference;
+	add: #UMLTargetSideMultiplicityDifference;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: 'UML Basic Support';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+UMLObject subclass: #UMLElementComparision
+	instanceVariableNames: 'firstElement secondElement'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLElementDifference
+	instanceVariableNames: 'comparator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementComparision subclass: #UMLClassComparision
+	instanceVariableNames: 'firstModel secondModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementComparision subclass: #UMLModelComparision
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementComparision subclass: #UMLRelationComparision
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementDifference subclass: #UMLClassDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementDifference subclass: #UMLInstVarAbstractDifference
+	instanceVariableNames: 'firstClass secondClass varName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementDifference subclass: #UMLModelDifference
+	instanceVariableNames: 'classesDifference'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLElementDifference subclass: #UMLRelationAbstractDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClassDifference subclass: #UMLClassNotExistDifference
+	instanceVariableNames: 'absentModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLInstVarAbstractDifference subclass: #UMLInstVarDifference
+	instanceVariableNames: 'absentModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLInstVarAbstractDifference subclass: #UMLInstVarTypeDifference
+	instanceVariableNames: 'firstClassType secondClassType'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelationAbstractDifference subclass: #UMLMultiplicityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelationAbstractDifference subclass: #UMLNavigabilityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelationAbstractDifference subclass: #UMLRelationDoesNotExistDifference
+	instanceVariableNames: 'absentModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelationAbstractDifference subclass: #UMLSubclassesDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLRelationAbstractDifference subclass: #UMLSuperclassDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLMultiplicityDifference subclass: #UMLEntireMultiplicityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLMultiplicityDifference subclass: #UMLSideMultiplicityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSideMultiplicityDifference subclass: #UMLSourceSideMultiplicityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSideMultiplicityDifference subclass: #UMLTargetSideMultiplicityDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

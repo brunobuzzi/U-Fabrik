@@ -1,0 +1,270 @@
+﻿| package |
+package := Package name: 'Office'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #Office_CommandBars;
+	add: #Office_CustomXMLParts;
+	add: #Office_IMsoDispObj;
+	add: #OfficeAnswerWizard;
+	add: #OfficeAssistant;
+	add: #OfficeCanvasShapes;
+	add: #OfficeCOMAddIns;
+	add: #OfficeDocumentInspectors;
+	add: #OfficeDocumentLibraryVersions;
+	add: #OfficeFileDialog;
+	add: #OfficeFileSearch;
+	add: #OfficeGlowFormat;
+	add: #OfficeGradientStops;
+	add: #OfficeHTMLProject;
+	add: #OfficeIAssistance;
+	add: #OfficeIFind;
+	add: #OfficeIMsoDiagram;
+	add: #OfficeIMsoEnvelopeVB;
+	add: #OfficeLanguageSettings;
+	add: #OfficeMetaProperties;
+	add: #OfficeNewFile;
+	add: #OfficeOfficeTheme;
+	add: #OfficePermission;
+	add: #OfficeReflectionFormat;
+	add: #OfficeRuler2;
+	add: #OfficeScript;
+	add: #OfficeScripts;
+	add: #OfficeServerPolicy;
+	add: #OfficeSharedWorkspace;
+	add: #OfficeSignature;
+	add: #OfficeSignatureSet;
+	add: #OfficeSmartDocument;
+	add: #OfficeSoftEdgeFormat;
+	add: #OfficeSync;
+	add: #OfficeTextColumn2;
+	add: #OfficeTextRange2;
+	add: #OfficeWebPageFonts;
+	add: #OfficeWorkflowTasks;
+	add: #OfficeWorkflowTemplates;
+	yourself.
+
+package globalNames
+	add: #OfficeConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+IDispatch subclass: #Office_IMsoDispObj
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+IDispatch subclass: #OfficeIAssistance
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+IDispatch subclass: #OfficeIFind
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+IDispatch subclass: #OfficeIMsoEnvelopeVB
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #Office_CommandBars
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #Office_CustomXMLParts
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeAnswerWizard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeAssistant
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeCanvasShapes
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeCOMAddIns
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeDocumentInspectors
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeDocumentLibraryVersions
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeFileDialog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeFileSearch
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeGlowFormat
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeGradientStops
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeHTMLProject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeIMsoDiagram
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeLanguageSettings
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeMetaProperties
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeNewFile
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeOfficeTheme
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficePermission
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeReflectionFormat
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeRuler2
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeScripts
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeServerPolicy
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSharedWorkspace
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSignature
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSignatureSet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSmartDocument
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSoftEdgeFormat
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeSync
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeTextColumn2
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeTextRange2
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeWebPageFonts
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeWorkflowTasks
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+Office_IMsoDispObj subclass: #OfficeWorkflowTemplates
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'OfficeConstants'
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

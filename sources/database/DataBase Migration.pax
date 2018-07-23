@@ -1,0 +1,71 @@
+﻿| package |
+package := Package name: 'DataBase Migration'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #BBDBModelMigrationMap;
+	add: #BBForeignKeyMigrationMap;
+	add: #BBMigrationMap;
+	add: #BBMigrationObject;
+	add: #BBValueMigrationMap;
+	add: #DBMigrationRule;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'DataBase Modeler';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #BBMigrationObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBMigrationObject subclass: #BBDBModelMigrationMap
+	instanceVariableNames: 'name mappings'
+	classVariableNames: 'Migrations'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBMigrationObject subclass: #BBMigrationMap
+	instanceVariableNames: 'source target transformationRule transformationDescription'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBMigrationObject subclass: #DBMigrationRule
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBMigrationMap subclass: #BBForeignKeyMigrationMap
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBMigrationMap subclass: #BBValueMigrationMap
+	instanceVariableNames: 'isMismatched'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

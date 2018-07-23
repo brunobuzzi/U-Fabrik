@@ -1,0 +1,721 @@
+﻿| package |
+package := Package name: 'UML Compiler'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.05'.
+
+
+package classNames
+	add: #UMLBlockClosureNode;
+	add: #UMLCompilationBranch;
+	add: #UMLCompilationError;
+	add: #UMLImplementation;
+	add: #UMLParsedImplementation;
+	add: #UMLSanityCheck;
+	yourself.
+
+package methodNames
+	add: #StAssignmentNode -> #getUMLObjectFrom:;
+	add: #StAssignmentNode -> #hasSelector;
+	add: #StAssignmentNode -> #hasUMLBlock;
+	add: #StAssignmentNode -> #isSuperSend;
+	add: #StAssignmentNode -> #nodes;
+	add: #StAssignmentNode -> #processInsideSnapshot:context:parameters:;
+	add: #StAssignmentNode -> #receiverName;
+	add: #StAssignmentNode -> #selector;
+	add: #StAssignmentNode -> #variableName;
+	add: #StBlockNode -> #isSuperSend;
+	add: #StBlockNode -> #name;
+	add: #StBlockNode -> #nodes;
+	add: #StBlockNode -> #printParsedCode;
+	add: #StBlockNode -> #processInsideSnapshot:context:parameters:;
+	add: #StCascadeNode -> #nodes;
+	add: #StCascadeNode -> #processInsideSnapshot:context:parameters:;
+	add: #StIdentifierToken -> #getUMLObjectFrom:;
+	add: #StLiteralArrayNode -> #asUMLObject;
+	add: #StLiteralArrayNode -> #asUMLObject:;
+	add: #StLiteralArrayNode -> #name;
+	add: #StLiteralArrayNode -> #processInsideSnapshot:context:parameters:;
+	add: #StLiteralNode -> #asUMLObject:;
+	add: #StLiteralNode -> #nodes;
+	add: #StLiteralToken -> #asUMLObject:;
+	add: #StLiteralValueNode -> #arguments;
+	add: #StLiteralValueNode -> #asUMLObject:;
+	add: #StLiteralValueNode -> #getUMLObjectFrom:;
+	add: #StLiteralValueNode -> #isSuperSend;
+	add: #StLiteralValueNode -> #name;
+	add: #StLiteralValueNode -> #processInsideSnapshot:context:parameters:;
+	add: #StLiteralValueNode -> #receiverName;
+	add: #StMessageNode -> #argumentsName;
+	add: #StMessageNode -> #getUMLObjectFrom:;
+	add: #StMessageNode -> #isSuperSend;
+	add: #StMessageNode -> #nodes;
+	add: #StMessageNode -> #printParsedCode;
+	add: #StMessageNode -> #processInsideSnapshot:context:parameters:;
+	add: #StMessageNode -> #receiverName;
+	add: #StMethodNode -> #allNodes;
+	add: #StMethodNode -> #hasReferenceTo:;
+	add: #StMethodNode -> #nodes;
+	add: #StNumberLiteralToken -> #asUMLObject:;
+	add: #StPrimitiveNode -> #isPrimitive;
+	add: #StPrimitiveNode -> #processInsideSnapshot:context:parameters:;
+	add: #StProgramNode -> #isPrimitive;
+	add: #StProgramNode -> #isTrait;
+	add: #StProgramNode -> #isVirtualMachineImplementation;
+	add: #StProgramNode -> #printMessage;
+	add: #StReturnNode -> #arguments;
+	add: #StReturnNode -> #hasSelector;
+	add: #StReturnNode -> #isSuperSend;
+	add: #StReturnNode -> #nodes;
+	add: #StReturnNode -> #processInsideSnapshot:context:parameters:;
+	add: #StReturnNode -> #receiverName;
+	add: #StReturnNode -> #selector;
+	add: #StSequenceNode -> #nodes;
+	add: #StSequenceNode -> #printMessage;
+	add: #StTagNode -> #isSuperSend;
+	add: #StVariableNode -> #arguments;
+	add: #StVariableNode -> #asUMLObject:;
+	add: #StVariableNode -> #getUMLObjectFrom:;
+	add: #StVariableNode -> #isSuperSend;
+	add: #StVariableNode -> #nodes;
+	add: #StVariableNode -> #processInsideSnapshot:context:parameters:;
+	add: #StVariableNode -> #receiverName;
+	add: #UMLClass -> #autoGenerateInitializeMethodIn:;
+	add: #UMLClass -> #createClassAccessorsForGlobalObject:using:;
+	add: #UMLClass -> #createClassAccessorsForGlobalObjectsUsing:;
+	add: #UMLClass -> #createClassCreationMethodForGlobalObject:using:;
+	add: #UMLClass -> #createClassCreationMethodsForGlobalObjectsUsing:;
+	add: #UMLClass -> #createClassDBAccessorsForGlobalObjectsUsing:;
+	add: #UMLClass -> #createClassDBCreationMethodsForGlobalObjectsUsing:;
+	add: #UMLClass -> #createUMLAccessorsSourceFor:using:;
+	add: #UMLClass -> #createUMLCreationSourceFor:using:;
+	add: #UMLClass -> #createUMLDBAccessorsSourceFor:using:;
+	add: #UMLClass -> #createUMLDBCreationSourceFor:using:;
+	add: #UMLClass -> #createUMLDBSourceForCreateAllInstancesWith:;
+	add: #UMLClass -> #createUMLSourceForCreateAllInstancesWith:;
+	add: #UMLObjectBehavior -> #defaultImplementationClass;
+	add: #UMLStateMachine -> #addUMLQueryMethodFor:;
+	add: 'StProgramNode class' -> #icon;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: 'UML Basic Support';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+UMLObject subclass: #UMLBlockClosureNode
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLSanityCheck
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBehaviorDescriptor subclass: #UMLImplementation
+	instanceVariableNames: 'methodName methodClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLImplementation subclass: #UMLParsedImplementation
+	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSanityCheck subclass: #UMLCompilationBranch
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLSanityCheck subclass: #UMLCompilationError
+	instanceVariableNames: 'node'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!StAssignmentNode methodsFor!
+
+getUMLObjectFrom: anUMLScriptExecutionSnapshot 
+
+	value isLiteralNode ifTrue: [^value asUMLObject: anUMLScriptExecutionSnapshot virtualMachine].
+
+	value isCascade ifFalse: [^anUMLScriptExecutionSnapshot getObjectNamed: value receiverName].
+
+	^anUMLScriptExecutionSnapshot cascadeTemporaries at: value!
+
+hasSelector
+
+	^value isMessage!
+
+hasUMLBlock
+	^value isBlock!
+
+isSuperSend
+	^value isSuperSend!
+
+nodes
+
+	^OrderedCollection with: self
+!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
+
+	^anUMLExecutionSnapshot processAssignment: self messageReceiver: anUMLObject arguments: anArray!
+
+receiverName
+	^value receiverName!
+
+selector
+	^value selector!
+
+variableName
+
+	^variable name! !
+!StAssignmentNode categoriesFor: #getUMLObjectFrom:!public! !
+!StAssignmentNode categoriesFor: #hasSelector!public! !
+!StAssignmentNode categoriesFor: #hasUMLBlock!public! !
+!StAssignmentNode categoriesFor: #isSuperSend!public! !
+!StAssignmentNode categoriesFor: #nodes!public! !
+!StAssignmentNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StAssignmentNode categoriesFor: #receiverName!public! !
+!StAssignmentNode categoriesFor: #selector!public! !
+!StAssignmentNode categoriesFor: #variableName!public! !
+
+!StBlockNode methodsFor!
+
+isSuperSend
+	^false!
+
+name
+	^self formattedCode!
+
+nodes
+
+	^body statements!
+
+printParsedCode
+	^self source!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
+	| block |
+
+	block := anUMLExecutionSnapshot createBlockFrom: self.
+	^block vmPerform: #value! !
+!StBlockNode categoriesFor: #isSuperSend!public! !
+!StBlockNode categoriesFor: #name!public! !
+!StBlockNode categoriesFor: #nodes!public! !
+!StBlockNode categoriesFor: #printParsedCode!public! !
+!StBlockNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+
+!StCascadeNode methodsFor!
+
+nodes
+
+	^messages!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
+
+	^anUMLExecutionSnapshot processCascadeNode: self  context: anUMLObject parameteres: anArray! !
+!StCascadeNode categoriesFor: #nodes!public! !
+!StCascadeNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+
+!StIdentifierToken methodsFor!
+
+getUMLObjectFrom: anUMLExecutionSnapshot 
+
+	^anUMLExecutionSnapshot getObjectNamed: value! !
+!StIdentifierToken categoriesFor: #getUMLObjectFrom:!public! !
+
+!StLiteralArrayNode methodsFor!
+
+asUMLObject
+
+	^(contents collect: [:each | each name asUMLObject: self defaultVirtualMachine]) asUMLObject: self defaultVirtualMachine
+!
+
+asUMLObject: anUMLVirtualMachine 
+	^(contents collect: [:each | each asUMLObject: anUMLVirtualMachine]) asUMLObject: anUMLVirtualMachine !
+
+name
+	^self asUMLObject!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
+
+	^self asUMLObject
+! !
+!StLiteralArrayNode categoriesFor: #asUMLObject!public! !
+!StLiteralArrayNode categoriesFor: #asUMLObject:!public! !
+!StLiteralArrayNode categoriesFor: #name!public! !
+!StLiteralArrayNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+
+!StLiteralNode methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+!
+
+nodes
+
+	^OrderedCollection with: self
+
+! !
+!StLiteralNode categoriesFor: #asUMLObject:!public! !
+!StLiteralNode categoriesFor: #nodes!public! !
+
+!StLiteralToken methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^value asUMLObject: anUMLVirtualMachine ! !
+!StLiteralToken categoriesFor: #asUMLObject:!public! !
+
+!StLiteralValueNode methodsFor!
+
+arguments
+	^#()!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^token asUMLObject: anUMLVirtualMachine !
+
+getUMLObjectFrom: anUMLExecutionSnapshot 
+
+	^anUMLExecutionSnapshot getBasicObjectNamed: self name!
+
+isSuperSend
+	^false!
+
+name
+	^self value!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLInstance parameters: anArray 
+
+	^anUMLExecutionSnapshot processLiteralNode: self context: anUMLInstance parameters: anArray!
+
+receiverName
+	^token value! !
+!StLiteralValueNode categoriesFor: #arguments!public! !
+!StLiteralValueNode categoriesFor: #asUMLObject:!public! !
+!StLiteralValueNode categoriesFor: #getUMLObjectFrom:!public! !
+!StLiteralValueNode categoriesFor: #isSuperSend!public! !
+!StLiteralValueNode categoriesFor: #name!public! !
+!StLiteralValueNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StLiteralValueNode categoriesFor: #receiverName!public! !
+
+!StMessageNode methodsFor!
+
+argumentsName
+
+	^(self arguments collect: [:each | each receiverName]) asArray!
+
+getUMLObjectFrom: anUMLScriptExecutionSnapshot 
+
+	(receiver isBlock) ifTrue: [^anUMLScriptExecutionSnapshot createBlockFrom: receiver].
+
+	^anUMLScriptExecutionSnapshot getObjectNamed: self receiverName!
+
+isSuperSend
+
+	^self receiverName = 'super'!
+
+nodes
+
+	^OrderedCollection with: self!
+
+printParsedCode
+	^self formattedCode!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray
+
+	^anUMLExecutionSnapshot processMessageNode: self messageReceiver: anUMLObject arguments: anArray
+	!
+
+receiverName
+	| receiverObject |
+
+	receiverObject := receiver.
+"this is because <aStMessage> has as receiver  another <aStMessage> "
+	[receiverObject class == StMessageNode] whileTrue: [receiverObject := receiverObject receiver].
+	^receiverObject name ! !
+!StMessageNode categoriesFor: #argumentsName!public! !
+!StMessageNode categoriesFor: #getUMLObjectFrom:!public! !
+!StMessageNode categoriesFor: #isSuperSend!public!smalltalk parser! !
+!StMessageNode categoriesFor: #nodes!public! !
+!StMessageNode categoriesFor: #printParsedCode!public! !
+!StMessageNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StMessageNode categoriesFor: #receiverName!public! !
+
+!StMethodNode methodsFor!
+
+allNodes
+	| all |
+
+	tag ifNotNil: [:value | ^OrderedCollection with: tag].
+
+	all := OrderedCollection new.
+	body nodesDo: [:eachStProgramNode | all add: eachStProgramNode].
+
+	^all allButFirst!
+
+hasReferenceTo: aSymbol 
+
+	self halt
+
+!
+
+nodes
+
+	^body statements! !
+!StMethodNode categoriesFor: #allNodes!public! !
+!StMethodNode categoriesFor: #hasReferenceTo:!public! !
+!StMethodNode categoriesFor: #nodes!public! !
+
+!StNumberLiteralToken methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^source asNumber asUMLObject: anUMLVirtualMachine! !
+!StNumberLiteralToken categoriesFor: #asUMLObject:!public! !
+
+!StPrimitiveNode methodsFor!
+
+isPrimitive
+
+	^true!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLInstance parameters: anArray 
+
+	^anUMLExecutionSnapshot processPrimitiveCall: primitiveIndex receiver: anUMLInstance withArguments: anArray! !
+!StPrimitiveNode categoriesFor: #isPrimitive!public! !
+!StPrimitiveNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+
+!StProgramNode methodsFor!
+
+isPrimitive
+
+	^false!
+
+isTrait
+	^false!
+
+isVirtualMachineImplementation
+	^false!
+
+printMessage
+	^self formattedCode! !
+!StProgramNode categoriesFor: #isPrimitive!public! !
+!StProgramNode categoriesFor: #isTrait!public! !
+!StProgramNode categoriesFor: #isVirtualMachineImplementation!public! !
+!StProgramNode categoriesFor: #printMessage!public! !
+
+!StProgramNode class methodsFor!
+
+icon
+
+	^Icon fromId: 'TranscriptShell.ico'! !
+!StProgramNode class categoriesFor: #icon!public! !
+
+!StReturnNode methodsFor!
+
+arguments
+	^value arguments!
+
+hasSelector
+	^false!
+
+isSuperSend
+	^false!
+
+nodes
+	^OrderedCollection with: self!
+
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
+
+	^anUMLExecutionSnapshot processReturnNode: self messageReceiver: anUMLObject arguments: anArray!
+
+receiverName
+	^value receiverName!
+
+selector
+	^value selector! !
+!StReturnNode categoriesFor: #arguments!public! !
+!StReturnNode categoriesFor: #hasSelector!public! !
+!StReturnNode categoriesFor: #isSuperSend!public! !
+!StReturnNode categoriesFor: #nodes!public! !
+!StReturnNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StReturnNode categoriesFor: #receiverName!public! !
+!StReturnNode categoriesFor: #selector!public! !
+
+!StSequenceNode methodsFor!
+
+nodes
+	^statements!
+
+printMessage
+	^self source! !
+!StSequenceNode categoriesFor: #nodes!public! !
+!StSequenceNode categoriesFor: #printMessage!public! !
+
+!StTagNode methodsFor!
+
+isSuperSend
+	^false! !
+!StTagNode categoriesFor: #isSuperSend!public! !
+
+!StVariableNode methodsFor!
+
+arguments
+	^OrderedCollection new!
+
+asUMLObject: anUMLVirtualMachine 
+	^Error notYetImplemented!
+
+getUMLObjectFrom: anUMLExecutionSnapshot 
+
+	^anUMLExecutionSnapshot getObjectNamed: self name!
+
+isSuperSend
+	^false!
+
+nodes
+
+	^OrderedCollection with: self!
+
+processInsideSnapshot: anUMLScriptExecutionSnapshot context: anUMLObject parameters: anArray 
+
+	^anUMLScriptExecutionSnapshot getObjectFromProgramNode: self!
+
+receiverName
+
+	^self name! !
+!StVariableNode categoriesFor: #arguments!public! !
+!StVariableNode categoriesFor: #asUMLObject:!public! !
+!StVariableNode categoriesFor: #getUMLObjectFrom:!public! !
+!StVariableNode categoriesFor: #isSuperSend!public! !
+!StVariableNode categoriesFor: #nodes!public! !
+!StVariableNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StVariableNode categoriesFor: #receiverName!public! !
+
+!UMLClass methodsFor!
+
+autoGenerateInitializeMethodIn: anUMLVirtualMachine
+	"The receiver create a String that represent each assgiment of it's instances variables, then the Compiler compile the <sequenceString> to obtaind the parsed method "
+	| colecciones atributosDeDominio atributosBoolean umlImplementation sequenceString parsedCode |
+
+	colecciones := (self attributes select: [:each | each hasMultipleInstances]) asOrderedCollection.
+	atributosBoolean := (self attributes select: [:each | #('Boolean' 'True' 'False') includes: each type name]) asOrderedCollection.
+	atributosDeDominio := (self attributes reject: [:each | (#('Boolean' 'True' 'False') includes: each type name) or: [each hasMultipleInstances or:[each isSelfReferenceAttribute]] ]) asOrderedCollection.
+	umlImplementation := UMLParsedImplementation newNamed: #initialize.
+	sequenceString := 'initialize', String lineDelimiter, String lineDelimiter, 'super initialize.', String lineDelimiter. "method name + super initialize "
+	colecciones do: [:each | sequenceString := sequenceString, each getName,' := OrderedCollection new.', String lineDelimiter]. "instances variables assigment for collections"
+	atributosBoolean do: [:each | sequenceString := sequenceString, each getName,' := false.', String lineDelimiter]. "instances variables assigment for booleans"
+	atributosDeDominio do: [:each | sequenceString := sequenceString, each getName,' := ', (each getInitializeTypeFor: self) name, ' new.', String lineDelimiter]."instances variables assigment for any other object"
+	(self relations select: [:each | each isSelfReferenceClass]) "Classes with self references" do: [:eachRelation | | bothAttributes sourceAttribute targetAttribute  |
+		bothAttributes := ((self attributes select: [:each | each isSelfReferenceAttribute]) select: [:each | each relation == each relation]) asOrderedCollection.
+		sourceAttribute := bothAttributes first.
+		targetAttribute := bothAttributes last.
+		eachRelation isTargetNavigable
+		ifTrue: [
+			eachRelation sourceMultiplicity hasMultipleInstances
+			ifTrue: [sequenceString := sequenceString, sourceAttribute getName,' := OrderedCollection new.', String lineDelimiter] 
+			ifFalse: [sequenceString := sequenceString, sourceAttribute getName,' := ', (sourceAttribute getInitializeTypeFor: self) name, ' new.', String lineDelimiter].].
+		eachRelation isSourceNavigable ifTrue: [
+			eachRelation targetMultiplicity hasMultipleInstances 
+				ifTrue: [sequenceString := sequenceString, targetAttribute getName,' := OrderedCollection new.', String lineDelimiter] 
+				ifFalse: [sequenceString := sequenceString, targetAttribute getName,' := ', (targetAttribute getInitializeTypeFor: self) name, ' new.', String lineDelimiter]. ].].
+
+	parsedCode := SmalltalkParser parseMethod: sequenceString. "the compiler parse the string"
+	umlImplementation parsedCode: parsedCode.
+
+	self addImplementation: umlImplementation!
+
+createClassAccessorsForGlobalObject: anUMLInstance using: varName
+	| parsedMethod newImplementation source |
+
+	source := self createUMLAccessorsSourceFor: anUMLInstance using: varName.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	self getMetaclass addImplementation: newImplementation.
+	^newImplementation!
+
+createClassAccessorsForGlobalObjectsUsing: varName
+	| parsedMethod newImplementation source |
+
+	self myRootObjects do: [:each | 
+		source := self createUMLAccessorsSourceFor: each using: varName.
+		parsedMethod := SmalltalkParser parseMethod: source.
+		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+		self getMetaclass addImplementation: newImplementation.
+		newImplementation].!
+
+createClassCreationMethodForGlobalObject: anUMLInstance using: varName
+	| parsedMethod newImplementation source |
+
+	source := self createUMLCreationSourceFor: anUMLInstance using: varName.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	self getMetaclass addImplementation: newImplementation.
+	^newImplementation!
+
+createClassCreationMethodsForGlobalObjectsUsing: aSymbol 
+	| parsedMethod newImplementation source methodsName |
+
+	methodsName := OrderedCollection new.
+	self myRootObjects do: [:each | 
+		source := self createUMLCreationSourceFor: each using: aSymbol.
+		parsedMethod := SmalltalkParser parseMethod: source.
+		methodsName add: parsedMethod selector.
+		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+		self getMetaclass addImplementation: newImplementation.
+		newImplementation].
+
+	source := self createUMLSourceForCreateAllInstancesWith: methodsName.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	self getMetaclass addImplementation: newImplementation.!
+
+createClassDBAccessorsForGlobalObjectsUsing: varName
+	| parsedMethod newImplementation source |
+
+	self myRootObjects do: [:each | 
+		source := self createUMLDBAccessorsSourceFor: each using: varName.
+		parsedMethod := SmalltalkParser parseMethod: source.
+		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+		self getMetaclass addImplementation: newImplementation.
+		newImplementation].!
+
+createClassDBCreationMethodsForGlobalObjectsUsing: aSymbol 
+	| parsedMethod newImplementation source methodsName |
+
+	methodsName := OrderedCollection new.
+	self myRootObjects do: [:each | 
+		source := self createUMLDBCreationSourceFor: each using: aSymbol.
+		parsedMethod := SmalltalkParser parseMethod: source.
+		methodsName add: parsedMethod selector.
+		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+		self getMetaclass addImplementation: newImplementation.
+		newImplementation].
+
+	source := self createUMLDBSourceForCreateAllInstancesWith: methodsName.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	self getMetaclass addImplementation: newImplementation.!
+
+createUMLAccessorsSourceFor: anUMLInstance using: varName
+	| instanceValue |
+
+	instanceValue := (anUMLInstance vmPerform: varName) smalltalkObject trimBlanks.
+	^instanceValue asUMLInstVarName, String lineDelimiter, String tab, 
+		'^', self getMetaclass name, ' getFirstGlobalObjectSatisfying: [:each | each ', varName , ' = ''',  instanceValue , '''] ifNone: []'.!
+
+createUMLCreationSourceFor: anUMLInstance using: varName
+	| source instanceValue smalltalkObject |
+
+	smalltalkObject := (anUMLInstance vmPerform: varName) smalltalkObject. 
+	instanceValue :=  (smalltalkObject class == String) ifTrue: [smalltalkObject trimBlanks] ifFalse: [smalltalkObject printString].
+	source  := '_create', instanceValue capitalized, String lineDelimiter, String tab, 
+		'| newInstance | ', String lineDelimiter, String tab, 
+		'newInstance := ', self getMetaclass name, ' new.', String lineDelimiter, String tab.
+	anUMLInstance basicInstancesVariables keysAndValuesDo: [:eachKey :eachVMI | 
+		source := source, 'newInstance ', eachKey, ': ', eachVMI smalltalkObject printString, '.',String lineDelimiter, String tab. ].
+
+	source := source, String lineDelimiter, String tab, 'newInstance storeAsGlobalObject.', String lineDelimiter, String tab, '^newInstance'.
+
+	^source!
+
+createUMLDBAccessorsSourceFor: anUMLInstance using: varName
+	| instanceValue |
+
+	instanceValue := (anUMLInstance vmPerform: varName) smalltalkObject trimBlanks.
+	^instanceValue asUMLInstVarName, 'In: aBBReStoreSession', String lineDelimiter, String tab, 
+		'^', self getMetaclass name, ' getFirstGlobalObjectSatisfying: [:each | each ', varName , ' = ''',  instanceValue , '''] ifNone: [] on: aBBReStoreSession'.!
+
+createUMLDBCreationSourceFor: anUMLInstance using: varName
+	| source instanceValue smalltalkObject |
+
+	smalltalkObject := (anUMLInstance vmPerform: varName) smalltalkObject. 
+	instanceValue :=  (smalltalkObject class == String) ifTrue: [smalltalkObject trimBlanks] ifFalse: [smalltalkObject printString].
+	source  := '_create', instanceValue capitalized, 'In: aBBReStoreSession ', String lineDelimiter, String tab, 
+		'| newInstance | ', String lineDelimiter, String tab, 
+		'newInstance := ', self getMetaclass name, ' new.', String lineDelimiter, String tab.
+	anUMLInstance basicInstancesVariables keysAndValuesDo: [:eachKey :eachVMI | 
+		source := source, 'newInstance ', eachKey, ': ', eachVMI smalltalkObject printString, '.',String lineDelimiter, String tab. ].
+
+	source := source, String lineDelimiter, String tab, 'newInstance storeAsGlobalObjectIn: aBBReStoreSession.', String lineDelimiter, String tab, '^newInstance'.
+
+	^source!
+
+createUMLDBSourceForCreateAllInstancesWith: anOrderedCollection
+	| source |
+
+	source := '_initialInstancesIn: aBBReStoreSession
+	^OrderedCollection new', String lineDelimiter, String tab.
+	anOrderedCollection do: [:each | source  := source, String tab, 'add: (self ', each, ' aBBReStoreSession);', String lineDelimiter, String tab].
+
+	^source, String lineDelimiter, String tab, String tab,'yourself'!
+
+createUMLSourceForCreateAllInstancesWith: anOrderedCollection
+	| source |
+
+	source := '_initialInstances
+	^OrderedCollection new', String lineDelimiter, String tab.
+	anOrderedCollection do: [:each | source  := source, String tab, 'add: self ', each, ';', String lineDelimiter, String tab].
+
+	^source, String lineDelimiter, String tab, String tab,'yourself'! !
+!UMLClass categoriesFor: #autoGenerateInitializeMethodIn:!public! !
+!UMLClass categoriesFor: #createClassAccessorsForGlobalObject:using:!public! !
+!UMLClass categoriesFor: #createClassAccessorsForGlobalObjectsUsing:!public! !
+!UMLClass categoriesFor: #createClassCreationMethodForGlobalObject:using:!public! !
+!UMLClass categoriesFor: #createClassCreationMethodsForGlobalObjectsUsing:!public! !
+!UMLClass categoriesFor: #createClassDBAccessorsForGlobalObjectsUsing:!public! !
+!UMLClass categoriesFor: #createClassDBCreationMethodsForGlobalObjectsUsing:!public! !
+!UMLClass categoriesFor: #createUMLAccessorsSourceFor:using:!public! !
+!UMLClass categoriesFor: #createUMLCreationSourceFor:using:!public! !
+!UMLClass categoriesFor: #createUMLDBAccessorsSourceFor:using:!public! !
+!UMLClass categoriesFor: #createUMLDBCreationSourceFor:using:!public! !
+!UMLClass categoriesFor: #createUMLDBSourceForCreateAllInstancesWith:!public! !
+!UMLClass categoriesFor: #createUMLSourceForCreateAllInstancesWith:!public! !
+
+!UMLObjectBehavior methodsFor!
+
+defaultImplementationClass
+	^UMLParsedImplementation! !
+!UMLObjectBehavior categoriesFor: #defaultImplementationClass!public! !
+
+!UMLStateMachine methodsFor!
+
+addUMLQueryMethodFor: anUMLState
+	| parsedMethod newImplementation source |
+
+	source := self getUMLStateSourceFor: anUMLState.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	umlStateClass getMetaclass addImplementation: newImplementation.
+	^newImplementation
+
+	
+	! !
+!UMLStateMachine categoriesFor: #addUMLQueryMethodFor:!public! !
+
+"End of package definition"!
+

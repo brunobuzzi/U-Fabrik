@@ -1,0 +1,183 @@
+﻿| package |
+package := Package name: 'BB_Object Server'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #BBImageServer;
+	add: #BBImageSession;
+	add: #BBObjectIdHolder;
+	add: #BBObjectRepository;
+	add: #BBODBBTreeRequestError;
+	add: #BBODBContainerRequestError;
+	add: #BBODBInvalidObjectReplacementError;
+	add: #BBPersistentServer;
+	add: #BBPersistentSession;
+	add: #BBServer;
+	add: #BBServerError;
+	add: #BBSession;
+	yourself.
+
+package methodNames
+	add: #ByteArray -> #isObjectHolder;
+	add: #Collection -> #isObjectHolder;
+	add: #DOMNodeList -> #isObjectHolder;
+	add: #Interval -> #isObjectHolder;
+	add: #LinkedList -> #isObjectHolder;
+	add: #Object -> #isObjectHolder;
+	add: #OLEEnumerator -> #isObjectHolder;
+	add: #RunArray -> #isObjectHolder;
+	add: #String -> #isObjectHolder;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Structured Storage\OLE Structured Storage';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #BBObjectIdHolder
+	instanceVariableNames: 'instanceVariablesId copiedValues'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #BBObjectRepository
+	instanceVariableNames: 'root'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #BBServer
+	instanceVariableNames: 'name sessions repository'
+	classVariableNames: 'Servers'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #BBSession
+	instanceVariableNames: 'server id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBServer subclass: #BBImageServer
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBServer subclass: #BBPersistentServer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBSession subclass: #BBImageSession
+	instanceVariableNames: 'repository'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBSession subclass: #BBPersistentSession
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Error subclass: #BBServerError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBServerError subclass: #BBODBBTreeRequestError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBServerError subclass: #BBODBContainerRequestError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBServerError subclass: #BBODBInvalidObjectReplacementError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!ByteArray methodsFor!
+
+isObjectHolder
+
+	^false! !
+!ByteArray categoriesFor: #isObjectHolder!public! !
+
+!Collection methodsFor!
+
+isObjectHolder
+
+	^true! !
+!Collection categoriesFor: #isObjectHolder!public! !
+
+!DOMNodeList methodsFor!
+
+isObjectHolder
+
+	^false! !
+!DOMNodeList categoriesFor: #isObjectHolder!public! !
+
+!Interval methodsFor!
+
+isObjectHolder
+
+	^false! !
+!Interval categoriesFor: #isObjectHolder!public! !
+
+!LinkedList methodsFor!
+
+isObjectHolder
+
+	^false! !
+!LinkedList categoriesFor: #isObjectHolder!public! !
+
+!Object methodsFor!
+
+isObjectHolder
+
+	^false! !
+!Object categoriesFor: #isObjectHolder!public! !
+
+!OLEEnumerator methodsFor!
+
+isObjectHolder
+
+	^false! !
+!OLEEnumerator categoriesFor: #isObjectHolder!public! !
+
+!RunArray methodsFor!
+
+isObjectHolder
+
+	^false! !
+!RunArray categoriesFor: #isObjectHolder!public! !
+
+!String methodsFor!
+
+isObjectHolder
+
+	^false! !
+!String categoriesFor: #isObjectHolder!public! !
+
+"End of package definition"!
+

@@ -1,0 +1,126 @@
+﻿| package |
+package := Package name: 'DataBase Modeler Comparision'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #DBAttributeDifference;
+	add: #DBAttributeNotExistDifference;
+	add: #DBAttributeTypeDifference;
+	add: #DBElementComparision;
+	add: #DBElementDifference;
+	add: #DBForeignKeyAttributeDifference;
+	add: #DBForeignKeyDifference;
+	add: #DBIndexDifference;
+	add: #DBModelComparision;
+	add: #DBPrimaryKeyAttributeDifference;
+	add: #DBPrimaryKeyDifference;
+	add: #DBPrimaryKeyNotExistDifference;
+	add: #DBTableComparision;
+	add: #DBTableDifference;
+	add: #DBTableNotExistDifference;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'DataBase Modeler';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #DBElementComparision
+	instanceVariableNames: 'firstElement secondElement'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #DBElementDifference
+	instanceVariableNames: 'comparator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementComparision subclass: #DBModelComparision
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementComparision subclass: #DBTableComparision
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementDifference subclass: #DBAttributeDifference
+	instanceVariableNames: 'attribute'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementDifference subclass: #DBForeignKeyDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementDifference subclass: #DBIndexDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementDifference subclass: #DBPrimaryKeyDifference
+	instanceVariableNames: 'table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBElementDifference subclass: #DBTableDifference
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBAttributeDifference subclass: #DBAttributeNotExistDifference
+	instanceVariableNames: 'absentTable'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBAttributeDifference subclass: #DBAttributeTypeDifference
+	instanceVariableNames: 'typeValue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBForeignKeyDifference subclass: #DBForeignKeyAttributeDifference
+	instanceVariableNames: 'table absentForeignKey'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBPrimaryKeyDifference subclass: #DBPrimaryKeyAttributeDifference
+	instanceVariableNames: 'missingAttribute'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBPrimaryKeyDifference subclass: #DBPrimaryKeyNotExistDifference
+	instanceVariableNames: 'absentModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBTableDifference subclass: #DBTableNotExistDifference
+	instanceVariableNames: 'table absentModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

@@ -1,0 +1,138 @@
+﻿| package |
+package := Package name: 'UML Live Engine Tests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #UMLArrayTest;
+	add: #UMLBooleanTest;
+	add: #UMLCollectionTest;
+	add: #UMLDateClassTest;
+	add: #UMLDictionaryTest;
+	add: #UMLExpressionEvaluationTest;
+	add: #UMLFalseTest;
+	add: #UMLGUIEnvironmentTest;
+	add: #UMLNumberTest;
+	add: #UMLOrderedCollectionTest;
+	add: #UMLTestCase;
+	add: #UMLTimeTest;
+	add: #UMLTraitTest;
+	add: #UMLTrueTest;
+	add: #UMLUndefinedObjectTest;
+	add: #UMLVirtualMachineTest;
+	add: #UMLVirtualMachineTestClass;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
+	add: 'UML Compiler';
+	add: 'UML Live Engine';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+TestCase subclass: #UMLTestCase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLTestCase subclass: #UMLVirtualMachineTestClass
+	instanceVariableNames: 'virtualMachine'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLBooleanTest
+	instanceVariableNames: 'boolean'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLCollectionTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLDateClassTest
+	instanceVariableNames: 'umlDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLExpressionEvaluationTest
+	instanceVariableNames: 'compiler'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLGUIEnvironmentTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLNumberTest
+	instanceVariableNames: 'number'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLTimeTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLTraitTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLUndefinedObjectTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLVirtualMachineTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBooleanTest subclass: #UMLFalseTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBooleanTest subclass: #UMLTrueTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLCollectionTest subclass: #UMLArrayTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLCollectionTest subclass: #UMLDictionaryTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLCollectionTest subclass: #UMLOrderedCollectionTest
+	instanceVariableNames: 'collection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

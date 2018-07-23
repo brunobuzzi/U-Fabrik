@@ -1,0 +1,77 @@
+﻿| package |
+package := Package name: 'UML Licence Manager'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #LicenciaNoValida;
+	add: #LicenciaPermanteRestringidaSoftware;
+	add: #LicenciaPermanteSoftware;
+	add: #LicenciaPermanteTotalSoftware;
+	add: #LicenciaSoftware;
+	add: #LicenciaTemporalSoftware;
+	add: #LicenciaValida;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\..\Core\Object Arts\Dolphin\DolphinSure\DolphinSure';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #LicenciaSoftware
+	instanceVariableNames: 'numeracion nombreEmpresa fechaCreada cantidad estaBloqueada fechaAdquirida fechaExpiracion cantidadClases'
+	classVariableNames: 'Current'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaSoftware subclass: #LicenciaNoValida
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaSoftware subclass: #LicenciaValida
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaValida subclass: #LicenciaPermanteSoftware
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaValida subclass: #LicenciaTemporalSoftware
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaPermanteSoftware subclass: #LicenciaPermanteRestringidaSoftware
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LicenciaPermanteSoftware subclass: #LicenciaPermanteTotalSoftware
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

@@ -1,0 +1,405 @@
+﻿| package |
+package := Package name: 'UML Live Engine View Composer II'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #UMLAspectComponentDescriptor;
+	add: #UMLBasicContainer;
+	add: #UMLBasicObjectGroupViewDescriptor;
+	add: #UMLCardViewDescriptor;
+	add: #UMLCollectionComponentContainer;
+	add: #UMLCollectionDescriptorPresenter;
+	add: #UMLCollectionGroupViewDescriptor;
+	add: #UMLCollectionViewDescriptor;
+	add: #UMLComponentAgrupationDescriptor;
+	add: #UMLComponentContainer;
+	add: #UMLDynamicViewComposer;
+	add: #UMLGridContainer;
+	add: #UMLObjectComponentContainer;
+	add: #UMLObjectGroupViewDescriptor;
+	add: #UMLObjectLinkViewDescriptor;
+	add: #UMLPresenterDescriptor;
+	add: #UMLSimpleObjectViewDescriptor;
+	add: #UMLViewComponentDescriptor;
+	add: #UMLViewComposerShell;
+	yourself.
+
+package methodNames
+	add: #UMLInstance -> #asUMLDescriptor;
+	add: #UMLInstance -> #inspectUMLInstanceForDesign;
+	add: #UMLInstance -> #inspectUMLWithCustomizedView;
+	add: #UMLInstance -> #inspectUMLWithCustomizedViewIn:;
+	add: #UMLInstance -> #inspectUMLWithCustomizedViewInCompositeIn:;
+	add: #UMLModel -> #automaticallyCreateCustomizedViewFor:;
+	add: #UMLModel -> #createCollectionOfInstVarFor:;
+	add: #UMLModel -> #generateIn:categoriesLinkObjectGUIFor:;
+	add: #UMLModel -> #generateIn:categoriesSimpleObjectGUIFor:in:;
+	add: #UMLModel -> #generateIn:collectionGUIFor:;
+	add: #UMLModel -> #generateIn:instancesVariablesCollectionGUIFor:;
+	add: #UMLModel -> #generateIn:instanceVariablesLinkObjectGUIFor:;
+	add: #UMLModel -> #generateIn:instanceVariablesSimpleObjectGUIFor:in:;
+	add: #UMLModel -> #generateIn:linkObjectGUIFor:;
+	add: #UMLModel -> #generateIn:objectCategoriesCollectionGUIFor:;
+	add: #UMLModel -> #generateIn:simpleObjectGUIFor:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\others\BB MVP Basic Support';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: 'UML Basic Support';
+	add: 'UML Basic Views';
+	add: 'UML Live Engine';
+	add: 'UML Live Engine Views';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+UMLToolShell subclass: #UMLViewComposerShell
+	instanceVariableNames: 'viewComposerComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLBasicContainer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBasicContainer subclass: #UMLComponentContainer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBasicContainer subclass: #UMLGridContainer
+	instanceVariableNames: 'containerPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComponentContainer subclass: #UMLCollectionComponentContainer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComponentContainer subclass: #UMLObjectComponentContainer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLCollectionDescriptorPresenter
+	instanceVariableNames: 'cardNamePresenter iconsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLDynamicViewComposer
+	instanceVariableNames: 'inspectorComposite viewStructurePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLViewComponentDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLViewComponentDescriptor subclass: #UMLAspectComponentDescriptor
+	instanceVariableNames: 'instance aspectName isReadOnly'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLViewComponentDescriptor subclass: #UMLComponentAgrupationDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLViewComponentDescriptor subclass: #UMLPresenterDescriptor
+	instanceVariableNames: 'caption umlClass structureTree'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAspectComponentDescriptor subclass: #UMLCollectionViewDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAspectComponentDescriptor subclass: #UMLObjectLinkViewDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAspectComponentDescriptor subclass: #UMLSimpleObjectViewDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComponentAgrupationDescriptor subclass: #UMLCardViewDescriptor
+	instanceVariableNames: 'label iconLabel components type'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComponentAgrupationDescriptor subclass: #UMLObjectGroupViewDescriptor
+	instanceVariableNames: 'groupName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectGroupViewDescriptor subclass: #UMLBasicObjectGroupViewDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectGroupViewDescriptor subclass: #UMLCollectionGroupViewDescriptor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!UMLInstance methodsFor!
+
+asUMLDescriptor
+
+	(self vmPerform: #isCollection) smalltalkObject ifTrue: [^UMLCollectionViewDescriptor new].
+	(self vmPerform: #isBasic) smalltalkObject ifTrue: [^UMLSimpleObjectViewDescriptor new].
+
+	^UMLObjectLinkViewDescriptor new!
+
+inspectUMLInstanceForDesign
+
+	^UMLViewComposerShell showOn: self!
+
+inspectUMLWithCustomizedView
+
+	^self inspectUMLWithCustomizedViewIn: (UMLCustomizedInspectorShell createOn: self) show!
+
+inspectUMLWithCustomizedViewIn: inspectorShellorInspectorComposite
+
+	(self umlModel viewDesignFor: self) "answer aTreeModel which represent the View Structure"
+	ifNil: [^self inspectUMLInstance]
+	ifNotNil: [:treeModel | | cards |
+		inspectorShellorInspectorComposite viewStructure: treeModel.
+		inspectorShellorInspectorComposite setCaptionWith: 'Inspecting: <' , self className , '>'.
+		inspectorShellorInspectorComposite viewMode: #smallIcons.
+		cards := treeModel childrenOf: treeModel roots last.
+		cards isEmpty 
+		ifFalse: [
+			((OrderedCollection with: cards first), (cards select: [:each | each type = #objectLinks]), ((cards select: [:each | each type = #collection]) asSortedCollection: [:a :b | a label <= b label])) 
+			do: [:each | | card |
+				card := each defaultClassPresenter createIn: inspectorShellorInspectorComposite cardPresenter.
+				card name: each aspectName.
+				card view arrangement: (CardLabel text: each label iconBlock: [each icon]).
+				card model: each.
+				card generateComponents.].
+			inspectorShellorInspectorComposite selectFirstCard.].].
+	inspectorShellorInspectorComposite setObjectHeaderFor: umlClass.
+	self umlModel resetObjectViewConnectionWith: self umlClass.
+
+	inspectorShellorInspectorComposite addCommandButtonsFor: (umlClass getImplementationsFor: UMLGUIButtomCategory current).
+	inspectorShellorInspectorComposite addCommandArgsButtonsFor: (umlClass getImplementationsFor: UMLGUIButtomArgCategory current).!
+
+inspectUMLWithCustomizedViewInCompositeIn: parentPresenter
+	| result customizedInspectorComposite |
+
+	customizedInspectorComposite := UMLCustomizedInspectorComposite createIn: parentPresenter on: self.
+	result := self inspectUMLWithCustomizedViewIn: customizedInspectorComposite.
+	customizedInspectorComposite view arrangement: (CardLabel text: ('Inspecting: <' , self className , '>') iconBlock: [self icon]).
+	parentPresenter topShell view invalidate.
+	^result! !
+!UMLInstance categoriesFor: #asUMLDescriptor!gui!public! !
+!UMLInstance categoriesFor: #inspectUMLInstanceForDesign!gui!public! !
+!UMLInstance categoriesFor: #inspectUMLWithCustomizedView!gui!public! !
+!UMLInstance categoriesFor: #inspectUMLWithCustomizedViewIn:!gui!public! !
+!UMLInstance categoriesFor: #inspectUMLWithCustomizedViewInCompositeIn:!gui!public! !
+
+!UMLModel methodsFor!
+
+automaticallyCreateCustomizedViewFor: anUMLClass
+	" The receiver automatically generates aTreeModel for the GUI representation of <anUMLClass>"
+	| treeModel umlInstance |
+
+	umlInstance := anUMLClass vmPerform: #newInstance.
+	umlInstance vmPerform: #initialize.
+	treeModel := TreeModel withRoots: (OrderedCollection with: anUMLClass).
+
+	self generateIn: treeModel simpleObjectGUIFor: umlInstance. "generates GUI for -strings, numbers, booleans, dates, times -"
+
+	self generateIn: treeModel collectionGUIFor: umlInstance. "generates GUI for NxN and Nx1 relations"
+
+	self generateIn: treeModel linkObjectGUIFor: umlInstance. "generate GUI for 1x1 relations"
+
+	^treeModel!
+
+createCollectionOfInstVarFor: anUMLInstance
+	| groupedCollection index |
+
+	groupedCollection := OrderedCollection new.
+	index := 0.
+	groupedCollection add: Dictionary new.
+	anUMLInstance modelInstancesVariables keysAndValuesDo: [:eachKey :eachValue | 
+		(index = 4) 
+		ifTrue: [index := 0.
+			groupedCollection add: Dictionary new.]
+		ifFalse: [groupedCollection last at: eachKey put: eachValue.
+			index := index + 1.].].
+
+	^groupedCollection
+
+	!
+
+generateIn: aTreeModel categoriesLinkObjectGUIFor: anUMLInstance
+	"Generates the description for methods in categories that are link objects"
+	| collectionCard |
+
+	collectionCard := UMLCardViewDescriptor new label: 'Links of Categories'; iconLabel: InputState icon; yourself.
+	collectionCard type: #objectLinks.
+	(anUMLInstance umlClass getAllCategories select: [:each | each isGUICategory and: [each isModelObjectCategory] ]) do: [:eachCategory | | methods |
+		methods := eachCategory methodsFor: anUMLInstance umlClass.
+		methods do: [:eachMethod | | descriptor |
+			descriptor := UMLObjectLinkViewDescriptor new aspectName: eachMethod methodName.
+			descriptor isReadOnly: true.
+			collectionCard addComponent: descriptor.
+			aTreeModel add: collectionCard asChildOf: anUMLInstance getMetaclass.
+			aTreeModel add: descriptor asChildOf: collectionCard]].!
+
+generateIn: aTreeModel categoriesSimpleObjectGUIFor: anUMLInstance in: anUMLCardViewDescriptor
+	"The receiver generate the GUI for simple objects -numbers, strings, booleans, dates, times- inside <aTreeModel> for the UML object <anUMLInstance>"
+
+	(anUMLInstance umlClass getAllCategories select: [:each | each isGUICategory and: [each isValueCategory] ]) do: [:eachCategory | | methods |
+		methods := eachCategory methodsFor: anUMLInstance umlClass.
+		methods do: [:eachMethod | | descriptor |
+		descriptor := UMLSimpleObjectViewDescriptor new aspectName: eachMethod methodName.
+		descriptor isReadOnly: true.
+		anUMLCardViewDescriptor addComponent: descriptor.
+		aTreeModel add: descriptor asChildOf: anUMLCardViewDescriptor.]].!
+
+generateIn: aTreeModel collectionGUIFor: anUMLInstance
+	"The receiver generates all collections interface to be displayed.
+	1. Create the interface for instances variables of <anUMLInstance>
+	2. Crete the interface for special categories of <anUMLInstance>"
+
+	self generateIn: aTreeModel instancesVariablesCollectionGUIFor: anUMLInstance.
+
+	self generateIn: aTreeModel objectCategoriesCollectionGUIFor: anUMLInstance.!
+
+generateIn: aTreeModel instancesVariablesCollectionGUIFor: anUMLInstance
+	"The receiver generates collections interface of <anUMLInstance> instances variables."
+
+	anUMLInstance collectionVariables keysAndValuesDo: [:eachKey :eachValue | | collectionCard descriptor |
+		(anUMLInstance instVarEnabled: eachKey) 
+		ifTrue: [collectionCard := UMLCardViewDescriptor new label: eachKey capitalized; iconLabel: Collection icon; yourself.
+			collectionCard type: #collection.
+			descriptor := UMLCollectionViewDescriptor new aspectName: eachKey.
+			collectionCard addComponent: descriptor.
+			aTreeModel add: collectionCard asChildOf: anUMLInstance getMetaclass.
+			aTreeModel add: descriptor asChildOf: collectionCard]].!
+
+generateIn: aTreeModel instanceVariablesLinkObjectGUIFor: anUMLInstance 
+	"Generates the description for instances variables that are link object (derive from 1x1 and 1xN UML relations)"
+	| groupedCollection collectionCard |
+
+	groupedCollection := (anUMLInstance modelInstancesVariables size > 4) 
+		ifTrue: [self createCollectionOfInstVarFor: anUMLInstance] 
+		ifFalse: [OrderedCollection with: anUMLInstance modelInstancesVariables].
+
+	groupedCollection do: [:eachDictionary | 
+		collectionCard := UMLCardViewDescriptor new label: ('Links of Inst Vars ', (groupedCollection indexOf: eachDictionary) printString); iconLabel: InputState icon; yourself.
+		collectionCard type: #objectLinks.
+		eachDictionary keysAndValuesDo: [:eachKey :eachValue | | descriptor |
+			(anUMLInstance instVarEnabled: eachKey) 
+			ifTrue: [descriptor := UMLObjectLinkViewDescriptor new aspectName: eachKey.
+				collectionCard addComponent: descriptor.
+				aTreeModel add: collectionCard asChildOf: anUMLInstance getMetaclass.
+				aTreeModel add: descriptor asChildOf: collectionCard]].].!
+
+generateIn: aTreeModel instanceVariablesSimpleObjectGUIFor: anUMLInstance in: anUMLCardViewDescriptor
+	"The receiver generate the GUI for simple objects -numbers, strings, booleans, dates, times- inside <aTreeModel> for the UML object <anUMLInstance>"
+	| components |
+	
+	components := OrderedCollection new.
+	anUMLInstance basicInstancesVariables keysAndValuesDo: [:eachKey :eachValue | | objectViewDescriptor |
+		(anUMLInstance instVarEnabled: eachKey) 
+		ifTrue: [objectViewDescriptor := UMLSimpleObjectViewDescriptor new aspectName: eachKey.
+			components add: objectViewDescriptor].].
+
+	(components asSortedCollection: [:a :b | a aspectName <= b aspectName]) do: [:each | 
+		anUMLCardViewDescriptor addComponent: each.
+		aTreeModel add: each asChildOf: anUMLCardViewDescriptor]!
+
+generateIn: aTreeModel linkObjectGUIFor: anUMLInstance
+	"The receiver generates the interface description for <anUMLInstance>.
+	1. Generates the description for instances variables that are link object (derive from 1x1 and 1xN UML relations)
+	2. Generates the description for methods in categories that are link objects"
+
+	self generateIn: aTreeModel instanceVariablesLinkObjectGUIFor: anUMLInstance.
+
+	self generateIn: aTreeModel categoriesLinkObjectGUIFor: anUMLInstance.!
+
+generateIn: aTreeModel objectCategoriesCollectionGUIFor: anUMLInstance
+	"The receiver generates collections interface of <anUMLInstance>s categories.
+	The methods of each category can be added dinamically in a UML System Browser "
+
+	(anUMLInstance umlClass getAllCategories select: [:each | each isGUICategory and: [each isCollectionCategory] ]) do: [:eachCategory | | methods |
+		methods := eachCategory methodsFor: anUMLInstance umlClass.
+		methods do: [:eachMethod | | collectionCard descriptor |
+			collectionCard := UMLCardViewDescriptor new label: eachMethod methodName capitalized; iconLabel: Collection icon; yourself.
+			collectionCard type: #collection.
+			descriptor := UMLCollectionViewDescriptor new aspectName: eachMethod methodName.
+			descriptor isReadOnly: true.
+			collectionCard addComponent: descriptor.
+			aTreeModel add: collectionCard asChildOf: anUMLInstance getMetaclass.
+			aTreeModel add: descriptor asChildOf: collectionCard
+			]]!
+
+generateIn: aTreeModel simpleObjectGUIFor: anUMLInstance
+	"The receiver generate the GUI for simple objects -numbers, strings, booleans, dates, times- inside <aTreeModel> for the UML object <anUMLInstance>"
+	| cardDescriptor |
+
+	cardDescriptor := UMLCardViewDescriptor new.
+	cardDescriptor label: 'Basic Variables';
+		iconLabel: UMLInstance icon.
+	cardDescriptor type: #basic.
+
+	aTreeModel add: cardDescriptor asChildOf: anUMLInstance getMetaclass.
+
+	self generateIn: aTreeModel instanceVariablesSimpleObjectGUIFor: anUMLInstance in: cardDescriptor.
+
+	self generateIn: aTreeModel categoriesSimpleObjectGUIFor: anUMLInstance in: cardDescriptor.
+
+	cardDescriptor componentsIsEmpty ifTrue: [aTreeModel remove: cardDescriptor ifAbsent: []]! !
+!UMLModel categoriesFor: #automaticallyCreateCustomizedViewFor:!gui!gui-main!public! !
+!UMLModel categoriesFor: #createCollectionOfInstVarFor:!gui!gui-categories!gui-inst var!gui-link object!public! !
+!UMLModel categoriesFor: #generateIn:categoriesLinkObjectGUIFor:!gui!gui-link object!public! !
+!UMLModel categoriesFor: #generateIn:categoriesSimpleObjectGUIFor:in:!gui!gui-categories!gui-values!public! !
+!UMLModel categoriesFor: #generateIn:collectionGUIFor:!gui!gui-collection!gui-main!public! !
+!UMLModel categoriesFor: #generateIn:instancesVariablesCollectionGUIFor:!gui!gui-collection!gui-inst var!public! !
+!UMLModel categoriesFor: #generateIn:instanceVariablesLinkObjectGUIFor:!gui!gui-categories!gui-inst var!gui-link object!public! !
+!UMLModel categoriesFor: #generateIn:instanceVariablesSimpleObjectGUIFor:in:!gui!gui-inst var!gui-values!public! !
+!UMLModel categoriesFor: #generateIn:linkObjectGUIFor:!gui!gui-link object!gui-main!public! !
+!UMLModel categoriesFor: #generateIn:objectCategoriesCollectionGUIFor:!gui!gui-categories!gui-collection!public! !
+!UMLModel categoriesFor: #generateIn:simpleObjectGUIFor:!gui!gui-main!gui-values!public! !
+
+"End of package definition"!
+

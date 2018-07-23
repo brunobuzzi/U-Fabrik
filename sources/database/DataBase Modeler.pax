@@ -1,0 +1,122 @@
+﻿| package |
+package := Package name: 'DataBase Modeler'.
+package paxVersion: 1;
+	basicComment: '
+'.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #BBDataBaseModel;
+	add: #BBDataBaseXMLReader;
+	add: #BBDBAttribute;
+	add: #BBDBAttributeType;
+	add: #BBDBForeignKey;
+	add: #BBDBPrimaryKey;
+	add: #BBDBRow;
+	add: #BBDBTable;
+	add: #BBDBTableWrapper;
+	add: #BBFKTreeWrapper;
+	add: #DataBaseObject;
+	add: #GeneXusReader;
+	add: #MSAccessReader;
+	add: #MySQLReader;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #DataBaseObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDataBaseModel
+	instanceVariableNames: 'name tables mainTables parametricTables'
+	classVariableNames: 'DatabaseCache'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDataBaseXMLReader
+	instanceVariableNames: 'xmlDocument databaseModel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBAttribute
+	instanceVariableNames: 'name type nullable table description'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBAttributeType
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBForeignKey
+	instanceVariableNames: 'table localName attributes foreignAttribute relatedTable'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBPrimaryKey
+	instanceVariableNames: 'name keyAttributes table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBRow
+	instanceVariableNames: 'values table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBTable
+	instanceVariableNames: 'name attributes primaryKey foreignKeys databaseModel description'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBDBTableWrapper
+	instanceVariableNames: 'table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DataBaseObject subclass: #BBFKTreeWrapper
+	instanceVariableNames: 'treeObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDataBaseXMLReader subclass: #GeneXusReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDataBaseXMLReader subclass: #MSAccessReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+BBDataBaseXMLReader subclass: #MySQLReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

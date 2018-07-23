@@ -1,0 +1,65 @@
+﻿| package |
+package := Package name: 'XMI Import-Export Interfase II'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.02'.
+
+
+package classNames
+	add: #XmiEnterpriseArchitect;
+	add: #XmiMagicDraw;
+	add: #XmiReader;
+	add: #XmiUModel;
+	add: #XmiVisualParadigm;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #XmiReader
+	instanceVariableNames: 'xmlDocument umlClasses generatedRelations duplicatedClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReader subclass: #XmiEnterpriseArchitect
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReader subclass: #XmiMagicDraw
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReader subclass: #XmiUModel
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReader subclass: #XmiVisualParadigm
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

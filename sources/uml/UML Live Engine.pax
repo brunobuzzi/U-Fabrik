@@ -1,0 +1,1045 @@
+﻿| package |
+package := Package name: 'UML Live Engine'.
+package paxVersion: 1;
+	basicComment: '
+Tipos de Archivo:
+
+.ums		- UML Script
+.umm	- UML Model
+.umi		- UML Model Implementations
+.umc		- UML Category
+.uvm		- UML Virtual Machine
+.umt		- UML Trait
+'.
+
+package basicPackageVersion: '1.07'.
+
+
+package classNames
+	add: #BBSGTExcelImporter;
+	add: #UMLAllButTraitCategory;
+	add: #UMLAllImplementationCategory;
+	add: #UMLCategory;
+	add: #UMLClassCategory;
+	add: #UMLDebugerSnapshot;
+	add: #UMLDebugExecutionProgress;
+	add: #UMLDebugIfTrueIfFalseBlock;
+	add: #UMLDebugIterationBlock;
+	add: #UMLDebugSpecialIteration;
+	add: #UMLEditWebObject;
+	add: #UMLExecutionSnapshot;
+	add: #UMLGUIButtomArgCategory;
+	add: #UMLGUIButtomCategory;
+	add: #UMLGUIButtomCollectionCategory;
+	add: #UMLGUIButtomCollectionUserCategory;
+	add: #UMLGUIButtomExternalCategory;
+	add: #UMLGUIButtomUserCategory;
+	add: #UMLGUICategory;
+	add: #UMLGUICollectionAspectsCategory;
+	add: #UMLGUICollectionCategory;
+	add: #UMLGUIDirectObjectLinkCategory;
+	add: #UMLGUIObjectHeader;
+	add: #UMLGUIValueCategory;
+	add: #UMLImplementationCategory;
+	add: #UMLImplementationDebugerSnapshot;
+	add: #UMLImplementationEmptyError;
+	add: #UMLImplementationExecutionSnapshot;
+	add: #UMLImplementationNotFoundError;
+	add: #UMLInstance;
+	add: #UMLLiveEngineError;
+	add: #UMLMetaclass;
+	add: #UMLPrimitiveNotFound;
+	add: #UMLScriptDebugerSnapshot;
+	add: #UMLScriptExecutionSnapshot;
+	add: #UMLTrait;
+	add: #UMLTraitCategory;
+	add: #UMLTraitMethod;
+	add: #UMLUndefinedObject;
+	add: #UMLVirtualImplementationCategory;
+	add: #UMLVirtualMachine;
+	add: #UMLVirtualMachineBootstrap;
+	add: #UMLVirtualMachineClass;
+	add: #UMLVirtualMachineInstance;
+	add: #UMLVirtualMachineMetaclass;
+	add: #UMLVirtualMachinePackage;
+	add: #UMLVMLog;
+	add: #UMLVMTransLog;
+	add: #UMLWebDeploymentMode;
+	add: #UMLWebDevelopmentMode;
+	add: #VMClass;
+	add: #VMClassBehavior;
+	add: #VMInstance;
+	add: #VMMetaclass;
+	yourself.
+
+package methodNames
+	add: #Array -> #asUMLObject:;
+	add: #Array -> #uml_at:;
+	add: #Array -> #uml_at:put:;
+	add: #Array -> #uml_includes:;
+	add: #Boolean -> #isBoolean;
+	add: #Collection -> #uml__difference:;
+	add: #Date -> #asUMLObject:;
+	add: #Dictionary -> #asUMLObject:;
+	add: #Dictionary -> #uml_at:;
+	add: #Dictionary -> #uml_at:put:;
+	add: #Dictionary -> #uml_includesKey:;
+	add: #Dictionary -> #uml_removeKey:;
+	add: #Error -> #asUMLObject:;
+	add: #False -> #asUMLObject:;
+	add: #Interval -> #asUMLObject:;
+	add: #Number -> #asString;
+	add: #Number -> #asSymbol;
+	add: #Number -> #asUMLObject:;
+	add: #Object -> #className;
+	add: #Object -> #isBoolean;
+	add: #Object -> #isUMLInstance;
+	add: #Object -> #isUMLObject;
+	add: #Object -> #printObjectName;
+	add: #Object -> #smalltalkObject;
+	add: #OrderedCollection -> #asUMLObject:;
+	add: #SequenceableCollection -> #uml_includes:;
+	add: #SequenceableCollection -> #uml_remove:;
+	add: #Set -> #asUMLObject:;
+	add: #StProgramNode -> #defaultVirtualMachine;
+	add: #String -> #asNumberOnError:;
+	add: #String -> #asUMLInstVarName;
+	add: #String -> #asUMLLinkName;
+	add: #String -> #asUMLObject:;
+	add: #StSelfVariableNode -> #getUMLObjectFrom:;
+	add: #StSelfVariableNode -> #processInsideSnapshot:context:parameters:;
+	add: #StSelfVariableNode -> #receiverName;
+	add: #StSuperVariableNode -> #getUMLObjectFrom:;
+	add: #StSuperVariableNode -> #receiverName;
+	add: #StThisContextVariableNode -> #receiverName;
+	add: #Time -> #asUMLObject:;
+	add: #TimeStamp -> #asUMLObject:;
+	add: #TreeModel -> #asUMLObject:;
+	add: #TreeModelAbstract -> #asTreeModel;
+	add: #True -> #asUMLObject:;
+	add: #UMLClass -> #allInstances;
+	add: #UMLClass -> #buttonsArgCollection;
+	add: #UMLClass -> #buttonsCollection;
+	add: #UMLClass -> #buttonsCollectionCollection;
+	add: #UMLClass -> #buttonsExternalCollection;
+	add: #UMLClass -> #buttonsUserCollection;
+	add: #UMLClass -> #buttonsUserCollectionCollection;
+	add: #UMLClass -> #defaultInstanceClass;
+	add: #UMLClass -> #newInstance;
+	add: #UMLClass -> #uninstall;
+	add: #UMLClassAttribute -> #setTypeSecondTime;
+	add: #UMLModel -> #initialize;
+	add: #UMLModel -> #setVirtualMachineToAll;
+	add: #UMLObject -> #defaultVirtualMachine;
+	add: #UMLObjectBehavior -> #basicInstancesVariables;
+	add: #UMLObjectBehavior -> #getAllCategories;
+	add: #UMLObjectBehavior -> #getAllCategoriesButGUICategories;
+	add: #UMLObjectBehavior -> #getUserCategories;
+	add: #UMLObjectBehavior -> #modelInstancesVariables;
+	add: #UMLObjectBehavior -> #virtualMachine;
+	add: #UndefinedObject -> #asUMLObject:;
+	add: #UndefinedObject -> #deepDestroy;
+	add: #XmiReader -> #createAllClasses;
+	add: 'Array class' -> #newForUML;
+	add: 'Date class' -> #newForUML;
+	add: 'Dictionary class' -> #newForUML;
+	add: 'Interval class' -> #newForUML;
+	add: 'MessageBox class' -> #asUMLObject:;
+	add: 'Number class' -> #newForUML;
+	add: 'Object class' -> #newForUML;
+	add: 'OrderedCollection class' -> #newForUML;
+	add: 'String class' -> #newForUML;
+	add: 'Time class' -> #newForUML;
+	add: 'TimeStamp class' -> #newForUML;
+	add: 'UMLObject class' -> #defaultVirtualMachine;
+	add: 'UMLObject class' -> #umlUndefinedObject;
+	add: 'UndefinedObject class' -> #newForUML;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\aida\AIDAWeb';
+	add: '..\others\BBInteraccionOffice';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: 'UML Basic Support';
+	add: 'UML Compiler';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	add: 'XMI Import-Export Interfase II';
+	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #BBSGTExcelImporter
+	instanceVariableNames: 'excel pathFile umlClass initialNumber endNumber initialColumn endColumn methods allResults'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #UMLVirtualMachineBootstrap
+	instanceVariableNames: 'xmlDocument traits packages superclassesDictionary virtualMachine'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Error subclass: #UMLLiveEngineError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLImplementationEmptyError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLImplementationNotFoundError
+	instanceVariableNames: 'implementationName errorClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLPrimitiveNotFound
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLCategory
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLDebugerSnapshot
+	instanceVariableNames: 'mainSnapshot parentSnapshot nextNode iterationNodes currentIterationNode executionProgress'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLDebugExecutionProgress
+	instanceVariableNames: 'debugerSnapshot nodesToExecute executedNodes resultsStack currentMainNode currentInnerNode executedInnerNodes currentIterationNode lastAnnotatedResult'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLDebugSpecialIteration
+	instanceVariableNames: 'debugSnapshot iteratorNode executionProgress block parentIterator parentIterationNode'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLEditWebObject
+	instanceVariableNames: 'umlObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLExecutionSnapshot
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLUndefinedObject
+	instanceVariableNames: ''
+	classVariableNames: 'Default'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLVirtualMachine
+	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable'
+	classVariableNames: 'Default'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLVirtualMachinePackage
+	instanceVariableNames: 'name classes traits'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLVMLog
+	instanceVariableNames: 'stamp methodName umlReceiver umlParameters snapshot'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLVMTransLog
+	instanceVariableNames: 'logs errorLogs logIsActive errorLogIsActive'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLWebDeploymentMode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLWebDevelopmentMode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #VMClassBehavior
+	instanceVariableNames: 'umlClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBehavior subclass: #UMLTrait
+	instanceVariableNames: 'name methods requirements traits block'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObjectBehavior subclass: #UMLInstance
+	instanceVariableNames: 'umlClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClassDescription subclass: #UMLMetaclass
+	instanceVariableNames: 'instanceClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLClass subclass: #UMLVirtualMachineClass
+	instanceVariableNames: 'smalltalkClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLMetaclass subclass: #UMLVirtualMachineMetaclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLInstance subclass: #UMLVirtualMachineInstance
+	instanceVariableNames: 'smalltalkObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLBehaviorDescriptor subclass: #UMLTraitMethod
+	instanceVariableNames: 'methodName trait parsedCode'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLCategory subclass: #UMLClassCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLCategory subclass: #UMLImplementationCategory
+	instanceVariableNames: 'comments'
+	classVariableNames: 'CategoryTable'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLImplementationCategory subclass: #UMLGUICategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'current'!
+UMLImplementationCategory subclass: #UMLVirtualImplementationCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'current'!
+UMLGUICategory subclass: #UMLGUIButtomArgCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIButtomCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIButtomCollectionCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIButtomCollectionUserCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIButtomExternalCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIButtomUserCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUICollectionAspectsCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUICollectionCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIDirectObjectLinkCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIObjectHeader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLGUICategory subclass: #UMLGUIValueCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualImplementationCategory subclass: #UMLAllButTraitCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualImplementationCategory subclass: #UMLAllImplementationCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualImplementationCategory subclass: #UMLTraitCategory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDebugerSnapshot subclass: #UMLImplementationDebugerSnapshot
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDebugerSnapshot subclass: #UMLScriptDebugerSnapshot
+	instanceVariableNames: 'sequence'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDebugSpecialIteration subclass: #UMLDebugIfTrueIfFalseBlock
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLDebugSpecialIteration subclass: #UMLDebugIterationBlock
+	instanceVariableNames: 'collection collectionIndex'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLExecutionSnapshot subclass: #UMLImplementationExecutionSnapshot
+	instanceVariableNames: 'sequenceReceiver receiverInstanceVariables sequenceArguments'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLExecutionSnapshot subclass: #UMLScriptExecutionSnapshot
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+VMClassBehavior subclass: #VMClass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+VMClassBehavior subclass: #VMInstance
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+VMClassBehavior subclass: #VMMetaclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Array methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine arrayClass newInstanceWith: self!
+
+uml_at: anUMLInstance
+
+	^self at: anUMLInstance smalltalkObject!
+
+uml_at: anUMLInstance put: anUMLObject
+
+	^self at: anUMLInstance smalltalkObject put: anUMLObject!
+
+uml_includes: anUMLInstance
+
+	^self includes: anUMLInstance smalltalkObject! !
+!Array categoriesFor: #asUMLObject:!public! !
+!Array categoriesFor: #uml_at:!public! !
+!Array categoriesFor: #uml_at:put:!public! !
+!Array categoriesFor: #uml_includes:!public! !
+
+!Array class methodsFor!
+
+newForUML
+	^self new! !
+!Array class categoriesFor: #newForUML!public! !
+
+!Boolean methodsFor!
+
+isBoolean
+
+	^true! !
+!Boolean categoriesFor: #isBoolean!public! !
+
+!Collection methodsFor!
+
+uml__difference: anUMLInstance 
+	
+	anUMLInstance belongToVirtualMachine "in this care are Basic Objects, so we get the Smalltalk Object to use the Dolphin method "
+	ifTrue: [^((self collect: [:each | each smalltalkObject]) difference: (anUMLInstance smalltalkObject collect: [:each | each smalltalkObject])) collect: [:each | each asUMLObject: anUMLInstance virtualMachine]].
+
+	^self smalltalkObject difference: anUMLInstance smalltalkObject "in this case we compare the Smalltalk Collection directly"! !
+!Collection categoriesFor: #uml__difference:!public! !
+
+!Date methodsFor!
+
+asUMLObject: anUMLVirtualMachine
+
+	^anUMLVirtualMachine dateClass newInstanceWith: self! !
+!Date categoriesFor: #asUMLObject:!public! !
+
+!Date class methodsFor!
+
+newForUML
+	^self today! !
+!Date class categoriesFor: #newForUML!public! !
+
+!Dictionary methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine dictionaryClass newInstanceWith: self!
+
+uml_at: anUMLInstance
+
+	^self at: anUMLInstance smalltalkObject!
+
+uml_at: anUMLInstance put: anUMLObject
+
+	^self at: anUMLInstance smalltalkObject put: anUMLObject!
+
+uml_includesKey: anUMLInstance
+
+	^self includesKey: anUMLInstance smalltalkObject!
+
+uml_removeKey: anUMLInstance
+
+	^self removeKey: anUMLInstance smalltalkObject! !
+!Dictionary categoriesFor: #asUMLObject:!public! !
+!Dictionary categoriesFor: #uml_at:!public! !
+!Dictionary categoriesFor: #uml_at:put:!public! !
+!Dictionary categoriesFor: #uml_includesKey:!public! !
+!Dictionary categoriesFor: #uml_removeKey:!public! !
+
+!Dictionary class methodsFor!
+
+newForUML
+	^self new! !
+!Dictionary class categoriesFor: #newForUML!public! !
+
+!Error methodsFor!
+
+asUMLObject: anUMLVirtualMachine
+	| error |
+
+	error := anUMLVirtualMachine errorClass newInstance.
+	error smalltalkObject: self.
+	^error! !
+!Error categoriesFor: #asUMLObject:!public! !
+
+!False methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine falseObject! !
+!False categoriesFor: #asUMLObject:!public! !
+
+!Interval methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^anUMLVirtualMachine intervalClass newInstanceWith: self! !
+!Interval categoriesFor: #asUMLObject:!public! !
+
+!Interval class methodsFor!
+
+newForUML
+	^self from: 1 to: 1! !
+!Interval class categoriesFor: #newForUML!public! !
+
+!MessageBox class methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^anUMLVirtualMachine virtualMachineMetaclassNamed: 'MessageBox'! !
+!MessageBox class categoriesFor: #asUMLObject:!public! !
+
+!Number methodsFor!
+
+asString
+	^self printString!
+
+asSymbol
+	^self printString asSymbol!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine getNumber: self ifAbsent: [aVirtualMachine addNumber: self]
+	! !
+!Number categoriesFor: #asString!public! !
+!Number categoriesFor: #asSymbol!public! !
+!Number categoriesFor: #asUMLObject:!public! !
+
+!Number class methodsFor!
+
+newForUML
+	^0! !
+!Number class categoriesFor: #newForUML!public! !
+
+!Object methodsFor!
+
+className
+
+	^self class name!
+
+isBoolean
+
+	^false!
+
+isUMLInstance
+
+	^false!
+
+isUMLObject
+
+	^false!
+
+printObjectName
+	^self printString!
+
+smalltalkObject
+	^self! !
+!Object categoriesFor: #className!public! !
+!Object categoriesFor: #isBoolean!public! !
+!Object categoriesFor: #isUMLInstance!public! !
+!Object categoriesFor: #isUMLObject!public! !
+!Object categoriesFor: #printObjectName!public! !
+!Object categoriesFor: #smalltalkObject!public! !
+
+!Object class methodsFor!
+
+newForUML
+	^self new! !
+!Object class categoriesFor: #newForUML!public! !
+
+!OrderedCollection methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine orderedCollectionClass newInstanceWith: self! !
+!OrderedCollection categoriesFor: #asUMLObject:!public! !
+
+!OrderedCollection class methodsFor!
+
+newForUML
+	^self new! !
+!OrderedCollection class categoriesFor: #newForUML!public! !
+
+!SequenceableCollection methodsFor!
+
+uml_includes: anUMLInstance
+
+	(anUMLInstance vmPerform: #isBasic) smalltalkObject ifTrue: [^(self collect: [:each | each smalltalkObject]) includes: anUMLInstance smalltalkObject].
+
+	^self includes: anUMLInstance!
+
+uml_remove: anUMLInstance
+	| equalObject |
+
+	anUMLInstance belongToVirtualMachine ifFalse: [^self remove: anUMLInstance].
+
+	equalObject :=  self detect: [:each | each smalltalkObject = anUMLInstance smalltalkObject] ifNone: [^anUMLInstance].
+
+	^self remove: equalObject
+
+	! !
+!SequenceableCollection categoriesFor: #uml_includes:!public! !
+!SequenceableCollection categoriesFor: #uml_remove:!public! !
+
+!Set methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine orderedCollectionClass newInstanceWith: self asOrderedCollection! !
+!Set categoriesFor: #asUMLObject:!public! !
+
+!StProgramNode methodsFor!
+
+defaultVirtualMachine
+
+	^UMLVirtualMachine default! !
+!StProgramNode categoriesFor: #defaultVirtualMachine!public! !
+
+!String methodsFor!
+
+asNumberOnError: aBlock
+	"Answer a Number constructed by interpreting the receiver's characters as the
+	printString of a Number."
+
+	^[self asNumber] on: Exception do: aBlock!
+
+asUMLInstVarName
+
+	^(self first asLowercase asString, self allButFirst) asSymbol
+!
+
+asUMLLinkName
+
+	^(self first asUppercase asString, self allButFirst) asSymbol
+!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine stringClass newInstanceWith: self! !
+!String categoriesFor: #asNumberOnError:!converting!public! !
+!String categoriesFor: #asUMLInstVarName!public! !
+!String categoriesFor: #asUMLLinkName!public! !
+!String categoriesFor: #asUMLObject:!public! !
+
+!String class methodsFor!
+
+newForUML
+	^self new! !
+!String class categoriesFor: #newForUML!public! !
+
+!StSelfVariableNode methodsFor!
+
+getUMLObjectFrom: anUMLImplementationExecutionSnapshot 
+
+	^anUMLImplementationExecutionSnapshot getObjectNamed: 'self'!
+
+processInsideSnapshot: anUMLImplementationExecutionSnapshot context: anUMLVirtualMachineInstance parameters: anArray 
+
+	^anUMLImplementationExecutionSnapshot processSelfVarible: anUMLImplementationExecutionSnapshot receiver: anUMLVirtualMachineInstance!
+
+receiverName
+
+	^'self'! !
+!StSelfVariableNode categoriesFor: #getUMLObjectFrom:!public! !
+!StSelfVariableNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StSelfVariableNode categoriesFor: #receiverName!public! !
+
+!StSuperVariableNode methodsFor!
+
+getUMLObjectFrom: anUMLImplementationExecutionSnapshot 
+
+	^(anUMLImplementationExecutionSnapshot getObjectNamed: 'self') umlSuperclass!
+
+receiverName
+
+	^'super'! !
+!StSuperVariableNode categoriesFor: #getUMLObjectFrom:!public! !
+!StSuperVariableNode categoriesFor: #receiverName!public! !
+
+!StThisContextVariableNode methodsFor!
+
+receiverName
+
+	^'thisContext'! !
+!StThisContextVariableNode categoriesFor: #receiverName!public! !
+
+!Time methodsFor!
+
+asUMLObject: anUMLVirtualMachine
+
+	^anUMLVirtualMachine timeClass newInstanceWith: self! !
+!Time categoriesFor: #asUMLObject:!public! !
+
+!Time class methodsFor!
+
+newForUML
+	^self now! !
+!Time class categoriesFor: #newForUML!public! !
+
+!TimeStamp methodsFor!
+
+asUMLObject: anUMLVirtualMachine
+
+	^anUMLVirtualMachine timeStampClass newInstanceWith: self! !
+!TimeStamp categoriesFor: #asUMLObject:!public! !
+
+!TimeStamp class methodsFor!
+
+newForUML
+	^self current! !
+!TimeStamp class categoriesFor: #newForUML!public! !
+
+!TreeModel methodsFor!
+
+asUMLObject: anUMLVirtualMachine 
+
+	^anUMLVirtualMachine treeModelClass newInstanceWith: self! !
+!TreeModel categoriesFor: #asUMLObject:!public! !
+
+!TreeModelAbstract methodsFor!
+
+asTreeModel
+	^self! !
+!TreeModelAbstract categoriesFor: #asTreeModel!public! !
+
+!True methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine trueObject! !
+!True categoriesFor: #asUMLObject:!public! !
+
+!UMLClass methodsFor!
+
+allInstances
+	" The receiver answer a new instance with the receiver shape "
+
+	^UMLInstance allInstances select: [:each | each className = name]!
+
+buttonsArgCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each hasArguments] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+buttonsCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each isSimple] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+buttonsCollectionCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each isCommandCollection] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+buttonsExternalCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each isExternalCategory ] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+buttonsUserCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each isCommandUser ] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+buttonsUserCollectionCollection
+	"Get all methods used as command in the object Web Page "
+	| buttonsMethods |
+
+	buttonsMethods := OrderedCollection new.
+	(self getAllCategories select: [:each | each isGUICategory and: [each isCommandCategory and: [each isCommandCollection and: [each isUserAndCollectionCategory] ] ] ]) do: [:eachCategory |
+		buttonsMethods addAll: (eachCategory methodsFor: self).].
+
+	^(buttonsMethods collect: [:each | each methodName]) asSortedCollection!
+
+defaultInstanceClass
+	^UMLInstance!
+
+newInstance
+	" The receiver answer a new instance with the receiver shape "
+
+	^(self defaultInstanceClass umlClass: self) 
+		virtualMachine: virtualMachine;
+		yourself.!
+
+uninstall
+
+	relations do: [:each | each uninstall].
+	instancesVariables do: [:each | each uninstall].
+	implementations do: [:each | each uninstall].
+	metaclass uninstall.
+
+	instancesVariables := Set new.
+	implementations := Set new.
+	virtualMachine := nil.
+	categoriesCatalogue := #().
+	subclasses := Set new.
+	umlSuperclass := nil.
+	traits := Set new.
+	relations := Set new.
+	metaclass := nil.
+
+	(UMLInstance allInstances select: [:each | each umlClass == self]) do: [:each | each uninstall]! !
+!UMLClass categoriesFor: #allInstances!instance creation!public! !
+!UMLClass categoriesFor: #buttonsArgCollection!public!uml buttons! !
+!UMLClass categoriesFor: #buttonsCollection!public!uml buttons! !
+!UMLClass categoriesFor: #buttonsCollectionCollection!public!uml buttons! !
+!UMLClass categoriesFor: #buttonsExternalCollection!public!uml buttons! !
+!UMLClass categoriesFor: #buttonsUserCollection!public!uml buttons! !
+!UMLClass categoriesFor: #buttonsUserCollectionCollection!public!uml buttons! !
+!UMLClass categoriesFor: #defaultInstanceClass!public! !
+!UMLClass categoriesFor: #newInstance!instance creation!public! !
+!UMLClass categoriesFor: #uninstall!public! !
+
+!UMLClassAttribute methodsFor!
+
+setTypeSecondTime
+
+	(type class == UMLClass or:[type class == UMLVirtualMachineClass or:[type class == UMLClassAssociation]]) ifTrue: [^type].
+
+	^type := self virtualMachine virtualMachineClassNamed: type virtualMachineClassName.! !
+!UMLClassAttribute categoriesFor: #setTypeSecondTime!importing XML!public! !
+
+!UMLModel methodsFor!
+
+initialize
+
+	super initialize.
+
+	name := ''.
+	umlClasses := OrderedCollection new.
+	virtualMachine := UMLVirtualMachine new.
+	setupObjects := LookupTable new.
+	systemRoot := LookupTable new.
+	customizedGUI := LookupTable new.!
+
+setVirtualMachineToAll
+
+	self setVirtualMachineToAllWith: UMLVirtualMachine default
+! !
+!UMLModel categoriesFor: #initialize!public! !
+!UMLModel categoriesFor: #setVirtualMachineToAll!initializing!public! !
+
+!UMLObject methodsFor!
+
+defaultVirtualMachine
+	^UMLVirtualMachine default! !
+!UMLObject categoriesFor: #defaultVirtualMachine!public! !
+
+!UMLObject class methodsFor!
+
+defaultVirtualMachine
+	^UMLVirtualMachine default!
+
+umlUndefinedObject
+
+	^UMLUndefinedObject default! !
+!UMLObject class categoriesFor: #defaultVirtualMachine!public! !
+!UMLObject class categoriesFor: #umlUndefinedObject!public! !
+
+!UMLObjectBehavior methodsFor!
+
+basicInstancesVariables
+
+	(instancesVariables select: [:each | each class == UMLUndefinedObject]) keysAndValuesDo: [:eachKey :eachValue | instancesVariables at: eachKey put: virtualMachine nilObject].
+
+	^instancesVariables select: [:each | (virtualMachine send: #isBasic to: each withAll: Array new) == virtualMachine trueObject]!
+
+getAllCategories
+	| allCategories |
+
+	allCategories := (categoriesCatalogue keys collect: [:each | UMLImplementationCategory getCategoryNamed: each]) asOrderedCollection.
+	UMLVirtualImplementationCategory allVirtualCategories do: [:each | allCategories addFirst: each].
+	^allCategories copyWithoutDuplicates!
+
+getAllCategoriesButGUICategories
+	| allCategories |
+
+	allCategories := (categoriesCatalogue keys collect: [:each | UMLImplementationCategory getCategoryNamed: each]) asOrderedCollection.
+	UMLVirtualImplementationCategory allVirtualCategoriesButGUICategories do: [:each | allCategories addFirst: each].
+	^allCategories copyWithoutDuplicates!
+
+getUserCategories
+
+	^self getAllCategories select: [:each | each isUserCategory]!
+
+modelInstancesVariables
+
+	^instancesVariables reject: [:each | (virtualMachine send: #isBasic to: each withAll: Array new) smalltalkObject or:[(virtualMachine send: #isCollection to: each withAll: Array new) smalltalkObject]]!
+
+virtualMachine
+
+	virtualMachine ifNil: [virtualMachine:= UMLVirtualMachine default].
+
+	^virtualMachine! !
+!UMLObjectBehavior categoriesFor: #basicInstancesVariables!instance variables!public! !
+!UMLObjectBehavior categoriesFor: #getAllCategories!categories!public! !
+!UMLObjectBehavior categoriesFor: #getAllCategoriesButGUICategories!categories!public! !
+!UMLObjectBehavior categoriesFor: #getUserCategories!categories!public! !
+!UMLObjectBehavior categoriesFor: #modelInstancesVariables!instance variables!public! !
+!UMLObjectBehavior categoriesFor: #virtualMachine!accessing!public! !
+
+!UndefinedObject methodsFor!
+
+asUMLObject: aVirtualMachine
+
+	^aVirtualMachine nilObject!
+
+deepDestroy
+
+	^self! !
+!UndefinedObject categoriesFor: #asUMLObject:!public! !
+!UndefinedObject categoriesFor: #deepDestroy!public! !
+
+!UndefinedObject class methodsFor!
+
+newForUML
+	^nil! !
+!UndefinedObject class categoriesFor: #newForUML!public! !
+
+!XmiReader methodsFor!
+
+createAllClasses
+	"The receiver creates all classes from XMI file"
+
+	umlClasses := LookupTable new.
+	(self getClassesNamesAndXmiID collect: [:eachArray |  "we iterate over a collection of Array <class name, class xmi id>"
+		(self isAssociationClassXmiID: eachArray second) "with the <xmi id> we check if is an association class and the we create the metaclass"
+		ifFalse: [UMLMetaclass newNamed: eachArray first] 
+		ifTrue: [ | metaclass |
+			metaclass := UMLMetaclass newNamed: eachArray first for: (UMLClassAssociation new name: eachArray first).
+			metaclass instanceClass metaclass: metaclass.
+			metaclass]]) 
+
+	do: [:each | (umlClasses includesKey: each name) ifTrue: [duplicatedClass := each name].
+		umlClasses at: each name put: each]. "we put each UMLMetaclas into <umlClasses> dictionary"
+
+	^umlClasses! !
+!XmiReader categoriesFor: #createAllClasses!public!uml-class creation! !
+
+"End of package definition"!
+

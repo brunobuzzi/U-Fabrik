@@ -1,0 +1,68 @@
+﻿| package |
+package := Package name: 'DataBase Modeler Comparision Views'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package basicPackageVersion: '1.00'.
+
+
+package classNames
+	add: #DBModelComparisionComposite;
+	add: #DBModelComparisionShell;
+	yourself.
+
+package methodNames
+	add: #DBModelComparision -> #show;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'DataBase Modeler Comparision';
+	add: 'DataBase Modeler Views';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\ListTree\Dolphin List Tree Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+DBComposite subclass: #DBModelComparisionComposite
+	instanceVariableNames: 'firstNamePresenter secondNamePresenter differencesPresenter diffTypesPresenter detailPresenter totalDifferencePresenter colorPresenter firstElementComposite secondElementComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBShell subclass: #DBModelComparisionShell
+	instanceVariableNames: 'dbmodelComparisionComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!DBModelComparision methodsFor!
+
+show
+
+	^DBModelComparisionShell showOn: self! !
+!DBModelComparision categoriesFor: #show!public! !
+
+"End of package definition"!
+
