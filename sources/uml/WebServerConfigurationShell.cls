@@ -123,7 +123,7 @@ defaultModel
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/webconfiguration.ico'!
+	^Icon fromFile: 'U-Fabrik/icons/webconfiguration.ico'!
 
 initializeUFabrikWebServer
 	| server siteName site |
