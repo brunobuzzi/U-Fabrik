@@ -6,12 +6,14 @@ Object subclass: #UMLVirtualMachineBootstrap
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLVirtualMachineBootstrap guid: (GUID fromString: '{8bf72792-0c64-4cf9-b823-7040599c4248}')!
-UMLVirtualMachineBootstrap comment: ''!
+UMLVirtualMachineBootstrap comment: 'The code of the U-Fabrik Virtual Machine is at: 
+UMLVirtualMachineBootstrap class>>virtualMachineV1Code'!
 !UMLVirtualMachineBootstrap categoriesForClass!Unclassified! !
 !UMLVirtualMachineBootstrap methodsFor!
 
 createVirtualMachineFrom: xmlSource
-	"The receiver create <anUMLVirtualMachine> from the source code <xmlSource>"
+	"The receiver create <anUMLVirtualMachine> from the source code <xmlSource>.
+	This method is the entry point to create a new U-Fabrik Virtual Machine"
 
 	xmlDocument := IXMLDOMDocument new.
 	xmlDocument loadText: xmlSource.
@@ -29,7 +31,8 @@ createVirtualMachineFrom: xmlSource
 	^self generateVirtualMachine!
 
 createVirtualMachineFromVersion1
-	"The receiver generate a new <UMLVirtualMachine> using the code of Version 1 VM"
+	"The receiver generate a new <UMLVirtualMachine> using the code of Version 1 VM.
+	This method is the entry point to create a new U-Fabrik Virtual Machine"
 
 	^self createVirtualMachineFrom: self class virtualMachineV1Code!
 
@@ -69,7 +72,9 @@ generateVirtualMachineAndSetAsDefault
 	UMLVirtualMachine setDefault: virtualMachine.!
 
 generateVirtualMachinePackages
-	"The receiver generate the Virtual Machine default Packages"
+	"The receiver generate the Virtual Machine default Packages and also create all classes contained in each package. The code of the VM is in [UMLVirtualMachineBootstrap class>>virtualMachineV1Code].
+	The code of VM packages is in Xpath 'VM/Packages'.
+	Default Packages: VM Core, Collections, Values, External Files, Views and Web Server."
 	| packagesNodes umlMetaclasses |
 
 	packages := OrderedCollection new.
@@ -120,7 +125,9 @@ generateVirtualMachinePackages
 	^packages!
 
 generateVirtualMachineTraits
-	"The receiver generate the Virtual Machine default Traits"
+	"The receiver generate the Virtual Machine default Traits. The code of the VM is in [UMLVirtualMachineBootstrap class>>virtualMachineV1Code].
+	Default Packages: UML Relations Methods and File Manipulation.
+	'UML Relations Methods' trait is the most important because add behavior to related objects based on the UML Model"
 	| traitNodes |
 
 	traits := Dictionary new.
@@ -142,6 +149,7 @@ generateVirtualMachineTraits
 	^traits!
 
 getAllClasses
+	"The receiver answer a collection with all classes contained in all generated VM Packages"
 	| allClasses |
 
 	allClasses := OrderedCollection new.
@@ -152,18 +160,21 @@ getAllClasses
 	^allClasses!
 
 getPackageNamed: aString
+	"The receiver answer <anUMLVirtualMachinePackage> named <aString>"
 
 	packages do: [:each | (each name = aString) ifTrue: [^each ] ].
 
 	^nil!
 
 getTraitNamed: aString
+	"The receiver answer <anUMLTrair> named <aString>"
 
 	traits do: [:each | (each name = aString) ifTrue: [^each ] ].
 
 	^nil!
 
 getUMLClassNamed: aString
+	"The receiver answer <anUMLVirtualMachineClass> named <aString>"
 
 	packages do: [:pack | 
 		pack classes do: [:each | (each name = aString) ifTrue: [^each ] ] ].
@@ -171,6 +182,7 @@ getUMLClassNamed: aString
 	^nil!
 
 getUMLMetaclassNamed: aString
+	"The receiver answer <anUMLVirtualMachineMetaclass> named <aString>"
 
 	packages do: [:pack | 
 		pack classes do: [:each | (each name = aString) ifTrue: [^each metaclass] ] ].
@@ -194,19 +206,21 @@ packages: anObject
 	packages := anObject!
 
 setPrimitiveObjects
+	"The receiver create and set the three basic obejcts of the Virtual Machine (nil, true and false)"
 	| falseObject trueObject nilObject  |
 
-	nilObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'UndefinedObject') with: nil.
+	nilObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'UndefinedObject') with: nil. "create <nil> object"
 
-	trueObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'True') with: true.
-	falseObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'False') with: false.
+	trueObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'True') with: true. "create <true> object"
+	falseObject := UMLVirtualMachineInstance umlClass: (self getUMLClassNamed: 'False') with: false. "create <false> object"
 
-	virtualMachine addPrimitiveObject: nilObject named: 'nil'.
-	virtualMachine addPrimitiveObject: trueObject named: 'true'.
-	virtualMachine addPrimitiveObject: falseObject named: 'false'.
+	virtualMachine addPrimitiveObject: nilObject named: 'nil'. "add <nil> object to the Virtual Machine"
+	virtualMachine addPrimitiveObject: trueObject named: 'true'. "add <true> object to the Virtual Machine"
+	virtualMachine addPrimitiveObject: falseObject named: 'false'. "add <false> object to the Virtual Machine"
 !
 
 setSmalltalkClasses
+	"The receiver set the Smalltalk underline classes of U-Fabrik Virtual Machine classes."
 
 	(self getUMLClassNamed: 'Object') smalltalkClass: Object.
 
@@ -257,7 +271,9 @@ setSmalltalkClasses
 !
 
 setSuperclassesAndSubclasses
-	| objectClass objectMetaclass nilObject |
+	"The receiver set all superclasses of all generated classes. 
+	The classes were initially created without its superclass now each superclass is set"
+	| nilObject |
 
 	packages do: [:package | 
 		package classes do: [:umlClass | | superClassName |
@@ -267,38 +283,30 @@ setSuperclassesAndSubclasses
 		].
 	].
 
-	objectClass := self getUMLClassNamed: 'Object'.
-	objectMetaclass := self getUMLMetaclassNamed: 'Object'.
-
 	nilObject := self getUMLClassNamed: 'UndefinedObject'.
 	nilObject subclasses: OrderedCollection new.
 	nilObject metaclass subclasses: OrderedCollection new.
-
-"
-	#('Collection' 'ExternalFile' 'Blob' 'Date' 'Number' 'String' 'Time' 'TimeStamp' 'View' 'Block' 'Boolean' 'Error' 'MessageBox' 'ParsedMethod' 'TreeModel' 'UndefinedObject' 'VMClassBehavior' 'EditableObject' 'WebApplication' 'WebElement') do: [:each | 
-		| itemClass itemMetaclass |
-		itemClass := self getUMLClassNamed: each.
-		itemMetaclass := self getUMLMetaclassNamed: each.
-		objectClass addSubclass: itemClass.
-		objectMetaclass addSubclass: itemMetaclass.
-	]."!
+!
 
 setTraitsToClasses
+	"The receiver set <UMLTrait>s to corresponding classes.
+	'UML Relations Methods' trait - is set to all Collection classes (this create support for [1xN] and [NxN] UML relations)"
 	| collectionObject fileObject collectionTrait externalFileTrait |
 
 	collectionObject := self getUMLClassNamed: 'Collection'.
 	fileObject := self getUMLClassNamed: 'ExternalFile'.
 
-	collectionTrait := self getTraitNamed: 'UML Relations Methods'.
-	externalFileTrait := self getTraitNamed: 'File Manipulation'.
-	collectionObject addTrait: collectionTrait.
+	collectionTrait := self getTraitNamed: 'UML Relations Methods'. "get the <UMLTrait> that implement behavior to support [NxN] and [Nx1] UML relations"
+	externalFileTrait := self getTraitNamed: 'File Manipulation'. "utilities for external file operations"
+	collectionObject addTrait: collectionTrait. "set the <UMLTrait> to Collection class"
 	fileObject addTrait: externalFileTrait.
 
-	collectionObject subclasses do: [:each | each addTrait: collectionTrait].
+	collectionObject subclasses do: [:each | each addTrait: collectionTrait]. "set the <UMLTrait> to all Collection subclasses"
 	fileObject subclasses do: [:each | each addTrait: externalFileTrait].	
 	(self getUMLClassNamed: 'MSOffice') subclasses do: [:each | each addTrait: externalFileTrait].	!
 
 setTraitsToPackages
+	"The receiver set <UMLTrait> to VM packages"
 	| collectionPack filePack collectionTrait externalFileTrait |
 
 	collectionPack := self getPackageNamed: 'Collections'.
@@ -306,6 +314,7 @@ setTraitsToPackages
 
 	collectionTrait := self getTraitNamed: 'UML Relations Methods'.
 	externalFileTrait := self getTraitNamed: 'File Manipulation'.
+
 	collectionPack addTrait: collectionTrait.
 	filePack addTrait: externalFileTrait.
 !
@@ -321,8 +330,8 @@ traits
 
 traits: anObject
 	traits := anObject! !
-!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation! !
-!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation!vm generation api! !
+!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileInFromXml:!fileIn/Out!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachine!public!vm generation! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachineAndSetAsDefault!public!vm generation! !
@@ -3138,5 +3147,5 @@ virtualMachineV1Code
 	</Packages>
 </VM>'! !
 !UMLVirtualMachineBootstrap class categoriesFor: #new!public! !
-!UMLVirtualMachineBootstrap class categoriesFor: #virtualMachineV1Code!public! !
+!UMLVirtualMachineBootstrap class categoriesFor: #virtualMachineV1Code!public!vm code! !
 
