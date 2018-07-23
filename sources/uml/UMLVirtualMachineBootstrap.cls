@@ -10,28 +10,8 @@ UMLVirtualMachineBootstrap comment: ''!
 !UMLVirtualMachineBootstrap categoriesForClass!Unclassified! !
 !UMLVirtualMachineBootstrap methodsFor!
 
-createVirtualMachine
+createVirtualMachineFrom: xmlSource
 
-	self getAllClasses do: [:each | virtualMachine addUMLMetaclass: each].
-
-	virtualMachine packages: packages;
-		transLog: UMLVMTransLog new;
-		isInstanceBehaviorAvailable: true.
-
-	self setPrimitiveObjects.
-
-	UMLVirtualMachine setDefault: virtualMachine.
-
-	^virtualMachine
-	!
-
-fileInFromXml: pathFile
-	| stream xmlSource |
-
-	superclassesDictionary := Dictionary new.
-	stream := FileStream read: pathFile text: true.
-	xmlSource := stream contents.
-	stream close.
 	xmlDocument := IXMLDOMDocument new.
 	xmlDocument loadText: xmlSource.
 
@@ -45,7 +25,40 @@ fileInFromXml: pathFile
 	self setTraitsToClasses.
 	self setSmalltalkClasses.
 
-	^self createVirtualMachine!
+	^self generateVirtualMachine!
+
+createVirtualMachineFromVersion1
+
+	^self createVirtualMachineFrom: self class virtualMachineV1Code!
+
+fileInFromXml: pathFile
+	| stream xmlSource |
+
+	superclassesDictionary := Dictionary new.
+	stream := FileStream read: pathFile text: true.
+	xmlSource := stream contents.
+	stream close.
+
+	^self createVirtualMachineFrom: xmlSource!
+
+generateVirtualMachine
+
+	self getAllClasses do: [:each | virtualMachine addUMLMetaclass: each].
+
+	virtualMachine packages: packages;
+		transLog: UMLVMTransLog new;
+		isInstanceBehaviorAvailable: true.
+
+	self setPrimitiveObjects.
+
+	^virtualMachine
+	!
+
+generateVirtualMachineAndSetAsDefault
+
+	self generateVirtualMachine.
+
+	UMLVirtualMachine setDefault: virtualMachine.!
 
 generateVirtualMachinePackages
 	| packagesNodes umlMetaclasses |
@@ -309,23 +322,26 @@ traits
 
 traits: anObject
 	traits := anObject! !
-!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachine!fileIn/Out!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileInFromXml:!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachinePackages!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachineTraits!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #getAllClasses!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #getPackageNamed:!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #getTraitNamed:!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #getUMLClassNamed:!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #getUMLMetaclassNamed:!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #initialize!fileIn/Out!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachine!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachineAndSetAsDefault!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachinePackages!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachineTraits!public!vm generation! !
+!UMLVirtualMachineBootstrap categoriesFor: #getAllClasses!new vm queries!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #getPackageNamed:!new vm queries!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #getTraitNamed:!new vm queries!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #getUMLClassNamed:!new vm queries!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #getUMLMetaclassNamed:!new vm queries!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #initialize!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #packages!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #packages:!accessing!private! !
-!UMLVirtualMachineBootstrap categoriesFor: #setPrimitiveObjects!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #setSmalltalkClasses!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #setSuperclassesAndSubclasses!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #setTraitsToClasses!fileIn/Out!public! !
-!UMLVirtualMachineBootstrap categoriesFor: #setTraitsToPackages!fileIn/Out!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #setPrimitiveObjects!public!setup objects! !
+!UMLVirtualMachineBootstrap categoriesFor: #setSmalltalkClasses!public!setup objects! !
+!UMLVirtualMachineBootstrap categoriesFor: #setSuperclassesAndSubclasses!public!setup objects! !
+!UMLVirtualMachineBootstrap categoriesFor: #setTraitsToClasses!public!setup objects! !
+!UMLVirtualMachineBootstrap categoriesFor: #setTraitsToPackages!public!setup objects! !
 !UMLVirtualMachineBootstrap categoriesFor: #superclassesDictionary!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #superclassesDictionary:!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #traits!accessing!private! !
@@ -337,8 +353,9 @@ new
 
 	^super new initialize!
 
-virtualMachinePreviousCode
-
+virtualMachineV1Code
+	"This is the code of the first U-Fabrik Virtual Machine.
+	Includes: Basic classes and basic traits"
 	^'<VM>
 	<Traits>
 		<Trait>
@@ -3122,5 +3139,5 @@ virtualMachinePreviousCode
 	</Packages>
 </VM>'! !
 !UMLVirtualMachineBootstrap class categoriesFor: #new!public! !
-!UMLVirtualMachineBootstrap class categoriesFor: #virtualMachinePreviousCode!public! !
+!UMLVirtualMachineBootstrap class categoriesFor: #virtualMachineV1Code!public! !
 
