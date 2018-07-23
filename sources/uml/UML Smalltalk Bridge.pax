@@ -44,6 +44,7 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
+	add: '..\others\BB_Object Server for ReStore';
 	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
 	add: 'UML Basic Support';
 	add: 'UML Live Engine';

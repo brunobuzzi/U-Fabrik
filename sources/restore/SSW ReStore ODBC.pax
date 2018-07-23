@@ -1,0 +1,79 @@
+﻿| package |
+package := Package name: 'SSW ReStore ODBC'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWODBCColAttr;
+	add: #SSWODBCConnection;
+	add: #SSWODBCDebugStatement;
+	add: #SSWODBCField;
+	add: #SSWODBCParameterizedStatement;
+	add: #SSWODBCPseudoParameterizedStatement;
+	add: #SSWODBCStatement;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore Base Additions';
+	add: 'SSW ReStore SQL Entities';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SSWODBCPseudoParameterizedStatement
+	instanceVariableNames: 'connection parameterisedSQL values statement fields query'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBStatement subclass: #SSWODBCStatement
+	instanceVariableNames: 'query'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBParameterizedStatement subclass: #SSWODBCParameterizedStatement
+	instanceVariableNames: 'query'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWODBCStatement subclass: #SSWODBCDebugStatement
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBColAttr subclass: #SSWODBCColAttr
+	instanceVariableNames: 'field'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBConnection subclass: #SSWODBCConnection
+	instanceVariableNames: 'sqlDialect parameterizedReadStatements parameterizedWriteStatements'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DBField subclass: #SSWODBCField
+	instanceVariableNames: 'statement'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

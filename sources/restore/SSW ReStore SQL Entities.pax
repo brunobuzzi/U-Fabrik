@@ -1,0 +1,163 @@
+﻿| package |
+package := Package name: 'SSW ReStore SQL Entities'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWSQLCollection;
+	add: #SSWSQLCondition;
+	add: #SSWSQLConditionCollection;
+	add: #SSWSQLDialect;
+	add: #SSWSQLField;
+	add: #SSWSQLFieldAssignment;
+	add: #SSWSQLFieldAssignmentCollection;
+	add: #SSWSQLFieldCollection;
+	add: #SSWSQLFieldValueConjunction;
+	add: #SSWSQLJoinedTableCollection;
+	add: #SSWSQLLeftJoinedTableCollection;
+	add: #SSWSQLOperator;
+	add: #SSWSQLQueryParameter;
+	add: #SSWSQLTable;
+	add: #SSWSQLTableAllFields;
+	add: #SSWSQLTableCollection;
+	add: #SSWSQLTableComponent;
+	add: #SSWSQLWriteStream;
+	yourself.
+
+package methodNames
+	add: #Object -> #sqlStringIn:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore Base Additions';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SSWSQLDialect
+	instanceVariableNames: 'datatypes functions maxChar maxVarchar defaultStringSize maintenanceActions staticReservedWords connectionReservedWords shouldAutoInitialize trueObject falseObject nameTransformer supportsMultipleAddColumns shouldCheckAutoCommit shouldMaskSuccessWithInfo shouldFreeStatementsOnClose maxParameterizedReadStatements maxParameterizedWriteStatements shouldMapEmptyStringsToNil cursorType debugStream maxTableNameLength maxColumnNameLength'
+	classVariableNames: ''
+	poolDictionaries: 'ODBCConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #SSWSQLFieldValueConjunction
+	instanceVariableNames: 'field value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWSQLOperator
+	instanceVariableNames: 'sqlString messageSelector isInverted'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWSQLQueryParameter
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWSQLTable
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWSQLTableComponent
+	instanceVariableNames: 'table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrderedCollection variableSubclass: #SSWSQLCollection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLCollection variableSubclass: #SSWSQLConditionCollection
+	instanceVariableNames: 'sqlConcatenator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLCollection variableSubclass: #SSWSQLFieldAssignmentCollection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLCollection variableSubclass: #SSWSQLFieldCollection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLCollection variableSubclass: #SSWSQLTableCollection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLTableCollection variableSubclass: #SSWSQLJoinedTableCollection
+	instanceVariableNames: 'joinConditions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLJoinedTableCollection variableSubclass: #SSWSQLLeftJoinedTableCollection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLFieldValueConjunction subclass: #SSWSQLCondition
+	instanceVariableNames: 'operator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLFieldValueConjunction subclass: #SSWSQLFieldAssignment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLTableComponent subclass: #SSWSQLField
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLTableComponent subclass: #SSWSQLTableAllFields
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+WriteStream subclass: #SSWSQLWriteStream
+	instanceVariableNames: 'dialect fieldAliases tableAliases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Object methodsFor!
+
+sqlStringIn: anSSWSQLDialect
+
+	"19/8/2001		Based on earlier sqlString; dialect param added (issue#0008)"
+	
+	| stream |
+	
+	stream := SSWSQLWriteStream newIn: anSSWSQLDialect.
+	
+	self writeSQLOn: stream.
+	
+	^stream contents! !
+!Object categoriesFor: #sqlStringIn:!printing!public! !
+
+"End of package definition"!
+

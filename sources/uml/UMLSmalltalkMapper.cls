@@ -355,7 +355,7 @@ deployApplication: dsnName
 	"StsManager current shutdown."
 	self createBaseClasses.
 	self createDataBaseStructureMethods.
-	"dbServer := BBReStoreServer serverNamed: dsnName. "
+	dbServer := BBReStoreServer serverNamed: dsnName. 
 	dbServer resetClasses.
 	dbServer dsn: dsnName.
 	dbServer repository useTransactionsWithVersioning.

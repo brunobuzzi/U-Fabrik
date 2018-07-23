@@ -1,0 +1,994 @@
+﻿| package |
+package := Package name: 'SSW ReStore Collections'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWDBCollectionAddition;
+	add: #SSWDBCollectionChange;
+	add: #SSWDBCollectionEntry;
+	add: #SSWDBCollectionIndexUpdate;
+	add: #SSWDBCollectionObjectRemoval;
+	add: #SSWDBCollectionRemoval;
+	add: #SSWDBCollectionSpec;
+	add: #SSWDBCollectionUpdate;
+	add: #SSWDBDictionaryEntry;
+	add: #SSWDBGeneralCollectionSpec;
+	add: #SSWDBKeyedCollectionEntry;
+	add: #SSWDBKeyedStaticCollectionSpec;
+	add: #SSWDBOrderedStaticCollectionSpec;
+	add: #SSWDBOwnedCollectionSpec;
+	add: #SSWDBSortedStaticCollectionSpec;
+	add: #SSWDBStaticCacheDictionarySpec;
+	add: #SSWDBStaticCollectionSpec;
+	add: #SSWDBStaticDictionarySpec;
+	yourself.
+
+package methodNames
+	add: #ArrayedCollection -> #_changesFrom:;
+	add: #ArrayedCollection -> #directAdd:suggestedIndex:;
+	add: #Class -> #beKeyClassOf:;
+	add: #Class -> #beTargetClassOf:;
+	add: #Collection -> #_changesFrom:;
+	add: #Collection -> #_collectionAdditions;
+	add: #Collection -> #_keyedChangesFrom:;
+	add: #Collection -> #_keyedCollectionAdditions;
+	add: #Collection -> #_keyRemovalsIn:;
+	add: #Collection -> #_nonKeyedCollectionAdditions;
+	add: #Collection -> #_valueRemovalsIn:;
+	add: #Collection -> #_valuesRemovedBy:;
+	add: #Collection -> #directAdd:;
+	add: #Collection -> #directAdd:suggestedIndex:;
+	add: #Collection -> #isOrdered;
+	add: #Collection -> #isSorted;
+	add: #Collection -> #of:;
+	add: #Collection -> #of:owner:;
+	add: #Collection -> #of:specClass:;
+	add: #Collection -> #orRemote;
+	add: #Collection -> #ownedCollectionSpecClass;
+	add: #Collection -> #remote;
+	add: #Collection -> #staticCollectionSpecClass;
+	add: #Collection -> #writeSQLOn:;
+	add: #Dictionary -> #_changesFrom:;
+	add: #Dictionary -> #_collectionAdditions;
+	add: #Dictionary -> #_keyRemovalsIn:;
+	add: #Dictionary -> #_valuesRemovedBy:;
+	add: #Dictionary -> #directAdd:suggestedIndex:;
+	add: #Dictionary -> #directAt:put:;
+	add: #Dictionary -> #of:keyClass:;
+	add: #Dictionary -> #of:keyedOn:;
+	add: #Dictionary -> #staticCollectionSpecClass;
+	add: #OrderedCollection -> #_changesFrom:;
+	add: #OrderedCollection -> #staticCollectionSpecClass;
+	add: #SequenceableCollection -> #_collectionAdditions;
+	add: #SequenceableCollection -> #isOrdered;
+	add: #SequenceableCollection -> #staticCollectionSpecClass;
+	add: #Set -> #_changesFrom:;
+	add: #Set -> #_superValuesRemovedBy:;
+	add: #Set -> #_valuesRemovedBy:;
+	add: #SortedCollection -> #_changesFrom:;
+	add: #SortedCollection -> #_collectionAdditions;
+	add: #SortedCollection -> #directAdd:;
+	add: #SortedCollection -> #ensureReStoreSortBlock;
+	add: #SortedCollection -> #evaluateSortingSpecsWith:with:;
+	add: #SortedCollection -> #hasSortingSpecs;
+	add: #SortedCollection -> #isSorted;
+	add: #SortedCollection -> #sortAscendingOn:;
+	add: #SortedCollection -> #sortDescendingOn:;
+	add: #SortedCollection -> #sortingSpecs;
+	add: #SortedCollection -> #staticCollectionSpecClass;
+	add: #SSWDBDependentWrapper -> #beKeyClassOf:;
+	add: #SSWDBDependentWrapper -> #beTargetClassOf:;
+	add: 'Collection class' -> #of:;
+	add: 'Collection class' -> #of:owner:;
+	add: 'Dictionary class' -> #of:keyClass:;
+	add: 'Dictionary class' -> #of:keyedOn:;
+	add: 'SortedCollection class' -> #newForReStore;
+	add: 'SortedCollection class' -> #reStoreSortBlockFor:;
+	add: 'SortedCollection class' -> #sortAscendingOn:;
+	add: 'SortedCollection class' -> #sortDescendingOn:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore Base Additions';
+	add: 'SSW ReStore SQL Entities';
+	add: 'SSW ReStore SQL Queries';
+	add: 'SSW ReStore Tables';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SSWDBCollectionChange
+	instanceVariableNames: 'affectedEntry'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBCollectionEntry
+	instanceVariableNames: 'table entryID sourceID target'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBCollectionObjectRemoval
+	instanceVariableNames: 'removedObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionChange subclass: #SSWDBCollectionAddition
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionChange subclass: #SSWDBCollectionIndexUpdate
+	instanceVariableNames: 'newIndex'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionChange subclass: #SSWDBCollectionRemoval
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionChange subclass: #SSWDBCollectionUpdate
+	instanceVariableNames: 'newTarget'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionEntry subclass: #SSWDBDictionaryEntry
+	instanceVariableNames: 'keyAccessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionEntry subclass: #SSWDBKeyedCollectionEntry
+	instanceVariableNames: 'index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBTableComponent subclass: #SSWDBCollectionSpec
+	instanceVariableNames: 'templateCollection isValueDependent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionSpec subclass: #SSWDBGeneralCollectionSpec
+	instanceVariableNames: 'sourceField targetField collectionTable'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionSpec subclass: #SSWDBOwnedCollectionSpec
+	instanceVariableNames: 'targetClass ownerField ownerAccessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBGeneralCollectionSpec subclass: #SSWDBStaticCollectionSpec
+	instanceVariableNames: 'targetClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBStaticCollectionSpec subclass: #SSWDBKeyedStaticCollectionSpec
+	instanceVariableNames: 'indexField'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBStaticCollectionSpec subclass: #SSWDBSortedStaticCollectionSpec
+	instanceVariableNames: 'orderingSpecs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBStaticCollectionSpec subclass: #SSWDBStaticCacheDictionarySpec
+	instanceVariableNames: 'keyAccessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBKeyedStaticCollectionSpec subclass: #SSWDBOrderedStaticCollectionSpec
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBKeyedStaticCollectionSpec subclass: #SSWDBStaticDictionarySpec
+	instanceVariableNames: 'keyClass isKeyDependent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!ArrayedCollection methodsFor!
+
+_changesFrom: aCollectionOfEntries
+
+	"Private - 20/5/2001
+
+	Return the changes made to the receiver compared to aCollectionOf(Collection)Entries.
+	For an array, there are no additions or removals - just updates"
+
+	| entriesSize changes |
+
+	entriesSize := aCollectionOfEntries size. 
+	changes := OrderedCollection new: (self size // 10).
+
+	self keysAndValuesDo:
+		[ :index :each |
+		index > entriesSize
+		ifTrue:
+			[each isNil ifFalse: 
+				[changes add: (SSWDBCollectionAddition added: each at: index)]]
+		ifFalse:
+			[| entry |
+			entry := aCollectionOfEntries at: index.
+			entry target == each ifFalse: 
+				[changes add: (SSWDBCollectionUpdate entry: entry newTarget: each)]]].
+
+	^changes!
+
+directAdd: anObject suggestedIndex: anInteger
+
+	"Private - 16/4/2001
+
+	Translate to at:put:"
+
+	^self at: anInteger put: anObject
+
+! !
+!ArrayedCollection categoriesFor: #_changesFrom:!comparing!private! !
+!ArrayedCollection categoriesFor: #directAdd:suggestedIndex:!adding!private! !
+
+!Class methodsFor!
+
+beKeyClassOf: aCollectionSpec
+
+	"30/9/2001
+
+	The receiver has been specified as the class of objects which are the keys 
+	of the collection specified by aCollectionSpec.
+	Initialize aCollectionSpec accordingly"
+
+	aCollectionSpec keyClass: self!
+
+beTargetClassOf: aCollectionSpec
+
+	"30/9/2001
+
+	The receiver has been specified as the class of objects held in 
+	the collection specified by aCollectionSpec.
+	Initialize aCollectionSpec accordingly"
+
+	aCollectionSpec targetClass: self! !
+!Class categoriesFor: #beKeyClassOf:!accessing!public! !
+!Class categoriesFor: #beTargetClassOf:!accessing!public! !
+
+!Collection methodsFor!
+
+_changesFrom: aCollectionOfEntries
+
+	"Private - 20/5/2001
+
+	Return the changes made to the receiver compared to aCollectionOf(SSWDBCollection)Entries,
+	as a collection of SSWDBCollectionChanges"
+
+	^self subclassResponsibility!
+
+_collectionAdditions
+
+	"Private - 20/5/2001
+
+	Return an collection of SSWDBCollectionAdditions representing the addition of 
+	all the receiver's elements to an empty collection.
+	Default - defer to _nonKeyedCollectionAdditions (assume receiver does not support keys). 
+	Collections with keys/indexes should reimplement to include key/index information"
+
+	^self _nonKeyedCollectionAdditions!
+
+_keyedChangesFrom: aCollectionOfEntries
+
+	"Private - 18/8/2001 (moved up from OrderedCollection)
+
+	Return the changes made to the receiver compared to aCollectionOf(Collection)Entries.
+	For keyed changes, must consider additions, removals and changes of key"
+
+	| changes map |
+
+	changes := OrderedCollection new: (self size // 10).
+	map := IdentityDictionary new: aCollectionOfEntries size.
+
+	"Make a map of each element (as was) to its entry(s)"
+	aCollectionOfEntries do: 
+		[ :each | (map at: each target ifAbsentPut: [OrderedCollection new: 1]) addLast: each].
+
+	"Locate and remove entry for each member of the receiver and check for key change"
+	self keysAndValuesDo:
+		[ :newKey :each || entry |
+		entry := (map at: each ifAbsent: [##(OrderedCollection new)]) removeFirstIfAbsent:
+			"No entry found = element has been added to the receiver" 
+			[(changes add: (SSWDBCollectionAddition added: each at: newKey)) affectedEntry].
+		entry index = newKey ifFalse: 
+			[changes add: (SSWDBCollectionIndexUpdate entry: entry newIndex: newKey)]].
+
+	"Any remaining entries indicate elements removed from the receiver"
+	map keysAndValuesDo:
+		[ :each :entries | 
+		entries isEmpty ifFalse:		"Minor optimisation"
+			[entries do: [ :entry | changes add: (SSWDBCollectionRemoval newWithEntry: entry)]]].
+
+	^changes!
+
+_keyedCollectionAdditions
+
+	"Private - 18/8/2001 (moved up from OrderedCollection)
+
+	Return a collection of SSWDBCollectionAdditions representing the addition of 
+	all the receiver's elements to an empty collection. 
+	Include the key of each element (as used by keysAndValuesDo:)"
+
+	| additions |
+
+	additions := OrderedCollection new.
+
+	self keysAndValuesDo: [ :key :each | additions add: (SSWDBCollectionAddition added: each at: key)].
+
+	^additions!
+
+_keyRemovalsIn: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	Return a collection of SSWDBCollectionObjectRemovals representing those keys (indexes)
+	removed from the receiver by aCollectionOfChanges.
+
+	Default - none. Subclasses for whom this is important (i.e. have persistent indexes) should implement"
+
+	^#()!
+
+_nonKeyedCollectionAdditions
+
+	"Private - 20/5/2001	(Renamed from _nonIndexedCollectionAdditions)
+
+	Return an collection of SSWDBCollectionAdditions representing the addition of 
+	all the receiver's elements to an empty collection.
+	The SSWDBCollectionAdditions do not contain key information"
+
+	| additions |
+
+	additions := OrderedCollection new.
+
+	self do: [ :each | additions add: (SSWDBCollectionAddition added: each)].
+
+	^additions!
+
+_valueRemovalsIn: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	Return a collection of SSWDBCollectionObjectRemovals representing those values (objects)
+	removed from the receiver which are the targets of the affectedEntries of aCollectionOfChanges"
+
+	| removalChanges |
+
+	"Restrict the changes to just those that can potentially result in the removal of a value object"
+	removalChanges := aCollectionOfChanges select: [ :change | change canRemoveValue].
+
+	^(self _valuesRemovedBy: removalChanges) collect: 
+		[ :valueObject | SSWDBCollectionObjectRemoval newWithObject: valueObject]!
+
+_valuesRemovedBy: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	Return those values (objects) completely removed from the receiver by aCollectionOfChanges"
+
+	| affectedObjects |
+
+	affectedObjects := aCollectionOfChanges collect: [ :change | change affectedEntry target].
+
+	^affectedObjects asIdentitySet reject: [ :object | self identityIncludes: object]!
+
+directAdd: anObject
+
+	"Private - 16/4/2001
+
+	Add anObject to the receiver.
+	Sent by ReStore when populating a collection; assume elements are added in correct order
+	and so bypass any internal ordering (e.g. see SortedCollection>>directAdd:)"
+
+	^self add: anObject!
+
+directAdd: anObject suggestedIndex: anInteger
+
+	"Private - 16/4/2001
+
+	Add anObject to the receiver, possibly at the index anInteger.
+	The suggestedIndex is only required by keyed collections, 
+	so defer to just directAdd:"
+
+	^self directAdd: anObject!
+
+isOrdered
+
+	"27/4/2001"
+
+	^false
+!
+
+isSorted
+
+	"27/4/2001"
+
+	^false
+!
+
+of: targetClass
+
+	"16/4/2001
+
+	ReStore specification method - specifies a general (M to M) collection containing aClass.
+	Create and return an appropriate SSWDBCollectionSpec"
+
+	^self of: targetClass specClass: self staticCollectionSpecClass!
+
+of: targetClass owner: aSymbol
+
+	"16/4/2001
+
+	ReStore specification method - specifies a 1 to many collection, containing aClass,
+	whose inst var named aSymbol holds the owning (1) object.
+
+	Create and return an appropriate SSWDBCollectionSpec"
+
+	^self ownedCollectionSpecClass new
+		templateCollection: self;
+		setTargetClass: targetClass;
+		owner: aSymbol;
+		yourself
+!
+
+of: targetClass specClass: specClass
+
+	"16/4/2001
+
+	ReStore specification method - specifies a general (M to M) collection containing aClass.
+	Create, initialize and return a configured instance of the given SSWDBCollectionSpec class"
+
+	^specClass new
+		templateCollection: self;
+		setTargetClass: targetClass;
+		yourself!
+
+orRemote
+
+	"The receiver is already in memory, return it"
+
+	^self!
+
+ownedCollectionSpecClass 
+
+	"Private - 16/4/2001
+
+	Return the class of owned collection spec that is appropriate for this kind of collection"
+
+	^SSWDBOwnedCollectionSpec
+
+!
+
+remote
+
+	"Defer to the proxy"
+
+	^self _dbProxy remote!
+
+staticCollectionSpecClass 
+
+	"Private - 16/4/2001
+
+	Return the class of static collection spec that is appropriate for this kind of collection.
+	Subclasses for which this may differ depending on mode of use should not implement this,
+	but should route configuration through of:specClass: "
+
+	^SSWDBStaticCollectionSpec
+
+!
+
+writeSQLOn: aStream
+
+	"22/3/2001
+	
+	Collections are comma-separated and parentheses-wrapped in SQL"
+	
+	aStream nextPut: $(.
+
+	self 
+		do: [ :object | object writeSQLOn: aStream] 
+		separatedBy: [aStream nextPut: $,].
+	
+	aStream nextPut: $)! !
+!Collection categoriesFor: #_changesFrom:!comparing!private! !
+!Collection categoriesFor: #_collectionAdditions!comparing!private! !
+!Collection categoriesFor: #_keyedChangesFrom:!comparing!private! !
+!Collection categoriesFor: #_keyedCollectionAdditions!comparing!private! !
+!Collection categoriesFor: #_keyRemovalsIn:!comparing!private! !
+!Collection categoriesFor: #_nonKeyedCollectionAdditions!comparing!private! !
+!Collection categoriesFor: #_valueRemovalsIn:!comparing!private! !
+!Collection categoriesFor: #_valuesRemovedBy:!comparing!private! !
+!Collection categoriesFor: #directAdd:!adding!private! !
+!Collection categoriesFor: #directAdd:suggestedIndex:!adding!private! !
+!Collection categoriesFor: #isOrdered!public!testing! !
+!Collection categoriesFor: #isSorted!public!testing! !
+!Collection categoriesFor: #of:!public!specification! !
+!Collection categoriesFor: #of:owner:!public!specification! !
+!Collection categoriesFor: #of:specClass:!public!specification! !
+!Collection categoriesFor: #orRemote!converting!public! !
+!Collection categoriesFor: #ownedCollectionSpecClass!constants!private! !
+!Collection categoriesFor: #remote!converting!public! !
+!Collection categoriesFor: #staticCollectionSpecClass!constants!private! !
+!Collection categoriesFor: #writeSQLOn:!printing!public! !
+
+!Collection class methodsFor!
+
+of: targetClass
+
+	"16/4/2001"
+
+	^self new of: targetClass
+!
+
+of: targetClass owner: aSymbol
+
+	"16/4/2001"
+
+	^self new of: targetClass owner: aSymbol
+
+! !
+!Collection class categoriesFor: #of:!public!specification! !
+!Collection class categoriesFor: #of:owner:!public!specification! !
+
+!Dictionary methodsFor!
+
+_changesFrom: aCollectionOfEntries
+
+	"Created 18/8/2001
+	Modified 19/10/2001	Defer to _collectionAdditions if empty (to give keyed entries, issue#0026) 
+
+	Override to include key information if necessary.
+	This can be determined from any member of aCollectionOfEntries"
+
+	^aCollectionOfEntries isEmpty 
+	ifTrue:
+		[self _collectionAdditions]
+	ifFalse:
+		[(aCollectionOfEntries first isKindOf: SSWDBDictionaryEntry)
+			ifTrue: [super _changesFrom: aCollectionOfEntries]
+			ifFalse: [self _keyedChangesFrom: aCollectionOfEntries]]!
+
+_collectionAdditions
+
+	"18/8/2001
+
+	Override to include key information"
+
+	^self _keyedCollectionAdditions!
+
+_keyRemovalsIn: aCollectionOfChanges
+
+	"Private - 28/9/2001"
+
+	^(aCollectionOfChanges isEmpty or: [aCollectionOfChanges first affectedEntry isKindOf: SSWDBDictionaryEntry])
+	ifTrue:
+		[#()]
+	ifFalse:
+		[aCollectionOfChanges
+			select: [ :change | change canRemoveKey and: [(self includesKey: change affectedEntry index) not]]
+			thenCollect: [ :change | SSWDBCollectionObjectRemoval newWithObject: change affectedEntry index]]!
+
+_valuesRemovedBy: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	The receiver is not a set (i.e. allows duplicates) and so cannot take advantage of superclass optimisation"
+
+	^self _superValuesRemovedBy: aCollectionOfChanges!
+
+directAdd: targetObject suggestedIndex: keyObject
+
+	"18/8/2001 
+
+	Make the receiver polymorphic with an indexed collection (key=index)"
+
+	^self directAt: keyObject put: targetObject
+!
+
+directAt: aKey put: anObject
+
+	"19/7/2001"
+
+	^self at: aKey put: anObject!
+
+of: targetClass keyClass: keyClass
+
+	"18/8/2001
+
+	ReStore specification method - specify a Dictionary which stores instances of targetClass.
+	The Dictionary's keys will be of the class keyClass, which should be a valid persistent class.
+	Create and return an appropriate SSWDBCollectionSpec"
+
+	^(self of: targetClass specClass: SSWDBStaticDictionarySpec)
+		setKeyClass: keyClass;
+		yourself!
+
+of: targetClass keyedOn: aSymbol
+
+	"19/7/2001
+
+	ReStore specification method - specify a Dictionary which stores instances of targetClass.
+	Instances are stored in the receiver at: the value of their instance variable named aSymbol.
+	Create and return an appropriate SSWDBCollectionSpec"
+
+	^(self of: targetClass specClass: SSWDBStaticCacheDictionarySpec)
+		keyedOn: aSymbol;
+		yourself!
+
+staticCollectionSpecClass 
+
+	"Private - 19/7/2001
+	
+	Do not implement this method, the staticCollectionSpecClass for Dictionaries varies
+	(see of:xxxx: variants)"
+
+	^self shouldNotImplement
+
+! !
+!Dictionary categoriesFor: #_changesFrom:!comparing!public! !
+!Dictionary categoriesFor: #_collectionAdditions!comparing!public! !
+!Dictionary categoriesFor: #_keyRemovalsIn:!comparing!private! !
+!Dictionary categoriesFor: #_valuesRemovedBy:!comparing!private! !
+!Dictionary categoriesFor: #directAdd:suggestedIndex:!comparing!public! !
+!Dictionary categoriesFor: #directAt:put:!adding!private! !
+!Dictionary categoriesFor: #of:keyClass:!public!specification! !
+!Dictionary categoriesFor: #of:keyedOn:!public!specification! !
+!Dictionary categoriesFor: #staticCollectionSpecClass!constants!private! !
+
+!Dictionary class methodsFor!
+
+of: targetClass keyClass: keyClass
+
+	"18/8/2001
+
+	ReStore specification method - create and return an appropriate SSWDBCollectionSpec"
+
+	^self new of: targetClass keyClass: keyClass!
+
+of: targetClass keyedOn: aSymbol
+
+	"19/7/2001
+
+	ReStore specification method - create and return an appropriate SSWDBCollectionSpec"
+
+	^self new of: targetClass keyedOn: aSymbol! !
+!Dictionary class categoriesFor: #of:keyClass:!public!specification! !
+!Dictionary class categoriesFor: #of:keyedOn:!public!specification! !
+
+!OrderedCollection methodsFor!
+
+_changesFrom: aCollectionOfEntries
+
+	"Private - 20/5/2001
+	Modified 11/9/2001	Refactoring for full Dictionary support (issue#0010)
+
+	Return the changes made to the receiver compared to aCollectionOf(Collection)Entries.
+	For an OrderedCollection, must include full keyed (indexed) changes"
+
+	^self _keyedChangesFrom: aCollectionOfEntries!
+
+staticCollectionSpecClass 
+
+	"Private - 16/4/2001"
+
+	^SSWDBOrderedStaticCollectionSpec
+
+! !
+!OrderedCollection categoriesFor: #_changesFrom:!comparing!private! !
+!OrderedCollection categoriesFor: #staticCollectionSpecClass!constants!private! !
+
+!SequenceableCollection methodsFor!
+
+_collectionAdditions
+
+	"Private - 20/5/2001
+	Modified 11/9/2001	Refactoring for full Dictionary support (issue#0010)
+
+	Reimplemented to include index (key) information"
+
+	^self _keyedCollectionAdditions!
+
+isOrdered
+
+	"27/4/2001"
+
+	^true
+!
+
+staticCollectionSpecClass 
+
+	"Private - 16/4/2001"
+
+	^SSWDBOrderedStaticCollectionSpec
+
+! !
+!SequenceableCollection categoriesFor: #_collectionAdditions!comparing!private! !
+!SequenceableCollection categoriesFor: #isOrdered!public!testing! !
+!SequenceableCollection categoriesFor: #staticCollectionSpecClass!constants!private! !
+
+!Set methodsFor!
+
+_changesFrom: aSetOfEntries
+
+	"Private - 20/5/2001
+
+	Return the changes made to the receiver compared to aSetOf(Collection)Entries.
+	For a Set, consider additions and removals and removal only"
+
+	| changes oldSet |
+
+	changes := OrderedCollection new.
+	oldSet := aSetOfEntries collect: [ :entry | entry target].
+
+	self do: [ :each | (oldSet identityIncludes: each) ifFalse: 
+						[changes add: (SSWDBCollectionAddition added: each)]].
+
+	aSetOfEntries do: [ :entry | (self identityIncludes: entry target) ifFalse: 
+						[changes add: (SSWDBCollectionRemoval newWithEntry: entry)]].
+
+	^changes!
+
+_superValuesRemovedBy: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	Pass-thru to default implementation of _valuesRemovedBy: for benefit of non-Set subclasses"
+
+	^super _valuesRemovedBy: aCollectionOfChanges
+!
+
+_valuesRemovedBy: aCollectionOfChanges
+
+	"Private - 28/9/2001
+
+	Overriden to take advantage of the lack of duplicates in the receiver:
+	if a change removes an element from the receiver, then all occurrences of that element are removed"
+
+	^aCollectionOfChanges collect: [ :each | each affectedEntry target]! !
+!Set categoriesFor: #_changesFrom:!comparing!private! !
+!Set categoriesFor: #_superValuesRemovedBy:!comparing!private! !
+!Set categoriesFor: #_valuesRemovedBy:!comparing!private! !
+
+!SortedCollection methodsFor!
+
+_changesFrom: aCollectionOfEntries
+
+	"Private - 20/5/2001
+
+	Return the changes made to the receiver compared to aCollectionOf(Collection)Entries.
+	For a SortedCollection, can ignore index changes"
+
+	| changes map |
+
+	changes := OrderedCollection new: (self size // 10).
+	map := IdentityDictionary new: aCollectionOfEntries size.
+
+	"Make a map of each element (as was) to its entry(s)"
+	aCollectionOfEntries do: 
+		[ :each | (map at: each target ifAbsentPut: [OrderedCollection new: 1]) addLast: each].
+
+	"Locate and remove entry for each member of the receiver"
+	self keysAndValuesDo:
+		[ :newIndex :each |
+		(map at: each ifAbsent: [##(OrderedCollection new)]) removeFirstIfAbsent:
+			"No entry found = element has been added to the receiver" 
+			[changes add: (SSWDBCollectionAddition added: each)]].
+
+	"Any remaining entries indicate elements removed from the receiver"
+	map keysAndValuesDo:
+		[ :each :entries | 
+		entries isEmpty ifFalse:		"Minor optimisation"
+			[entries do: [ :entry | changes add: (SSWDBCollectionRemoval newWithEntry: entry)]]].
+
+	^changes!
+
+_collectionAdditions
+
+	"Private - 20/5/2001
+
+	Defer to _nonKeyedCollectionAdditions, since indexing does not need to be stored 
+	(it is defined by the sorting criteria)"
+
+	^self _nonKeyedCollectionAdditions!
+
+directAdd: anObject
+
+	"16/4/2001
+
+	For speed, ReStore will instruct the database to recover objects already sorted.
+	directAdd: allows these sorted objects to be added to the receiver without further sorting"
+
+	^super addLast: anObject!
+
+ensureReStoreSortBlock
+
+	"Private - 30/9/2001	(Issue#0018)
+
+	Check that the receiver is configured with a sort block to handle ReStore sorting specs.
+	If not, set this up"
+
+	((self sortBlock isKindOf: BlockClosure) and: [self sortBlock method selector == #reStoreSortBlockFor:]) ifFalse:
+		[self sortBlock: (self class reStoreSortBlockFor: self)]!
+
+evaluateSortingSpecsWith: objectA with: objectB
+
+	"Private - 16/4/2001
+
+	Iterate over the receiver's sortingSpecs comparing objectA with objectB.
+	Return a result as if the sorting specs were a sort block"
+
+	| specs result |
+
+	specs := ReadStream on: self sortingSpecs.
+	result := nil.
+
+	[specs atEnd not and: [result isNil]] whileTrue:
+		[result := specs next compare: objectA with: objectB].
+
+	^result isNil
+		ifTrue: [true]
+		ifFalse: [result]!
+
+hasSortingSpecs
+
+	self propertyAt: #sortingSpecs ifAbsent: [^false].
+
+	^true!
+
+isSorted
+
+	"27/4/2001"
+
+	^true
+!
+
+sortAscendingOn: aSymbol
+
+	"16/4/2001
+
+	Append an SSWDBOrderingSpec to the receiver to sort elements 
+	in ascending order based on their response to the message named aSymbol"
+
+	self ensureReStoreSortBlock.
+	self sortingSpecs addLast: (SSWDBOrderingSpec ascending: aSymbol)!
+
+sortDescendingOn: aSymbol
+
+	"16/4/2001
+
+	Append an SSWDBOrderingSpec to the receiver to sort elements 
+	in descending order based on their response to the message named aSymbol"
+
+	self ensureReStoreSortBlock.
+	self sortingSpecs addLast: (SSWDBOrderingSpec descending: aSymbol)!
+
+sortingSpecs
+
+	"Private - 16/4/2001
+
+	sortingSpecs stores a collection of SSWDBOrderingSpecs
+	which define the sorting done by the receiver.
+	Note - sorting is accomplished as usual by the sort block
+	but the sortingSpecs must be held for use by the ReStore framework"
+
+	^self propertyAt: #sortingSpecs ifAbsent: 
+		[self propertyAt: #sortingSpecs put: OrderedCollection new]!
+
+staticCollectionSpecClass 
+
+	"Private - 16/4/2001"
+
+	^SSWDBSortedStaticCollectionSpec
+
+! !
+!SortedCollection categoriesFor: #_changesFrom:!comparing!private! !
+!SortedCollection categoriesFor: #_collectionAdditions!comparing!private! !
+!SortedCollection categoriesFor: #directAdd:!adding!public! !
+!SortedCollection categoriesFor: #ensureReStoreSortBlock!accessing!private! !
+!SortedCollection categoriesFor: #evaluateSortingSpecsWith:with:!accessing!private! !
+!SortedCollection categoriesFor: #hasSortingSpecs!accessing!private! !
+!SortedCollection categoriesFor: #isSorted!public!testing! !
+!SortedCollection categoriesFor: #sortAscendingOn:!accessing!public! !
+!SortedCollection categoriesFor: #sortDescendingOn:!accessing!public! !
+!SortedCollection categoriesFor: #sortingSpecs!accessing!private! !
+!SortedCollection categoriesFor: #staticCollectionSpecClass!constants!private! !
+
+!SortedCollection class methodsFor!
+
+newForReStore
+
+	"Private - 16/4/2001
+
+	Instance creation method for restore - 
+	return a SortedCollection initialized to use SSWDBOrderingSpecs"
+
+	| inst |
+
+	inst := self new.
+
+	inst sortBlock: (self reStoreSortBlockFor: inst).
+
+	^inst!
+
+reStoreSortBlockFor: aCollection
+
+	"Private - 30/9/2001	(Issue#0018)
+
+	Return the SortBlock requied for the ReStore sorting specs system"
+
+	^[ :a :b | aCollection evaluateSortingSpecsWith: a with: b]!
+
+sortAscendingOn: aSymbol
+
+	"16/4/2001
+
+	Creation/specification method for restore"
+
+	^self newForReStore
+		sortAscendingOn: aSymbol;
+		yourself!
+
+sortDescendingOn: aSymbol
+
+	"16/4/2001
+
+	Creation/specification method for restore"
+
+	^self newForReStore
+		sortDescendingOn: aSymbol;
+		yourself! !
+!SortedCollection class categoriesFor: #newForReStore!instance creation!private! !
+!SortedCollection class categoriesFor: #reStoreSortBlockFor:!instance creation!private! !
+!SortedCollection class categoriesFor: #sortAscendingOn:!instance creation!public! !
+!SortedCollection class categoriesFor: #sortDescendingOn:!instance creation!public! !
+
+!SSWDBDependentWrapper methodsFor!
+
+beKeyClassOf: aTableComponent
+
+	"30/9/2001
+
+	Polymorphic with the Class implementation"
+		
+	aTableComponent
+		keyClass: self dependentObject;
+		isKeyDependent: true!
+
+beTargetClassOf: aTableComponent
+
+	"30/9/2001
+
+	Polymorphic with the Class implementation"
+		
+	aTableComponent
+		targetClass: self dependentObject;
+		isValueDependent: true! !
+!SSWDBDependentWrapper categoriesFor: #beKeyClassOf:!defining!public! !
+!SSWDBDependentWrapper categoriesFor: #beTargetClassOf:!defining!public! !
+
+"End of package definition"!
+

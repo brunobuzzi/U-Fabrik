@@ -1,0 +1,108 @@
+﻿| package |
+package := Package name: 'SSW ReStore SQL Queries'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWSQLConditionalQuery;
+	add: #SSWSQLDeleteObjectQuery;
+	add: #SSWSQLDeleteQuery;
+	add: #SSWSQLInsertQuery;
+	add: #SSWSQLObjectQuery;
+	add: #SSWSQLOrderedSelectQuery;
+	add: #SSWSQLParameterisedInsertQuery;
+	add: #SSWSQLQuery;
+	add: #SSWSQLSelectQuery;
+	add: #SSWSQLTableQuery;
+	add: #SSWSQLUpdateObjectQuery;
+	add: #SSWSQLUpdateQuery;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore Base Additions';
+	add: 'SSW ReStore SQL Entities';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SSWSQLQuery
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLQuery subclass: #SSWSQLObjectQuery
+	instanceVariableNames: 'object table'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLQuery subclass: #SSWSQLTableQuery
+	instanceVariableNames: 'tables'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLObjectQuery subclass: #SSWSQLDeleteObjectQuery
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLObjectQuery subclass: #SSWSQLInsertQuery
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLObjectQuery subclass: #SSWSQLUpdateObjectQuery
+	instanceVariableNames: 'fieldUpdates'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLInsertQuery subclass: #SSWSQLParameterisedInsertQuery
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLTableQuery subclass: #SSWSQLConditionalQuery
+	instanceVariableNames: 'conditions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLConditionalQuery subclass: #SSWSQLDeleteQuery
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLConditionalQuery subclass: #SSWSQLSelectQuery
+	instanceVariableNames: 'fields fieldAliases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLConditionalQuery subclass: #SSWSQLUpdateQuery
+	instanceVariableNames: 'fieldUpdates'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWSQLSelectQuery subclass: #SSWSQLOrderedSelectQuery
+	instanceVariableNames: 'orderingSpecs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

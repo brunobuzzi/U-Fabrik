@@ -103,13 +103,12 @@ defineLoginManagerClass
 deployApplication
 	| dsn smalltalkMapper |
 
- "	dsn := Prompter prompt: 'Enter DSN for the Database' caption: self applicationName.
+ 	dsn := Prompter prompt: 'Enter DSN for the Database' caption: self applicationName.
 	dsn ifNil: [^self].
 	dsn isEmpty ifTrue: [^self].
 	smalltalkMapper := UMLSmalltalkMapper on: self defaultVirtualMachine.
 	smalltalkMapper deployApplication: dsn.
-"
-	MessageBox notify: 'This feature was removed !!!!!!'!
+!
 
 designCustomizedView
 	^classBrowser designCustomizedView!

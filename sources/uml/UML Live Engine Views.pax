@@ -203,6 +203,7 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Database Mapper';
 	add: 'UML Licence Manager';
 	add: 'UML Live Engine';
+	add: 'UML Smalltalk Bridge';
 	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
 	add: 'XMI Import-Export Interfase II';
 	yourself).

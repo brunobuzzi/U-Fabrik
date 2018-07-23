@@ -1,0 +1,222 @@
+﻿| package |
+package := Package name: 'SSW ReStore Querying'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #RequiredUndefinedObject;
+	add: #SSWDBBlockArgument;
+	add: #SSWDBBlockEvaluator;
+	add: #SSWDBBlockParser;
+	add: #SSWDBBlockReceiver;
+	add: #SSWDBInstancesCollection;
+	add: #SSWDBParseError;
+	add: #SSWDBReadStream;
+	add: #WildcardString;
+	yourself.
+
+package methodNames
+	add: #DBError -> #isRecordDeletedError;
+	add: #DeafObject -> #_id;
+	add: #Object -> #isRequiredForSimilarity;
+	add: #Object -> #isSimilarTo:;
+	add: #Object -> #qualify:in:via:;
+	add: #Object -> #similarInstancesIn:;
+	add: #Object -> #similarityComparator;
+	add: #SSWSQLOrderedSelectQuery -> #beArithmeticQuery;
+	add: #SSWSQLSelectQuery -> #beArithmeticQuery;
+	add: #String -> #asWildcard;
+	add: #UndefinedObject -> #isRequiredForSimilarity;
+	add: #UndefinedObject -> #required;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore SQL Entities';
+	add: 'SSW ReStore SQL Queries';
+	add: 'SSW ReStore Tables';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #RequiredUndefinedObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'soleInstance'!
+Object subclass: #SSWDBBlockEvaluator
+	instanceVariableNames: 'parser currentClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBBlockParser
+	instanceVariableNames: 'reStore argumentClass referencedTables qualifyingConditions qualifyingTables orderingSpecs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBInstancesCollection
+	instanceVariableNames: 'reStore instancesClass parser sortBlock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+String variableByteSubclass: #WildcardString
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Error subclass: #SSWDBParseError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBBlockEvaluator subclass: #SSWDBBlockArgument
+	instanceVariableNames: 'finalFields'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBBlockEvaluator subclass: #SSWDBBlockReceiver
+	instanceVariableNames: 'currentTable finalField'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ReadStream subclass: #SSWDBReadStream
+	instanceVariableNames: 'instancesCollection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!DBError methodsFor!
+
+isRecordDeletedError
+
+	^tag notNil 
+		and: [tag errors isEmpty not
+			and: [tag errors first sqlState = 'S1109']]! !
+!DBError categoriesFor: #isRecordDeletedError!public! !
+
+!DeafObject methodsFor!
+
+_id
+
+	^self! !
+!DeafObject categoriesFor: #_id!public! !
+
+!Object methodsFor!
+
+isRequiredForSimilarity
+
+	"Private - Is this object required to be similar when testing similarity of its owner?"
+	^true!
+
+isSimilarTo: anObject
+
+	^self perform: anObject similarityComparator with: anObject!
+
+qualify: instances in: aReStore via: aCollection
+
+	| table conditions |
+
+	(aReStore tableForClass: self class) dataFields do:
+		[ :field || value |
+		value := field accessor valueIn: self.
+		value isRequiredForSimilarity ifTrue:
+			[| chain |
+			chain := aCollection copyWith: field accessor name.
+			(field targetClass isPersistentIn: aReStore)
+				ifTrue: [value qualify: instances in: aReStore via: chain]
+				ifFalse: [instances qualifyWith: [ :each | (each chainPerform: chain) isSimilarTo: value]]]]!
+
+similarInstancesIn: aReStore
+
+	"Return an InstancesCollection representing those persistent instances
+	which are similar to the receiver (a 'template' instance)"
+
+	| instances |
+
+	instances := aReStore instancesOf: self class.
+	self qualify: instances in: aReStore via: OrderedCollection new.
+
+	^instances!
+
+similarityComparator
+
+	"Private - Default is equality"
+
+	^#=! !
+!Object categoriesFor: #isRequiredForSimilarity!private!testing! !
+!Object categoriesFor: #isSimilarTo:!public!testing! !
+!Object categoriesFor: #qualify:in:via:!actions!private! !
+!Object categoriesFor: #similarInstancesIn:!accessing!public! !
+!Object categoriesFor: #similarityComparator!constants!private! !
+
+!SSWSQLOrderedSelectQuery methodsFor!
+
+beArithmeticQuery
+
+	"Initialize the receiver as an arithmetic query (SUM, COUNT etc).
+	Ordering is irrelevant for this"
+
+	self orderingSpecs: OrderedCollection new! !
+!SSWSQLOrderedSelectQuery categoriesFor: #beArithmeticQuery!initializing!public! !
+
+!SSWSQLSelectQuery methodsFor!
+
+beArithmeticQuery
+
+	"Initialize the receiver as an arithmetic query (SUM, COUNT etc)"
+
+	^self! !
+!SSWSQLSelectQuery categoriesFor: #beArithmeticQuery!initializing!public! !
+
+!String methodsFor!
+
+asWildcard
+
+	| wildcard |
+
+	wildcard := WildcardString new: self size.
+
+	self
+		replaceBytesOf: wildcard
+		from: 1 to: self size startingAt: 1.
+
+	^wildcard
+! !
+!String categoriesFor: #asWildcard!converting!public! !
+
+!UndefinedObject methodsFor!
+
+isRequiredForSimilarity
+
+	"Private - nil (as in unset) not required for similarity. Use 'nil required' instead"
+
+	^false!
+
+required
+
+	"Return the 'required nil' object"
+
+	^RequiredUndefinedObject soleInstance! !
+!UndefinedObject categoriesFor: #isRequiredForSimilarity!private!testing! !
+!UndefinedObject categoriesFor: #required!accessing!public! !
+
+"End of package definition"!
+

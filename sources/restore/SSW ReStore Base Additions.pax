@@ -1,0 +1,1047 @@
+﻿| package |
+package := Package name: 'SSW ReStore Base Additions'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWDBClassWithInfo;
+	add: #SSWDBDeletedObject;
+	add: #SSWDBDependentWrapper;
+	add: #SSWDBFixedStringWithInfo;
+	add: #SSWDBLookupArray;
+	add: #SSWDBOrderingSpec;
+	add: #SSWDBProxyIdentitySet;
+	add: #SSWDBScaledDecimalWithInfo;
+	add: #SSWDBStoreWrapper;
+	add: #SSWDBStringWithInfo;
+	add: #SSWDBUnstoreWrapper;
+	add: #SSWDBVariableStringWithInfo;
+	add: #SSWDBWrapper;
+	add: #UnquotedString;
+	yourself.
+
+package methodNames
+	add: #Boolean -> #isValidForPersistence;
+	add: #Character -> #writeSQLOn:;
+	add: #Class -> #defineAs:in:;
+	add: #Class -> #instanceFromDBValue:;
+	add: #Class -> #instanceFromDBValue:in:;
+	add: #Class -> #isPersistentIn:;
+	add: #Class -> #isValidForPersistence;
+	add: #Class -> #odbcObject;
+	add: #Class -> #writeSQLOn:;
+	add: #Date -> #isValidForPersistence;
+	add: #Date -> #writeSQLOn:;
+	add: #DBColAttr -> #writeSQLOn:;
+	add: #DBRow -> #atField:;
+	add: #DBRow -> #atField:ifAbsent:;
+	add: #False -> #asInteger;
+	add: #False -> #qAnd:;
+	add: #False -> #qOr:;
+	add: #False -> #writeSQLOn:;
+	add: #Number -> #isValidForPersistence;
+	add: #Object -> #_hasChangedFrom:;
+	add: #Object -> #_instVarAt:;
+	add: #Object -> #_instVarAt:put:;
+	add: #Object -> #_isKindOf:;
+	add: #Object -> #chainPerform:;
+	add: #Object -> #dependent;
+	add: #Object -> #sswFrameExecuting:in:;
+	add: #Object -> #stored;
+	add: #Object -> #unstored;
+	add: #ScaledDecimal -> #instanceFromDBValue:in:;
+	add: #ScaledDecimal -> #writeSQLOn:;
+	add: #String -> #asUnquotedString;
+	add: #String -> #isValidForPersistence;
+	add: #String -> #orNilIfEmpty;
+	add: #String -> #writeSQLOn:;
+	add: #Symbol -> #sswInUnderscoreFormat;
+	add: #Time -> #isValidForPersistence;
+	add: #Time -> #writeSQLOn:;
+	add: #TimeStamp -> #isValidForPersistence;
+	add: #TimeStamp -> #writeSQLOn:;
+	add: #True -> #asInteger;
+	add: #True -> #qAnd:;
+	add: #True -> #qOr:;
+	add: #True -> #writeSQLOn:;
+	add: #UndefinedObject -> #isValidForPersistence;
+	add: #UndefinedObject -> #orNilIfEmpty;
+	add: #UndefinedObject -> #storeIn:;
+	add: #UndefinedObject -> #unstore;
+	add: #UndefinedObject -> #writeSQLOn:;
+	add: 'Boolean class' -> #instanceFromDBValue:in:;
+	add: 'Boolean class' -> #isPersistentBaseClass;
+	add: 'Boolean class' -> #writeSQLTypeOn:using:;
+	add: 'Date class' -> #instanceFromDBValue:in:;
+	add: 'Date class' -> #writeSQLTypeOn:using:;
+	add: 'Float class' -> #writeSQLTypeOn:using:;
+	add: 'Integer class' -> #writeSQLTypeOn:using:;
+	add: 'Magnitude class' -> #isPersistentBaseClass;
+	add: 'Metaclass class' -> #instanceFromDBValue:in:;
+	add: 'Metaclass class' -> #isPersistentBaseClass;
+	add: 'Metaclass class' -> #writeSQLTypeOn:using:;
+	add: 'Number class' -> #writeSQLTypeOn:using:;
+	add: 'Object class' -> #addClassDefinitionTo:;
+	add: 'Object class' -> #hasPersistentSuperclass;
+	add: 'Object class' -> #isPersistencyInherited;
+	add: 'Object class' -> #isPersistentBaseClass;
+	add: 'Object class' -> #preferredObjectProxyClass;
+	add: 'Object class' -> #shouldInheritPersistency;
+	add: 'Object class' -> #shouldSubclassesInheritPersistency;
+	add: 'Object class' -> #subclassesInheritingPersistency;
+	add: 'Object class' -> #tableIn:;
+	add: 'Object class' -> #writeSQLTypeOn:using:;
+	add: 'ScaledDecimal class' -> #withPrecision:scale:;
+	add: 'ScaledDecimal class' -> #withScale:;
+	add: 'String class' -> #fixedSize:;
+	add: 'String class' -> #isPersistentBaseClass;
+	add: 'String class' -> #maxSize:;
+	add: 'String class' -> #writeSQLTypeOn:using:;
+	add: 'Time class' -> #instanceFromDBValue:in:;
+	add: 'Time class' -> #writeSQLTypeOn:using:;
+	add: 'TimeStamp class' -> #instanceFromDBValue:in:;
+	add: 'TimeStamp class' -> #writeSQLTypeOn:using:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #SSWDBClassWithInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBOrderingSpec
+	instanceVariableNames: 'criteria isAscending'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBWrapper
+	instanceVariableNames: 'object'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Array variableSubclass: #SSWDBLookupArray
+	instanceVariableNames: 'indexTable'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+String variableByteSubclass: #UnquotedString
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+IdentitySet variableSubclass: #SSWDBProxyIdentitySet
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DeafObject subclass: #SSWDBDeletedObject
+	instanceVariableNames: 'deletedObjectClass id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBClassWithInfo subclass: #SSWDBScaledDecimalWithInfo
+	instanceVariableNames: 'scale precision'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBClassWithInfo subclass: #SSWDBStringWithInfo
+	instanceVariableNames: 'fieldSize'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBStringWithInfo subclass: #SSWDBFixedStringWithInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBStringWithInfo subclass: #SSWDBVariableStringWithInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBWrapper subclass: #SSWDBDependentWrapper
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBWrapper subclass: #SSWDBStoreWrapper
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBWrapper subclass: #SSWDBUnstoreWrapper
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Boolean methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true! !
+!Boolean categoriesFor: #isValidForPersistence!private!testing! !
+
+!Boolean class methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 9/4/2001
+	Modified 19/8/2001	Use the dialect's Boolean objects"
+	
+	^aValue = anSSWReStore sqlDialect trueObject!
+
+isPersistentBaseClass
+
+	"30/9/2001"
+
+	^true!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/4/01"
+	
+	aStream nextPutAll: anSQLDialect boolean! !
+!Boolean class categoriesFor: #instanceFromDBValue:in:!instance creation!private! !
+!Boolean class categoriesFor: #isPersistentBaseClass!public! !
+!Boolean class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Character methodsFor!
+
+writeSQLOn: aStream
+
+	"21/3/2001
+	
+	As far as SQL is concerned, a Character == a String"
+	
+	(String with: self) writeSQLOn: aStream! !
+!Character categoriesFor: #writeSQLOn:!printing!public! !
+
+!Class methodsFor!
+
+defineAs: aSymbol in: anSSWDBTable
+
+	"19/5/2001
+
+	The receiver has been specified as the kind of object held in inst var named aSymbol
+	for the class whose DB table is anSSWDBTable.
+
+	Add the receiver to anSSWDBTable returning the object created"
+
+	^anSSWDBTable define: aSymbol asInstVarHolding: self!
+
+instanceFromDBValue: aValue
+
+	"Private - 6/8/2000
+	
+	Return an instance of the receiver class that is specified by the given value.
+	Default - return aValue"
+	
+	^aValue!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 6/8/2000
+	
+	Return an instance of the receiver class that is specified by the given value/ReStore combination.
+	For persistent classes, query the ReStore for the relevant instance.
+	For other classes, defer to instanceFromDBValue: 
+	Subclasses which need knowledge of the ReStore to answer should override this method"
+	
+	^aValue isNil
+	ifTrue:
+		[nil]
+	ifFalse:
+		[(self isPersistentIn: anSSWReStore)
+			ifTrue: [anSSWReStore deferredObjectOfClass: self withID: aValue]
+			ifFalse: [self instanceFromDBValue: aValue]]!
+
+isPersistentIn: anSSWReStore
+
+	"Private - 6/8/2000"
+	
+	^anSSWReStore isClassPersistent: self!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true!
+
+odbcObject
+
+	"12/5/2001"
+
+	^self name asString!
+
+writeSQLOn: aStream
+
+	"19/8/2000
+	
+	A class is represented by its name"
+	
+	^self name asString writeSQLOn: aStream! !
+!Class categoriesFor: #defineAs:in:!accessing!public! !
+!Class categoriesFor: #instanceFromDBValue:!instance creation!private! !
+!Class categoriesFor: #instanceFromDBValue:in:!instance creation!private! !
+!Class categoriesFor: #isPersistentIn:!private!testing! !
+!Class categoriesFor: #isValidForPersistence!private!testing! !
+!Class categoriesFor: #odbcObject!accessing!public! !
+!Class categoriesFor: #writeSQLOn:!printing!public! !
+
+!Date methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true!
+
+writeSQLOn: aStream
+
+	"10/3/01
+	
+	For multi-datasource compatability, use standard ODBC date escape sequence {d'yyyy-MM-dd'}.
+	Use Windows function to do this; can be done marginally faster in pure ST (but not much)"
+
+	aStream 
+		nextPut: ${;
+		nextPut: $d;
+		nextPut: $'.
+	self printOn: aStream format: 'yyyy-MM-dd'.
+	aStream 
+		nextPut: $';
+		nextPut: $}! !
+!Date categoriesFor: #isValidForPersistence!private!testing! !
+!Date categoriesFor: #writeSQLOn:!printing!public! !
+
+!Date class methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 10/3/01
+	
+	If aValue is a timestamp, extract only the date"
+	
+	^(aValue isKindOf: TimeStamp)
+		ifTrue: [aValue date]
+		ifFalse: [aValue]!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01"
+	
+	anSQLDialect supportsDateType
+		ifTrue: [aStream nextPutAll: anSQLDialect date]
+		ifFalse: [aStream nextPutAll: anSQLDialect timestamp]! !
+!Date class categoriesFor: #instanceFromDBValue:in:!instance creation!private! !
+!Date class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!DBColAttr methodsFor!
+
+writeSQLOn: aStream
+
+	"12/5/2001"
+
+	aStream nextPutAll: self name! !
+!DBColAttr categoriesFor: #writeSQLOn:!printing!public! !
+
+!DBRow methodsFor!
+
+atField: aField
+
+	"28/9/2000"
+
+	^self atField: aField ifAbsent: [nil]
+!
+
+atField: aField ifAbsent: aBlock
+
+	"28/9/2000"
+
+	^self contents where: aField ifAbsent: 
+		["Attempt a match by name"
+		self at: aField name ifAbsent: [aBlock value]]! !
+!DBRow categoriesFor: #atField:!accessing!public! !
+!DBRow categoriesFor: #atField:ifAbsent:!accessing!public! !
+
+!False methodsFor!
+
+asInteger
+
+	"9/4/2001
+
+	For DB support"
+
+	^0!
+
+qAnd: aBlock
+
+	"For polymorphism with SQLQueries"
+
+	^self!
+
+qOr: aBlock
+
+	"For polymorphism with SQLQueries"
+
+	^aBlock value!
+
+writeSQLOn: aStream
+
+	"9/4/2001"
+
+	aStream nextPutFalse! !
+!False categoriesFor: #asInteger!converting!public! !
+!False categoriesFor: #qAnd:!public! !
+!False categoriesFor: #qOr:!public! !
+!False categoriesFor: #writeSQLOn:!converting!public! !
+
+!Float class methodsFor!
+
+writeSQLTypeOn: aStream  using: anSQLDialect
+
+	"9/3/01"
+	
+	aStream nextPutAll: anSQLDialect doubleFloat! !
+!Float class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Integer class methodsFor!
+
+writeSQLTypeOn: aStream  using: anSQLDialect
+
+	"9/3/01
+	
+	Use INT - long integer"
+	
+	aStream nextPutAll: anSQLDialect integer! !
+!Integer class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Magnitude class methodsFor!
+
+isPersistentBaseClass
+
+	"30/9/2001
+
+	NB not all subclasses are valid, but this is not important"
+
+	^true! !
+!Magnitude class categoriesFor: #isPersistentBaseClass!public! !
+
+!Metaclass class methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 19/8/2000
+	
+	Classes are represented by name"
+	
+	^Smalltalk at: aValue asSymbol ifAbsent: [self error: 'Class not in image']!
+
+isPersistentBaseClass
+
+	"30/9/2001"
+
+	^true!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01
+	
+	Classes are stored as their name.
+	Use a VARCHAR at 128 characters"
+	
+	(String maxSize: 128) writeSQLTypeOn: aStream using: anSQLDialect! !
+!Metaclass class categoriesFor: #instanceFromDBValue:in:!instance creation!private! !
+!Metaclass class categoriesFor: #isPersistentBaseClass!public! !
+!Metaclass class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Number methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true! !
+!Number categoriesFor: #isValidForPersistence!private!testing! !
+
+!Number class methodsFor!
+
+writeSQLTypeOn: aStream  using: anSQLDialect
+
+	"9/3/01
+	
+	Default to single float"
+	
+	aStream nextPutAll: anSQLDialect singleFloat! !
+!Number class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Object methodsFor!
+
+_hasChangedFrom: anObject
+
+	"20/8/2000
+	
+	Return a Boolean indicating whether the receiver has changed in state from anObject.
+	Default test - is it equal? 
+	Subclasses with other definitions of 'state' should override"
+	
+	^(self = anObject) not!
+
+_instVarAt: anInteger
+
+	"Private - 21/1/2001
+	
+	Make the receiver polymorphic with proxies"
+	
+	^self instVarAt: anInteger!
+
+_instVarAt: anInteger put: anObject
+
+	"Private - 21/1/2001
+	
+	Make the receiver polymorphic with proxies"
+	
+	^self instVarAt: anInteger put: anObject!
+
+_isKindOf: aClass
+
+	"21/3/2001
+
+	Like isKindOf: aClass, but is not passed through by proxies
+	 - for reflective methods e.g. sswFrameExecuting:in:"
+
+	<primitive: 57>!
+
+chainPerform: aCollection
+
+	"perform: each member (Symbol) of aCollection against the receiver as a chain
+	i.e. the second Symbol is perform:'d against the result of perform:ing the first, etc."
+
+	^aCollection inject: self into: [ :receiver :symbol | receiver perform: symbol]
+!
+
+dependent
+
+	"17/8/2001
+
+	Return a dependent version of the receiver"
+
+	^SSWDBDependentWrapper on: self
+
+!
+
+sswFrameExecuting: aSelector in: aClass
+
+	"21/3/2001
+
+	Return the first StackFrame (working from the top down)
+	that represents an invocation of the given selector in the given class.
+	Return nil if none"
+
+	| frame matchFrame |
+
+	frame := Processor activeProcess topFrame.
+	matchFrame := nil.
+	
+	[frame ~= nil and: [matchFrame = nil]] whileTrue:
+		[frame := frame sender.
+		"Note we ignore BlockFrames as these are not 'really' executing the message"
+		(frame ~= nil and: [frame isBlock not and: 
+			[(frame receiver _isKindOf: aClass) and: [frame method selector == aSelector]]]) ifTrue:
+				[matchFrame := frame]].
+
+	^matchFrame!
+
+stored
+
+	"Return the receiver in a StoreWrapper"
+
+	^SSWDBStoreWrapper on: self!
+
+unstored
+
+	"Return the receiver in an UnstoreWrapper"
+
+	^SSWDBUnstoreWrapper on: self! !
+!Object categoriesFor: #_hasChangedFrom:!public!testing! !
+!Object categoriesFor: #_instVarAt:!accessing!private! !
+!Object categoriesFor: #_instVarAt:put:!accessing!private! !
+!Object categoriesFor: #_isKindOf:!message sending!private! !
+!Object categoriesFor: #chainPerform:!actions!public! !
+!Object categoriesFor: #dependent!defining!private! !
+!Object categoriesFor: #sswFrameExecuting:in:!message sending!private! !
+!Object categoriesFor: #stored!actions!public! !
+!Object categoriesFor: #unstored!actions!public! !
+
+!Object class methodsFor!
+
+addClassDefinitionTo: a
+
+	^self!
+
+hasPersistentSuperclass
+
+	"18/4/2001
+	
+	Return whether the receiver has a superclass from which it inherits
+	some elements of persistence"
+
+	self shouldInheritPersistency ifFalse: [^false].
+
+	self allSuperclasses do:
+		[ :sup |
+		sup = Object ifTrue: [^false].
+		sup shouldSubclassesInheritPersistency ifFalse: [^false].
+		(sup class methodDictionary includesKey: #addClassDefinitionTo:) ifTrue: [^true]].
+		
+	^false!
+
+isPersistencyInherited
+
+	"18/4/2001
+	
+	Return whether the receiver's persistency is inherited by any subclasses"
+
+	^self subclassesInheritingPersistency isEmpty not!
+
+isPersistentBaseClass
+
+	"30/9/2001
+	
+	Return whether the receiver class is a valid persistent base class
+	 - a class which can be represented in the DB by a single field type, rather than a table.
+
+	false by default, subclasses which are so valid may override"
+
+	^false!
+
+preferredObjectProxyClass 
+
+	"1/5/2001
+
+	If the receiver needs a specific proxy class, return this else nil"
+
+	^nil!
+
+shouldInheritPersistency
+
+	"18/4/2001
+	
+	Return a Boolean indicating whether the receiver should inherit persistence
+	information defined by its superclasses.
+	
+	By default, this is governed by the superclass implementation of shouldSubclassesInheritPersistence"
+
+	^self superclass ~= nil and: [self superclass shouldSubclassesInheritPersistency]!
+
+shouldSubclassesInheritPersistency
+
+	"18/4/2001
+	
+	Return a Boolean indicating whether the receiver class' persistency 
+	should be inherited by its subclasses.
+	
+	Default - true. Can be overriden if required.
+	NB persistency-inheriting subclasses can implement shouldInheritPersistency
+	to prevent (only) persistency inheritence if this method returns true"
+
+	^true!
+
+subclassesInheritingPersistency
+
+	"18/4/2001
+	
+	Return a collection of those subclasses of the receiver class
+	which are persistent and inherit the receiver's peristency - i.e. share a table"
+
+	| inheritingPersistentSubclasses |
+
+	self shouldSubclassesInheritPersistency ifFalse: [^#()].
+	
+	inheritingPersistentSubclasses := 
+		(self subclasses select: [ :cls | cls isMeta not and: [cls shouldInheritPersistency]]) asOrderedCollection.
+	
+	inheritingPersistentSubclasses copy do: 
+		[ :cls | 
+		inheritingPersistentSubclasses addAll: cls subclassesInheritingPersistency].
+	
+	^inheritingPersistentSubclasses!
+
+tableIn: anSSWReStore
+
+	"18/4/2001
+	
+	Create and return an SSWDB(XXX)Table to represent the receiver.
+	Subclasses should *NOT* override this method;
+	instead implement addClassDefinitionTo: "
+
+	| table |
+	
+	table := self reStoreTableClass forClass: self in: anSSWReStore.
+	
+	self addClassDefinitionTo: table.
+		
+	^table!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01
+	
+	If not overriden, assume a persistent class with an Integer ID"
+	
+	Integer writeSQLTypeOn: aStream using: anSQLDialect! !
+!Object class categoriesFor: #addClassDefinitionTo:!persistency!public! !
+!Object class categoriesFor: #hasPersistentSuperclass!persistency!public! !
+!Object class categoriesFor: #isPersistencyInherited!persistency!public! !
+!Object class categoriesFor: #isPersistentBaseClass!persistency!public! !
+!Object class categoriesFor: #preferredObjectProxyClass!persistency!public! !
+!Object class categoriesFor: #shouldInheritPersistency!persistency!public! !
+!Object class categoriesFor: #shouldSubclassesInheritPersistency!persistency!public! !
+!Object class categoriesFor: #subclassesInheritingPersistency!persistency!public! !
+!Object class categoriesFor: #tableIn:!persistency!public! !
+!Object class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!ScaledDecimal methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"6/8/2000"
+
+	^aValue!
+
+writeSQLOn: aStream
+
+	"15/5/2001"
+
+	self displayOn: aStream
+! !
+!ScaledDecimal categoriesFor: #instanceFromDBValue:in:!public! !
+!ScaledDecimal categoriesFor: #writeSQLOn:!printing!public! !
+
+!ScaledDecimal class methodsFor!
+
+withPrecision: precisionInteger scale: scaleInteger 
+
+	"15/5/2001
+
+	Return an instance of an SSWDBScaledDecimalWithInfo which can represent this"
+
+	^(self withScale: scaleInteger)
+		precision: precisionInteger;
+		yourself!
+
+withScale: scaleInteger
+
+	"15/5/2001
+
+	Return an instance of an SSWDBScaledDecimalWithInfo which can represent this"
+
+	^SSWDBScaledDecimalWithInfo new
+		scale: scaleInteger;
+		yourself! !
+!ScaledDecimal class categoriesFor: #withPrecision:scale:!public!specification! !
+!ScaledDecimal class categoriesFor: #withScale:!public!specification! !
+
+!String methodsFor!
+
+asUnquotedString
+
+	"12/9/2001"
+
+	| unquoted |
+
+	unquoted := UnquotedString new: self size.
+
+	self
+		replaceBytesOf: unquoted
+		from: 1 to: self size startingAt: 1.
+
+	^unquoted!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true!
+
+orNilIfEmpty
+
+	"30/9/2001"
+
+	^self isEmpty
+		ifTrue: [nil]
+		ifFalse: [self]!
+
+writeSQLOn: aStream
+
+	"5/8/2000
+	
+	Defer to printOn: (avoid general-collection implementation)"
+	
+	^self printOn: aStream! !
+!String categoriesFor: #asUnquotedString!converting!public! !
+!String categoriesFor: #isValidForPersistence!private!testing! !
+!String categoriesFor: #orNilIfEmpty!accessing!must not strip!public! !
+!String categoriesFor: #writeSQLOn:!printing!public! !
+
+!String class methodsFor!
+
+fixedSize: anInteger
+
+	"15/4/2001
+
+	For DB support: specifies a fixed-sized String of anInteger characters"
+
+	^SSWDBFixedStringWithInfo new
+		fieldSize: anInteger;
+		yourself!
+
+isPersistentBaseClass
+
+	"30/9/2001"
+
+	^true!
+
+maxSize: anInteger
+
+	"15/4/2001
+
+	For DB support: specifies a variable-sized String with a maximum size of anInteger"
+
+	^SSWDBVariableStringWithInfo new
+		fieldSize: anInteger;
+		yourself!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01
+	
+	As this is the non-sized variant, use a reasonably-sized variable text type"
+	
+	aStream nextPutAll: anSQLDialect unsizedVarchar! !
+!String class categoriesFor: #fixedSize:!public!specification! !
+!String class categoriesFor: #isPersistentBaseClass!public! !
+!String class categoriesFor: #maxSize:!public!specification! !
+!String class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!Symbol methodsFor!
+
+sswInUnderscoreFormat
+
+	"14/8/2000
+	
+	Return a String which is the receiver in 'underscore format' (e.g. for SQL).
+	e.g. the underscore form of the symbol #dateOfBirth would be 'DATE_OF_BIRTH'		"
+	
+	| stream last |
+	
+	stream := WriteStream on: String new.
+	last := self first.
+	
+	self do:
+		[ :char |
+		(char isUppercase and: [last isUppercase not])
+			ifTrue: [stream nextPut: $_; nextPut: char]
+			ifFalse: [stream nextPut: char asUppercase].
+		last := char].
+			
+	^stream contents! !
+!Symbol categoriesFor: #sswInUnderscoreFormat!evaluating!public! !
+
+!Time methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true
+!
+
+writeSQLOn: aStream
+
+	"10/3/01
+	
+	For multi-datasource compatability, use standard ODBC date escape sequence {t 'hh:mm:ss.mmmmmm'}.
+	Use Windows functions to do this; can be done marginally faster in pure ST (but not much)"
+
+	aStream 
+		nextPutAll: '{t';
+		nextPut: $'.
+	self printOn: aStream format: 'HH:mm:ss'.
+	aStream
+		nextPut: $';
+		nextPut: $}! !
+!Time categoriesFor: #isValidForPersistence!converting!printing!public! !
+!Time categoriesFor: #writeSQLOn:!converting!printing!public! !
+
+!Time class methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 10/3/01
+	
+	If aValue is a timestamp, extract only the time"
+	
+	^(aValue isKindOf: TimeStamp)
+		ifTrue: [aValue time]
+		ifFalse: [aValue]!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01"
+	
+	anSQLDialect supportsTimeType
+		ifTrue: [aStream nextPutAll: anSQLDialect time]
+		ifFalse: [aStream nextPutAll: anSQLDialect timestamp]! !
+!Time class categoriesFor: #instanceFromDBValue:in:!instance creation!private! !
+!Time class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!TimeStamp methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true!
+
+writeSQLOn: aStream
+
+	"10/3/01
+	
+	For multi-datasource compatability, use standard ODBC date escape sequence {ts 'yyyy-MM-dd hh:mm:ss'}.
+	Use Windows functions to do this; can be done marginally faster in pure ST (but not much)"
+
+	aStream 
+		nextPutAll: '{ts';
+		nextPut: $'.
+	self date printOn: aStream format: 'yyyy-MM-dd'.
+	aStream space.
+	self time printOn: aStream format: 'HH:mm:ss'.
+	aStream
+		nextPut: $';
+		nextPut: $}! !
+!TimeStamp categoriesFor: #isValidForPersistence!converting!private!testing! !
+!TimeStamp categoriesFor: #writeSQLOn:!converting!printing!public! !
+
+!TimeStamp class methodsFor!
+
+instanceFromDBValue: aValue in: anSSWReStore
+
+	"Private - 10/3/01
+	Modified 26/7/01 - do not error on a nil value (issue#0004)"
+
+	aValue isNil ifTrue: [^nil].
+	
+	(aValue isKindOf: Date) ifTrue: [^self date: aValue].
+	(aValue isKindOf: Time) ifTrue: [^self time: aValue].
+
+	self error: 'Cannot convert this value to TimeStamp'!
+
+writeSQLTypeOn: aStream using: anSQLDialect
+
+	"9/3/01"
+	
+	aStream nextPutAll: anSQLDialect timestamp! !
+!TimeStamp class categoriesFor: #instanceFromDBValue:in:!instance creation!public! !
+!TimeStamp class categoriesFor: #writeSQLTypeOn:using:!printing!public! !
+
+!True methodsFor!
+
+asInteger
+
+	"9/4/2001
+
+	For DB support"
+
+	^1!
+
+qAnd: aBlock
+
+	"For polymorphism with SQLQueries"
+
+	^aBlock value!
+
+qOr: aBlock
+
+	"For polymorphism with SQLQueries"
+
+	^self!
+
+writeSQLOn: aStream
+
+	"9/4/2001"
+
+	aStream nextPutTrue
+! !
+!True categoriesFor: #asInteger!converting!public! !
+!True categoriesFor: #qAnd:!public! !
+!True categoriesFor: #qOr:!public! !
+!True categoriesFor: #writeSQLOn:!printing!public! !
+
+!UndefinedObject methodsFor!
+
+isValidForPersistence
+
+	"Private - 20/8/2000"
+	
+	^true!
+
+orNilIfEmpty
+
+	"30/9/2001"
+
+	^nil!
+
+storeIn: anSSWReStore
+
+	"1/9/2001	Issue#0016
+
+	Do nothing - cannot store an UndefinedObject"!
+
+unstore
+
+	"1/9/2001	Issue#0016
+
+	Do nothing - cannot store/unstore an UndefinedObject"!
+
+writeSQLOn: aStream
+
+	"5/8/2000
+	
+	In SQL, nil = NULL"
+	
+	aStream nextPutAll: 'NULL'! !
+!UndefinedObject categoriesFor: #isValidForPersistence!private!testing! !
+!UndefinedObject categoriesFor: #orNilIfEmpty!accessing!must not strip!public! !
+!UndefinedObject categoriesFor: #storeIn:!converting!public! !
+!UndefinedObject categoriesFor: #unstore!converting!public! !
+!UndefinedObject categoriesFor: #writeSQLOn:!printing!public! !
+
+"End of package definition"!
+

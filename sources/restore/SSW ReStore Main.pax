@@ -1,0 +1,395 @@
+﻿| package |
+package := Package name: 'SSW ReStore Main'.
+package paxVersion: 1;
+	basicComment: 'ReStore for Dolphin Smalltalk 
+Version 1.20
+Release Date 21/02/2003
+Copyright (c)2003 Solutions Software Limited'.
+
+
+package classNames
+	add: #SSWDBAbstractSingleTransaction;
+	add: #SSWDBCachingObjectProxy;
+	add: #SSWDBCollectionProxy;
+	add: #SSWDBDumbTransaction;
+	add: #SSWDBGeneralCollectionProxy;
+	add: #SSWDBObjectProxy;
+	add: #SSWDBOwnedCollectionProxy;
+	add: #SSWDBProxy;
+	add: #SSWDBSingleTransaction;
+	add: #SSWDBTableRecord;
+	add: #SSWDBTransaction;
+	add: #SSWDBVersionedCachingObjectProxy;
+	add: #SSWReStore;
+	yourself.
+
+package methodNames
+	add: #Object -> #_dbProxy;
+	add: #Object -> #_dbProxyElse:;
+	add: #Object -> #_ensureActiveIn:;
+	add: #Object -> #_ensurePersistentIn:;
+	add: #Object -> #_id;
+	add: #Object -> #_reStore;
+	add: #Object -> #handleUpdateClash:from:to:;
+	add: #Object -> #isDBDeleted;
+	add: #Object -> #isDBProxy;
+	add: #Object -> #isValidForPersistence;
+	add: #Object -> #odbcObject;
+	add: #Object -> #onAboutToUnstore;
+	add: #Object -> #onRollback;
+	add: #Object -> #safeHandleUpdateClash:from:to:;
+	add: #Object -> #storeIn:;
+	add: #Object -> #storeInAnsweringProxy:;
+	add: #Object -> #unstore;
+	add: #Object -> #writeSQLOn:;
+	add: #SSWDBGeneralCollectionSpec -> #collectionProxyClass;
+	add: #SSWDBOwnedCollectionSpec -> #collectionProxyClass;
+	add: #SSWDBTable -> #tableRecord;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: '..\..\..\Core\Object Arts\Dolphin\Database\Database Connection Base';
+	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'SSW ReStore Base Additions';
+	add: 'SSW ReStore Collections';
+	add: 'SSW ReStore ODBC';
+	add: 'SSW ReStore Querying';
+	add: 'SSW ReStore SQL Entities';
+	add: 'SSW ReStore SQL Queries';
+	add: 'SSW ReStore Tables';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+nil subclass: #SSWDBProxy
+	instanceVariableNames: 'proxiedObject reStore'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBTableRecord
+	instanceVariableNames: 'tableName fullTableName nextID cachedIDs'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWDBTransaction
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SSWReStore
+	instanceVariableNames: 'connection sqlDialect tableCache nextIDCache statementCache proxyCache transactionClass transaction objectProxyClass dbTableNames transactionMutex supportsFullTableRecords'
+	classVariableNames: ''
+	poolDictionaries: 'ODBCConstants'
+	classInstanceVariableNames: 'activeReStores'!
+SSWDBTransaction subclass: #SSWDBAbstractSingleTransaction
+	instanceVariableNames: 'allReferencedObjects currentReferencedObjects changedObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBAbstractSingleTransaction subclass: #SSWDBDumbTransaction
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBAbstractSingleTransaction subclass: #SSWDBSingleTransaction
+	instanceVariableNames: 'proxyCommitFailures'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBProxy subclass: #SSWDBCollectionProxy
+	instanceVariableNames: 'collectionSpec owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBProxy subclass: #SSWDBObjectProxy
+	instanceVariableNames: 'class id collectionProxies'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionProxy subclass: #SSWDBGeneralCollectionProxy
+	instanceVariableNames: 'collectionEntries changes isDeleted'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCollectionProxy subclass: #SSWDBOwnedCollectionProxy
+	instanceVariableNames: 'copyCollection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBObjectProxy subclass: #SSWDBCachingObjectProxy
+	instanceVariableNames: 'copyObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SSWDBCachingObjectProxy subclass: #SSWDBVersionedCachingObjectProxy
+	instanceVariableNames: 'version'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Object methodsFor!
+
+_dbProxy
+
+	"Created 16/4/2001
+	
+	Attempt to locate the SSWDBObjectProxy wrapping this object.
+	Error if none can be found (i.e. the receiver is not persistent)"
+	
+	^self _dbProxyElse: [self error: 'Cannot locate ReStore proxy']!
+
+_dbProxyElse: aBlock
+
+	"5/8/2001
+	
+	Attempt to locate the SSWDBObjectProxy wrapping this object.
+	Return the value of aBlock if none can be found (i.e. the receiver is not persistent)"
+	
+	^SSWReStore proxyForObject: self ifNone: aBlock!
+
+_ensureActiveIn: anSSWReStore
+
+	"Created 1/10/2001
+	
+	Ensure that the receiver is 'active' in the given ReStore 
+	'active' means persistent in anSSWReStore, and present in the current transaction.
+
+	If this message is received by a real object it is either not persistent, or persistent and active.
+	Hence - only need to ensure persistence"
+	
+	self _ensurePersistentIn: anSSWReStore!
+
+_ensurePersistentIn: anSSWReStore
+
+	"Created 1/10/2001
+	
+	Ensure that the receiver is persistent in the given ReStore"
+
+	self isValidForPersistence ifFalse:
+		[anSSWReStore locateProxyForObject: self ifNone: [self storeIn: anSSWReStore]]!
+
+_id
+
+	"16/4/2001
+	
+	Return the receiver's unique ID - assume the receiver is a valid persistent object"
+	
+	^self _dbProxy _id!
+
+_reStore
+
+	"16/4/2001
+	
+	Attempt to locate the SSWReStore in which the receiver resides.
+	Return nil if none can be found (i.e. the receiver is not persistent)"
+
+	^SSWReStore reStoreForObject: self ifNone: [nil]!
+
+handleUpdateClash: aSymbol from: oldVersion to: newVersion
+
+	"16/5/2001
+
+	A change in the receiver to the instance variable named aSymbol 
+	has clashed with a change made in the database.
+	oldVersion is a copy of the receiver as it was prior to its current updates.
+	newVersion is a copy of the receiver as it currently is in the database.
+	Analyse changes between the three versions (old, self and new)
+	and attempt to bring the receiver up to date with newVersion,
+	whilst maintaining changes from oldVersion.
+
+	Return true if the receiver was able to resolve the conflict, false otherwise.
+	Default - just return false
+
+	Note that, in order to avoid disrupting the transaction commit mechanism,
+	this method is always called the error-trapped safeHandleUpdateClash:...
+	and so will never cause a walkback - a notification will be logged however"
+
+	^false!
+
+isDBDeleted
+
+	"23/4/2001"
+	
+	^false!
+
+isDBProxy
+
+	"14/8/2000
+
+	Differentiate between proxys and actual objects"
+
+	^false!
+
+isValidForPersistence
+
+	"Private - 20/8/2000
+	
+	Return a Boolean indicating whether the receiver is a valid object for persistency storage.
+	Default - false.	Overriden by base classes which are so valid."
+	
+	^false!
+
+odbcObject
+
+	"Created 5/8/2000
+	Modified 24/7/2001	enable persistent objects in query blocks (issue#0002)
+
+	Return an object to use to represent the receiver for ODBC purposes.
+	Default - use the receiver, or unique ID if not directly valid for persistence.
+	May be overriden where requirements differ"
+	
+	^self isValidForPersistence ifTrue: [self] ifFalse: [self _id]!
+
+onAboutToUnstore
+
+	"16/5/2001
+
+	The receiver is about to be unstored from its ReStore container.
+	Carry out any necessary actions"!
+
+onRollback
+
+	"25/4/2002
+
+	Carry out any actions necessary following rolling back this object to its state prior to the current transaction.
+	Default - do nothing"
+!
+
+safeHandleUpdateClash: aSymbol from: oldVersion to: newVersion
+
+	"16/5/2001
+
+	Error-trapped entrypoint for handleUpdateClash:from:to:
+	Trap any error during the clash resolution and re-raise as a notification"
+
+	| result |
+
+	result := 
+		[self handleUpdateClash: aSymbol from: oldVersion to: newVersion]
+			on:	Error
+			do:	[ :exc | 
+				exc resignalAs: 
+					(Notification new messageText: 
+						('Error: ', exc description, 
+						' signalled during #handleUpdateClash:from:to: for ',
+						([self debugPrintString] 
+							on: Error do: [:e | 'an invalid ', self basicClass name])))].
+
+	^result = true!
+
+storeIn: anSSWReStore
+
+	"19/8/2000
+	
+	Store the receiver object as a new persistent object in anSSWReStore.
+	Return the receiver"
+	
+	| proxy |
+
+	proxy := anSSWReStore createProxyForNewObject: self.
+
+	"Add the new proxy to the current transaction"
+	proxy _referenced.
+
+	^self!
+
+storeInAnsweringProxy: anSSWReStore
+
+	"Private - 19/8/2000
+	
+	Store the receiver object as a new persistent object in anSSWReStore.
+	Return the new proxy (intended for privileged code only)"
+	
+	| proxy |
+
+	proxy := anSSWReStore createProxyForNewObject: self.
+
+	proxy _referenced.
+
+	^proxy!
+
+unstore
+
+	"Created 19/8/2000
+	Modified: 5/9/2001	Use _dbProxyElse: to prevent error if not persistent (issue#0016)
+	
+	Forward to the proxy"
+
+	| proxy |
+
+	proxy := self _dbProxyElse: [nil].
+	proxy isNil ifFalse: [proxy _unstore]!
+
+writeSQLOn: aStream
+
+	"Created 5/8/2000
+	Modified 24/7/2001	enable persistent objects in query blocks (issue#0002)
+	
+	Defer to printOn: by default; if not directly valid for persistence assume a general persistent object"
+	
+	^self isValidForPersistence 
+		ifTrue: [self printOn: aStream] 
+		ifFalse: [self _id printOn: aStream]! !
+!Object categoriesFor: #_dbProxy!accessing!private! !
+!Object categoriesFor: #_dbProxyElse:!accessing!private! !
+!Object categoriesFor: #_ensureActiveIn:!accessing!private! !
+!Object categoriesFor: #_ensurePersistentIn:!accessing!private! !
+!Object categoriesFor: #_id!accessing!private! !
+!Object categoriesFor: #_reStore!accessing!private! !
+!Object categoriesFor: #handleUpdateClash:from:to:!actions!public! !
+!Object categoriesFor: #isDBDeleted!public!testing! !
+!Object categoriesFor: #isDBProxy!private!testing! !
+!Object categoriesFor: #isValidForPersistence!private!testing! !
+!Object categoriesFor: #odbcObject!converting!public! !
+!Object categoriesFor: #onAboutToUnstore!events!private! !
+!Object categoriesFor: #onRollback!actions!public! !
+!Object categoriesFor: #safeHandleUpdateClash:from:to:!actions!public! !
+!Object categoriesFor: #storeIn:!actions!public! !
+!Object categoriesFor: #storeInAnsweringProxy:!actions!private! !
+!Object categoriesFor: #unstore!actions!public! !
+!Object categoriesFor: #writeSQLOn:!printing!public! !
+
+!SSWDBGeneralCollectionSpec methodsFor!
+
+collectionProxyClass
+
+	"22/1/2001"
+	
+	^SSWDBGeneralCollectionProxy! !
+!SSWDBGeneralCollectionSpec categoriesFor: #collectionProxyClass!constants!public! !
+
+!SSWDBOwnedCollectionSpec methodsFor!
+
+collectionProxyClass
+
+	"21/1/2001"
+	
+	^SSWDBOwnedCollectionProxy! !
+!SSWDBOwnedCollectionSpec categoriesFor: #collectionProxyClass!constants!public! !
+
+!SSWDBTable methodsFor!
+
+tableRecord
+
+	^SSWDBTableRecord new
+		tableName: self name; 
+		fullTableName: self fullName;
+		nextID: 1;
+		yourself! !
+!SSWDBTable categoriesFor: #tableRecord!evaluating!public! !
+
+"End of package definition"!
+
