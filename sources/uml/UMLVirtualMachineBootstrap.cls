@@ -11,27 +11,30 @@ UMLVirtualMachineBootstrap comment: ''!
 !UMLVirtualMachineBootstrap methodsFor!
 
 createVirtualMachineFrom: xmlSource
+	"The receiver create <anUMLVirtualMachine> from the source code <xmlSource>"
 
 	xmlDocument := IXMLDOMDocument new.
 	xmlDocument loadText: xmlSource.
 
-	traits := self generateVirtualMachineTraits.
+	traits := self generateVirtualMachineTraits. "generate initial Traits of the VM contained in <xmlSource>"
 
-	self generateVirtualMachinePackages.
+	self generateVirtualMachinePackages. "generate initial VM packages contained in <xmlSource>"
 
-	self setSuperclassesAndSubclasses. 
+	self setSuperclassesAndSubclasses. "link classes with it's subclasses - before this all classes were generated without hierarchy"
 	
-	self setTraitsToPackages.
-	self setTraitsToClasses.
-	self setSmalltalkClasses.
+	self setTraitsToPackages. "add default Traits to VM Packages"
+	self setTraitsToClasses. "add default Traits to VM Classes"
+	self setSmalltalkClasses. "all U-Fabrik classes has been created but not related to Smalltalk underline classes"
 
 	^self generateVirtualMachine!
 
 createVirtualMachineFromVersion1
+	"The receiver generate a new <UMLVirtualMachine> using the code of Version 1 VM"
 
 	^self createVirtualMachineFrom: self class virtualMachineV1Code!
 
 fileInFromXml: pathFile
+	"The receiver create a new Virtual Machine contained in XML file <pathFile>"
 	| stream xmlSource |
 
 	superclassesDictionary := Dictionary new.
@@ -42,33 +45,38 @@ fileInFromXml: pathFile
 	^self createVirtualMachineFrom: xmlSource!
 
 generateVirtualMachine
+	"The receiver generate the <UMLVirtualMachine> by:
+	1- Adding generated U-Fabrik classes to the Virtual Machine.
+	2- Adding generated U-Fabrik packages to the Virtual Machine.
+	3- Setting default primitive objects of the Virtual Machine (true, false, nil)."
 
-	self getAllClasses do: [:each | virtualMachine addUMLMetaclass: each].
+	self getAllClasses do: [:each | virtualMachine addUMLMetaclass: each]. "add generate classes to the VM"
 
-	virtualMachine packages: packages;
-		transLog: UMLVMTransLog new;
-		isInstanceBehaviorAvailable: true.
+	virtualMachine packages: packages; "add generated packages to the VM"
+		transLog: UMLVMTransLog new; "set the current trans log to the VM"
+		isInstanceBehaviorAvailable: true. "set if <UMLInstance>s can have behavior"
 
-	self setPrimitiveObjects.
+	self setPrimitiveObjects. "set primitive objects of the VM (true, false, nil)"
 
 	^virtualMachine
 	!
 
 generateVirtualMachineAndSetAsDefault
+	"The receiver generate a new Virtual Machine and set it as the default Virtual Machine in U-Fabrik environment"
 
 	self generateVirtualMachine.
 
 	UMLVirtualMachine setDefault: virtualMachine.!
 
 generateVirtualMachinePackages
+	"The receiver generate the Virtual Machine default Packages"
 	| packagesNodes umlMetaclasses |
 
 	packages := OrderedCollection new.
 	umlMetaclasses := Dictionary new.
 	packagesNodes := (xmlDocument selectNodes: 'VM/Packages') asArray last childNodes.
 
-	 packagesNodes  do: [:eachPackage | | packName classesNodes metaclassesNodes package umlClasses |
-		umlClasses := Dictionary new.
+	 packagesNodes  do: [:eachPackage | | packName classesNodes metaclassesNodes package |
 		packName := (eachPackage selectSingleNode: 'VMPackageNamed') innerXML.
 		package := UMLVirtualMachinePackage new name: packName.
 		metaclassesNodes := (eachPackage selectSingleNode: 'Metaclasses') childNodes asArray.
@@ -112,6 +120,7 @@ generateVirtualMachinePackages
 	^packages!
 
 generateVirtualMachineTraits
+	"The receiver generate the Virtual Machine default Traits"
 	| traitNodes |
 
 	traits := Dictionary new.
@@ -121,8 +130,7 @@ generateVirtualMachineTraits
 		traitName := (eachTrait selectSingleNode: 'TraitNamed') innerXML.
 		trait := UMLTrait new name: traitName.
 		implementationsNodes := (eachTrait selectNodes: 'Implementation') asArray.
-		implementationsNodes do: [:impNode | | methodName source implementation parsedSource |
-			"methodName := impNode selectSingleNode: 'TraitMethodNamed'."
+		implementationsNodes do: [:impNode | | source implementation parsedSource |
 			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3.
 			parsedSource := SmalltalkParser  parseMethod: source.
 			implementation := (UMLTraitMethod newNamed: parsedSource selector) parsedCode: parsedSource. 
@@ -288,16 +296,7 @@ setTraitsToClasses
 
 	collectionObject subclasses do: [:each | each addTrait: collectionTrait].
 	fileObject subclasses do: [:each | each addTrait: externalFileTrait].	
-	(self getUMLClassNamed: 'MSOffice') subclasses do: [:each | each addTrait: externalFileTrait].	
-
-"
-	#('Collection' 'ExternalFile' 'Blob' 'Date' 'Number' 'String' 'Time' 'TimeStamp' 'View' 'Block' 'Boolean' 'Error' 'MessageBox' 'ParsedMethod' 'TreeModel' 'UndefinedObject' 'VMClassBehavior' 'EditableObject' 'WebApplication' 'WebElement') do: [:each | 
-		| itemClass itemMetaclass |
-		itemClass := self getUMLClassNamed: each.
-		itemMetaclass := self getUMLMetaclassNamed: each.
-		objectClass addSubclass: itemClass.
-		objectMetaclass addSubclass: itemMetaclass.
-	]."!
+	(self getUMLClassNamed: 'MSOffice') subclasses do: [:each | each addTrait: externalFileTrait].	!
 
 setTraitsToPackages
 	| collectionPack filePack collectionTrait externalFileTrait |
