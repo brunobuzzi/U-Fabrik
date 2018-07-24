@@ -1043,9 +1043,9 @@ processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
 
-	debugger := ((debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]) 
-				ifFalse: [(UMLDebuggerShell showOn: debuggerSnapshot)] 
-				ifTrue: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+	debugger := UMLDebuggerShell showOn: debuggerSnapshot.
+	((debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]) ifTrue: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+	debugger view caption: (debugger view caption, ': HALT').
 
 	debuggerSnapshot allSnapshots reverse do: [:each | debugger addSnapshot: each].
 
@@ -1057,7 +1057,7 @@ processPrimitiveCall_501: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	"Different of primitive 500 because the node that prompt the debuger (the DNU) is selected but not executed.
 	In primitive 500 we select the next node to <halt> node.
 	In this primitive 501 we select the DNU node"
-	| debuggerSnapshot dnuNode executedNodes index |
+	| debuggerSnapshot debugger dnuNode executedNodes index |
 
 "	debuggerSnapshot := aBoolean 
 		ifTrue: [UMLScriptDebugerSnapshot snapshot: anUMLExecutionSnapshot sequence: anUMLExecutionSnapshot sequence] 
@@ -1078,9 +1078,9 @@ processPrimitiveCall_501: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	debuggerSnapshot currentMainNode: debuggerSnapshot nodesToExecute first.
 	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
 
-	(index = 1)
-	ifTrue: [UMLDebuggerShell showOn: debuggerSnapshot]
-	ifFalse: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+	debugger := UMLDebuggerShell showOn: debuggerSnapshot.
+	(index = 1) ifFalse: [debugger setLastAnnotatedResult].
+	debugger view caption: (debugger view caption, ': DNU: ', anUMLInstance className, '.', dnuNode selector).
 
 	^anUMLInstance!
 

@@ -220,7 +220,7 @@ detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 
 	allExecutedImplementations := OrderedCollection new.
 	anUMLExecutionSnapshot allSnapshots do: [:each | "we care only about #initialize methods of UML Model classes"
-		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object'] ] ) ].
+		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object']] ) ].
 
 	"aSet does not allow duplicated objects --> if size is different then two #initialize"
 	hasLoop := (allExecutedImplementations size > 1) and: [allExecutedImplementations asSet size ~= allExecutedImplementations size].

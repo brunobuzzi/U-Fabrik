@@ -43,7 +43,12 @@ nodes
 
 printSnapshotName
 
-	^self implementation className, '.', self implementation name!
+	(self implementation isKindOf: StProgramNode) ifTrue: [^''].
+
+	(self implementation className = self receiverObject className)
+	ifTrue: [^self receiverObject className, '.', self implementation name].
+
+	^'(', self implementation className, ')', self receiverObject className, '.', self implementation name!
 
 sequenceArguments
 	^mainSnapshot sequenceArguments !
