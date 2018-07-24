@@ -227,6 +227,9 @@ detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 
 	anUMLExecutionSnapshot hasInfiniteLoop: hasLoop.
 
+	"curtail the execution. If not ---> remaining <StProgramNode>s of current <UMLImplementation> will be processed by the VM (and we want to quit now)"
+	hasLoop ifTrue: [anUMLExecutionSnapshot isCurtailed: true].  
+
 	^hasLoop!
 
 dictionaryClass
@@ -912,7 +915,10 @@ openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject
 
 	debugger := self defaultDebuggerShell show. 
 	debugger addAllSnapshots: (loopSnapshot allSnapshots collect: [:each | each asDebuggerSnapshot]);
-		model: loopSnapshot asDebuggerSnapshot.
+		model: loopSnapshot asDebuggerSnapshot;
+		selectLastStackItem.
+
+	debugger view caption: (debugger view caption, ': Infinite Loop Detected !!!!!!').
  
 	^anUMLObject!
 

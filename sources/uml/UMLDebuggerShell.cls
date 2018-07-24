@@ -59,6 +59,10 @@ selectedObject
 selectImplementation: anUMLParsedImplementation 
 !
 
+selectLastStackItem
+
+	debugerComposite selectLastStackItem!
+
 setLastAnnotatedResult
 
 	debugerComposite setLastAnnotatedResult!
@@ -79,6 +83,7 @@ setScriptSnapshot: anUMLScriptExecutionSnapshot
 !UMLDebuggerShell categoriesFor: #selectedClass!public! !
 !UMLDebuggerShell categoriesFor: #selectedObject!public! !
 !UMLDebuggerShell categoriesFor: #selectImplementation:!public! !
+!UMLDebuggerShell categoriesFor: #selectLastStackItem!public! !
 !UMLDebuggerShell categoriesFor: #setLastAnnotatedResult!public! !
 !UMLDebuggerShell categoriesFor: #setScriptSnapshot:!public! !
 

@@ -153,6 +153,12 @@ selectFirstNodeText
 	ifNil: [self selectNode: stackPresenter selection getNextNode] 
 	ifNotNil: [:value | self selectNode: value]!
 
+selectLastStackItem
+
+	stackPresenter model isEmpty ifTrue: [^self].
+
+	stackPresenter selection: stackPresenter model last ifAbsent: []!
+
 selectNode: aStProgramNode
 	"The debugger select <aStProgramNode> text in the source presenter. 
 	But if is an Implementation Snapshot the <nodes> with the real position are in the implementation NOT in the <nodesToExecute> of the Debugger Snapshot"
@@ -285,6 +291,7 @@ stepOver
 !UMLDebugerComposite categoriesFor: #selectedClass!public! !
 !UMLDebugerComposite categoriesFor: #selectedObject!public! !
 !UMLDebugerComposite categoriesFor: #selectFirstNodeText!public!selecting nodes! !
+!UMLDebugerComposite categoriesFor: #selectLastStackItem!public! !
 !UMLDebugerComposite categoriesFor: #selectNode:!debug!public!selecting nodes! !
 !UMLDebugerComposite categoriesFor: #setLastAnnotatedResult!public! !
 !UMLDebugerComposite categoriesFor: #setScriptSnapshot:!public! !
