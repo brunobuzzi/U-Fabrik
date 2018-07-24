@@ -238,6 +238,12 @@ parentSnapshot
 parentSnapshot: anObject
 	parentSnapshot := anObject!
 
+printOn: target
+
+	super printOn: target.
+
+	target nextPutAll: '[',self printSnapshotName, ']'!
+
 printSnapshotName
 	self subclassResponsibility!
 
@@ -304,7 +310,7 @@ stepIntoMessageNode: aStMessageNode receiver: anUMLObject
 	arguments := mainSnapshot getArgumentsFrom: aStMessageNode. "we get the message arguments"
 
 	newExecutionSnapshot := UMLImplementationExecutionSnapshot "we create the regular UMLExecutionSnapshot"
-							activateSnaphotWith: implementation 
+							activateSnapshotWith: implementation 
 							receiver: anUMLObject 
 							arguments: arguments 
 							virtualMachine: self defaultVirtualMachine.
@@ -428,6 +434,7 @@ temporaries
 !UMLDebugerSnapshot categoriesFor: #nodesToExecute!public! !
 !UMLDebugerSnapshot categoriesFor: #parentSnapshot!accessing!private! !
 !UMLDebugerSnapshot categoriesFor: #parentSnapshot:!accessing!private! !
+!UMLDebugerSnapshot categoriesFor: #printOn:!public! !
 !UMLDebugerSnapshot categoriesFor: #printSnapshotName!public! !
 !UMLDebugerSnapshot categoriesFor: #receiverObject!public! !
 !UMLDebugerSnapshot categoriesFor: #removeCurrentIterationNode!public! !
