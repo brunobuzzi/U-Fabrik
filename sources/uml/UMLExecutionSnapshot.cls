@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLExecutionSnapshot
-	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries'
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -182,7 +182,8 @@ initialize
 	hasDNU := false.
 	hasOnErrorDo := false.
 	executedNodes := OrderedCollection new.
-	cascadeTemporaries := LookupTable new.!
+	cascadeTemporaries := LookupTable new.
+	executedImplementations := OrderedCollection new.!
 
 isCurtailed
 	^isCurtailed!
@@ -406,6 +407,12 @@ receiverObject
 
 	^self subclassResponsibility!
 
+registerImplemenation: anUMLImplementation
+	"The receiver register the execution of the implementation <anUMLImplementation>.
+	Used to detect infinite loops"
+
+	^executedImplementations add: anUMLImplementation!
+
 removeTemporaryNamed: aName
 
 	^temporaries removeKey: aName!
@@ -522,6 +529,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #processSelfVarible:receiver:!public! !
 !UMLExecutionSnapshot categoriesFor: #processSimpleAssingment:messageReceiver:arguments:!processesing!public! !
 !UMLExecutionSnapshot categoriesFor: #receiverObject!private!processesing! !
+!UMLExecutionSnapshot categoriesFor: #registerImplemenation:!public! !
 !UMLExecutionSnapshot categoriesFor: #removeTemporaryNamed:!public! !
 !UMLExecutionSnapshot categoriesFor: #send:to:withAll:parentSnapshot:!public! !
 !UMLExecutionSnapshot categoriesFor: #sequence!accessing!private! !

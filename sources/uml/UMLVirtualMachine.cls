@@ -915,7 +915,7 @@ processPrimitiveCall: primitiveNumber receiver: anUMLInstance withArguments: anA
 	(self class canUnderstand: primitiveSelector) ifFalse: [UMLPrimitiveNotFound signal: 'Primitive <', primitiveNumber printString, '> not found.' ].
 
 	^[self perform: primitiveSelector withArguments: (Array with: anUMLInstance with: anArray with: anUMLExecutionSnapshot)] 
-		on: Error 
+		on: Error, StackOverflow
 		do: [:ex | (MessageBox confirm: ('[', ex description, '].', String lineDelimiter,'Primitive call has failed do you want to open a Smalltalk debugger ?')) 
 				ifTrue: [ex signal] 
 				ifFalse: [self nilObject] ]
@@ -945,7 +945,7 @@ processPrimitiveCall_102: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	"The -1- Primitive get the #smalltalkObject from <anUMLInstance> and perform a Dolphin Smalltalk direct operation using the selector of <anUMLExecutionSnapshot>"
 	"1- Get the Smalltalk Object from <anUMLInstance> UML Objects
 	2- Perform the selector of <anUMLExecutionSnapshot> for these Smalltalk Objects with elements of Array being UMLInstances"
-	"Mixed Promitive"
+	"Mixed Primitive"
 
 	^anUMLInstance smalltalkObject perform: anUMLExecutionSnapshot selector withArguments: anArray
 	!
@@ -2001,7 +2001,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	^self send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExecutionSnapshot isSuperSend: false isTrait: false!
 
 send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExecutionSnapshot isSuperSend: superBoolean isTrait: traitBoolean
-	" The Virtual Machine performs the implementation <UMLImplementation> named <symbolMessage> of the receiver <anUMLObject> with arguments array <parameters>.In order to do this:
+	" The Virtual Machine performs the implementation <implementation> <anUMLImplementation> named <symbolMessage> of the receiver <anUMLObject> with arguments array <parameters>.In order to do this:
 			1. The Virtual Machine obtain the class of <anUMLObject>.
 			2. The Virtual Machine dynamically lookup the UMLClass using <symbolMessage> to obtain the UMLImplementation.
 			3. The Virtual Machine performs the <implementation> against <anUMLObject> with arguments <parameters>."
@@ -2011,8 +2011,11 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 								ifTrue: [anUMLExecutionSnapshot sequence methodClass umlSuperclass] 
 								ifFalse: [anUMLObject getFetchMethodsMetaclass])]
 						ifTrue: [anUMLObject getMetaclass].
+	"implementation lookup"
+	implementation := self fetchMethodNamed: symbolMessage for: targetObject.	
+	"used to detect inifinite loops in #initialize method (see issue #32)"
+	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation]].
 
-	implementation := self fetchMethodNamed: symbolMessage for: targetObject.	"implementation lookup"
 	implementation == self nilObjectClass 
 	ifTrue: [((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
 		ifTrue: [ (symbolMessage includes: $:) 
