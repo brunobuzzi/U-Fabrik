@@ -87,7 +87,7 @@ printOn: aStream
 
 	aStream
 		nextPut: $<;
-		nextPutAll: methodName printString;
+		nextPutAll: self className , '.', methodName printString;
 		nextPut: $>.!
 
 temporaries
