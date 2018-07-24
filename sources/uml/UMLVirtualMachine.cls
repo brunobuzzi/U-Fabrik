@@ -98,7 +98,9 @@ apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: anUML
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
 	| snapShot | 
 
-	snapShot := UMLImplementationExecutionSnapshot activateSnaphotWith: anUMLImplementation receiver: anUMLObject arguments: arguments virtualMachine: self. "the vm creates the Execution Snapshot for the Implementation and involved objects"
+	(anUMLExecutionSnapshot notNil and:[anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject].
+
+	snapShot := UMLImplementationExecutionSnapshot activateSnapshotWith: anUMLImplementation receiver: anUMLObject arguments: arguments virtualMachine: self. "the vm creates the Execution Snapshot for the Implementation and involved objects"
 	snapShot parentSnapshot: anUMLExecutionSnapshot.
 	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapShot!
 
@@ -217,7 +219,8 @@ detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 	| allExecutedImplementations hasLoop |
 
 	allExecutedImplementations := OrderedCollection new.
-	anUMLExecutionSnapshot allSnapshots do: [:each | allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | eachImp methodName = #initialize] ) ].
+	anUMLExecutionSnapshot allSnapshots do: [:each | "we care only about #initialize methods of UML Model classes"
+		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object'] ] ) ].
 
 	"aSet does not allow duplicated objects --> if size is different then two #initialize"
 	hasLoop := (allExecutedImplementations size > 1) and: [allExecutedImplementations asSet size ~= allExecutedImplementations size].
@@ -899,6 +902,19 @@ numbers: anObject
 objectClass
 
 	^self virtualMachineClassNamed: 'Object'!
+
+openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject
+	| loopSnapshot debugger |
+
+	loopSnapshot := anUMLExecutionSnapshot allSnapshots reverse detect: [:each | each selector = #initialize] ifNone: [anUMLExecutionSnapshot]. 
+
+	"self defaultDebuggerShell showOn: (UMLImplementationDebugerSnapshot snapshot:  loopSnapshot). "
+
+	debugger := self defaultDebuggerShell show. 
+	debugger addAllSnapshots: (loopSnapshot allSnapshots collect: [:each | each asDebuggerSnapshot]);
+		model: loopSnapshot asDebuggerSnapshot.
+ 
+	^anUMLObject!
 
 orderedCollectionClass
 
@@ -2034,8 +2050,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait 
 		ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation.
 			(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) 
-			ifTrue: [self defaultDebuggerShell showOn: (UMLImplementationDebugerSnapshot snapshot:  anUMLExecutionSnapshot). 
-				^anUMLObject].
+			ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
 		].
 	].
 	implementation == self nilObjectClass 
@@ -2298,7 +2313,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #allTraits!public! !
 !UMLVirtualMachine categoriesFor: #allUMLImplementations!public!uml msg tracking! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #apply:to:with:parentSnapshot:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #apply:to:with:parentSnapshot:!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #arrayClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #avoidClassNameClashingFor:!public!uml models install!xmi-model!xmi-others! !
@@ -2314,7 +2329,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #cretateGettersAndSettersImplementationsFor:inClass:!public! !
 !UMLVirtualMachine categoriesFor: #dateClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #depurateObjectClass!initializing!public! !
-!UMLVirtualMachine categoriesFor: #detectInitializeInfiniteLoopIn:!double dispatch!message dispatching!message dispatching core!public!vm core! !
+!UMLVirtualMachine categoriesFor: #detectInitializeInfiniteLoopIn:!infinite loop!public! !
 !UMLVirtualMachine categoriesFor: #dictionaryClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorClass!primitive objects!private! !
@@ -2391,6 +2406,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #numbers!accessing!private! !
 !UMLVirtualMachine categoriesFor: #numbers:!accessing!private! !
 !UMLVirtualMachine categoriesFor: #objectClass!primitive objects!private! !
+!UMLVirtualMachine categoriesFor: #openInfiniteLoopDebuggerFor:answer:!infinite loop!public! !
 !UMLVirtualMachine categoriesFor: #orderedCollectionClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #packages!accessing!private! !
 !UMLVirtualMachine categoriesFor: #packages:!accessing!private! !

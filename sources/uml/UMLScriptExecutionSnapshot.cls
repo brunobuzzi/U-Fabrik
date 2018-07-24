@@ -28,6 +28,10 @@ activateSnaphotWith: anUMLSequenceNode virtualMachine: anUMLVirtualMachine
 
 	"self getUndefinedTemporaries do: [:each | sequenceTemporaries at: each put: virtualMachine nilObject]."!
 
+asDebuggerSnapshot
+
+	^UMLScriptDebugerSnapshot snapshot: self sequence: sequence!
+
 getObjectNamed: aSymbol
 	"Answer anObject for the name <aString>.1- receiver's variables 2- implementation arguments 3- implementation temporaries 4- globals"
 
@@ -110,10 +114,15 @@ receiverObject
 
 	^temporaries at: 'self' "used for Inspector where the -self object- is forced into temporaries"!
 
+selector
+
+	^nil!
+
 sequenceArguments
 	^LookupTable new! !
 !UMLScriptExecutionSnapshot categoriesFor: #activateSnaphotWith:!public!smalltalk parser! !
 !UMLScriptExecutionSnapshot categoriesFor: #activateSnaphotWith:virtualMachine:!public!smalltalk parser! !
+!UMLScriptExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getUndefinedTemporaries!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #includesSelfObject!public! !
@@ -126,6 +135,7 @@ sequenceArguments
 !UMLScriptExecutionSnapshot categoriesFor: #processBlockAssignment:messageReceiver:arguments:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #processSimpleAssingment:messageReceiver:arguments:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #receiverObject!private!processesing! !
+!UMLScriptExecutionSnapshot categoriesFor: #selector!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #sequenceArguments!public! !
 
 !UMLScriptExecutionSnapshot class methodsFor!

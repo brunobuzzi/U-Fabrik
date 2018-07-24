@@ -32,6 +32,10 @@ addObject: anUMLObject named: name
 
 	^self assignObject: anUMLObject toTemporary: name.!
 
+asDebuggerSnapshot
+
+	^UMLImplementationDebugerSnapshot snapshot: self!
+
 assignObject: anUMLObject toInstanceVariable: aSymbol
 
 	^sequenceReceiver atVariableName: aSymbol put: anUMLObject!
@@ -145,6 +149,7 @@ sequenceReceiver: anUMLObject
 	receiverInstanceVariables := anUMLObject instancesVariables.! !
 !UMLImplementationExecutionSnapshot categoriesFor: #activateSnapshotWith:receiver:arguments:virtualMachine:!public!smalltalk parser! !
 !UMLImplementationExecutionSnapshot categoriesFor: #addObject:named:!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #assignObject:toInstanceVariable:!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #hasReceiver!public! !

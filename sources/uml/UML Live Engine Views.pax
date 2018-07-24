@@ -1059,9 +1059,11 @@ processPrimitiveCall_501: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	In this primitive 501 we select the DNU node"
 	| debuggerSnapshot dnuNode executedNodes index |
 
-	debuggerSnapshot := aBoolean 
+"	debuggerSnapshot := aBoolean 
 		ifTrue: [UMLScriptDebugerSnapshot snapshot: anUMLExecutionSnapshot sequence: anUMLExecutionSnapshot sequence] 
-		ifFalse: [UMLImplementationDebugerSnapshot snapshot: anUMLExecutionSnapshot].
+		ifFalse: [UMLImplementationDebugerSnapshot snapshot: anUMLExecutionSnapshot]. "
+
+	debuggerSnapshot := anUMLExecutionSnapshot asDebuggerSnapshot.
 
 	dnuNode := anArray last.
 
@@ -1089,7 +1091,7 @@ resourceIdentifierFor: anUMLObject
 show
 	"^UMLVirtualMachineSystemBrowserShell showOn: self"
 	^UMLVirtualMachineShell showOn: self! !
-!UMLVirtualMachine categoriesFor: #defaultDebuggerShell!message dispatching core!public! !
+!UMLVirtualMachine categoriesFor: #defaultDebuggerShell!infinite loop!public! !
 !UMLVirtualMachine categoriesFor: #errorImplementation:notFoundFor:in:isSuperSend:!debug!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_500:withArguments:snapshot:!debug!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_501:withArguments:snapshot:isScript:!debug!primitive processing!public! !

@@ -10,6 +10,10 @@ UMLDebuggerShell comment: ''!
 !UMLDebuggerShell categoriesForClass!Unclassified! !
 !UMLDebuggerShell methodsFor!
 
+addAllSnapshots: aCollection
+
+	aCollection do: [:debugerSnapshot | debugerComposite addSnapshot: debugerSnapshot]!
+
 addSnapshot: aUMLImplementationDebugerSnapshot
 
 	debugerComposite addSnapshot: aUMLImplementationDebugerSnapshot!
@@ -44,7 +48,7 @@ onViewOpened
 
 	super onViewOpened.
 
-	self model hasFirstSentenceDNU ifTrue: [debugerComposite restartDebug].!
+	model ifNotNil: [self model hasFirstSentenceDNU ifTrue: [debugerComposite restartDebug]].!
 
 selectedClass
 	^debugerComposite selectedClass!
@@ -62,6 +66,7 @@ setLastAnnotatedResult
 setScriptSnapshot: anUMLScriptExecutionSnapshot
 
 	debugerComposite setScriptSnapshot: anUMLScriptExecutionSnapshot! !
+!UMLDebuggerShell categoriesFor: #addAllSnapshots:!public! !
 !UMLDebuggerShell categoriesFor: #addSnapshot:!public! !
 !UMLDebuggerShell categoriesFor: #createComponents!public! !
 !UMLDebuggerShell categoriesFor: #executionStack!public! !

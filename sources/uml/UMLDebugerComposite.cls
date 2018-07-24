@@ -103,7 +103,7 @@ onViewOpened
 
 	super onViewOpened.
 
-	sourcePresenter value: self model sequenceSource.
+	model notNil ifTrue: [sourcePresenter value: self model sequenceSource].
 
 	sourcePresenter setToExpressionStyler.
 

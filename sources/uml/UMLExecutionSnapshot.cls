@@ -33,6 +33,10 @@ allSnapshots
 
 	^parentSnapshot allSnapshots, (OrderedCollection with: parentSnapshot)!
 
+asDebuggerSnapshot
+
+	self subclassResponsibility!
+
 assignObject: anUMLObject toTemporary: aName 
 	^sequenceTemporaries at: aName put: anUMLObject!
 
@@ -49,6 +53,10 @@ cascadeTemporaries: anObject
 catchException
 
 	hasOnErrorDo := true!
+
+className
+
+	^sequence className!
 
 createBlockFrom: aStBlockNode
 
@@ -478,11 +486,13 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #addObject:named:!public! !
 !UMLExecutionSnapshot categoriesFor: #addTemporary:named:!public! !
 !UMLExecutionSnapshot categoriesFor: #allSnapshots!public! !
+!UMLExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
 !UMLExecutionSnapshot categoriesFor: #assignObject:toTemporary:!public! !
 !UMLExecutionSnapshot categoriesFor: #canStepIn!public! !
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #catchException!public! !
+!UMLExecutionSnapshot categoriesFor: #className!public! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public! !
