@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLExecutionSnapshot
-	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations'
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -78,6 +78,12 @@ currentUser
 currentUser: anObject
 	currentUser := anObject!
 
+executedImplementations
+	^executedImplementations!
+
+executedImplementations: anObject
+	executedImplementations := anObject!
+
 executedNodes
 	^executedNodes!
 
@@ -150,6 +156,12 @@ hasExecuted: anUMLMessageNode
 
 	^(nodesNotExecuted includes: anUMLMessageNode) not!
 
+hasInfiniteLoop
+	^hasInfiniteLoop!
+
+hasInfiniteLoop: anObject
+	hasInfiniteLoop := anObject!
+
 hasOnErrorDo
 	^hasOnErrorDo!
 
@@ -183,7 +195,8 @@ initialize
 	hasOnErrorDo := false.
 	executedNodes := OrderedCollection new.
 	cascadeTemporaries := LookupTable new.
-	executedImplementations := OrderedCollection new.!
+	executedImplementations := OrderedCollection new.
+	hasInfiniteLoop := false!
 
 isCurtailed
 	^isCurtailed!
@@ -475,6 +488,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #executedImplementations!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #executedImplementations:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #generateDebugSnapshot!public! !
@@ -487,6 +502,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #hasDNU!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasDNU:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasExecuted:!processesing!public! !
+!UMLExecutionSnapshot categoriesFor: #hasInfiniteLoop!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #hasInfiniteLoop:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasOnErrorDo!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasOnErrorDo:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasParentSnapshot!public! !

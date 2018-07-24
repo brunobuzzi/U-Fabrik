@@ -212,6 +212,20 @@ depurateObjectClass
 
 	self setObjectSubclasses.!
 
+detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
+	"The receiver answer whether or not there is an infinite loop calling method #initialize"
+	| allExecutedImplementations hasLoop |
+
+	allExecutedImplementations := OrderedCollection new.
+	anUMLExecutionSnapshot allSnapshots do: [:each | allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | eachImp methodName = #initialize] ) ].
+
+	"aSet does not allow duplicated objects --> if size is different then two #initialize"
+	hasLoop := (allExecutedImplementations size > 1) and: [allExecutedImplementations asSet size ~= allExecutedImplementations size].
+
+	anUMLExecutionSnapshot hasInfiniteLoop: hasLoop.
+
+	^hasLoop!
+
 dictionaryClass
 
 	^self virtualMachineClassNamed: 'Dictionary'!
@@ -2007,15 +2021,23 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 			3. The Virtual Machine performs the <implementation> against <anUMLObject> with arguments <parameters>."
 	| implementation targetObject |
 
+	(anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject]. "abort further execution in an infinite loop case"
+
 	targetObject := traitBoolean ifFalse: [(superBoolean 
 								ifTrue: [anUMLExecutionSnapshot sequence methodClass umlSuperclass] 
 								ifFalse: [anUMLObject getFetchMethodsMetaclass])]
 						ifTrue: [anUMLObject getMetaclass].
 	"implementation lookup"
-	implementation := self fetchMethodNamed: symbolMessage for: targetObject.	
-	"used to detect inifinite loops in #initialize method (see issue #32)"
-	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation]].
+	implementation := self fetchMethodNamed: symbolMessage for: targetObject.
 
+	"detect inifinite loops in #initialize method (see issue #32)"
+	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait 
+		ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation.
+			(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) 
+			ifTrue: [self defaultDebuggerShell showOn: (UMLImplementationDebugerSnapshot snapshot:  anUMLExecutionSnapshot). 
+				^anUMLObject].
+		].
+	].
 	implementation == self nilObjectClass 
 	ifTrue: [((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
 		ifTrue: [ (symbolMessage includes: $:) 
@@ -2292,6 +2314,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #cretateGettersAndSettersImplementationsFor:inClass:!public! !
 !UMLVirtualMachine categoriesFor: #dateClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #depurateObjectClass!initializing!public! !
+!UMLVirtualMachine categoriesFor: #detectInitializeInfiniteLoopIn:!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #dictionaryClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorClass!primitive objects!private! !
