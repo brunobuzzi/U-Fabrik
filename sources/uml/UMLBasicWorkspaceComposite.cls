@@ -82,7 +82,7 @@ debugIt
 	executionSnapshot sequence: formattedCode.
 
 	debuggerSnapshot := UMLScriptDebugerSnapshot snapshot: executionSnapshot sequence: formattedCode.	"debugger := UMLExecutionSnapshotThreadShell showOn: executionSnapshot sequence: sequence."
-	(UMLDebugerShell showOn: debuggerSnapshot) setScriptSnapshot: executionSnapshot!
+	(UMLDebuggerShell showOn: debuggerSnapshot) setScriptSnapshot: executionSnapshot!
 
 deleteToStartOfWord
 

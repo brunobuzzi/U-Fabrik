@@ -34,8 +34,8 @@ package classNames
 	add: #UMLCustomizedInspectorWorkspaceComposite;
 	add: #UMLDebugerComposite;
 	add: #UMLDebugerDialog;
-	add: #UMLDebugerShell;
 	add: #UMLDebugerWorkspaceComposite;
+	add: #UMLDebuggerShell;
 	add: #UMLDevelopmentEnvironment;
 	add: #UMLDoesNotUnderstadComposite;
 	add: #UMLDoesNotUnderstadoDialog;
@@ -120,6 +120,7 @@ package methodNames
 	add: #UMLShell -> #showWebConfiguration;
 	add: #UMLShell -> #startDesktopLogin;
 	add: #UMLTrait -> #show;
+	add: #UMLVirtualMachine -> #defaultDebuggerShell;
 	add: #UMLVirtualMachine -> #errorImplementation:notFoundFor:in:isSuperSend:;
 	add: #UMLVirtualMachine -> #processPrimitiveCall_500:withArguments:snapshot:;
 	add: #UMLVirtualMachine -> #processPrimitiveCall_501:withArguments:snapshot:isScript:;
@@ -332,7 +333,7 @@ UMLToolShell subclass: #UMLCustomizedInspectorShell
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-UMLToolShell subclass: #UMLDebugerShell
+UMLToolShell subclass: #UMLDebuggerShell
 	instanceVariableNames: 'debugerComposite'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -1004,6 +1005,10 @@ show
 
 !UMLVirtualMachine methodsFor!
 
+defaultDebuggerShell
+
+	^UMLDebuggerShell!
+
 errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapshot isSuperSend: aBoolean
 
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snap: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
@@ -1039,8 +1044,8 @@ processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
 
 	debugger := ((debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]) 
-				ifFalse: [(UMLDebugerShell showOn: debuggerSnapshot)] 
-				ifTrue: [(UMLDebugerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+				ifFalse: [(UMLDebuggerShell showOn: debuggerSnapshot)] 
+				ifTrue: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
 
 	debuggerSnapshot allSnapshots reverse do: [:each | debugger addSnapshot: each].
 
@@ -1072,8 +1077,8 @@ processPrimitiveCall_501: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
 
 	(index = 1)
-	ifTrue: [UMLDebugerShell showOn: debuggerSnapshot]
-	ifFalse: [(UMLDebugerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+	ifTrue: [UMLDebuggerShell showOn: debuggerSnapshot]
+	ifFalse: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
 
 	^anUMLInstance!
 
@@ -1084,6 +1089,7 @@ resourceIdentifierFor: anUMLObject
 show
 	"^UMLVirtualMachineSystemBrowserShell showOn: self"
 	^UMLVirtualMachineShell showOn: self! !
+!UMLVirtualMachine categoriesFor: #defaultDebuggerShell!message dispatching core!public! !
 !UMLVirtualMachine categoriesFor: #errorImplementation:notFoundFor:in:isSuperSend:!debug!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_500:withArguments:snapshot:!debug!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_501:withArguments:snapshot:isScript:!debug!primitive processing!public! !
