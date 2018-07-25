@@ -1977,7 +1977,7 @@ virtualMachineV1Code
 						</Implementation>
 						<Implementation>
 							<Source><!![CDATA[removeFromSetupObjects
-	"The UML Almighty has two CACHEs to store objects.
+	"The U-Fabrik has two CACHEs to store objects.
 	The First is named: Global Objects Cache
 	The Second is named: Setup Objects Cache or ParametricObjects Cache 
 	This method removes the receiver object from the Setup Objects (or ParametricObjects) Cache."
@@ -2076,7 +2076,7 @@ virtualMachineV1Code
 						</Implementation>
 						<Implementation>
 							<Source><!![CDATA[storeAsSetupObject
-	"The UML Almighty has two CACHEs to store objects.
+	"The U-Fabrik has two CACHEs to store objects.
 	The First is named: Global Objects Cache
 	The Second is named: Setup Objects Cache or ParametricObjects Cache 
 	This method adds the receiver object from the Setup Objects (or ParametricObjects) Cache."
@@ -2242,7 +2242,7 @@ virtualMachineV1Code
 						</Implementation>
 						<Implementation>
 							<Source><!![CDATA[storeAsGlobalObject
-	"The UML Almighty has two CACHEs to store objects.
+	"The U-Fabrik has two CACHEs to store objects.
 	The First is named: Global Objects Cache
 	The Second is named: Setup Objects Cache or ParametricObjects Cache 
 	This method adds the receiver object from the first cache."
@@ -2252,7 +2252,7 @@ virtualMachineV1Code
 						</Implementation>
 						<Implementation>
 							<Source><!![CDATA[getUniqueID
-	"The receiver answer aString which is an UNIQUE id in the context of UML Almighty"
+	"The receiver answer aString which is an UNIQUE id in the context of U-Fabrik"
 
 	<primitive:  640>]]></Source>
 						</Implementation>
@@ -2283,7 +2283,7 @@ virtualMachineV1Code
 						</Implementation>
 						<Implementation>
 							<Source><!![CDATA[removeFromGlobalObjects
-	"The UML Almighty has two CACHEs to store objects.
+	"The U-Fabrik has two CACHEs to store objects.
 	The First is named: Global Objects Cache
 	The Second is named: Setup Objects Cache or ParametricObjects Cache 
 	This method removes the receiver object from the first cache."
