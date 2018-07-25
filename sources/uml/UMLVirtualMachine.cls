@@ -2052,11 +2052,12 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	"implementation lookup"
 	implementation := self fetchMethodNamed: symbolMessage for: targetObject.
 
-	"detect inifinite loops in #initialize method (see issue #32)"
-	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait 
-		ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation.
-			(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) 
-			ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
+	implementation isMethodImplementation ifTrue: ["see issue #43"
+		anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait 
+			ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation.
+				(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) "detect inifinite loops in #initialize method (see issue #32)"
+				ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
+			].
 		].
 	].
 	implementation == self nilObjectClass 

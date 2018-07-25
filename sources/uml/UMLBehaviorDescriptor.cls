@@ -56,6 +56,10 @@ initialize
 	comments := ''.
 !
 
+isMethodImplementation
+
+	^true!
+
 isTrait
 
 	^false!
@@ -96,6 +100,7 @@ printMessage
 !UMLBehaviorDescriptor categoriesFor: #hasShowHideMessage!public! !
 !UMLBehaviorDescriptor categoriesFor: #hasState!public! !
 !UMLBehaviorDescriptor categoriesFor: #initialize!public! !
+!UMLBehaviorDescriptor categoriesFor: #isMethodImplementation!public! !
 !UMLBehaviorDescriptor categoriesFor: #isTrait!public! !
 !UMLBehaviorDescriptor categoriesFor: #isVirtualMachineImplementation!public! !
 !UMLBehaviorDescriptor categoriesFor: #messages!public! !

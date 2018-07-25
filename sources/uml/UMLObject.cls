@@ -18,6 +18,10 @@ asUMLObject: anUMLVirtualMachine
 
 	^self!
 
+isMethodImplementation
+
+	^false!
+
 isUMLObject
 
 	^true!
@@ -27,6 +31,7 @@ umlUndefinedObject
 	^self class umlUndefinedObject! !
 !UMLObject categoriesFor: #asUMLObject!public!xmi!xmi-others! !
 !UMLObject categoriesFor: #asUMLObject:!public! !
+!UMLObject categoriesFor: #isMethodImplementation!public! !
 !UMLObject categoriesFor: #isUMLObject!public! !
 !UMLObject categoriesFor: #umlUndefinedObject!public! !
 
