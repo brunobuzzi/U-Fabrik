@@ -89,16 +89,18 @@ deleteToStartOfWord
 	^workspacePresenter view deleteToStartOfWord!
 
 displayIt
-	| result |
+	| result objectToDisplay |
 
 	self getSelectedText isEmpty ifTrue: [^self].
 	result := (self evaluate: self getSelectedText) ifNil: [^self] .
 
 	(result == self defaultVirtualMachine nilObject) ifTrue: [^self appendText: String lineDelimiter, 'nil'].
 
-	result isEmpty ifTrue: [^self].
+	(result notBlock and: [result isEmpty]) ifTrue: [^self].
 
-	^self appendText: String lineDelimiter, result last printString!
+	objectToDisplay := result isBlock ifTrue: [result] ifFalse: [result last].
+
+	^self appendText: String lineDelimiter, objectToDisplay printString!
 
 enable: aBoolean 
 
@@ -112,7 +114,10 @@ evaluate: aString
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	self topShell selectedObject ifNotNil: [:value | executionSnapshot addTemporary:  value named: 'self'].
-	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot
+
+	parsedCode isBlock ifFalse: [^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot].
+
+	^executionSnapshot createBlockFrom: parsedCode 
 !
 
 evaluateIt
@@ -150,15 +155,18 @@ helpWithThisTool
 	^Error notYetImplemented!
 
 inspectIt
-	| result |
+	| result objectToInspect |
 
 	self getSelectedText isEmpty ifTrue: [^self].
 	result := [self evaluate: self getSelectedText] on: Error
 				do: [:ex | ^MessageBox notify: ex description caption: self applicationName].
 	result ifNil: [^self].
 	result == self defaultVirtualMachine nilObject ifTrue: [^UMLBasicInspectorShell showOn: result].
-	result isEmpty ifTrue: [^self].
-	^UMLBasicInspectorShell showOn: result last!
+	(result notBlock and: [result isEmpty]) ifTrue: [^self].
+
+	objectToInspect := result isBlock ifTrue: [result ] ifFalse: [result last].
+
+	^UMLBasicInspectorShell showOn: objectToInspect!
 
 isStartOfTheWord
 

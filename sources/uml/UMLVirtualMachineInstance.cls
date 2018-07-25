@@ -33,6 +33,10 @@ isInitialized
 
 	^self smalltalkClass ~~ UndefinedObject!
 
+notBlock
+
+	^self isBlock not!
+
 printName
 
 	^'{', smalltalkObject printString,'}'!
@@ -68,6 +72,7 @@ virtualMachine
 !UMLVirtualMachineInstance categoriesFor: #icon!public! !
 !UMLVirtualMachineInstance categoriesFor: #isBlock!public! !
 !UMLVirtualMachineInstance categoriesFor: #isInitialized!public! !
+!UMLVirtualMachineInstance categoriesFor: #notBlock!public! !
 !UMLVirtualMachineInstance categoriesFor: #printName!public! !
 !UMLVirtualMachineInstance categoriesFor: #printOn:!public! !
 !UMLVirtualMachineInstance categoriesFor: #smalltalkClass!public! !
