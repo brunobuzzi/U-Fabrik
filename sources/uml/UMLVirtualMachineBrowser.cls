@@ -165,10 +165,12 @@ browserImplementationDefenitions
 	UMLMethodBrowserShell showOn: definitions!
 
 browserImplementationOfCategory
-	| methods |
+	| methods allClasses |
 
 	methods := OrderedCollection new.
-	(model getAllClasses select: [:each | each includesCategory: categoriesPresenter selection]) 
+	allClasses := self isClassSideSelected ifTrue: [model getAllClasses] ifFalse: [model getAllClasses collect: [:each | each metaclass] ].
+
+	(allClasses select: [:each | each includesCategory: categoriesPresenter selection]) 
 		do:  [:each | methods addAll: (each methodsOfCategory:  categoriesPresenter selection)].
 	
 	UMLMethodBrowserShell showOn: methods!
