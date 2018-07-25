@@ -96,6 +96,8 @@ displayIt
 
 	(result == self defaultVirtualMachine nilObject) ifTrue: [^self appendText: String lineDelimiter, 'nil'].
 
+	(result isUMLInstance) ifTrue: [^self appendText: String lineDelimiter, result printString].
+
 	(result notBlock and: [result isEmpty]) ifTrue: [^self].
 
 	objectToDisplay := result isBlock ifTrue: [result] ifFalse: [result last].
@@ -162,6 +164,9 @@ inspectIt
 				do: [:ex | ^MessageBox notify: ex description caption: self applicationName].
 	result ifNil: [^self].
 	result == self defaultVirtualMachine nilObject ifTrue: [^UMLBasicInspectorShell showOn: result].
+
+	result isUMLInstance ifTrue: [^UMLBasicInspectorShell showOn: result].
+
 	(result notBlock and: [result isEmpty]) ifTrue: [^self].
 
 	objectToInspect := result isBlock ifTrue: [result ] ifFalse: [result last].

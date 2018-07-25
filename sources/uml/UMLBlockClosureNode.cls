@@ -98,12 +98,12 @@ printMessage
 
 printOn: aStream
 
-	super printOn: aStream.
+	"super printOn: aStream."
 
 	aStream
-		nextPut: $<;
-		nextPutAll: self printMessage;
-		nextPut: $>.!
+		nextPutAll: 'aBlock';
+		nextPutAll: self source
+!
 
 sequenceNode
 	^sequenceNode!
@@ -120,6 +120,11 @@ snapshot
 
 snapshot: anObject
 	snapshot := anObject!
+
+source
+
+	^sequenceNode source
+!
 
 temporaries
 	^sequenceNode temporaries!
@@ -168,6 +173,7 @@ variableName
 !UMLBlockClosureNode categoriesFor: #setExecutionSnapshot:!public! !
 !UMLBlockClosureNode categoriesFor: #snapshot!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot:!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #source!public! !
 !UMLBlockClosureNode categoriesFor: #temporaries!context!public! !
 !UMLBlockClosureNode categoriesFor: #umlInstance!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #umlInstance:!accessing!private! !

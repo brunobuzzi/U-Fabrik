@@ -29,6 +29,9 @@ evaluate: aString
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	executionSnapshot addTemporary: (self topShell selectedObject ifNil: [^nil]) named: 'self'.
+
+	parsedCode isSelfVariable ifTrue: [^executionSnapshot getObjectNamed: 'self'].
+
 	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot
 !
 

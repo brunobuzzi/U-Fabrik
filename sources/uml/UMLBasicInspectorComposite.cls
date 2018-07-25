@@ -184,6 +184,8 @@ onInstVarChanged
 				create: resourceIdentifier name
 				in: containerPresenter
 				on: instVarTreePresenter selection value smalltalkObject."we search for the correct presenter for the selected object"
+	self model isBlock ifTrue: [aspectPresenter setText: self model smalltalkObject source.
+						aspectPresenter view isEnabled: false].
 	(aspectPresenter class == UMLListComposite) 
 	ifTrue: [((OrderedCollection with: OrderedCollection with: Array) includes: (instVarTreePresenter model roots first smalltalkObject class))
 		ifFalse: [aspectPresenter view name: self nameForSelectedAspect] 
@@ -215,7 +217,8 @@ onViewOpened
 
 	super onViewOpened.
 
-	instVarTreePresenter expandAll: self model!
+	instVarTreePresenter expandAll: self model.
+!
 
 openUMLBrowser
 

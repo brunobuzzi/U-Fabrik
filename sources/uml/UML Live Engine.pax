@@ -92,9 +92,11 @@ package methodNames
 	add: #Number -> #asSymbol;
 	add: #Number -> #asUMLObject:;
 	add: #Object -> #className;
+	add: #Object -> #isBlock;
 	add: #Object -> #isBoolean;
 	add: #Object -> #isUMLInstance;
 	add: #Object -> #isUMLObject;
+	add: #Object -> #notBlock;
 	add: #Object -> #printObjectName;
 	add: #Object -> #smalltalkObject;
 	add: #OrderedCollection -> #asUMLObject:;
@@ -107,6 +109,7 @@ package methodNames
 	add: #String -> #asUMLLinkName;
 	add: #String -> #asUMLObject:;
 	add: #StSelfVariableNode -> #getUMLObjectFrom:;
+	add: #StSelfVariableNode -> #nodes;
 	add: #StSelfVariableNode -> #processInsideSnapshot:context:parameters:;
 	add: #StSelfVariableNode -> #receiverName;
 	add: #StSuperVariableNode -> #getUMLObjectFrom:;
@@ -617,6 +620,10 @@ className
 
 	^self class name!
 
+isBlock
+
+	^false!
+
 isBoolean
 
 	^false!
@@ -629,15 +636,21 @@ isUMLObject
 
 	^false!
 
+notBlock
+
+	^true!
+
 printObjectName
 	^self printString!
 
 smalltalkObject
 	^self! !
 !Object categoriesFor: #className!public! !
+!Object categoriesFor: #isBlock!public!testing! !
 !Object categoriesFor: #isBoolean!public! !
 !Object categoriesFor: #isUMLInstance!public! !
 !Object categoriesFor: #isUMLObject!public! !
+!Object categoriesFor: #notBlock!public!testing! !
 !Object categoriesFor: #printObjectName!public! !
 !Object categoriesFor: #smalltalkObject!public! !
 
@@ -733,6 +746,9 @@ getUMLObjectFrom: anUMLImplementationExecutionSnapshot
 
 	^anUMLImplementationExecutionSnapshot getObjectNamed: 'self'!
 
+nodes
+	^OrderedCollection with: self!
+
 processInsideSnapshot: anUMLImplementationExecutionSnapshot context: anUMLVirtualMachineInstance parameters: anArray 
 
 	^anUMLImplementationExecutionSnapshot processSelfVarible: anUMLImplementationExecutionSnapshot receiver: anUMLVirtualMachineInstance!
@@ -741,6 +757,7 @@ receiverName
 
 	^'self'! !
 !StSelfVariableNode categoriesFor: #getUMLObjectFrom:!public! !
+!StSelfVariableNode categoriesFor: #nodes!public! !
 !StSelfVariableNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
 !StSelfVariableNode categoriesFor: #receiverName!public! !
 
