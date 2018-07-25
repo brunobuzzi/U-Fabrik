@@ -15,11 +15,14 @@ aboutThisTool
 
 addCategory
 	| categoryName newCategory |
+
 	categoryName := Prompter prompt: 'Enter the new category' caption: self applicationName.
 	categoryName ifNil: [^self].
+
 	newCategory := UMLImplementationCategory newNamed: categoryName.
-	self selectedClass addCategory: newCategory.
-	categoriesPresenter model: (ListModel on: self selectedClass getAllCategoriesButGUICategories)!
+
+	self selectedClassDescription addCategory: newCategory.
+	categoriesPresenter model: (ListModel on: self selectedClassDescription getAllCategoriesButGUICategories)!
 
 addImplementation
 	| implementationName |
@@ -187,9 +190,10 @@ card
 
 colorForCategory: anUMLImplementationCategory
 
-	self selectedClass ifNil: [^Color black].
+	self selectedClassDescription ifNil: [^Color black].
 
-	(implementationsPresenter hasSelection and: [self selectedClass category: anUMLImplementationCategory includes: self selectedImplementation]) ifTrue: [^Color black].
+	(implementationsPresenter hasSelection and: [self selectedClassDescription category: anUMLImplementationCategory includes: self selectedImplementation]) 
+	ifTrue: [^Color black].
 
 	^Color black fadedBy: 4!
 
@@ -321,8 +325,10 @@ model: anUMLVirtualMachine
 onCategoriaChanged
 	| methods |
 
-	categoriesPresenter hasSelection ifFalse: [^self showImplementationsOf: self selectedClass].
-	methods := self selectedClass methodsOfCategory: categoriesPresenter selection.
+	categoriesPresenter hasSelection ifFalse: [^self showImplementationsOf: self selectedClassDescription].
+
+	methods := self selectedClassDescription methodsOfCategory: categoriesPresenter selection.
+
 	implementationsPresenter model: (ListModel on: methods).!
 
 onClassListChanged
@@ -369,8 +375,8 @@ onDropUMLImplementationOverCategoria: aDragDropSession
 	categoria := aDragDropSession suggestedTarget.
 
 	Keyboard default isShiftDown 
-	ifFalse: [aDragDropSession dragObjects do: [:each | self selectedClass add: each object toCategory: categoria]]
-	ifTrue: [aDragDropSession dragObjects do: [:each | self selectedClass remove: each object from: categoria]].!
+	ifFalse: [aDragDropSession dragObjects do: [:each | self selectedClassDescription add: each object toCategory: categoria]]
+	ifTrue: [aDragDropSession dragObjects do: [:each | self selectedClassDescription remove: each object from: categoria]].!
 
 onImplementationChanged
 
@@ -399,7 +405,9 @@ onSideClicked
 
 	self selectedClassDescription ifNil: [^nil].
 
-	implementationsPresenter model: (ListModel on: self selectedClassDescription implementationsAsSortedCollection)!
+	implementationsPresenter model: (ListModel on: self selectedClassDescription implementationsAsSortedCollection).
+
+	categoriesPresenter model: (ListModel on: self selectedClassDescription getAllCategoriesButGUICategories)!
 
 onTraitDoubleCliked: aMouseEvent
 	| shell |
