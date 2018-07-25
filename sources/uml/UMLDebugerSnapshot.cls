@@ -207,6 +207,10 @@ iterationNodes: anObject
 lastAnnotatedResult
 	^self currentExecutionProgress lastAnnotatedResult!
 
+mainNodes
+
+	^mainSnapshot mainNodes!
+
 mainSnapshot
 	^mainSnapshot!
 
@@ -425,6 +429,7 @@ temporaries
 !UMLDebugerSnapshot categoriesFor: #iterationNodes!accessing!private! !
 !UMLDebugerSnapshot categoriesFor: #iterationNodes:!accessing!private! !
 !UMLDebugerSnapshot categoriesFor: #lastAnnotatedResult!public! !
+!UMLDebugerSnapshot categoriesFor: #mainNodes!public! !
 !UMLDebugerSnapshot categoriesFor: #mainSnapshot!accessing!private! !
 !UMLDebugerSnapshot categoriesFor: #mainSnapshot:!accessing!private! !
 !UMLDebugerSnapshot categoriesFor: #nextNode!debug process!private!snapshot debug! !

@@ -37,6 +37,21 @@ asDebuggerSnapshot
 
 	self subclassResponsibility!
 
+asDebuggerSnapshotForInfiniteLoop
+	| debuggerSnapshot |
+
+	debuggerSnapshot := self asDebuggerSnapshot.
+
+	debuggerSnapshot mainNodes do: [:each | debuggerSnapshot executionProgress removeNodeFromStackToExectute: each.].
+
+	executedNodes do: [:each | debuggerSnapshot executionProgress markNodeAsExecuted: each].
+
+	debuggerSnapshot executionProgress currentMainNode: executedNodes last.
+
+	debuggerSnapshot nextNode: executedNodes last.
+
+	^debuggerSnapshot!
+
 assignObject: anUMLObject toTemporary: aName 
 	^sequenceTemporaries at: aName put: anUMLObject!
 
@@ -241,6 +256,10 @@ lastResult
 
 lastResult: anObject
 	^lastResult := anObject!
+
+mainNodes
+
+	^self sequence nodes!
 
 markAsExecuted: anUMLMessageNode
 
@@ -486,7 +505,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #addObject:named:!public! !
 !UMLExecutionSnapshot categoriesFor: #addTemporary:named:!public! !
 !UMLExecutionSnapshot categoriesFor: #allSnapshots!public! !
-!UMLExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
+!UMLExecutionSnapshot categoriesFor: #asDebuggerSnapshot!debug process!public! !
+!UMLExecutionSnapshot categoriesFor: #asDebuggerSnapshotForInfiniteLoop!debug process!public! !
 !UMLExecutionSnapshot categoriesFor: #assignObject:toTemporary:!public! !
 !UMLExecutionSnapshot categoriesFor: #canStepIn!public! !
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries!accessing!private! !
@@ -531,6 +551,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #lastExecutedNode!public! !
 !UMLExecutionSnapshot categoriesFor: #lastResult!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #lastResult:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #mainNodes!public! !
 !UMLExecutionSnapshot categoriesFor: #markAsExecuted:!processesing!public! !
 !UMLExecutionSnapshot categoriesFor: #markFirstNotExecutedAsExecuted!public! !
 !UMLExecutionSnapshot categoriesFor: #nilObject!public!vm objects! !

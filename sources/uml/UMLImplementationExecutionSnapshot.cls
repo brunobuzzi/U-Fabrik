@@ -149,7 +149,7 @@ sequenceReceiver: anUMLObject
 	receiverInstanceVariables := anUMLObject instancesVariables.! !
 !UMLImplementationExecutionSnapshot categoriesFor: #activateSnapshotWith:receiver:arguments:virtualMachine:!public!smalltalk parser! !
 !UMLImplementationExecutionSnapshot categoriesFor: #addObject:named:!public! !
-!UMLImplementationExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #asDebuggerSnapshot!debug process!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #assignObject:toInstanceVariable:!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #hasReceiver!public! !

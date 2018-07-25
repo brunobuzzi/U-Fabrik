@@ -914,13 +914,14 @@ openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject
 	"self defaultDebuggerShell showOn: (UMLImplementationDebugerSnapshot snapshot:  loopSnapshot). "
 
 	debugger := self defaultDebuggerShell show. 
-	debugger addAllSnapshots: (loopSnapshot allSnapshots collect: [:each | each asDebuggerSnapshot]);
-		model: loopSnapshot asDebuggerSnapshot;
+	debugger addAllSnapshots: (loopSnapshot allSnapshots collect: [:each | each asDebuggerSnapshotForInfiniteLoop]);
+		model: loopSnapshot asDebuggerSnapshotForInfiniteLoop;
 		selectLastStackItem.
 
 	debugger view caption: (debugger view caption, ': Infinite Loop Detected !!!!!!').
- 
-	^anUMLObject!
+
+	^anUMLObject
+!
 
 orderedCollectionClass
 

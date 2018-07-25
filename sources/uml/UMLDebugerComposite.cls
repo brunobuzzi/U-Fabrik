@@ -284,7 +284,7 @@ stepOver
 !UMLDebugerComposite categoriesFor: #isClassSideSelected!public! !
 !UMLDebugerComposite categoriesFor: #model:!public! !
 !UMLDebugerComposite categoriesFor: #onSnapshotObjectDoubleClicked:!public! !
-!UMLDebugerComposite categoriesFor: #onStackSelectionChanged!public! !
+!UMLDebugerComposite categoriesFor: #onStackSelectionChanged!public!selecting nodes! !
 !UMLDebugerComposite categoriesFor: #onViewOpened!public! !
 !UMLDebugerComposite categoriesFor: #restartDebug!public! !
 !UMLDebugerComposite categoriesFor: #resumeProcess!debug!public! !

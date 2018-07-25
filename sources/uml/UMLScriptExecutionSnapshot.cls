@@ -122,7 +122,7 @@ sequenceArguments
 	^LookupTable new! !
 !UMLScriptExecutionSnapshot categoriesFor: #activateSnaphotWith:!public!smalltalk parser! !
 !UMLScriptExecutionSnapshot categoriesFor: #activateSnaphotWith:virtualMachine:!public!smalltalk parser! !
-!UMLScriptExecutionSnapshot categoriesFor: #asDebuggerSnapshot!public! !
+!UMLScriptExecutionSnapshot categoriesFor: #asDebuggerSnapshot!debug process!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getUndefinedTemporaries!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #includesSelfObject!public! !
