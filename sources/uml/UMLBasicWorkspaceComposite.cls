@@ -300,7 +300,8 @@ onKeyPressed: aKeyEvent
 	((aKeyEvent wParam = 83 "S") and: [Keyboard default isControlDown "ctrl"]) 
 	ifTrue: [self classBrowserParent addMessageToImplementation.
 			^self methodBrowserParent onImplementationAdded].
-	((aKeyEvent wParam = 67 "C") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [workspacePresenter view copySelection].
+	((aKeyEvent wParam = 67 "C") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^workspacePresenter view copySelection].
+	((aKeyEvent wParam = 88 "X") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^workspacePresenter view cutSelection].
 
 	self workspaceView isAutoCompletionActive ifTrue: [^self].
 
