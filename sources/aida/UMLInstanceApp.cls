@@ -437,8 +437,10 @@ createObjectHeaderIn: aWebElement
 		[umlObject := self observee vmPerform: eachKey] on: Error 
 			do: [:ex | umlObject := ('Error executing aspect [', eachKey , ']', String lineDelimiter , (ex messageText copyWithoutAll: '<>'))].
 		aWebElement cell newCell addText:  umlObject smalltalkObject printString.
-		aWebElement cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlLabelBackground, ';color: ', self uFabrikWebPreferences headerLabelFontColor.
-		aWebElement cell cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlValueBackground, '; color: ', self uFabrikWebPreferences headerValueFontColor.
+		"aWebElement cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlLabelBackground, ';color: ', self uFabrikWebPreferences headerLabelFontColor."
+		aWebElement cell style: 'border-radius: 10px;padding: 10px;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlLabelBackground, ';color: ', self uFabrikWebPreferences headerLabelFontColor.
+		aWebElement cell cell style: 'border-radius: 10px;padding: 6px;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlValueBackground, '; color: ', self uFabrikWebPreferences headerValueFontColor.
+		"aWebElement cell cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlValueBackground, '; color: ', self uFabrikWebPreferences headerValueFontColor."
 		aWebElement newCell.].
 
 	aWebElement newRow.
@@ -523,7 +525,7 @@ createSimpleComponentTo2: aWebElement aspect: aspectSymbol columnIndex: columnIn
 
 	width := 'width: ', widthNumber printString, '%'.
 	smalltalkError := false.
-	aWebElement cell style: 'width: 50%; border-style: inset; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground, '; color: ', self uFabrikWebPreferences basicValuesLabelFontColor.
+	aWebElement cell style: 'width: 50%; padding: 5px;border-radius: 10px; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground, '; color: ', self uFabrikWebPreferences basicValuesLabelFontColor.
 	aWebElement cell addText: aspectSymbol capitalized.
 	[umlObject := self observee vmPerform: aspectSymbol] on: Error do: [:ex | smalltalkError := true. errorString := ex messageText].
 	aWebElement cell table style: 'width: 100%'.
@@ -532,7 +534,7 @@ createSimpleComponentTo2: aWebElement aspect: aspectSymbol columnIndex: columnIn
 			ifTrue: [umlObject smalltalkObject printUMLFormat] 
 			ifFalse: ['Error on method #', aspectSymbol , ' is not a simple object !!']).]
 	ifTrue: [aWebElement cell newCell addText: ('Error executing aspect [' , aspectSymbol , ']', String lineDelimiter, ((errorString ifNil: [''] ifNotNil: [:value | value]) copyWithoutAll: '<>') ) ].
-	aWebElement cell style: width, ' ; border-style: inset; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: ', self uFabrikWebPreferences basicValuesValueFontColor .
+	aWebElement cell style: width, ' ; padding: 5px;border-radius: 10px; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: ', self uFabrikWebPreferences basicValuesValueFontColor .
 
 
 	aWebElement newCell.!
@@ -592,7 +594,7 @@ createValueComponentTo2: webPage aspect: symbolAspect width: widthNumber
 	| simpleWebElement umlObject |
 
 	webPage cell addText: symbolAspect capitalized.
-	webPage cell style: 'width: 50%; border-style:inset;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground,'; color: black;'.
+	webPage cell style: 'width: 50%; padding: 5px;border-radius: 10px;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground,'; color: black;'.
 	webPage cell addBreak.
 	webPage cell table style: 'width: 100%; padding-right: 10px;'.
 	umlObject := self observee vmPerform: symbolAspect.
@@ -602,9 +604,9 @@ createValueComponentTo2: webPage aspect: symbolAspect width: widthNumber
 		componentClass := WebComponentsDirectMap at: umlObject smalltalkClass. "here we map the type of the inst var with the Web Component"
 		((componentClass == UMLWebInputField) and: [self observeeAspectIsLargeString: symbolAspect]) ifTrue: [componentClass := UMLWebTextArea].
 		simpleWebElement := componentClass new initialize aspect: symbolAspect for: self observee. "<input> tag"
-		simpleWebElement style: 'width: 93%; margin-left: 3px;'.
+		simpleWebElement style: 'width: 93%; margin-left: 3px;padding: 5px;border-radius: 10px;'.
 		webPage newCell add: simpleWebElement.].
-	webPage cell style: 'border-style: inset;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: black; width: 50%; '.
+	webPage cell style: 'padding: 5px;border-radius: 10px;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: black; width: 50%; '.
 	webPage newCell.
 
 	"newCell --- <td> tag"!
