@@ -753,7 +753,7 @@ goToUMLAlmightyBlog
 
 goToUMLAlmightyDocumentation
 
-	^ShellLibrary default shellOpen: 'http://www.uml-almighty.com/documentation.html'!
+	^ShellLibrary default shellOpen: 'https://github.com/brunobuzzi/U-Fabrik/tree/master/manuals'!
 
 goToUMLAlmightyEnglishVideos
 

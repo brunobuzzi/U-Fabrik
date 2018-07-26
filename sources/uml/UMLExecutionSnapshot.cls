@@ -243,7 +243,8 @@ isScript
 	^false!
 
 isTrait
-	^sequence isTrait!
+	^sequence notNil and: [sequence isTrait]
+!
 
 lastExecutedNode
 
