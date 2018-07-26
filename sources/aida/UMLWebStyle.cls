@@ -20,7 +20,7 @@ body {
 /*	font-size: 90%; */
 	font-size: 11pt;
 	line-height: 1.2em;
-	background-color: ', self umlAlmightyWebPreferences bodyBackcolor,'; 
+	background-color: ', self uFabrikWebPreferences bodyBackcolor,'; 
 /*	background: url("/backgroundgray.jpg") repeat; */
 	}
 #container {
@@ -1051,9 +1051,9 @@ navBarObserveeLinksFor: anObject
 navBarObserveeOptionsFor: anObject
 	| e editButton viewObjectButton |
  
-	editButton := UMLRedirectWebButton text: 'Edit Object' action: #edit class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol.
+	editButton := UMLRedirectWebButton text: 'Edit Object' action: #edit class: self uFabrikWebPreferences lateralMenuButtonClassSymbol.
 	editButton destinationView: '?view=edit'.
-	viewObjectButton := UMLRedirectWebButton text: 'View Object' action: #main class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol.
+	viewObjectButton := UMLRedirectWebButton text: 'View Object' action: #main class: self uFabrikWebPreferences lateralMenuButtonClassSymbol.
 	viewObjectButton destinationView: '?view=main'.
 
 	e := (WebElement newClass: #navdiv)
@@ -1068,11 +1068,11 @@ navBarObserveeOptionsFor: anObject
 navBarObserveeOptionsFor2: anObject
 	| e editButton viewObjectButton inspectButton |
  
-	editButton := UMLRedirectWebButton text: 'Edit Object' action: #edit class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol.
+	editButton := UMLRedirectWebButton text: 'Edit Object' action: #edit class: self uFabrikWebPreferences lateralMenuButtonClassSymbol.
 	editButton destinationView: '?view=edit'.
-	viewObjectButton := UMLRedirectWebButton text: 'View Object' action: #main class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol.
+	viewObjectButton := UMLRedirectWebButton text: 'View Object' action: #main class: self uFabrikWebPreferences lateralMenuButtonClassSymbol.
 	viewObjectButton destinationView: '?view=main'.
-	inspectButton := UMLActionWebButton text: 'Inspect' action: #inspectObservee class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol.
+	inspectButton := UMLActionWebButton text: 'Inspect' action: #inspectObservee class: self uFabrikWebPreferences lateralMenuButtonClassSymbol.
 
 	e := (WebElement newClass: #navdiv)
 		add: (self navHeader: ' Object Options' bullet: #bulletSquareDownTranspWhiteGif);

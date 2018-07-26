@@ -45,7 +45,7 @@ package classNames
 package methodNames
 	add: #AIDAAspectAdaptor -> #value;
 	add: #AIDACheckBox -> #webClass;
-	add: #Object -> #umlAlmightyWebPreferences;
+	add: #Object -> #uFabrikWebPreferences;
 	add: #String -> #printShortFormat;
 	add: #UndefinedObject -> #printShortFormat;
 	add: #WebAdminApp -> #actionLogin;
@@ -227,10 +227,10 @@ webClass
 
 !Object methodsFor!
 
-umlAlmightyWebPreferences
+uFabrikWebPreferences
 
 	^WebUserPreference default! !
-!Object categoriesFor: #umlAlmightyWebPreferences!public! !
+!Object categoriesFor: #uFabrikWebPreferences!public! !
 
 !String methodsFor!
 
@@ -340,7 +340,7 @@ vmPerform: aSymbol withArguments: anArray
 addUMLAbsoluteRedirectButtonText: aString action: aSymbol destinationView: stringDestination
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
 	example: for view #main, action #addFolder is action method #actionMainAddFolder"
-	^self add: ((UMLAbsoluteRedirectWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences topMenuButtonClassSymbol) destinationView: stringDestination)!
+	^self add: ((UMLAbsoluteRedirectWebButton text: aString action: aSymbol class: self uFabrikWebPreferences topMenuButtonClassSymbol) destinationView: stringDestination)!
 
 addUMLActionButtonBlueText: aString action: aSymbol
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
@@ -376,18 +376,18 @@ addUMLActionCustomizedLateralButtonText: aString action: aSymbol
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
 	example: for view #main, action #addFolder is action method #actionMainAddFolder"
 
-	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences lateralMenuButtonClassSymbol)!
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self uFabrikWebPreferences lateralMenuButtonClassSymbol)!
 
 addUMLActionCustomizedObjectButtonText: aString action: aSymbol
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
 	example: for view #main, action #addFolder is action method #actionMainAddFolder"
-	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences objectButtonClassSymbol)!
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self uFabrikWebPreferences objectButtonClassSymbol)!
 
 addUMLActionCustomizedTopButtonText: aString action: aSymbol
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.
 	example: for view #main, action #addFolder is action method #actionMainAddFolder"
 
-	^self add: (UMLActionWebButton text: aString action: aSymbol class: self umlAlmightyWebPreferences topMenuButtonClassSymbol)!
+	^self add: (UMLActionWebButton text: aString action: aSymbol class: self uFabrikWebPreferences topMenuButtonClassSymbol)!
 
 addUMLRedirectButtonText: aString action: aSymbol
 	"for more than one buttons. Action method is a composed name from 'action', aView, Symbol.

@@ -126,9 +126,9 @@ addAcceptCancelButtonsTo: webPage
 	| cancelButton acceptButton |
 
 	webPage cell newRow.
-	cancelButton := (UMLRedirectWebButton text: 'View Object' action: #main class: self umlAlmightyWebPreferences objectButtonClassSymbol) 
+	cancelButton := (UMLRedirectWebButton text: 'View Object' action: #main class: self uFabrikWebPreferences objectButtonClassSymbol) 
 					destinationView: '?view=main'; yourself.
-	acceptButton := UMLActionWebButton text: 'Save Object' action: ('_acc_accept') asSymbol class: self umlAlmightyWebPreferences objectButtonClassSymbol.
+	acceptButton := UMLActionWebButton text: 'Save Object' action: ('_acc_accept') asSymbol class: self uFabrikWebPreferences objectButtonClassSymbol.
 
 	webPage add: acceptButton;
 		addText: ' ';
@@ -410,7 +410,7 @@ createLinkTo: aWebElement link: linkSymbol columnIndex: columnIndex
 			(((self observee umlClass allAttributesNames includes: linkSymbol asSymbol) or: [objectToLink umlClass allAttributesNames includes: linkSymbol asString]) and:[editableLinks includes: linkSymbol asSymbol])"The SET button is only for Attributes NOT Aspects"
 			ifTrue: [(aWebElement cell addUMLActionButtonText: 'Set' action: ('_cmd_', objectToLink className) asSymbol)]] ]
 	ifTrue: [aWebElement cell newCell addText: ('Error executing aspect [' , linkSymbol, ']', String lineDelimiter, (errorString ifNotNil: [:value | value copyWithoutAll: '<>'] ifNil: ['']))].
-	aWebElement cell style: 'border-style: inset;border-width:2px;background: ', self umlAlmightyWebPreferences referencesHtmlLabelBackground, '; color: ', self umlAlmightyWebPreferences referencesLabelFontColor.
+	aWebElement cell style: 'border-style: inset;border-width:2px;background: ', self uFabrikWebPreferences referencesHtmlLabelBackground, '; color: ', self uFabrikWebPreferences referencesLabelFontColor.
 	aWebElement newCell.
 
 !
@@ -421,11 +421,11 @@ createObjectHeaderIn: aWebElement
 	aWebElement addTextH1: self observee umlClass name.
 	aWebElement table style: 'width: 100%;'.
 	aWebElement newRow.
-	self umlAlmightyWebPreferences showHeader ifTrue: [aWebElement cell addTextH2: self umlAlmightyWebPreferences webHeaderLabel].
+	self uFabrikWebPreferences showHeader ifTrue: [aWebElement cell addTextH2: self uFabrikWebPreferences webHeaderLabel].
 	aWebElement newRow.
 
 	headers := self observeeObjectHeader.
-	(headers isEmpty and: [self umlAlmightyWebPreferences showHeader]) ifTrue: [aWebElement cell addText: 'Header not defined'. aWebElement addBreak].
+	(headers isEmpty and: [self uFabrikWebPreferences showHeader]) ifTrue: [aWebElement cell addText: 'Header not defined'. aWebElement addBreak].
 	headers := headers select: [:eachKey | | implementation showHideResult |
 		implementation := self defaultVirtualMachine fetchMethodNamed: eachKey for: self observee umlClass. 
 		((implementation == self defaultVirtualMachine nilObjectClass) not and: [implementation hasShowHideMessage])
@@ -437,8 +437,8 @@ createObjectHeaderIn: aWebElement
 		[umlObject := self observee vmPerform: eachKey] on: Error 
 			do: [:ex | umlObject := ('Error executing aspect [', eachKey , ']', String lineDelimiter , (ex messageText copyWithoutAll: '<>'))].
 		aWebElement cell newCell addText:  umlObject smalltalkObject printString.
-		aWebElement cell style: 'border-style:ridge;border-width:4px;background: ', self umlAlmightyWebPreferences headersHtmlLabelBackground, ';color: ', self umlAlmightyWebPreferences headerLabelFontColor.
-		aWebElement cell cell style: 'border-style:ridge;border-width:4px;background: ', self umlAlmightyWebPreferences headersHtmlValueBackground, '; color: ', self umlAlmightyWebPreferences headerValueFontColor.
+		aWebElement cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlLabelBackground, ';color: ', self uFabrikWebPreferences headerLabelFontColor.
+		aWebElement cell cell style: 'border-style:ridge;border-width:4px;background: ', self uFabrikWebPreferences headersHtmlValueBackground, '; color: ', self uFabrikWebPreferences headerValueFontColor.
 		aWebElement newCell.].
 
 	aWebElement newRow.
@@ -503,7 +503,7 @@ createSimpleComponentTo: aWebElement aspect: aspectSymbol columnIndex: columnInd
 
 	width := 'width: ', widthNumber printString, '%'.
 	smalltalkError := false.
-	aWebElement cell style: 'background: ', self umlAlmightyWebPreferences basicValuesLabelFontColor.
+	aWebElement cell style: 'background: ', self uFabrikWebPreferences basicValuesLabelFontColor.
 	aWebElement cell addText: aspectSymbol capitalized.
 	aWebElement cell addBreak.
 	[umlObject := self observee vmPerform: aspectSymbol] on: Error do: [:ex | smalltalkError := true. errorString := ex messageText].
@@ -513,8 +513,8 @@ createSimpleComponentTo: aWebElement aspect: aspectSymbol columnIndex: columnInd
 			ifTrue: [umlObject smalltalkObject printUMLFormat] 
 			ifFalse: ['Error on method #', aspectSymbol , ' is not a simple object !!']).]
 	ifTrue: [aWebElement cell newCell addText: ('Error executing aspect [' , aspectSymbol , ']', String lineDelimiter, ((errorString ifNil: [''] ifNotNil: [:value | value]) copyWithoutAll: '<>') ) ].
-	aWebElement cell style: width, ' ; border-style: inset; border-width:2px; background: ', self umlAlmightyWebPreferences basicValuesHtmlLabelBackground, '; color: ', self umlAlmightyWebPreferences basicValuesLabelFontColor.
-	aWebElement cell cell style: 'margin-right: -10px; width: 100%; border-style: inset;border-width:1px;background: ', self umlAlmightyWebPreferences basicValuesHtmlValueBackground, '; color: ', self umlAlmightyWebPreferences basicValuesValueFontColor.
+	aWebElement cell style: width, ' ; border-style: inset; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground, '; color: ', self uFabrikWebPreferences basicValuesLabelFontColor.
+	aWebElement cell cell style: 'margin-right: -10px; width: 100%; border-style: inset;border-width:1px;background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: ', self uFabrikWebPreferences basicValuesValueFontColor.
 
 	aWebElement newCell.!
 
@@ -523,7 +523,7 @@ createSimpleComponentTo2: aWebElement aspect: aspectSymbol columnIndex: columnIn
 
 	width := 'width: ', widthNumber printString, '%'.
 	smalltalkError := false.
-	aWebElement cell style: 'width: 50%; border-style: inset; border-width:2px; background: ', self umlAlmightyWebPreferences basicValuesHtmlLabelBackground, '; color: ', self umlAlmightyWebPreferences basicValuesLabelFontColor.
+	aWebElement cell style: 'width: 50%; border-style: inset; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground, '; color: ', self uFabrikWebPreferences basicValuesLabelFontColor.
 	aWebElement cell addText: aspectSymbol capitalized.
 	[umlObject := self observee vmPerform: aspectSymbol] on: Error do: [:ex | smalltalkError := true. errorString := ex messageText].
 	aWebElement cell table style: 'width: 100%'.
@@ -532,7 +532,7 @@ createSimpleComponentTo2: aWebElement aspect: aspectSymbol columnIndex: columnIn
 			ifTrue: [umlObject smalltalkObject printUMLFormat] 
 			ifFalse: ['Error on method #', aspectSymbol , ' is not a simple object !!']).]
 	ifTrue: [aWebElement cell newCell addText: ('Error executing aspect [' , aspectSymbol , ']', String lineDelimiter, ((errorString ifNil: [''] ifNotNil: [:value | value]) copyWithoutAll: '<>') ) ].
-	aWebElement cell style: width, ' ; border-style: inset; border-width:2px; background: ', self umlAlmightyWebPreferences basicValuesHtmlValueBackground, '; color: ', self umlAlmightyWebPreferences basicValuesValueFontColor .
+	aWebElement cell style: width, ' ; border-style: inset; border-width:2px; background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: ', self uFabrikWebPreferences basicValuesValueFontColor .
 
 
 	aWebElement newCell.!
@@ -540,7 +540,7 @@ createSimpleComponentTo2: aWebElement aspect: aspectSymbol columnIndex: columnIn
 createSimpleWebComponentsForEditIn: webPage
                 | simpleAspects aspectsNames widthNumber |
 
-	self umlAlmightyWebPreferences showBasicValues ifTrue: [webPage addTextH2: self umlAlmightyWebPreferences webBasicLabel].
+	self uFabrikWebPreferences showBasicValues ifTrue: [webPage addTextH2: self uFabrikWebPreferences webBasicLabel].
 	simpleAspects := self observeeSimpleObjects copyWithoutDuplicates.
 	widthNumber := (simpleAspects size = 0) ifFalse: [(100 / ((simpleAspects size > 4) ifTrue: [4] ifFalse: [simpleAspects size]) ) integerPart.] ifTrue: [100].    
 	(self observee umlClass canUnderstand: #editableAttributesFor:)
@@ -558,12 +558,12 @@ createSimpleWebControlsIn: aWebElement
 
 	webLinksDiv := WebElement newDiv.
 	aWebElement add: webLinksDiv.
-	self umlAlmightyWebPreferences showReferences ifTrue: [webLinksDiv addTextH2: self umlAlmightyWebPreferences webReferencesLabel].
+	self uFabrikWebPreferences showReferences ifTrue: [webLinksDiv addTextH2: self uFabrikWebPreferences webReferencesLabel].
 	self checkUninitializedLinkObjects. "is any Link Object (1x relation) is uninitialized --> we initialize it and link to the observee "
 	self createWebLinkElementsTo: webLinksDiv. "Link Aspects - we create Web Link for these Aspects "
 	webAttributesDiv := WebElement newDiv.
 	aWebElement add: webAttributesDiv.
-	self umlAlmightyWebPreferences showBasicValues ifTrue: [webAttributesDiv addTextH2: self umlAlmightyWebPreferences webBasicLabel].
+	self uFabrikWebPreferences showBasicValues ifTrue: [webAttributesDiv addTextH2: self uFabrikWebPreferences webBasicLabel].
 	self createWebSimpleElementsTo2: webAttributesDiv. "Simple Aspects - we create simple Components for these Aspects "!
 
 createValueComponentTo: webPage aspect: symbolAspect width: widthNumber
@@ -592,7 +592,7 @@ createValueComponentTo2: webPage aspect: symbolAspect width: widthNumber
 	| simpleWebElement umlObject |
 
 	webPage cell addText: symbolAspect capitalized.
-	webPage cell style: 'width: 50%; border-style:inset;border-width:2px;background: ', self umlAlmightyWebPreferences basicValuesHtmlLabelBackground,'; color: black;'.
+	webPage cell style: 'width: 50%; border-style:inset;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlLabelBackground,'; color: black;'.
 	webPage cell addBreak.
 	webPage cell table style: 'width: 100%; padding-right: 10px;'.
 	umlObject := self observee vmPerform: symbolAspect.
@@ -604,7 +604,7 @@ createValueComponentTo2: webPage aspect: symbolAspect width: widthNumber
 		simpleWebElement := componentClass new initialize aspect: symbolAspect for: self observee. "<input> tag"
 		simpleWebElement style: 'width: 93%; margin-left: 3px;'.
 		webPage newCell add: simpleWebElement.].
-	webPage cell style: 'border-style: inset;border-width:2px;background: ', self umlAlmightyWebPreferences basicValuesHtmlValueBackground, '; color: black; width: 50%; '.
+	webPage cell style: 'border-style: inset;border-width:2px;background: ', self uFabrikWebPreferences basicValuesHtmlValueBackground, '; color: black; width: 50%; '.
 	webPage newCell.
 
 	"newCell --- <td> tag"!
@@ -1328,7 +1328,7 @@ viewEdit
 
 	webLinksDiv := WebElement newDiv.
 	webPage add: webLinksDiv.
-	self umlAlmightyWebPreferences showReferences ifTrue: [webLinksDiv addTextH2: self umlAlmightyWebPreferences webReferencesLabel].
+	self uFabrikWebPreferences showReferences ifTrue: [webLinksDiv addTextH2: self uFabrikWebPreferences webReferencesLabel].
 	self checkUninitializedLinkObjects. "is any Link Object (1x relation) is uninitialized --> we initialize it and link to the observee "
 
 	self createWebLinkElementsTo: webLinksDiv.

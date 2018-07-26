@@ -37,8 +37,8 @@ buildTableRows
 			(inx = 1 and: [column width notNil]) ifTrue: [self cell width: column width].
 			self printColumn: column index: inx object: object in: self cell.
 			column ~= self columns last ifTrue: [self newCell] ].
-		backColor := 'background-color: ', (inx even ifTrue: [self umlAlmightyWebPreferences listEvenColor] ifFalse: [self umlAlmightyWebPreferences listOddColor]).
-		textColor := '; color: ', (inx even ifTrue: [self umlAlmightyWebPreferences listEvenTextColor] ifFalse: [self umlAlmightyWebPreferences listOddTextColor]).
+		backColor := 'background-color: ', (inx even ifTrue: [self uFabrikWebPreferences listEvenColor] ifFalse: [self uFabrikWebPreferences listOddColor]).
+		textColor := '; color: ', (inx even ifTrue: [self uFabrikWebPreferences listEvenTextColor] ifFalse: [self uFabrikWebPreferences listOddTextColor]).
 		self row style: backColor, textColor.
 		inx ~= objects size ifTrue: [self newRow].
 		inx := inx + 1 ]!
