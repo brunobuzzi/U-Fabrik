@@ -1004,12 +1004,12 @@ navBarContactElementFor: anObject
 	| e |
 	e := (WebElement newClass: #navdiv)
 		add: (self navHeader: self applicationName, '    Links' bullet: #bulletSquareDownTranspWhiteGif);
-		add: (self navLinkTo: 'http://www.uml-almighty.com/' header: ('Site') bullet: #bulletStarTranspWhiteGif);
-		add: (self navLinkTo: 'mailto:support@uml-almighty.com' header: ('Support') bullet: #bulletLetterTranspWhiteGif);
+		add: (self navLinkTo: 'https://github.com/brunobuzzi/U-Fabrik/' header: ('Site') bullet: #bulletStarTranspWhiteGif);
+		add: (self navLinkTo: 'mailto:bruno.brasesco@gmail.com' header: ('Support') bullet: #bulletLetterTranspWhiteGif);
 		add: (self navLinkTo: 'http://umlalmighty.wordpress.com/' header: ('Blog') bullet: #bulletPencilTranspWhiteGif);
-		add: (self navLinkTo: 'http://www.uml-almighty.com/documentation.html' header: ('Documentation') bullet: #bulletBookTranspWhiteGif);
+		add: (self navLinkTo: 'https://github.com/brunobuzzi/U-Fabrik/tree/master/manuals' header: ('Documentation') bullet: #bulletBookTranspWhiteGif);
 		add: (self navLinkTo: 'http://groups.google.com/group/uml-almighty/topics' header: ('News group') bullet: #bulletIssueTranspWhiteGif);
-		add: (self navLinkTo: 'http://www.umlalmightyenglish.blip.tv/' header: ('Videos') bullet: #bulletGuidesTranspWhiteGif);
+		add: (self navLinkTo: 'https://www.youtube.com/user/umlalmightyenglish' header: ('Videos') bullet: #bulletGuidesTranspWhiteGif);
 		yourself. 
 	^e!
 
