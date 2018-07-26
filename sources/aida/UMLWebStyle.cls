@@ -21,7 +21,7 @@ body {
 	font-size: 11pt;
 	line-height: 1.2em;
 	background-color: ', self uFabrikWebPreferences bodyBackcolor,'; 
-/*	background: url("/backgroundgray.jpg") repeat; */
+/*	background: url("backgroundgray.jpg") repeat; */
 	}
 #container {
 	position: relative;
@@ -148,7 +148,7 @@ input, button {
 }
 a.button {
     background-color: gainsboro;
-    background: gainsboro url(''/bg_button_a.gif'') no-repeat scroll top right;
+    background: gainsboro url(''bg_buttonGray_a.gif'') no-repeat scroll top right;
     color: black;
     display: block;
     float: left;
@@ -176,7 +176,7 @@ a.button:active span {
 }
 a.buttonGray {
     background-color: gainsboro;
-    background: rgb(218,212,174) url(''/bg_buttonGray_a.gif'') no-repeat scroll top right;
+    background: rgb(218,212,174) url(''U-Fabrik/icons/bg_buttonGray_a.gif'') no-repeat scroll top right;
     color: black;
     display: block;
     float: left;
@@ -188,7 +188,7 @@ a.buttonGray {
     text-decoration: none;
 }
 a.buttonGray span {
-    background: rgb(218,212,174) url(''/bg_buttonGray_span.gif'') no-repeat;
+    background: rgb(218,212,174) url(''U-Fabrik/icons/bg_buttonGray_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
