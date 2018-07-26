@@ -908,7 +908,7 @@ printHTMLPageOn: aStream for: aRequest on: aSession
 	response length: self size. "to stream on HTTP/1.0 too, because chunking is not allowed"
 	self site addResponseHeadersTo: response forPage: self on: aSession.
 	self content notNil "cached"
-		ifTrue: [response nextPutAll: (AIDASite properArray: self content)]
+		ifTrue: [response nextPutAll: (AIDASite properArray: self content asByteArray)]
 		ifFalse: [self streamFileToResponse: response].
 	response close.
 	self isToBeCached ifFalse: [self releaseContent].  "for large files"
