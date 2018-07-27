@@ -26,6 +26,25 @@ classNameForImplementationList
 
 	^self className, ' meta'!
 
+compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribute
+	| initializeStream objectName varName umlImplementation parsedCode |
+
+	initializeStream := WriteStream on: String new.
+	
+	objectName := 'a', anUMLClass name.
+	varName := anUMLClass name first asLowercase asString, anUMLClass name allButFirst.
+	initializeStream nextPutAll: 'newFrom: ', objectName, String lineDelimiter;
+		nextPutAll: '	| newObject | ', String lineDelimiter, String lineDelimiter;
+		nextPutAll: '	newObject := super new.', String lineDelimiter;
+		nextPutAll: '	newObject ',  varName, ': ', objectName, '.',String lineDelimiter;
+		nextPutAll: '	^newObject'.
+	
+	umlImplementation := UMLParsedImplementation newNamed: #newFrom:.
+	parsedCode := SmalltalkParser parseMethod: initializeStream contents. "the compiler parse the string"
+	umlImplementation parsedCode: parsedCode.
+
+	self addImplementation: umlImplementation!
+
 defaultTopObjectClass
 
 	^virtualMachine objectClass getMetaclass!
@@ -114,6 +133,7 @@ uninstall
 !UMLMetaclass categoriesFor: #allImplementations!public!relations! !
 !UMLMetaclass categoriesFor: #allRelations!public! !
 !UMLMetaclass categoriesFor: #classNameForImplementationList!public! !
+!UMLMetaclass categoriesFor: #compileNewFromMethodFor:triggerAttribute:!initialize generation!public! !
 !UMLMetaclass categoriesFor: #defaultTopObjectClass!public! !
 !UMLMetaclass categoriesFor: #fetchMethodNamed:ifNone:!public! !
 !UMLMetaclass categoriesFor: #getAllRelationsNames!get elements!public!relations! !

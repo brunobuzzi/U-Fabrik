@@ -86,12 +86,13 @@ package methodNames
 	add: #UMLClass -> #appendDateAttributesOn:;
 	add: #UMLClass -> #appendNtoXrelationsOn:;
 	add: #UMLClass -> #appendNumberAttributesOn:;
-	add: #UMLClass -> #appendOneToOneRelationsOn:;
+	add: #UMLClass -> #appendOneToOneRelationsOn:overflowCollection:;
 	add: #UMLClass -> #appendStringAttributesOn:;
 	add: #UMLClass -> #appendSuperInitializeOn:;
 	add: #UMLClass -> #appendTimeAttributesOn:;
 	add: #UMLClass -> #appendTimeStampAttributesOn:;
 	add: #UMLClass -> #autoGenerateInitializeMethodIn:;
+	add: #UMLClass -> #autoGenerateInitializeMethodIn:overflowCollection:;
 	add: #UMLClass -> #createClassAccessorsForGlobalObject:using:;
 	add: #UMLClass -> #createClassAccessorsForGlobalObjectsUsing:;
 	add: #UMLClass -> #createClassCreationMethodForGlobalObject:using:;
@@ -575,14 +576,22 @@ appendNumberAttributesOn: aWriteStream
 		aWriteStream nextPutAll: each getName,' := 0.', String lineDelimiter. "instances variables assigment for numbers"
 	].!
 
-appendOneToOneRelationsOn: aWriteStream
+appendOneToOneRelationsOn: aWriteStream overflowCollection: overflowCollection
 	"The receiver append instances variables of one to one relations (domain objects) to method code <aWriteStream>"
-	| basicValues |
+	| basicValues selectedAttributes |
+
+	overflowCollection add: self.
 
 	basicValues := #('Boolean' 'True' 'False' 'Number' 'String' 'Time' 'TimeStamp' 'Date').
 
-	(self attributes reject: [:each | (basicValues includes: each type name) or: [each hasMultipleInstances or:[each isSelfReferenceAttribute]] ]) asOrderedCollection do: [:each | 
-		aWriteStream nextPutAll: each getName,' := ', (each getInitializeTypeFor: self) name, ' new.', String lineDelimiter. "instances variables assigment for domain objects"
+	selectedAttributes := (self attributes reject: [:each | (overflowCollection includes: each type) "infinite loop detected" or: 
+										[(basicValues includes: each type name) or: 
+										[each hasMultipleInstances or: 
+										[each isSelfReferenceAttribute]]]]) asOrderedCollection.
+	selectedAttributes do: [:classAttribute | 
+		aWriteStream nextPutAll: classAttribute getName,' := ', (classAttribute getInitializeTypeFor: self) name, ' newFrom: self.', String lineDelimiter. "instances variables assigment for domain objects"
+		classAttribute getType metaclass compileNewFromMethodFor: self triggerAttribute: classAttribute.
+		classAttribute getType autoGenerateInitializeMethodIn: self defaultVirtualMachine overflowCollection: overflowCollection.
 	].!
 
 appendStringAttributesOn: aWriteStream
@@ -614,6 +623,11 @@ appendTimeStampAttributesOn: aWriteStream
 
 autoGenerateInitializeMethodIn: anUMLVirtualMachine
 	"The receiver create a String that represent each assgiment of it's instances variables, then the Compiler compile the contents of <WriteStream><initializeStream> to obtaind the parsed method "
+
+	^self autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: OrderedCollection new!
+
+autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: overflowCollection
+	"The receiver create a String that represent each assgiment of it's instances variables, then the Compiler compile the contents of <WriteStream><initializeStream> to obtaind the parsed method "
 	| umlImplementation initializeStream parsedCode |
 
 	umlImplementation := UMLParsedImplementation newNamed: #initialize.
@@ -626,7 +640,7 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine
 	self appendTimeStampAttributesOn: initializeStream.
 	self appendDateAttributesOn: initializeStream.
 	self appendTimeAttributesOn: initializeStream.
-	self appendOneToOneRelationsOn: initializeStream.
+	self appendOneToOneRelationsOn: initializeStream overflowCollection: overflowCollection.
 	self appendNtoXrelationsOn: initializeStream.
 	self appendClassSelfReferencesOn: initializeStream.
 
@@ -773,12 +787,13 @@ createUMLSourceForCreateAllInstancesWith: anOrderedCollection
 !UMLClass categoriesFor: #appendDateAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendNtoXrelationsOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendNumberAttributesOn:!initialize generation!public! !
-!UMLClass categoriesFor: #appendOneToOneRelationsOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendOneToOneRelationsOn:overflowCollection:!initialize generation!public! !
 !UMLClass categoriesFor: #appendStringAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendSuperInitializeOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendTimeAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendTimeStampAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #autoGenerateInitializeMethodIn:!initialize generation!public! !
+!UMLClass categoriesFor: #autoGenerateInitializeMethodIn:overflowCollection:!initialize generation!public! !
 !UMLClass categoriesFor: #createClassAccessorsForGlobalObject:using:!public! !
 !UMLClass categoriesFor: #createClassAccessorsForGlobalObjectsUsing:!public! !
 !UMLClass categoriesFor: #createClassCreationMethodForGlobalObject:using:!public! !
