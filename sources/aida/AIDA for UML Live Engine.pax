@@ -284,7 +284,7 @@ viewLogin
 	self preloginCheck ifFalse: [^self viewLoginSecondary].  "if some error etc."
 	self title: self style loginTitle.
 	e := WebElement new.
-	e style: 'background-color: lavender; padding-bottom: 140px; padding-top: 15px;'.
+	e style: 'background-color: lavender; padding-bottom: 147px; padding-top: 15px;'.
 "	e scriptBefore: 'Element.hide(''', self searchButton id, ''')'." "remove search button on navbar!!"
 	e addText: self style loginWelcomeMessage. 
 	l := (WebFieldSet newId: #login) legend: self style loginText.

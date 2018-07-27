@@ -52,6 +52,7 @@ html>body #content  {
 	margin-left: 179px;
 	padding-left: 0;
 	padding-bottom:30px;
+	background-color: lavender;
 	}
 
 /* through all width of page, in navigation space too */
@@ -447,7 +448,7 @@ css40NavigationBar
 	background: #F0F0E7 url("/img/leftcornergif.gif") no-repeat top right;
 	border-style:outset;
 	border-width:2px;
-	height: 100%;
+	padding-bottom: 45px;
 	}
 html>body #navigation  {
 	left: 0;
@@ -1123,7 +1124,7 @@ navigationBarElement
 	| e |
 	e := WebElement newId: #navigation.
 
-	e addImage: 'lateralLoginBar.png'.
+	e addImage: 'U-Fabrik\icons\lateralLoginBar.png'.
 
 	^e!
 

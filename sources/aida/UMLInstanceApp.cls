@@ -1294,7 +1294,7 @@ tabSectionStyle
 
 	^('background: ', WebUserPreference default objectBackgroundColor, '; 
 				border-style: groove; 
-				padding-bottom: 100%;
+				padding-bottom: 5%;
 				margin-bottom: -30px; 
 				border-width: 3px;
 				margin-left: -3px;
