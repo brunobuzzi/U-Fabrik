@@ -24,8 +24,9 @@ currentWord
 evaluate: aString 
 	| parsedCode |
 
-	executionSnapshot hasDNU: false.
-	executionSnapshot isCurtailed: false. 
+	executionSnapshot clearExecutedImplementations;
+		hasDNU: false;
+		isCurtailed: false.
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	executionSnapshot addTemporary: (self topShell selectedObject ifNil: [^nil]) named: 'self'.

@@ -111,8 +111,9 @@ enable: aBoolean
 evaluate: aString 
 	| parsedCode |
 
-	executionSnapshot hasDNU: false.
-	executionSnapshot isCurtailed: false. 
+	executionSnapshot clearExecutedImplementations;
+		hasDNU: false;
+		isCurtailed: false.
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	self topShell selectedObject ifNotNil: [:value | executionSnapshot addTemporary:  value named: 'self'].

@@ -73,6 +73,11 @@ className
 
 	^sequence className!
 
+clearExecutedImplementations
+
+	executedImplementations := OrderedCollection new.
+	hasInfiniteLoop := false!
+
 createBlockFrom: aStBlockNode
 
 	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode)
@@ -514,6 +519,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #catchException!public! !
 !UMLExecutionSnapshot categoriesFor: #className!public! !
+!UMLExecutionSnapshot categoriesFor: #clearExecutedImplementations!public! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public! !
