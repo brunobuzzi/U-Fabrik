@@ -329,6 +329,8 @@ onCategoriaChanged
 
 	categoriesPresenter hasSelection ifFalse: [^self showImplementationsOf: self selectedClassDescription].
 
+	self selectedClassDescription ifNil: [^self].
+
 	methods := self selectedClassDescription methodsOfCategory: categoriesPresenter selection.
 
 	implementationsPresenter model: (ListModel on: methods).!
