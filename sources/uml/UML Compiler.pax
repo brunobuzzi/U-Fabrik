@@ -83,9 +83,14 @@ package methodNames
 	add: #StVariableNode -> #receiverName;
 	add: #UMLClass -> #appendBooleanAttributesOn:;
 	add: #UMLClass -> #appendClassSelfReferencesOn:;
+	add: #UMLClass -> #appendDateAttributesOn:;
 	add: #UMLClass -> #appendNtoXrelationsOn:;
+	add: #UMLClass -> #appendNumberAttributesOn:;
 	add: #UMLClass -> #appendOneToOneRelationsOn:;
+	add: #UMLClass -> #appendStringAttributesOn:;
 	add: #UMLClass -> #appendSuperInitializeOn:;
+	add: #UMLClass -> #appendTimeAttributesOn:;
+	add: #UMLClass -> #appendTimeStampAttributesOn:;
 	add: #UMLClass -> #autoGenerateInitializeMethodIn:;
 	add: #UMLClass -> #createClassAccessorsForGlobalObject:using:;
 	add: #UMLClass -> #createClassAccessorsForGlobalObjectsUsing:;
@@ -549,6 +554,13 @@ appendClassSelfReferencesOn: aWriteStream
 				ifFalse: [aWriteStream nextPutAll: targetAttribute getName,' := ', (targetAttribute getInitializeTypeFor: self) name, ' new.', String lineDelimiter]. ].].
 !
 
+appendDateAttributesOn: aWriteStream
+	"The receiver append instances variables of date values to method code <aWriteStream>"
+
+	(self attributes select: [:eachAttr | eachAttr type name = 'Date']) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := Date new.', String lineDelimiter. "instances variables assigment for dates"
+	].!
+
 appendNtoXrelationsOn: aWriteStream
 	"The receiver append instances variables of N to X (1 or N) relations (collections) to method code <aWriteStream>"
 
@@ -556,11 +568,28 @@ appendNtoXrelationsOn: aWriteStream
 		aWriteStream nextPutAll: each getName,' := OrderedCollection new.', String lineDelimiter.  "instances variables assigment for collections"
 	].!
 
+appendNumberAttributesOn: aWriteStream
+	"The receiver append instances variables of number values to method code <aWriteStream>"
+
+	(self attributes select: [:eachAttr | eachAttr type name = 'Number']) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := 0.', String lineDelimiter. "instances variables assigment for numbers"
+	].!
+
 appendOneToOneRelationsOn: aWriteStream
 	"The receiver append instances variables of one to one relations (domain objects) to method code <aWriteStream>"
+	| basicValues |
 
-	(self attributes reject: [:each | (#('Boolean' 'True' 'False') includes: each type name) or: [each hasMultipleInstances or:[each isSelfReferenceAttribute]] ]) asOrderedCollection do: [:each | 
+	basicValues := #('Boolean' 'True' 'False' 'Number' 'String' 'Time' 'TimeStamp' 'Date').
+
+	(self attributes reject: [:each | (basicValues includes: each type name) or: [each hasMultipleInstances or:[each isSelfReferenceAttribute]] ]) asOrderedCollection do: [:each | 
 		aWriteStream nextPutAll: each getName,' := ', (each getInitializeTypeFor: self) name, ' new.', String lineDelimiter. "instances variables assigment for domain objects"
+	].!
+
+appendStringAttributesOn: aWriteStream
+	"The receiver append instances variables of string values to method code <aWriteStream>"
+
+	(self attributes select: [:eachAttr | eachAttr type name = 'String']) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := ''''.', String lineDelimiter. "instances variables assigment for strings"
 	].!
 
 appendSuperInitializeOn: aWriteStream
@@ -568,6 +597,20 @@ appendSuperInitializeOn: aWriteStream
 
 	aWriteStream nextPutAll:  'initialize', String lineDelimiter, String lineDelimiter;
 		nextPutAll:  'super initialize.', String lineDelimiter. !
+
+appendTimeAttributesOn: aWriteStream
+	"The receiver append instances variables of time values to method code <aWriteStream>"
+
+	(self attributes select: [:eachAttr | eachAttr type name = 'Time']) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := Time new.', String lineDelimiter. "instances variables assigment for time "
+	].!
+
+appendTimeStampAttributesOn: aWriteStream
+	"The receiver append instances variables of time stamp values to method code <aWriteStream>"
+
+	(self attributes select: [:eachAttr | eachAttr type name = 'TimeStamp']) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := TimeStamp new.', String lineDelimiter. "instances variables assigment for time stamps"
+	].!
 
 autoGenerateInitializeMethodIn: anUMLVirtualMachine
 	"The receiver create a String that represent each assgiment of it's instances variables, then the Compiler compile the contents of <WriteStream><initializeStream> to obtaind the parsed method "
@@ -577,7 +620,12 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine
 	initializeStream := WriteStream on: String new.
 
 	self appendSuperInitializeOn: initializeStream.
+	self appendStringAttributesOn: initializeStream.
+	self appendNumberAttributesOn: initializeStream.
 	self appendBooleanAttributesOn: initializeStream.
+	self appendTimeStampAttributesOn: initializeStream.
+	self appendDateAttributesOn: initializeStream.
+	self appendTimeAttributesOn: initializeStream.
 	self appendOneToOneRelationsOn: initializeStream.
 	self appendNtoXrelationsOn: initializeStream.
 	self appendClassSelfReferencesOn: initializeStream.
@@ -722,9 +770,14 @@ createUMLSourceForCreateAllInstancesWith: anOrderedCollection
 	^source, String lineDelimiter, String tab, String tab,'yourself'! !
 !UMLClass categoriesFor: #appendBooleanAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendClassSelfReferencesOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendDateAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendNtoXrelationsOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendNumberAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendOneToOneRelationsOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendStringAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #appendSuperInitializeOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendTimeAttributesOn:!initialize generation!public! !
+!UMLClass categoriesFor: #appendTimeStampAttributesOn:!initialize generation!public! !
 !UMLClass categoriesFor: #autoGenerateInitializeMethodIn:!initialize generation!public! !
 !UMLClass categoriesFor: #createClassAccessorsForGlobalObject:using:!public! !
 !UMLClass categoriesFor: #createClassAccessorsForGlobalObjectsUsing:!public! !
