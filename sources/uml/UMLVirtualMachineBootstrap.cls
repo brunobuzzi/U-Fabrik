@@ -193,6 +193,7 @@ initialize
 
 	super initialize.
 
+	superclassesDictionary := Dictionary new.
 	virtualMachine := UMLVirtualMachine new.
 
 	virtualMachine packages: packages;
@@ -329,7 +330,13 @@ traits
 	^traits!
 
 traits: anObject
-	traits := anObject! !
+	traits := anObject!
+
+virtualMachine
+	^virtualMachine!
+
+virtualMachine: anObject
+	virtualMachine := anObject! !
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileInFromXml:!fileIn/Out!public! !
@@ -354,6 +361,8 @@ traits: anObject
 !UMLVirtualMachineBootstrap categoriesFor: #superclassesDictionary:!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #traits!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #traits:!accessing!private! !
+!UMLVirtualMachineBootstrap categoriesFor: #virtualMachine!accessing!private! !
+!UMLVirtualMachineBootstrap categoriesFor: #virtualMachine:!accessing!private! !
 
 !UMLVirtualMachineBootstrap class methodsFor!
 
