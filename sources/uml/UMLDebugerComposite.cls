@@ -163,6 +163,8 @@ selectNode: aStProgramNode
 	"The debugger select <aStProgramNode> text in the source presenter. 
 	But if is an Implementation Snapshot the <nodes> with the real position are in the implementation NOT in the <nodesToExecute> of the Debugger Snapshot"
 
+	aStProgramNode ifNil: [^self].
+
 	^sourcePresenter selectionRange: aStProgramNode sourceInterval!
 
 setLastAnnotatedResult
