@@ -10,11 +10,27 @@ UMLVMLog comment: ''!
 !UMLVMLog categoriesForClass!Unclassified! !
 !UMLVMLog methodsFor!
 
+hasDNU
+
+	^snapshot ifNil: [false] ifNotNil: [snapshot hasDNU]!
+
+hasInfiniteLoop
+
+	^snapshot ifNil: [false] ifNotNil: [snapshot hasInfiniteLoop]!
+
+hasOnErrorDo
+
+	^snapshot ifNil: [false] ifNotNil: [snapshot hasOnErrorDo]!
+
 initialize
 
 	super initialize.
 
 	stamp := TimeStamp now.!
+
+isCurtailed
+
+	^snapshot ifNil: [false] ifNotNil: [snapshot isCurtailed]!
 
 methodName
 	^methodName!
@@ -55,7 +71,11 @@ umlReceiver
 
 umlReceiver: anObject
 	umlReceiver := anObject! !
+!UMLVMLog categoriesFor: #hasDNU!public! !
+!UMLVMLog categoriesFor: #hasInfiniteLoop!public! !
+!UMLVMLog categoriesFor: #hasOnErrorDo!public! !
 !UMLVMLog categoriesFor: #initialize!public! !
+!UMLVMLog categoriesFor: #isCurtailed!public! !
 !UMLVMLog categoriesFor: #methodName!accessing!private! !
 !UMLVMLog categoriesFor: #methodName:!accessing!private! !
 !UMLVMLog categoriesFor: #printOn:!public! !
@@ -86,7 +106,12 @@ for: receiver methodName: methodName args: args snap: anUMLExecutionSnapshot
 		umlReceiver: receiver;
 		umlParameters: args;
 		snapshot: anUMLExecutionSnapshot;
-		yourself.! !
+		yourself.!
+
+icon
+
+	^UMLParsedImplementation icon! !
 !UMLVMLog class categoriesFor: #for:methodName:args:!public! !
 !UMLVMLog class categoriesFor: #for:methodName:args:snap:!public! !
+!UMLVMLog class categoriesFor: #icon!public! !
 
