@@ -22,6 +22,7 @@ package classNames
 	add: #UMLTraitTest;
 	add: #UMLTrueTest;
 	add: #UMLUndefinedObjectTest;
+	add: #UMLVirtualMachineBootstrapTest;
 	add: #UMLVirtualMachineTest;
 	add: #UMLVirtualMachineTestClass;
 	yourself.
@@ -35,6 +36,7 @@ package globalAliases: (Set new
 package setPrerequisites: (IdentitySet new
 	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
 	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
+	add: 'UML Basic Support';
 	add: 'UML Compiler';
 	add: 'UML Live Engine';
 	yourself).
@@ -95,6 +97,11 @@ UMLVirtualMachineTestClass subclass: #UMLTraitTest
 	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLUndefinedObjectTest
 	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLVirtualMachineBootstrapTest
+	instanceVariableNames: 'vmBootstrap'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
