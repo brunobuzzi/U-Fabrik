@@ -159,7 +159,7 @@ fileOutAsXmlTo: aStream
 	aStream nextPutAll: '</Subclasses>'.
 
 	aStream nextPutAll: '<Traits>'.
-		traits do: [:each | aStream nextPutAll: each name].
+		traits do: [:each | aStream nextPutAll: '<TraitName>', each name, '</TraitName>'].
 	aStream nextPutAll: '</Traits>'.!
 
 getAllAttributesNames

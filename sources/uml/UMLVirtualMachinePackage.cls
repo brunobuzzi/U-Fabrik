@@ -49,7 +49,7 @@ fileOutAsXmlTo: aStream
 	aStream nextPutAll: '</Metaclasses>'.
 
 	aStream nextPutAll: '<Traits>'.	
-		traits do: [:eachTrait | eachTrait name].
+		traits do: [:eachTrait | aStream nextPutAll: '<TraitName>',eachTrait name, '</TraitName>'].
 	aStream nextPutAll: '</Traits>'.	!
 
 getClassNamed: aString ifNone: aBlock

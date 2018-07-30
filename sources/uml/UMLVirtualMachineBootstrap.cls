@@ -47,6 +47,15 @@ fileInFromXml: pathFile
 
 	^self createVirtualMachineFrom: xmlSource!
 
+fileOutAsXmlTo: pathFile
+	| stream |
+
+	stream := FileStream write: pathFile text: true.
+	UMLVirtualMachine default fileOutAsXmlTo: stream.
+	stream flush; close.
+	
+	!
+
 generateVirtualMachine
 	"The receiver generate the <UMLVirtualMachine> by:
 	1- Adding generated U-Fabrik classes to the Virtual Machine.
@@ -340,6 +349,7 @@ virtualMachine: anObject
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileInFromXml:!fileIn/Out!public! !
+!UMLVirtualMachineBootstrap categoriesFor: #fileOutAsXmlTo:!fileIn/Out!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachine!public!vm generation! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachineAndSetAsDefault!public!vm generation! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachinePackages!public!vm generation! !

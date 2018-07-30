@@ -56,7 +56,13 @@ classNameForImplementationList
 
 fileOutAsXmlTo: aStream
 
-	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.!
+	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.
+
+	aStream nextPutAll: '<Categories>'.
+	self getCategories do: [:eachImpCat | 
+		aStream nextPutAll: '<CategoryName>', eachImpCat name, '</CategoryName>'.
+	].
+	aStream nextPutAll: '</Categories>'.!
 
 getCategories
 

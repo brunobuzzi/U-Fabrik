@@ -46,7 +46,12 @@ fileOutAsXmlTo: aStream
 	methods do: [:eachMeth | 
 		aStream nextPutAll: '<Implementation>'.
 		eachMeth fileOutAsXmlTo: aStream.
-		aStream nextPutAll: '</Implementation>'.].!
+		aStream nextPutAll: '</Implementation>'.].
+
+	requirements do: [:eachTraitReq | 
+		aStream nextPutAll: '<Requirement>'.
+		eachTraitReq fileOutAsXmlTo: aStream.
+		aStream nextPutAll: '</Requirement>'.].!
 
 getAllAttributesNames
 	^#()!

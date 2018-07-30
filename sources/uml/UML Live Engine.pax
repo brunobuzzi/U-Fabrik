@@ -100,6 +100,7 @@ package methodNames
 	add: #Object -> #printObjectName;
 	add: #Object -> #smalltalkObject;
 	add: #OrderedCollection -> #asUMLObject:;
+	add: #RichText -> #appendToStream:;
 	add: #SequenceableCollection -> #uml_includes:;
 	add: #SequenceableCollection -> #uml_remove:;
 	add: #Set -> #asUMLObject:;
@@ -173,6 +174,7 @@ package setPrerequisites: (IdentitySet new
 	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
 	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
 	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
 	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
 	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
 	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
@@ -672,6 +674,13 @@ asUMLObject: aVirtualMachine
 newForUML
 	^self new! !
 !OrderedCollection class categoriesFor: #newForUML!public! !
+
+!RichText methodsFor!
+
+appendToStream: aWriteStream 
+
+	^aWriteStream nextPutAll: rtf! !
+!RichText categoriesFor: #appendToStream:!public! !
 
 !SequenceableCollection methodsFor!
 

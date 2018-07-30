@@ -42,7 +42,8 @@ className
 fileOutAsXmlTo: aStream
 
 	aStream nextPutAll: '<TraitMethodNamed>', methodName, '</TraitMethodNamed>'.
-	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.!
+	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.
+	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.!
 
 getInitialClassObjectNames
 

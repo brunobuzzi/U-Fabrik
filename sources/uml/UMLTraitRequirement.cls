@@ -16,6 +16,11 @@ comments
 comments: anObject
 	comments := anObject!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<MessageName>', message, '</MessageName>'.
+	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.!
+
 initialize
 
 	super initialize.
@@ -30,6 +35,7 @@ message: anObject
 	message := anObject! !
 !UMLTraitRequirement categoriesFor: #comments!accessing!private! !
 !UMLTraitRequirement categoriesFor: #comments:!accessing!private! !
+!UMLTraitRequirement categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLTraitRequirement categoriesFor: #initialize!public! !
 !UMLTraitRequirement categoriesFor: #message!accessing!private! !
 !UMLTraitRequirement categoriesFor: #message:!accessing!private! !
