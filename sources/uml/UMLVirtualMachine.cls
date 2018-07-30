@@ -128,7 +128,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 	"primitive call answer the result of the primitive call --> answer the last result"
 	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall])  
 		ifTrue: [collectionResult last] 
-		ifFalse: [anUMLObject] "answer the receiver"!
+		ifFalse: [anUMLObject] "no return (^) node present and not a primitive call --> answer the receiver"!
 
 arrayClass
 
