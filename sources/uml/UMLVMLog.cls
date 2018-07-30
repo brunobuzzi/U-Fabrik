@@ -44,6 +44,10 @@ printOn: target
 		nextPutAll: 'Log: ';
 		nextPutAll: umlReceiver printString , ' ', methodName, ' [', stamp printShortFormat, ']'!
 
+printParameters
+
+	^umlParameters printString!
+
 receiverName
 	| prefix |
 
@@ -62,6 +66,10 @@ stamp
 
 stamp: anObject
 	stamp := anObject!
+
+timeStampAsMilliseconds
+
+	^stamp asMilliseconds!
 
 umlParameters
 	^umlParameters!
@@ -82,11 +90,13 @@ umlReceiver: anObject
 !UMLVMLog categoriesFor: #methodName!accessing!private! !
 !UMLVMLog categoriesFor: #methodName:!accessing!private! !
 !UMLVMLog categoriesFor: #printOn:!public! !
+!UMLVMLog categoriesFor: #printParameters!public! !
 !UMLVMLog categoriesFor: #receiverName!public! !
 !UMLVMLog categoriesFor: #snapshot!accessing!private! !
 !UMLVMLog categoriesFor: #snapshot:!accessing!private! !
 !UMLVMLog categoriesFor: #stamp!accessing!private! !
 !UMLVMLog categoriesFor: #stamp:!accessing!private! !
+!UMLVMLog categoriesFor: #timeStampAsMilliseconds!public! !
 !UMLVMLog categoriesFor: #umlParameters!accessing!private! !
 !UMLVMLog categoriesFor: #umlParameters:!accessing!private! !
 !UMLVMLog categoriesFor: #umlReceiver!accessing!private! !
