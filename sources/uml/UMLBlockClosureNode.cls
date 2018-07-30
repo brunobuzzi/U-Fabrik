@@ -101,9 +101,9 @@ printOn: aStream
 	"super printOn: aStream."
 
 	aStream
-		nextPutAll: 'aBlock';
-		nextPutAll: self source
-!
+		nextPutAll: 'aBlock {', String lineDelimiter;
+		nextPutAll: self source;
+		nextPutAll: String lineDelimiter, '}'!
 
 sequenceNode
 	^sequenceNode!
