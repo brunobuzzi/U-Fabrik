@@ -12,11 +12,11 @@ UMLVMTransLog comment: ''!
 
 addErrorLog: aUMLVMLog
 
-	^(errorLogs at: aUMLVMLog stamp ifAbsentPut: [OrderedCollection new]) add: aUMLVMLog!
+	^errorLogs add: aUMLVMLog!
 
 addLog: aUMLVMLog
 
-	^(logs at: aUMLVMLog stamp ifAbsentPut: [OrderedCollection new]) add: aUMLVMLog!
+	^logs add: aUMLVMLog!
 
 cleanAll
 
@@ -25,11 +25,11 @@ cleanAll
 
 cleanErrorLog
 
-	errorLogs := LookupTable new.!
+	errorLogs := OrderedCollection new.!
 
 cleanLog
 
-	logs := LookupTable new.!
+	logs := OrderedCollection new.!
 
 errorLogIsActive
 	^errorLogIsActive!
@@ -43,29 +43,18 @@ errorLogs
 errorLogs: anObject
 	errorLogs := anObject!
 
-errorLogsAsSortedCollection
-	| newCollection |
-
-	newCollection := SortedCollection sortBlock: [:a :b | a stamp <= b stamp].
-	
-	errorLogs do: [:eachCollection | newCollection addAll: eachCollection].
-
-	^newCollection!
-
 errorLogSize
 
-	^errorLogs inject: 0 into: [:sum :each | sum + each size]
-
-
+	^errorLogs size
 !
 
 initialize
 
 	super initialize.
 
-	logs := LookupTable new.
+	logs := OrderedCollection new.
 	logIsActive := false.
-	errorLogs := LookupTable new.
+	errorLogs := OrderedCollection new.
 	errorLogIsActive := false.!
 
 logIsActive
@@ -80,18 +69,9 @@ logs
 logs: anObject
 	logs := anObject!
 
-logsAsSortedCollection
-	| newCollection |
-
-	newCollection := SortedCollection sortBlock: [:a :b | a stamp <= b stamp].
-	
-	logs do: [:eachCollection | newCollection addAll: eachCollection].
-
-	^newCollection!
-
 logSize
 
-	^logs inject: 0 into: [:sum :each | sum + each size]
+	^logs size
 
 
 !
@@ -110,14 +90,12 @@ totalSize
 !UMLVMTransLog categoriesFor: #errorLogIsActive:!accessing!private! !
 !UMLVMTransLog categoriesFor: #errorLogs!accessing!private! !
 !UMLVMTransLog categoriesFor: #errorLogs:!accessing!private! !
-!UMLVMTransLog categoriesFor: #errorLogsAsSortedCollection!public! !
 !UMLVMTransLog categoriesFor: #errorLogSize!public! !
 !UMLVMTransLog categoriesFor: #initialize!public! !
 !UMLVMTransLog categoriesFor: #logIsActive!accessing!private! !
 !UMLVMTransLog categoriesFor: #logIsActive:!accessing!private! !
 !UMLVMTransLog categoriesFor: #logs!accessing!private! !
 !UMLVMTransLog categoriesFor: #logs:!accessing!private! !
-!UMLVMTransLog categoriesFor: #logsAsSortedCollection!public! !
 !UMLVMTransLog categoriesFor: #logSize!public! !
 !UMLVMTransLog categoriesFor: #totalSize!public! !
 
