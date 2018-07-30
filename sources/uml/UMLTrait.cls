@@ -39,6 +39,15 @@ category: anUMLImplementationCategory includes: anUMLTraitMethod
 
 	^anUMLImplementationCategory isTraitCategory or: [anUMLImplementationCategory isAllCategory and: [anUMLImplementationCategory isAllCategoryButTrait not] ]!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<TraitNamed>', name, '</TraitNamed>'.
+
+	methods do: [:eachMeth | 
+		aStream nextPutAll: '<Implementation>'.
+		eachMeth fileOutAsXmlTo: aStream.
+		aStream nextPutAll: '</Implementation>'.].!
+
 getAllAttributesNames
 	^#()!
 
@@ -105,6 +114,7 @@ umlModel
 !UMLTrait categoriesFor: #block!accessing!private! !
 !UMLTrait categoriesFor: #block:!accessing!private! !
 !UMLTrait categoriesFor: #category:includes:!public! !
+!UMLTrait categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLTrait categoriesFor: #getAllAttributesNames!public! !
 !UMLTrait categoriesFor: #includesMessage:!public! !
 !UMLTrait categoriesFor: #initialize!public! !

@@ -39,6 +39,11 @@ arguments
 className
 	^'Trait: <', trait name, '.', methodName, '>'!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<TraitMethodNamed>', methodName, '</TraitMethodNamed>'.
+	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.!
+
 getInitialClassObjectNames
 
 	^(self arguments, self temporaries) collect: [:each | each name]!
@@ -136,6 +141,7 @@ umlModelName
 !UMLTraitMethod categoriesFor: #argumentAt:!public! !
 !UMLTraitMethod categoriesFor: #arguments!public! !
 !UMLTraitMethod categoriesFor: #className!public! !
+!UMLTraitMethod categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLTraitMethod categoriesFor: #getInitialClassObjectNames!public! !
 !UMLTraitMethod categoriesFor: #getNodeAt:!public! !
 !UMLTraitMethod categoriesFor: #getNodes!public! !

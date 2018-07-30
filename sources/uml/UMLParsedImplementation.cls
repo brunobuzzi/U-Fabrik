@@ -54,6 +54,10 @@ asTreeModelUpto: level count: count
 classNameForImplementationList
 	^self methodClass classNameForImplementationList!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.!
+
 getCategories
 
 	^(methodClass getAllCategories reject: [:each | each isVirtual or: [each isGUICategory]]) 
@@ -210,6 +214,7 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #arguments!public! !
 !UMLParsedImplementation categoriesFor: #asTreeModelUpto:count:!public!uml msg tracking! !
 !UMLParsedImplementation categoriesFor: #classNameForImplementationList!public! !
+!UMLParsedImplementation categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLParsedImplementation categoriesFor: #getCategories!public! !
 !UMLParsedImplementation categoriesFor: #getImplementationAndGUICategories!public! !
 !UMLParsedImplementation categoriesFor: #getNodeAt:!public! !

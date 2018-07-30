@@ -29,6 +29,29 @@ classes
 classes: anObject
 	classes := anObject!
 
+fileOutAsXmlTo: aStream
+
+
+	aStream nextPutAll: '<VMPackageNamed>', name, '</VMPackageNamed>'.
+
+	aStream nextPutAll: '<Classes>'.	
+		classes do: [:each | 
+			aStream nextPutAll: '<Class>'.
+			each fileOutAsXmlTo: aStream.
+			aStream nextPutAll: '</Class>'.].
+	aStream nextPutAll: '</Classes>'.	
+
+	aStream nextPutAll: '<Metaclasses>'.	
+		(classes collect: [:each | each metaclass]) do: [:each | 
+			aStream nextPutAll: '<Metalass>'.
+			each fileOutAsXmlTo: aStream.
+			aStream nextPutAll: '</Metalass>'.].
+	aStream nextPutAll: '</Metaclasses>'.
+
+	aStream nextPutAll: '<Traits>'.	
+		traits do: [:eachTrait | eachTrait name].
+	aStream nextPutAll: '</Traits>'.	!
+
 getClassNamed: aString ifNone: aBlock
 
 	^classes at: aString ifAbsent: aBlock
@@ -80,6 +103,7 @@ traits: anObject
 !UMLVirtualMachinePackage categoriesFor: #canBeRemoved!public! !
 !UMLVirtualMachinePackage categoriesFor: #classes!accessing!private! !
 !UMLVirtualMachinePackage categoriesFor: #classes:!accessing!private! !
+!UMLVirtualMachinePackage categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLVirtualMachinePackage categoriesFor: #getClassNamed:ifNone:!public! !
 !UMLVirtualMachinePackage categoriesFor: #hasClassNamed:!public! !
 !UMLVirtualMachinePackage categoriesFor: #includesTrait:!public! !

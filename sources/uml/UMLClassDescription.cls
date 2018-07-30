@@ -141,6 +141,27 @@ displayDescriptorString
 
 	^self name!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<VMClassTypeNamed>', self class name, '</VMClassTypeNamed>'.
+	aStream nextPutAll: '<VMClassNamed>', name, '</VMClassNamed>'.
+	aStream nextPutAll: '<SuperclassName>', self getSuperclass name, '</SuperclassName>'.
+
+	aStream nextPutAll: '<Implementations>'.
+		implementations do: [:eachImp | 
+			aStream nextPutAll: '<Implementation>'.
+			eachImp fileOutAsXmlTo: aStream.
+			aStream nextPutAll: '</Implementation>'.].
+	aStream nextPutAll: '</Implementations>'.
+
+	aStream nextPutAll: '<Subclasses>'.
+		subclasses do: [:each | aStream nextPutAll: each name].
+	aStream nextPutAll: '</Subclasses>'.
+
+	aStream nextPutAll: '<Traits>'.
+		traits do: [:each | aStream nextPutAll: each name].
+	aStream nextPutAll: '</Traits>'.!
+
 getAllAttributesNames
 	^(self allAttributes collect: [:each | each getName]) asSortedCollection!
 
@@ -317,6 +338,7 @@ vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 !UMLClassDescription categoriesFor: #className!public! !
 !UMLClassDescription categoriesFor: #defaultTopObjectClass!public! !
 !UMLClassDescription categoriesFor: #displayDescriptorString!public! !
+!UMLClassDescription categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLClassDescription categoriesFor: #getAllAttributesNames!attributes!get elements!public! !
 !UMLClassDescription categoriesFor: #getAllNames!attributes!get elements!public!relations! !
 !UMLClassDescription categoriesFor: #getAttributesNames!attributes!get elements!public! !

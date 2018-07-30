@@ -524,6 +524,24 @@ fileInUMLModelImplementationsFrom: pathFile
 	fileStream := nil.
 	xmlSource := nil!
 
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<VM>'.
+		aStream nextPutAll: '<Traits>'.	
+				self allTraits do: [:eachTrait | 
+					aStream nextPutAll: '<Trait>'.
+					eachTrait fileOutAsXmlTo: aStream.
+					aStream nextPutAll: '</Trait>'.].
+		aStream nextPutAll: '</Traits>'.
+
+		aStream nextPutAll: '<Packages>'.
+			self packages do: [:eachPack | 
+				aStream nextPutAll: '<Package>'.
+				eachPack fileOutAsXmlTo: aStream.
+				aStream nextPutAll: '</Package>'.].
+		aStream nextPutAll: '</Packages>'.	
+	aStream nextPutAll: '</VM>'.!
+
 fileOutCategory: anUMLCategory to: pathFile
 	"The receiver create a file with path file <pathFile> and store all elements of <aListModel> in an XML file"
 	| fileStream |
@@ -2382,6 +2400,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #fileInFromXml:!public!vm file in! !
 !UMLVirtualMachine categoriesFor: #fileInMethodsFrom:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileInUMLModelImplementationsFrom:!binary filing!public! !
+!UMLVirtualMachine categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutCategory:to:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutCleanVirtualMachineTo:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutMethods:to:!binary filing!public! !

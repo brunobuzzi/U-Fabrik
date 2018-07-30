@@ -23,6 +23,12 @@ belongToVirtualMachine
 defaultInstanceClass
 	^UMLVirtualMachineInstance!
 
+fileOutAsXmlTo: aStream
+
+	super fileOutAsXmlTo: aStream.
+
+	aStream nextPutAll: '<StClass>', smalltalkClass name, '</StClass>'.!
+
 newInstance
 
 	^(self defaultInstanceClass umlClass: self) 
@@ -51,6 +57,7 @@ type
 	^self! !
 !UMLVirtualMachineClass categoriesFor: #belongToVirtualMachine!public! !
 !UMLVirtualMachineClass categoriesFor: #defaultInstanceClass!public! !
+!UMLVirtualMachineClass categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLVirtualMachineClass categoriesFor: #newInstance!public! !
 !UMLVirtualMachineClass categoriesFor: #newInstanceWith:!public! !
 !UMLVirtualMachineClass categoriesFor: #newSmalltalkObject!public! !
