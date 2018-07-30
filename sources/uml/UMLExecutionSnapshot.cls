@@ -223,7 +223,7 @@ initialize
 	hasOnErrorDo := false.
 	executedNodes := OrderedCollection new.
 	cascadeTemporaries := LookupTable new.
-	executedImplementations := OrderedCollection new.
+	executedImplementations := Set new.
 	hasInfiniteLoop := false!
 
 isCurtailed
@@ -399,7 +399,9 @@ processMessageNode: aStMessageNode context: anUMLObject parameters: anArray
 
 	executedNodes add: aStMessageNode.
 
-	^virtualMachine send: symbolMessage to: result withAll: arguments parentSnapshot: self isSuperSend: (aStMessageNode receiverName = 'super') isTrait: self isTrait!
+	"^virtualMachine send: symbolMessage to: result withAll: arguments parentSnapshot: self isSuperSend: (aStMessageNode receiverName = 'super') isTrait: self isTrait"
+
+	^virtualMachine send: symbolMessage to: result withAll: arguments parentSnapshot: self isSuperSend: aStMessageNode receiver isSuperVariable isTrait: self isTrait!
 
 processMessageNode: aStMessageNode messageReceiver: anUMLObject arguments: anArray	
 	"The receiver is processed in <anUMLExecutionSnapshot> for <anUMLObject> with arguments <anArray>"
@@ -475,6 +477,11 @@ sequence: anUMLSequenceNode
 	sequence := anUMLSequenceNode.
 
 	anUMLSequenceNode temporaryVariables do: [:each | sequenceTemporaries at: each put: virtualMachine nilObject].!
+
+sequenceSuperClass
+	"The receiver answer the superclass of its <UMLImplementation>"
+
+	^sequence methodClass umlSuperclass!
 
 sequenceTemporaries
 	^sequenceTemporaries!
@@ -589,6 +596,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #send:to:withAll:parentSnapshot:!public! !
 !UMLExecutionSnapshot categoriesFor: #sequence!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #sequence:!accessing!processesing!public! !
+!UMLExecutionSnapshot categoriesFor: #sequenceSuperClass!public! !
 !UMLExecutionSnapshot categoriesFor: #sequenceTemporaries!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #sequenceTemporaries:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #stbSaveOn:!binary filing!public! !

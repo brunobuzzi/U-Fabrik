@@ -108,7 +108,8 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
 	| collectionResult | 
 
-	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLImplementation methodName arguments: arguments.]. "Here we register the message in the UMLVMTransLog"
+	"register the message in the UMLVMTransLog"
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLImplementation methodName arguments: arguments snap: anUMLExecutionSnapshot ].
 
 	collectionResult := OrderedCollection new.
 	anUMLImplementation nodes do: [:each |
@@ -121,7 +122,13 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 							^self nilObject]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] ]. " apply the super implementation to anObject "
 	collectionResult isEmpty ifTrue: [^anUMLObject"^self errorNotImplementedYet: symbolMessage in: anUMLObject"].
-	^collectionResult last!
+
+	"see issue #51"
+	"#isCurtailed indicate a (^) return node --> answer the last result"
+	"primitive call answer the result of the primitive call --> answer the last result"
+	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall])  
+		ifTrue: [collectionResult last] 
+		ifFalse: [anUMLObject] "answer the receiver"!
 
 arrayClass
 
@@ -726,6 +733,11 @@ getNumber: aNumber ifAbsent: aBlock
 
 	^numbers at: aNumber printString ifAbsent: aBlock!
 
+getPackageNamed: aString ifNone: aBlock
+	"The receiver answer <anUMLVirtualMachinePackage> named <aString> if none is found answer evaluate the niladic block <aBlock>"
+
+	^packages detect: [:each | each name = aString] ifNone: [aBlock value]!
+
 getReferencesTo: implementationName
 	| references |
 
@@ -740,6 +752,11 @@ getReferencesToClassName: className
 
 	^self getAllImplementations select: [:each | (each hasReferencesToClassName: className)]
 !
+
+getTraitNamed: aString ifNone: aBlock
+	"The receiver answer <anUMLTrait> named <aString> if none is found answer evaluate the niladic block <aBlock>"
+
+	^traits detect: [:each | each name = aString] ifNone: [aBlock value]!
 
 getUMLClasses
 	| allClasses |
@@ -1934,6 +1951,16 @@ registerTransLogFor: anUMLObject methodName: methodName arguments: arguments
 
 	^log!
 
+registerTransLogFor: anUMLObject methodName: methodName arguments: arguments snap: anUMLExecutionSnapshot
+	| log |
+
+	log := UMLVMLog for: anUMLObject methodName: methodName args: arguments.
+	log snapshot: anUMLExecutionSnapshot.
+
+	transLog addLog: log.
+
+	^log!
+
 removeNumber: aNumber
 
 	aNumber virtualMachine: nil.
@@ -2047,19 +2074,18 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	(anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject]. "abort further execution in an infinite loop case"
 
 	targetObject := traitBoolean ifFalse: [(superBoolean 
-								ifTrue: [anUMLExecutionSnapshot sequence methodClass umlSuperclass] 
+								ifTrue: [anUMLObject isUMLInstance 
+									ifTrue: [anUMLExecutionSnapshot sequenceSuperClass] 
+									ifFalse: [anUMLExecutionSnapshot sequenceSuperClass getFetchMethodsMetaclass]] 
 								ifFalse: [anUMLObject getFetchMethodsMetaclass])]
 						ifTrue: [anUMLObject getMetaclass].
 	"implementation lookup"
 	implementation := self fetchMethodNamed: symbolMessage for: targetObject.
 
-	implementation isMethodImplementation ifTrue: ["see issue #43"
-		anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot isTrait 
-			ifFalse: [anUMLExecutionSnapshot registerImplemenation: implementation.
-				(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) "detect inifinite loops in #initialize method (see issue #32)"
-				ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
-			].
-		].
+	(implementation isMethodImplementation "see issue #43" and: [superBoolean not "see issue #48" and: [anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot lastExecutedNode isSuperSend not and: [anUMLExecutionSnapshot isTrait not]]]])
+	ifTrue: [anUMLExecutionSnapshot registerImplemenation: implementation.
+		(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) "detect inifinite loops in #initialize method (see issue #32)"
+		ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
 	].
 	implementation == self nilObjectClass 
 	ifTrue: [((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
@@ -2290,10 +2316,7 @@ virtualMachineClassNamed: aString
 virtualMachineClassNamed: aString ifNone: aBlock
 	"Answer a Virtual Machine class named <aString> if absent asnwer anUMLInstance of UMLClass(''UndefinedObject)"
 
-	(systemDictionary at: aString ifAbsent: [^aBlock value]) instanceClass.
-
-	^packages detect: [:each | (each getClassNamed: aString ifNone: [nil]) notNil] ifNone: aBlock
-!
+	^(systemDictionary at: aString ifAbsent: [^aBlock value]) instanceClass!
 
 virtualMachineClassNamedLowercase: aString
 	"Answer a Virtual Machine class named <aString> if absent asnwer anUMLInstance of UMLClass(''UndefinedObject)"
@@ -2381,8 +2404,10 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #getClassNamedLike:!public!searching! !
 !UMLVirtualMachine categoriesFor: #getNumber:!numbers!public! !
 !UMLVirtualMachine categoriesFor: #getNumber:ifAbsent:!numbers!private! !
+!UMLVirtualMachine categoriesFor: #getPackageNamed:ifNone:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #getReferencesTo:!public!uml msg tracking! !
 !UMLVirtualMachine categoriesFor: #getReferencesToClassName:!public!uml msg tracking! !
+!UMLVirtualMachine categoriesFor: #getTraitNamed:ifNone:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #getUMLClasses!public! !
 !UMLVirtualMachine categoriesFor: #getUMLModelNamed:!public! !
 !UMLVirtualMachine categoriesFor: #getUMLModelNamed:ifNone:!public! !
@@ -2515,6 +2540,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #processPrimitiveCallHaltIn:node:object:!debug!public! !
 !UMLVirtualMachine categoriesFor: #registerTransErrorLogFor:methodName:arguments:snap:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
+!UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:snap:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #removeNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #removePackage:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #removePrimitiveObjectNamed:!primitive objects!private! !

@@ -85,7 +85,9 @@ getNextNode
 
 	self isExecutingIterationNode ifTrue: [^nextNode := self getNextNodeFromIterationNodes].
 
-	self isAtEnd ifFalse: [^nextNode := self getNextNodeIn: executionProgress currentMainNode].!
+	self isAtEnd ifFalse: [^nextNode := self getNextNodeIn: executionProgress currentMainNode].
+
+	^executionProgress currentMainNode!
 
 getNextNodeFromAssignment: aStAssignmentNode
 	"The receiver get the NEXT message to send from <aStMessageNode>"

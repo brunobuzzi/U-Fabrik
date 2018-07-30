@@ -66,7 +66,7 @@ initialize
 
 printName
 
-		^sequence className, '.', sequence name!
+	^sequence className, '.', sequence name!
 
 printOn: aStream
 
@@ -75,7 +75,7 @@ printOn: aStream
 	aStream
 		nextPutAll: 'anExecutionSnapshot';
 		nextPut: $<;
-		nextPutAll: sequence className, '.', sequence name;
+		nextPutAll: self printName;
 		nextPut: $>.!
 
 processAssignment: aStAssignmentNode messageReceiver: anUMLInstance arguments: anArray

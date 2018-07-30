@@ -123,6 +123,13 @@ hideShowMessageClass
 hideShowMessageClass: anObject
 	hideShowMessageClass := anObject!
 
+isPrimitiveCall
+	"Answer whether or not the receiver is a primitive call (has special handling)"
+
+	^parsedCode allNodes isEmpty 
+		ifTrue: [false] 
+		ifFalse: [parsedCode allNodes last isPrimitive]!
+
 nodes
 
 	(parsedCode tag notNil and: [parsedCode tag isPrimitive]) ifTrue: [^OrderedCollection with: parsedCode tag].
@@ -216,6 +223,7 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #hideShowMessage:!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hideShowMessageClass!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hideShowMessageClass:!accessing!private! !
+!UMLParsedImplementation categoriesFor: #isPrimitiveCall!public! !
 !UMLParsedImplementation categoriesFor: #nodes!public! !
 !UMLParsedImplementation categoriesFor: #parsedCode!accessing!private! !
 !UMLParsedImplementation categoriesFor: #parsedCode:!accessing!private! !
