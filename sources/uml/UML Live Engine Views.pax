@@ -414,7 +414,7 @@ UMLComposite subclass: #UMLTypeMappingComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLComposite subclass: #UMLVMTransLogComposite
-	instanceVariableNames: 'logIsActivePresenter errorLogIsActivePresenter logSizePresenter errorLogSizePresenter totalSizePresenter logsPresenter errorLogsPresenter'
+	instanceVariableNames: 'logIsActivePresenter errorLogIsActivePresenter logSizePresenter errorLogSizePresenter totalSizePresenter logsPresenter errorLogsPresenter workspacePresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -1044,7 +1044,8 @@ processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	debuggerSnapshot nextNode: debuggerSnapshot currentMainNode.
 
 	debugger := UMLDebuggerShell showOn: debuggerSnapshot.
-	((debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]) ifTrue: [(UMLDebuggerShell showOn: debuggerSnapshot) setLastAnnotatedResult].
+	(debuggerSnapshot  currentMainNode notNil and: [(debuggerSnapshot  currentMainNode hasSelector) and: [(debuggerSnapshot currentMainNode selector = #halt)]]) 
+	ifTrue: [debugger setLastAnnotatedResult].
 	debugger view caption: (debugger view caption, ': HALT').
 
 	debuggerSnapshot allSnapshots reverse do: [:each | debugger addSnapshot: each].
