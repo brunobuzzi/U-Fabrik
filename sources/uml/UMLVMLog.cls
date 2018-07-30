@@ -38,6 +38,10 @@ methodName
 methodName: anObject
 	methodName := anObject!
 
+printMethodName
+
+	^snapshot printName!
+
 printOn: target
 
 	target 
@@ -89,6 +93,7 @@ umlReceiver: anObject
 !UMLVMLog categoriesFor: #isCurtailed!public! !
 !UMLVMLog categoriesFor: #methodName!accessing!private! !
 !UMLVMLog categoriesFor: #methodName:!accessing!private! !
+!UMLVMLog categoriesFor: #printMethodName!public! !
 !UMLVMLog categoriesFor: #printOn:!public! !
 !UMLVMLog categoriesFor: #printParameters!public! !
 !UMLVMLog categoriesFor: #receiverName!public! !
