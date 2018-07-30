@@ -45,8 +45,11 @@ printOn: target
 		nextPutAll: umlReceiver printString , ' ', methodName, ' [', stamp printShortFormat, ']'!
 
 receiverName
+	| prefix |
 
-	^umlReceiver name!
+	prefix := umlReceiver isUMLInstance ifTrue: [umlReceiver name first isVowel ifTrue: ['an'] ifFalse: ['a']] ifFalse: ['']. 
+
+	^prefix, umlReceiver name!
 
 snapshot
 	^snapshot!
