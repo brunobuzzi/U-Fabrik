@@ -257,14 +257,6 @@ errorClass
 
 	^self virtualMachineClassNamed: 'Error'!
 
-errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject
-	"In this case the InstVar <var> is NOT Basic, <var> is a NxN or 1xN for <anUMLObject class>  then --> Set Object MUST be a Collection if NOT --> anError"
-
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
-
-	^(self errorClass newInstance) smalltalkObject: 
-				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.!
-
 errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 	"In this case the InstVar <var> is NOT Basic, <var> is a NxN or 1xN for <anUMLObject class>  then --> Set Object MUST be a Collection if NOT --> anError"
 
@@ -293,15 +285,6 @@ errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject:
 	^(self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLRelationClassAttribute name,'> (', anUMLRelationClassAttribute getType name,') with <', setObject printString, '(', setObject umlClass name, ')>'); yourself!
 
-errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject
-	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
-
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
-
-	^(self errorClass newInstance) 
-				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
-				yourself.!
-
 errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
 
@@ -311,14 +294,6 @@ errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObj
 	^(self errorClass newInstance) 
 				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
 				yourself.!
-
-errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject
-
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
-
-	^(self errorClass newInstance) 
-		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
-		yourself.!
 
 errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 
@@ -2228,7 +2203,7 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 		ifTrue: [instanceAttributes last] 
 		ifFalse: [anUMLObject umlClass allAttributes detect: [:each | each alias notNil and: [each alias asString = symbolName asString]] 
 					ifNone: [^aBoolean 
-						ifTrue: [self errorVaribleNotExist: symbolName receiver: anUMLObject setObject: setObject] 
+						ifTrue: [self errorVaribleNotExist: symbolName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot] 
 						ifFalse: [anUMLObject setVariableNamed: symbolName with: setObject].].].
 
 	(setObject == self nilObject) ifTrue: [^anUMLObject setVariableNamed: var with: setObject]. "we set the value with {nil} - we do NOT perform any check"
@@ -2415,14 +2390,11 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #dictionaryClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:snapshot:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorClass!primitive objects!private! !
-!UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorLogIsActive!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:snapshot:!error handling!public! !
-!UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:snapshot:!error handling!public!vm core! !
-!UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
