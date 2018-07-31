@@ -114,6 +114,7 @@ evaluate: aString
 	executionSnapshot clearExecutedImplementations;
 		exception: nil;
 		hasDNU: false;
+		hasOnErrorDo: false;
 		isCurtailed: false.
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.

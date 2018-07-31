@@ -329,11 +329,9 @@ executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 		anUMLExecutionSnapshot isCurtailed "if we found an _^_ we halt the execution"
 		ifFalse: [nodeResult := each processInsideSnapshot: anUMLExecutionSnapshot context: nil parameters: #()."if an error occurs --> set #exception variable of <anUMLExecutionSnapshot>"
 
-			anUMLExecutionSnapshot hasException ifTrue: [^OrderedCollection with: anUMLExecutionSnapshot exception].
+			(anUMLExecutionSnapshot hasException and: [anUMLExecutionSnapshot hasOnErrorDo not]) ifTrue: [^OrderedCollection with: anUMLExecutionSnapshot exception].
 
-			(anUMLExecutionSnapshot hasDNU and: [anUMLExecutionSnapshot hasOnErrorDo])
-			ifTrue: [OrderedCollection with: nodeResult] "is a [] on: Error do: [] - we return the Error"
-			ifFalse: [OrderedCollection with: nodeResult].
+			anUMLExecutionSnapshot hasOnErrorDo ifTrue: [^OrderedCollection with: nodeResult]. "is a [] on: Error do: [] - we return the Error"
 			allResults add: nodeResult.
 		].
 	].
