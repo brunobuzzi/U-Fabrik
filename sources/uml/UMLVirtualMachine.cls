@@ -243,9 +243,11 @@ dictionaryClass
 
 	^self virtualMachineClassNamed: 'Dictionary'!
 
-errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance
+errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance snapshot: anUMLExecutionSnapshot
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name arguments: anUMLInstance snapshot: nil]. "Here we register the error in the UMLVMTransLog"
+	"register the error in the UMLVMTransLog"
+	self errorLogIsActive 
+	ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name arguments: anUMLInstance snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLAssociationClassAttribute name ,'(', anUMLAssociationClassAttribute getType name,')> with <', anUMLInstance printString, '(', anUMLInstance umlClass name, ')>');
@@ -2141,14 +2143,14 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 
 	^self apply: implementation to: anUMLObject with: parameters parentSnapshot: anUMLExecutionSnapshot"process each message of the implementation. (each processInside: self context: anUMLObject parameters: arguments)"!
 
-setAssociationVariable: anUMLAssociationClassAttribute with: anUMLInstance to: anUMLObject
+setAssociationVariable: anUMLAssociationClassAttribute with: anUMLInstance to: anUMLObject snapshot: anUMLExecutionSnapshot
 
 	((anUMLObject umlClass == anUMLAssociationClassAttribute type) or: [anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass])
 	ifTrue: [((anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass) or: [(anUMLAssociationClassAttribute seteableClass subclasses includes: anUMLInstance umlClass)]) 
-		ifFalse: [^self errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance.] ] 
+		ifFalse: [^self errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance snapshot: anUMLExecutionSnapshot] ] 
 	ifFalse: [((anUMLInstance umlClass == anUMLAssociationClassAttribute type) or: [anUMLAssociationClassAttribute seteableClass subclasses includes: anUMLInstance umlClass])
 		ifFalse: [(anUMLAssociationClassAttribute hasMultipleInstances and: [(anUMLInstance vmPerform: #isCollection) smalltalkObject])
-			ifFalse:[^self errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance]]].
+			ifFalse:[^self errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance snapshot: anUMLExecutionSnapshot]]].
 
 	^anUMLObject setVariableNamed: anUMLAssociationClassAttribute with: anUMLInstance!
 
@@ -2250,7 +2252,7 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 		(var getType smalltalkClass == setObject umlClass smalltalkClass or: [var getType smalltalkClass subclasses includes: setObject umlClass smalltalkClass] ) "object types MUST match if NOT --> anError"
 		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot]]
 	ifFalse: [(((var getInitializeType == setObject umlClass) or: [var getType allSubclasses includes: setObject umlClass]) or: [(setObject vmPerform: #isCollection) smalltalkObject and: [var relation hasMultipleInstances: anUMLObject umlClass]])
-		ifFalse: [self halt. ^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot] ].
+		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot] ].
 
 	^anUMLObject setVariableNamed: var with: setObject. "we set the value"!
 
@@ -2426,7 +2428,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #depurateObjectClass!initializing!public! !
 !UMLVirtualMachine categoriesFor: #detectInitializeInfiniteLoopIn:!infinite loop!public! !
 !UMLVirtualMachine categoriesFor: #dictionaryClass!primitive objects!private! !
-!UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:!error handling!public! !
+!UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:snapshot:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:snapshot:!error handling!public!vm core! !
@@ -2625,7 +2627,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #send:to:withAll:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #send:to:withAll:parentSnapshot:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #send:to:withAll:parentSnapshot:isSuperSend:isTrait:!double dispatch!message dispatching!message dispatching core!public!vm core! !
-!UMLVirtualMachine categoriesFor: #setAssociationVariable:with:to:!public!vm core! !
+!UMLVirtualMachine categoriesFor: #setAssociationVariable:with:to:snapshot:!public!vm core! !
 !UMLVirtualMachine categoriesFor: #setObjectSubclasses!initializing!public! !
 !UMLVirtualMachine categoriesFor: #setObjectSuperclass!initializing!public! !
 !UMLVirtualMachine categoriesFor: #setSuperclassesOfMetaclasses!initializing!public! !
