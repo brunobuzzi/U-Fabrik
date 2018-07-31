@@ -290,7 +290,7 @@ errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObj
 
 	"register the error in the UMLVMTransLog"
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
-
+self halt.
 	^(self errorClass newInstance) 
 				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
 				yourself.!
@@ -2196,7 +2196,7 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 	| var instanceAttributes |
 
 	"register the message in the UMLVMTransLog"
-	self logIsActive ifTrue: [self halt. self registerTransLogFor: anUMLObject methodName: symbolName arguments: setObject snapshot: anUMLExecutionSnapshot].
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: symbolName arguments: setObject snapshot: anUMLExecutionSnapshot].
 
 	instanceAttributes := anUMLObject umlClass allAttributes select: [:each | (each name asString = symbolName asString) and: [each alias isNil]].
 	var := (instanceAttributes size = 1) 

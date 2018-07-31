@@ -39,16 +39,15 @@ methodName: anObject
 	methodName := anObject!
 
 printMethodName
-	| receiverString |
+	| receiverString hierarchyString |
+
+	hierarchyString := (umlReceiver className = snapshot printSequenceClassName) ifTrue: [''] ifFalse: ['(', snapshot printSequenceClassName,')'].
 
 	receiverString  := umlReceiver isUMLInstance
 		ifTrue: [umlReceiver printString] 
-		ifFalse: [(umlReceiver className = snapshot printSequenceClassName)
-				ifTrue: [umlReceiver className] ifFalse: [umlReceiver className, '(', snapshot printSequenceClassName,')'] ].
+		ifFalse: [umlReceiver className].
 
-	
-
-	^receiverString , '.', methodName!
+	^receiverString , hierarchyString, '.', methodName!
 
 printOn: target
 
