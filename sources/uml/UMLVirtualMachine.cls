@@ -1993,7 +1993,6 @@ registerTransErrorLogFor: anUMLObject methodName: methodName arguments: argument
 	| log |
 
 	log := UMLVMLog for: anUMLObject methodName: methodName args: arguments snap: anUMLExecutionSnapshot.
-
 	transLog addErrorLog: log.
 
 	^log!
@@ -2135,15 +2134,18 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 		ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
 	].
 	implementation == self nilObjectClass 
-	ifTrue: [((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
+	ifTrue: [^((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
 		ifTrue: [ (symbolMessage includes: $:) 
-			ifTrue: [^self setVariableNamed: symbolMessage allButLast asSymbol with: parameters first to: anUMLObject snapshot: anUMLExecutionSnapshot ] "is a setting message of an instance variable"
-			ifFalse: [^anUMLObject getVariableNamed: symbolMessage]] " is a getting message of an instance variable "
-		ifFalse:[^self errorImplementation: symbolMessage notFoundFor: anUMLObject in: anUMLExecutionSnapshot isSuperSend: superBoolean]].
+			ifTrue: [self setVariableNamed: symbolMessage allButLast asSymbol with: parameters first to: anUMLObject errorIfNotExist: true snapshot: anUMLExecutionSnapshot ] "is a setting message of an instance variable"
+			ifFalse: [anUMLObject getVariableNamed: symbolMessage]] " is a getting message of an instance variable "
+		ifFalse:[self errorImplementation: symbolMessage notFoundFor: anUMLObject in: anUMLExecutionSnapshot isSuperSend: superBoolean]].
 
 	^self apply: implementation to: anUMLObject with: parameters parentSnapshot: anUMLExecutionSnapshot"process each message of the implementation. (each processInside: self context: anUMLObject parameters: arguments)"!
 
 setAssociationVariable: anUMLAssociationClassAttribute with: anUMLInstance to: anUMLObject snapshot: anUMLExecutionSnapshot
+
+	"register the message in the UMLVMTransLog"
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name asSymbol arguments: anUMLInstance snapshot: anUMLExecutionSnapshot].
 
 	((anUMLObject umlClass == anUMLAssociationClassAttribute type) or: [anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass])
 	ifTrue: [((anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass) or: [(anUMLAssociationClassAttribute seteableClass subclasses includes: anUMLInstance umlClass)]) 
@@ -2187,26 +2189,11 @@ setUMLSubclasses
 		each subclasses: (self subclassesOf: each)].
 !
 
-setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to: anUMLObject errorIfNotExist: aBoolean
-
-	setObject belongToVirtualMachine ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
-
-	(anUMLRelationClassAttribute relation isManyToMany and: [(setObject vmPerform: #isCollection) smalltalkObject not])
-	ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
-
-	((anUMLRelationClassAttribute relation isOneToOne and: [(setObject vmPerform: #isCollection) smalltalkObject]) 
-	or: [((anUMLRelationClassAttribute getInitializeType == setObject umlClass) or: [anUMLRelationClassAttribute getType subclasses includes: setObject umlClass]) not])
-	ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
-
-	" -- in this case we allow in Nx1 or 1xN self relations to use both attributes as Object Holder (1x) or as Collection holder (Nx)"
-
-	((anUMLRelationClassAttribute relation isOneToManyOrManyToOne and: [(setObject vmPerform: #isCollection) smalltalkObject]) 
-	or: [(anUMLRelationClassAttribute getInitializeType == setObject umlClass) or: [anUMLRelationClassAttribute getType subclasses includes: setObject umlClass]])
-	ifFalse: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
-
-	^anUMLObject setVariableNamed: anUMLRelationClassAttribute with: setObject. "we set the value"!
-
 setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to: anUMLObject errorIfNotExist: aBoolean snapshot: anUMLExecutionSnapshot
+
+
+	"register the message in the UMLVMTransLog"
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLRelationClassAttribute name asSymbol arguments: setObject snapshot: anUMLExecutionSnapshot].
 
 	setObject belongToVirtualMachine ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
 
@@ -2226,8 +2213,15 @@ setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to
 	^anUMLObject setVariableNamed: anUMLRelationClassAttribute with: setObject. "we set the value"!
 
 setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aBoolean snapshot: anUMLExecutionSnapshot
-	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>. We detect the attribute for the <symbolName> if does not exist we return error. If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type. We check the instance variable type with <setObject> type. We set the value"
+	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>
+	We detect the attribute for the <symbolName> if does not exist we return error
+	If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type
+	We check the instance variable type with <setObject> type
+	We set the value"
 	| var instanceAttributes |
+
+	"register the message in the UMLVMTransLog"
+	self logIsActive ifTrue: [self halt. self registerTransLogFor: anUMLObject methodName: symbolName arguments: setObject snapshot: anUMLExecutionSnapshot].
 
 	instanceAttributes := anUMLObject umlClass allAttributes select: [:each | (each name asString = symbolName asString) and: [each alias isNil]].
 	var := (instanceAttributes size = 1) 
@@ -2255,15 +2249,6 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot] ].
 
 	^anUMLObject setVariableNamed: var with: setObject. "we set the value"!
-
-setVariableNamed: symbolName with: setObject to: anUMLObject snapshot: anUMLExecutionSnapshot
-	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>
-	We detect the attribute for the <symbolName> if does not exist we return error
-	If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type
-	We check the instance variable type with <setObject> type
-	We set the value"
-
-	^self setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: true snapshot: anUMLExecutionSnapshot!
 
 stringClass
 
@@ -2633,10 +2618,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #setSuperclassesOfMetaclasses!initializing!public! !
 !UMLVirtualMachine categoriesFor: #setSuperclassTo:!initializing!public! !
 !UMLVirtualMachine categoriesFor: #setUMLSubclasses!private! !
-!UMLVirtualMachine categoriesFor: #setVariableForSelfReferenceClass:with:to:errorIfNotExist:!public!vm core! !
 !UMLVirtualMachine categoriesFor: #setVariableForSelfReferenceClass:with:to:errorIfNotExist:snapshot:!public!vm core! !
 !UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:errorIfNotExist:snapshot:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:snapshot:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #stringClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #subclassesOf:!public!searching! !
 !UMLVirtualMachine categoriesFor: #systemDictionary!accessing!private! !

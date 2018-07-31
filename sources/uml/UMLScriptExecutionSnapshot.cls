@@ -71,6 +71,10 @@ printName
 
 		^name!
 
+printReceiverClass
+
+	^'none'!
+
 processAssignment: aStAssignmentNode messageReceiver: anUMLInstance arguments: anArray
 	"The receiver process the assigment <anUMLAssigmentNode> with arguments <anArray> in the context of a Script.
 	<anUMLInstance> is the receiver of the message send of <anUMLAssigmentNode>, <sequenceReceiver> is the receiver of the assigment"
@@ -131,6 +135,7 @@ sequenceArguments
 !UMLScriptExecutionSnapshot categoriesFor: #name!accessing!private! !
 !UMLScriptExecutionSnapshot categoriesFor: #name:!accessing!private! !
 !UMLScriptExecutionSnapshot categoriesFor: #printName!public! !
+!UMLScriptExecutionSnapshot categoriesFor: #printReceiverClass!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #processAssignment:messageReceiver:arguments:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #processBlockAssignment:messageReceiver:arguments:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #processSimpleAssingment:messageReceiver:arguments:!processesing!public! !

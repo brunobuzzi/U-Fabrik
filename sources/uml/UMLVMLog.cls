@@ -39,8 +39,16 @@ methodName: anObject
 	methodName := anObject!
 
 printMethodName
+	| receiverString |
 
-	^snapshot printName!
+	receiverString  := umlReceiver isUMLInstance
+		ifTrue: [umlReceiver printString] 
+		ifFalse: [(umlReceiver className = snapshot printSequenceClassName)
+				ifTrue: [umlReceiver className] ifFalse: [umlReceiver className, '(', snapshot printSequenceClassName,')'] ].
+
+	
+
+	^receiverString , '.', methodName!
 
 printOn: target
 

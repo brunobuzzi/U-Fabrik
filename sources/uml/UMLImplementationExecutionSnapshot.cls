@@ -78,6 +78,14 @@ printOn: aStream
 		nextPutAll: self printName;
 		nextPut: $>.!
 
+printReceiverClass
+
+	^sequenceReceiver className!
+
+printSequenceClassName
+
+	^sequence className!
+
 processAssignment: aStAssignmentNode messageReceiver: anUMLInstance arguments: anArray
 	"The receiver process the assigment <anUMLAssigmentNode> with arguments <anArray> in the context of <anUMLInstance>.
 	<anUMLInstance> is the receiver of the message send of <anUMLAssigmentNode>, <sequenceReceiver> is the receiver of the assigment"
@@ -156,6 +164,8 @@ sequenceReceiver: anUMLObject
 !UMLImplementationExecutionSnapshot categoriesFor: #initialize!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #printName!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #printOn:!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #printReceiverClass!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #printSequenceClassName!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #processAssignment:messageReceiver:arguments:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #processBlockAssignment:messageReceiver:arguments:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #processSimpleAssingment:messageReceiver:arguments:!processesing!public! !
