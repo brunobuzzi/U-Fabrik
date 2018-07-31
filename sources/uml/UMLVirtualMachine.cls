@@ -259,12 +259,16 @@ errorClass
 
 errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 	"In this case the InstVar <var> is NOT Basic, <var> is a NxN or 1xN for <anUMLObject class>  then --> Set Object MUST be a Collection if NOT --> anError"
-
+	| exception |
 	"register the error in the UMLVMTransLog"
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
-	^(self errorClass newInstance) smalltalkObject: 
-				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.!
+	exception := (self errorClass newInstance) smalltalkObject: 
+				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.
+
+	anUMLExecutionSnapshot exception: exception.
+
+	^exception!
 
 errorLogIsActive
 
@@ -287,22 +291,32 @@ errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject:
 
 errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
+	| exception |
 
 	"register the error in the UMLVMTransLog"
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
-self halt.
-	^(self errorClass newInstance) 
+
+	exception := (self errorClass newInstance) 
 				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
-				yourself.!
+				yourself.
+
+	anUMLExecutionSnapshot exception: exception.
+
+	^exception!
 
 errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
+	| exception |
 
 	"register the error in the UMLVMTransLog"
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
-	^(self errorClass newInstance) 
+	exception := (self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
-		yourself.!
+		yourself.
+
+	anUMLExecutionSnapshot exception: exception.
+
+	^exception!
 
 executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
@@ -313,11 +327,16 @@ executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 
 	aStProgramNode nodes collect: [:each | | nodeResult |
 		anUMLExecutionSnapshot isCurtailed "if we found an _^_ we halt the execution"
-		ifFalse: [nodeResult := each processInsideSnapshot: anUMLExecutionSnapshot context: nil parameters: #().
+		ifFalse: [nodeResult := each processInsideSnapshot: anUMLExecutionSnapshot context: nil parameters: #()."if an error occurs --> set #exception variable of <anUMLExecutionSnapshot>"
+
+			anUMLExecutionSnapshot hasException ifTrue: [^OrderedCollection with: anUMLExecutionSnapshot exception].
+
 			(anUMLExecutionSnapshot hasDNU and: [anUMLExecutionSnapshot hasOnErrorDo])
 			ifTrue: [OrderedCollection with: nodeResult] "is a [] on: Error do: [] - we return the Error"
 			ifFalse: [OrderedCollection with: nodeResult].
-		allResults add: nodeResult]].
+			allResults add: nodeResult.
+		].
+	].
 	^allResults!
 
 falseObject

@@ -112,6 +112,7 @@ evaluate: aString
 	| parsedCode |
 
 	executionSnapshot clearExecutedImplementations;
+		exception: nil;
 		hasDNU: false;
 		isCurtailed: false.
 	parsedCode := self parser parseExpression: aString.

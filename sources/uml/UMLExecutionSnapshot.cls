@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLExecutionSnapshot
-	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop'
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -106,6 +106,12 @@ currentUser
 currentUser: anObject
 	currentUser := anObject!
 
+exception
+	^exception!
+
+exception: anObject
+	exception := anObject!
+
 executedImplementations
 	^executedImplementations!
 
@@ -179,6 +185,10 @@ hasDNU
 
 hasDNU: anObject
 	hasDNU := anObject!
+
+hasException
+
+	^exception notNil!
 
 hasExecuted: anUMLMessageNode
 
@@ -532,6 +542,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #exception!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #exception:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes!accessing!private! !
@@ -545,6 +557,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #getTemporaryNamed:!public! !
 !UMLExecutionSnapshot categoriesFor: #hasDNU!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasDNU:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #hasException!exceptions!public! !
 !UMLExecutionSnapshot categoriesFor: #hasExecuted:!processesing!public! !
 !UMLExecutionSnapshot categoriesFor: #hasInfiniteLoop!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #hasInfiniteLoop:!accessing!private! !

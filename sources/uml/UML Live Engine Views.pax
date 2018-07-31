@@ -1013,16 +1013,18 @@ errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapsh
 
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snapshot: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
 
-	anUMLExecutionSnapshot ifNotNil: [:executionSnapshot | 
+	anUMLExecutionSnapshot ifNotNil: [:executionSnapshot | | exception |
 		executionSnapshot hasDNU: true.
 		executionSnapshot hasOnErrorDo 
-		ifTrue: [^self errorClass 
-			vmPerform: #message: 
-			withArguments: (Array with: (('Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>') asUMLObject: self))].].
+		ifTrue: [exception := self errorClass 
+							vmPerform: #message: 
+							withArguments: (Array with: (('Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>') asUMLObject: self)).
+			anUMLExecutionSnapshot exception: exception.
+			^exception
+		].
+	].
 
-	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean)
-	
-	"^UMLImplementationNotFoundError signal: 'Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>.' "!
+	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean)!
 
 processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	"The receiver answer <anUMLInstance> that represent a Collection for collect (and relate) instance of <anArray>"
