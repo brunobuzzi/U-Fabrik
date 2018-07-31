@@ -1011,7 +1011,7 @@ defaultDebuggerShell
 
 errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapshot isSuperSend: aBoolean
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snap: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snapshot: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
 
 	anUMLExecutionSnapshot ifNotNil: [:executionSnapshot | 
 		executionSnapshot hasDNU: true.

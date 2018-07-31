@@ -109,7 +109,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 	| collectionResult | 
 
 	"register the message in the UMLVMTransLog"
-	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLImplementation methodName arguments: arguments snap: anUMLExecutionSnapshot ].
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLImplementation methodName arguments: arguments snapshot: anUMLExecutionSnapshot ].
 
 	collectionResult := OrderedCollection new.
 	anUMLImplementation nodes do: [:each |
@@ -118,7 +118,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 					ifFalse: [collectionResult add: (each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments). " process the message node in a regular way"
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive 
-							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snap: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
+							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
 							^self nilObject]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] ]. " apply the super implementation to anObject "
 	collectionResult isEmpty ifTrue: [^anUMLObject"^self errorNotImplementedYet: symbolMessage in: anUMLObject"].
@@ -245,7 +245,7 @@ dictionaryClass
 
 errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject setObject: anUMLInstance
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name arguments: anUMLInstance snap: nil]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name arguments: anUMLInstance snapshot: nil]. "Here we register the error in the UMLVMTransLog"
 
 	^(self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLAssociationClassAttribute name ,'(', anUMLAssociationClassAttribute getType name,')> with <', anUMLInstance printString, '(', anUMLInstance umlClass name, ')>');
@@ -258,7 +258,16 @@ errorClass
 errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject
 	"In this case the InstVar <var> is NOT Basic, <var> is a NxN or 1xN for <anUMLObject class>  then --> Set Object MUST be a Collection if NOT --> anError"
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snap: nil]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
+
+	^(self errorClass newInstance) smalltalkObject: 
+				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.!
+
+errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
+	"In this case the InstVar <var> is NOT Basic, <var> is a NxN or 1xN for <anUMLObject class>  then --> Set Object MUST be a Collection if NOT --> anError"
+
+	"register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) smalltalkObject: 
 				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.!
@@ -269,7 +278,15 @@ errorLogIsActive
 
 errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLRelationClassAttribute name  arguments: setObject snap: nil]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLRelationClassAttribute name  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
+
+	^(self errorClass newInstance) 
+		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLRelationClassAttribute name,'> (', anUMLRelationClassAttribute getType name,') with <', setObject printString, '(', setObject umlClass name, ')>'); yourself!
+
+errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
+
+	"register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLRelationClassAttribute name  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLRelationClassAttribute name,'> (', anUMLRelationClassAttribute getType name,') with <', setObject printString, '(', setObject umlClass name, ')>'); yourself!
@@ -277,7 +294,17 @@ errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject:
 errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject
 	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snap: nil]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
+
+	^(self errorClass newInstance) 
+				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
+				yourself.!
+
+errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
+	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
+
+	"register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
 				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
@@ -285,7 +312,16 @@ errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObj
 
 errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject
 
-	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snap: nil]. "Here we register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
+
+	^(self errorClass newInstance) 
+		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
+		yourself.!
+
+errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
+
+	"register the error in the UMLVMTransLog"
+	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
 		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
@@ -1391,7 +1427,7 @@ processPrimitiveCall_304: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	"Set the variable named as in <anArray> arguments to <anUMLInstance>"
 	"Object>>setVariableNamed:with:"
 
-	^self setVariableNamed: anArray first smalltalkObject asSymbol with: anArray second to: anUMLInstance errorIfNotExist: false
+	^self setVariableNamed: anArray first smalltalkObject asSymbol with: anArray second to: anUMLInstance errorIfNotExist: false snapshot: anUMLExecutionSnapshot
 
 !
 
@@ -1412,7 +1448,7 @@ processPrimitiveCall_305: anUMLInstance withArguments: anArray snapshot: anUMLEx
 			ifTrue: [relation alias]. "name of instance variable that holds the collection"]
 	ifTrue: [anUMLInstance umlClass getInstVarNameForClass: instanceToSet umlClass]. "if an association class we do not care about the alias, because the ClassAssociation has 2 inst var to each related class, we obtain the related class from the <instanceToSet> object"
 
-	^anUMLInstance atVariableName: instVarName put: instanceToSet.
+	^anUMLInstance atVariableName: instVarName put: instanceToSet snapshot: anUMLExecutionSnapshot
 !
 
 processPrimitiveCall_306: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
@@ -1459,7 +1495,7 @@ processPrimitiveCall_308: anUMLInstance withArguments: anArray snapshot: anUMLEx
 			ifTrue: [relation alias]. "name of instance variable that holds the collection"]
 	ifTrue: [instanceToSet umlClass nameForRelation asSymbol]. "if an association class we do not care about the alias, because the ClassAssociation has 2 inst var to each related class, we obtain the related class from the <instanceToSet> object"
 
-	^anUMLInstance atVariableName: instVarName put: instanceToSet.
+	^anUMLInstance atVariableName: instVarName put: instanceToSet snapshot: anUMLExecutionSnapshot
 !
 
 processPrimitiveCall_309: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
@@ -1951,7 +1987,7 @@ processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: aStPrimitiveNode object
 
 	^self processPrimitiveCall_500: anUMLObject withArguments: (Array with: aStPrimitiveNode) snapshot: anUMLExecutionSnapshot!
 
-registerTransErrorLogFor: anUMLObject methodName: methodName arguments: arguments snap: anUMLExecutionSnapshot
+registerTransErrorLogFor: anUMLObject methodName: methodName arguments: arguments snapshot: anUMLExecutionSnapshot
 	| log |
 
 	log := UMLVMLog for: anUMLObject methodName: methodName args: arguments snap: anUMLExecutionSnapshot.
@@ -1960,16 +1996,7 @@ registerTransErrorLogFor: anUMLObject methodName: methodName arguments: argument
 
 	^log!
 
-registerTransLogFor: anUMLObject methodName: methodName arguments: arguments
-	| log |
-
-	log := UMLVMLog for: anUMLObject methodName: methodName args: arguments.
-
-	transLog addLog: log.
-
-	^log!
-
-registerTransLogFor: anUMLObject methodName: methodName arguments: arguments snap: anUMLExecutionSnapshot
+registerTransLogFor: anUMLObject methodName: methodName arguments: arguments snapshot: anUMLExecutionSnapshot
 	| log |
 
 	log := UMLVMLog for: anUMLObject methodName: methodName args: arguments.
@@ -2100,7 +2127,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	"implementation lookup"
 	implementation := self fetchMethodNamed: symbolMessage for: targetObject.
 
-	(implementation isMethodImplementation "see issue #43" and: [superBoolean not "see issue #48" and: [anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot lastExecutedNode isSuperSend not and: [anUMLExecutionSnapshot isTrait not]]]])
+	(implementation isMethodImplementation "see issue #43" and: [superBoolean not "see issue #48" and: [anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot lastExecutedNode notNil and: [anUMLExecutionSnapshot lastExecutedNode isSuperSend not and: [anUMLExecutionSnapshot isTrait not]]]]])
 	ifTrue: [anUMLExecutionSnapshot registerImplemenation: implementation.
 		(self detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot) "detect inifinite loops in #initialize method (see issue #32)"
 		ifTrue: [^self openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject]."infinite loop detected --> halt execution"
@@ -2108,7 +2135,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	implementation == self nilObjectClass 
 	ifTrue: [((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
 		ifTrue: [ (symbolMessage includes: $:) 
-			ifTrue: [^self setVariableNamed: symbolMessage allButLast asSymbol with: parameters first to: anUMLObject] "is a setting message of an instance variable"
+			ifTrue: [^self setVariableNamed: symbolMessage allButLast asSymbol with: parameters first to: anUMLObject snapshot: anUMLExecutionSnapshot ] "is a setting message of an instance variable"
 			ifFalse: [^anUMLObject getVariableNamed: symbolMessage]] " is a getting message of an instance variable "
 		ifFalse:[^self errorImplementation: symbolMessage notFoundFor: anUMLObject in: anUMLExecutionSnapshot isSuperSend: superBoolean]].
 
@@ -2177,16 +2204,26 @@ setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to
 
 	^anUMLObject setVariableNamed: anUMLRelationClassAttribute with: setObject. "we set the value"!
 
-setVariableNamed: symbolName with: setObject to: anUMLObject
-	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>
-	We detect the attribute for the <symbolName> if does not exist we return error
-	If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type
-	We check the instance variable type with <setObject> type
-	We set the value"
-	
-	^self setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: true!
+setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to: anUMLObject errorIfNotExist: aBoolean snapshot: anUMLExecutionSnapshot
 
-setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aBoolean
+	setObject belongToVirtualMachine ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
+
+	(anUMLRelationClassAttribute relation isManyToMany and: [(setObject vmPerform: #isCollection) smalltalkObject not])
+	ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot].
+
+	((anUMLRelationClassAttribute relation isOneToOne and: [(setObject vmPerform: #isCollection) smalltalkObject]) 
+	or: [((anUMLRelationClassAttribute getInitializeType == setObject umlClass) or: [anUMLRelationClassAttribute getType subclasses includes: setObject umlClass]) not])
+	ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot].
+
+	" -- in this case we allow in Nx1 or 1xN self relations to use both attributes as Object Holder (1x) or as Collection holder (Nx)"
+
+	((anUMLRelationClassAttribute relation isOneToManyOrManyToOne and: [(setObject vmPerform: #isCollection) smalltalkObject]) 
+	or: [(anUMLRelationClassAttribute getInitializeType == setObject umlClass) or: [anUMLRelationClassAttribute getType subclasses includes: setObject umlClass]])
+	ifFalse: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot].
+
+	^anUMLObject setVariableNamed: anUMLRelationClassAttribute with: setObject. "we set the value"!
+
+setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aBoolean snapshot: anUMLExecutionSnapshot
 	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>. We detect the attribute for the <symbolName> if does not exist we return error. If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type. We check the instance variable type with <setObject> type. We set the value"
 	| var instanceAttributes |
 
@@ -2199,23 +2236,32 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 						ifFalse: [anUMLObject setVariableNamed: symbolName with: setObject].].].
 
 	(setObject == self nilObject) ifTrue: [^anUMLObject setVariableNamed: var with: setObject]. "we set the value with {nil} - we do NOT perform any check"
-	var isAssociationClass ifTrue: [^self setAssociationVariable: var with: setObject to: anUMLObject ]. "the instance variable to set is an AssociationClass"
+	var isAssociationClass ifTrue: [^self setAssociationVariable: var with: setObject to: anUMLObject snapshot: anUMLExecutionSnapshot]. "the instance variable to set is an AssociationClass"
 
 	((setObject vmPerform: #isCollection) smalltalkObject and: [var relation hasMultipleInstances: anUMLObject umlClass]) "the instance variable to set is a Collection"
 	ifTrue: [^anUMLObject setVariableNamed: var with: setObject. "we set the value"].
 
-	(var isBasic not and: [var relation isSelfReferenceClass]) "is a Self Referenced class" ifTrue: [^self setVariableForSelfReferenceClass: var with: setObject to: anUMLObject errorIfNotExist: aBoolean].
+	(var isBasic not and: [var relation isSelfReferenceClass]) "is a Self Referenced class" ifTrue: [^self setVariableForSelfReferenceClass: var with: setObject to: anUMLObject errorIfNotExist: aBoolean snapshot: anUMLExecutionSnapshot].
 	(var isBasic not and: [(var relation hasMultipleInstances: anUMLObject umlClass) and:[(setObject vmPerform: #isCollection) smalltalkObject not]])
-		ifTrue: [^self errorCollectionMismatch: symbolName receiver: anUMLObject setObject: setObject].
+		ifTrue: [^self errorCollectionMismatch: symbolName receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot].
 
 	var getInitializeType belongToVirtualMachine
-	ifTrue: [setObject umlClass belongToVirtualMachine ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject].
+	ifTrue: [setObject umlClass belongToVirtualMachine ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot].
 		(var getType smalltalkClass == setObject umlClass smalltalkClass or: [var getType smalltalkClass subclasses includes: setObject umlClass smalltalkClass] ) "object types MUST match if NOT --> anError"
-		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject]]
+		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot]]
 	ifFalse: [(((var getInitializeType == setObject umlClass) or: [var getType allSubclasses includes: setObject umlClass]) or: [(setObject vmPerform: #isCollection) smalltalkObject and: [var relation hasMultipleInstances: anUMLObject umlClass]])
-		ifFalse: [^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject] ].
+		ifFalse: [self halt. ^self errorVariableMismatch: symbolName varType: var receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot] ].
 
 	^anUMLObject setVariableNamed: var with: setObject. "we set the value"!
+
+setVariableNamed: symbolName with: setObject to: anUMLObject snapshot: anUMLExecutionSnapshot
+	"The receiver set the variable named <symbolName> of <anUMLObject> with value <setObject>
+	We detect the attribute for the <symbolName> if does not exist we return error
+	If the <setObject> if {nil} then we set it - {nil} is the ONLY value that is accepted and does not match the attribute type
+	We check the instance variable type with <setObject> type
+	We set the value"
+
+	^self setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: true snapshot: anUMLExecutionSnapshot!
 
 stringClass
 
@@ -2383,10 +2429,14 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #errorAssociationMismatch:receiver:setObject:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #errorCollectionMismatch:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorLogIsActive!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:!error handling!public! !
+!UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:snapshot:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #fetchClassMethodNamed:for:ifNone:!message dispatching core!public! !
@@ -2557,9 +2607,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_826:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_827:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCallHaltIn:node:object:!debug!public! !
-!UMLVirtualMachine categoriesFor: #registerTransErrorLogFor:methodName:arguments:snap:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
-!UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
-!UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:snap:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
+!UMLVirtualMachine categoriesFor: #registerTransErrorLogFor:methodName:arguments:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
+!UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #removeNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #removePackage:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #removePrimitiveObjectNamed:!primitive objects!private! !
@@ -2583,8 +2632,9 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #setSuperclassTo:!initializing!public! !
 !UMLVirtualMachine categoriesFor: #setUMLSubclasses!private! !
 !UMLVirtualMachine categoriesFor: #setVariableForSelfReferenceClass:with:to:errorIfNotExist:!public!vm core! !
-!UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:errorIfNotExist:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #setVariableForSelfReferenceClass:with:to:errorIfNotExist:snapshot:!public!vm core! !
+!UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:errorIfNotExist:snapshot:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #setVariableNamed:with:to:snapshot:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #stringClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #subclassesOf:!public!searching! !
 !UMLVirtualMachine categoriesFor: #systemDictionary!accessing!private! !

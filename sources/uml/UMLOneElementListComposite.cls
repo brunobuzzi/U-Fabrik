@@ -78,20 +78,18 @@ addObject
 
 onDropOverList: aDragDropSession 
 	| relation newInstance |
+
 	relation := self topShell model relationFor: aDragDropSession suggestedSource umlClass.
-	relation 
-		ifNil: 
-			[^MessageBox notify: 'Drag and drop does not match between objects.' caption: self applicationName].
+	relation ifNil: [^MessageBox notify: 'Drag and drop does not match between objects.' caption: self applicationName].
+
 	relation isAssociationClass ifFalse: [^self addNewObject: aDragDropSession suggestedSource].
-	newInstance := (relation relation classToCreateInstanceLinkedTo: aDragDropSession suggestedSource) 
-				vmPerform: #newInstance.
+	newInstance := (relation relation classToCreateInstanceLinkedTo: aDragDropSession suggestedSource) vmPerform: #newInstance.
 	newInstance vmPerform: #initialize.
+
 	(newInstance hasVariableNamed: aDragDropSession suggestedSource umlClass nameForRelation asSymbol) 
-		ifTrue: 
-			[newInstance atVariableName: aDragDropSession suggestedSource umlClass nameForRelation asSymbol
-				put: aDragDropSession suggestedSource.
-			self addNewObject: newInstance]
-		ifFalse: [self halt]!
+	ifTrue: [newInstance atVariableName: aDragDropSession suggestedSource umlClass nameForRelation asSymbol put: aDragDropSession suggestedSource snapshot: nil.
+		self addNewObject: newInstance]
+	ifFalse: [self halt]!
 
 relatedObjectLinkSymbol
 

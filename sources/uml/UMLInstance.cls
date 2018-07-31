@@ -53,11 +53,11 @@ asTreeModelWith: objectRoot
 	orderedKeys do: [:eachKey | treeModel add: (UMLTreeNode instVarName: eachKey value: (instancesVariables at: eachKey)) asChildOf: objectRoot].
 	^treeModel!
 
-atVariableName: variableName put: anUMLObject
+atVariableName: variableName put: anUMLObject snapshot: anUMLExecutionSnapshot
 	"The receiver set the variable named <variableName> with <anUMLObject>.
 	The UML Virtual Machine perform a type control based on the UML Meta Model for the receiver"
 
-	^virtualMachine setVariableNamed: variableName with: anUMLObject to: self errorIfNotExist: true!
+	^virtualMachine setVariableNamed: variableName with: anUMLObject to: self errorIfNotExist: true snapshot: anUMLExecutionSnapshot!
 
 basicVariables
 
@@ -260,10 +260,6 @@ runBehaviorInitialize
 	(self canUnderstand: #initialize) ifFalse: [^self].
 	^self vmPerform: #initialize!
 
-setToNil: variableName
-
-	^self atVariableName: variableName put: self umlUndefinedObject!
-
 smalltalkObject
 
 	^self!
@@ -333,7 +329,7 @@ vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 !UMLInstance categoriesFor: #asSmalltalkObject!public! !
 !UMLInstance categoriesFor: #asTreeModel!public!transforming! !
 !UMLInstance categoriesFor: #asTreeModelWith:!public!transforming! !
-!UMLInstance categoriesFor: #atVariableName:put:!behaviors!instance variables!public! !
+!UMLInstance categoriesFor: #atVariableName:put:snapshot:!behaviors!instance variables!public! !
 !UMLInstance categoriesFor: #basicVariables!instance variables!public! !
 !UMLInstance categoriesFor: #canUnderstand:!public! !
 !UMLInstance categoriesFor: #className!public! !
@@ -372,7 +368,6 @@ vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 !UMLInstance categoriesFor: #removeFromGlobalObjects!public! !
 !UMLInstance categoriesFor: #removeFromSetupObjects!public! !
 !UMLInstance categoriesFor: #runBehaviorInitialize!behaviors!public! !
-!UMLInstance categoriesFor: #setToNil:!behaviors!public! !
 !UMLInstance categoriesFor: #smalltalkObject!public! !
 !UMLInstance categoriesFor: #storeAsGlobalObject!public! !
 !UMLInstance categoriesFor: #storeAsSetupObject!public! !

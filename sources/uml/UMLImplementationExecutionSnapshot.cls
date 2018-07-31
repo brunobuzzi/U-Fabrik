@@ -38,7 +38,7 @@ asDebuggerSnapshot
 
 assignObject: anUMLObject toInstanceVariable: aSymbol
 
-	^sequenceReceiver atVariableName: aSymbol put: anUMLObject!
+	^sequenceReceiver atVariableName: aSymbol put: anUMLObject snapshot: self!
 
 getObjectNamed: aName
 	"Answer anObject for the name <aString>.1- receiver's variables 2- implementation arguments 3- implementation temporaries 4- globals"
@@ -94,7 +94,7 @@ processAssignment: aStAssignmentNode messageReceiver: anUMLInstance arguments: a
 				ifTrue: [self processCascadeAssignmentNode: aStAssignmentNode context: anUMLInstance parameteres: anArray]]. 
 
 	(sequenceReceiver hasVariableNamed: aStAssignmentNode variableName)  
-	ifTrue: [^sequenceReceiver atVariableName: aStAssignmentNode variableName put: lastResult] "we store the result of the message send in <sequenceReceiver>"
+	ifTrue: [^sequenceReceiver atVariableName: aStAssignmentNode variableName put: lastResult snapshot: self] "we store the result of the message send in <sequenceReceiver>"
 	ifFalse: [self assignObject: lastResult toTemporary: aStAssignmentNode variableName.]. "we store the result in the temporaries of the receiver "
 
 	^lastResult!
@@ -106,7 +106,7 @@ processBlockAssignment: aStAssignmentNode messageReceiver: anUMLInstance argumen
 
 	umlBlock := self createBlockFrom: aStAssignmentNode value. "we create the instance og UML class <Block>"
 	(sequenceReceiver hasVariableNamed: aStAssignmentNode variableName)  
-	ifTrue: [sequenceReceiver atVariableName: aStAssignmentNode variableName put: umlBlock] "we store the Block in the instance variable of <anUMLInstance>" 
+	ifTrue: [sequenceReceiver atVariableName: aStAssignmentNode variableName put: umlBlock snapshot: self] "we store the Block in the instance variable of <anUMLInstance>" 
 	ifFalse: [self assignObject: umlBlock toTemporary: aStAssignmentNode variableName.]. "we store the Block in the temporaries of the receiver "
 	sequenceArguments keysAndValuesDo: [:eachKey :eachValue | temporaries at: eachKey put: eachValue]. "we store message arguments in the receiver "
 	^lastResult := umlBlock!

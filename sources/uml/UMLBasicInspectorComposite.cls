@@ -39,7 +39,7 @@ changeObjectClass
 	newInstance := selectedClass vmPerform: #newInstance.
 	newInstance runBehaviorInitialize.
 	
-	model atVariableName: instVarTreePresenter selection instVarName put: newInstance.
+	model atVariableName: instVarTreePresenter selection instVarName put: newInstance snapshot: nil.
 
 	self model: model.
 
@@ -157,11 +157,12 @@ onBooleanPresenterChanged
 
 	parentObject := instVarTreePresenter model parentOf: instVarTreePresenter selection.
 	(parentObject vmPerform: #isDomainObject) smalltalkObject
-	ifTrue: [parentObject value 
-			atVariableName: instVarTreePresenter selection instVarName 
-			put: ((parentObject value atVariableName: instVarTreePresenter selection instVarName) vmPerform: #not)].
 
-	self selectedInstVar value: (parentObject value atVariableName: instVarTreePresenter selection instVarName )
+	ifTrue: [parentObject value atVariableName: instVarTreePresenter selection instVarName 
+						put: ((parentObject value atVariableName: instVarTreePresenter selection instVarName) vmPerform: #not)
+						snapshot: nil].
+
+	self selectedInstVar value: (parentObject value atVariableName: instVarTreePresenter selection instVarName)
 !
 
 onCategoriaAdded
