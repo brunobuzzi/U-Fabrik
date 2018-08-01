@@ -29,6 +29,7 @@ changeObjectClass
 	| selectedClass newInstance originalClass |
 
 	(instVarTreePresenter hasSelection and:[instVarTreePresenter selection value belongToVirtualMachine]) ifTrue: [^self].
+	(instVarTreePresenter selection == model) ifTrue: [^self].
 
 	originalClass := model getMetaclass isClassAssociation 
 		ifFalse: [model getMetaclass getRelatedClassForInstVarNamed: instVarTreePresenter selection instVarName] 
