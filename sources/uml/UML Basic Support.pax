@@ -98,11 +98,11 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
 	add: 'XMI Import-Export Interfase II';
 	yourself).
 

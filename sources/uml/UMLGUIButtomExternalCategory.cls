@@ -28,7 +28,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Command External Link.ico'! !
+	^Icon fromFile: 'icons/Command External Link.ico'! !
 !UMLGUIButtomExternalCategory class categoriesFor: #defaultName!public! !
 !UMLGUIButtomExternalCategory class categoriesFor: #icon!public! !
 

@@ -88,8 +88,8 @@ package setPrerequisites: (IdentitySet new
 	add: 'AIDA Add Inn';
 	add: 'AIDAWeb';
 	add: '..\others\BBInteraccionOffice';
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
 	add: '..\uml\UML Basic Views';
 	add: '..\uml\UML Live Engine';
 	add: '..\uml\UML Live Engine Views';

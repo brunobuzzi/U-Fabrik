@@ -51,25 +51,25 @@ package globalAliases: (Set new
 package setPrerequisites: (IdentitySet new
 	add: '..\aida\AIDAWeb';
 	add: '..\others\BB MVP Basic Support';
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
 	add: 'UML Live Engine';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
 	add: 'XMI Import-Export Interfase II';
 	yourself).
 

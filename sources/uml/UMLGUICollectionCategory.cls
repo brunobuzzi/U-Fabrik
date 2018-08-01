@@ -23,7 +23,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/tabs.ico'! !
+	^Icon fromFile: 'icons/tabs.ico'! !
 !UMLGUICollectionCategory class categoriesFor: #defaultName!public! !
 !UMLGUICollectionCategory class categoriesFor: #icon!public! !
 

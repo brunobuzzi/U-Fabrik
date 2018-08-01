@@ -38,7 +38,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/categorybuttrait.ico' ! !
+	^Icon fromFile: 'icons/categorybuttrait.ico' ! !
 !UMLAllButTraitCategory class categoriesFor: #defaultName!public! !
 !UMLAllButTraitCategory class categoriesFor: #icon!public! !
 

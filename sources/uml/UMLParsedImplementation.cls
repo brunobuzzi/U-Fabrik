@@ -257,7 +257,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'parser2.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/implementation02.ico'!
+	^Icon fromFile: 'icons/implementation02.ico'!
 
 newNamed: aSymbol withCode: stringCode
 	"The receiver create a new instance of itself with metdhod name <aSymbol> and code <stringCode>"

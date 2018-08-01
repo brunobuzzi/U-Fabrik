@@ -16,7 +16,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/listcolumns.ico'! !
+	^Icon fromFile: 'icons/listcolumns.ico'! !
 !UMLGUICollectionAspectsCategory class categoriesFor: #defaultName!public! !
 !UMLGUICollectionAspectsCategory class categoriesFor: #icon!public! !
 

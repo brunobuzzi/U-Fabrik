@@ -169,21 +169,21 @@ package globalAliases: (Set new
 package setPrerequisites: (IdentitySet new
 	add: '..\aida\AIDAWeb';
 	add: '..\others\BBInteraccionOffice';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO';
-	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO';
+	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
+	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
+	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
 	add: 'XMI Import-Export Interfase II';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
 	yourself).
 
 package!

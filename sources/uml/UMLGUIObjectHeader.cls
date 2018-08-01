@@ -23,7 +23,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/header01.ico'! !
+	^Icon fromFile: 'icons/header01.ico'! !
 !UMLGUIObjectHeader class categoriesFor: #defaultName!public! !
 !UMLGUIObjectHeader class categoriesFor: #icon!public! !
 

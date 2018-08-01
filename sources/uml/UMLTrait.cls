@@ -143,7 +143,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'context.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/trait.ico'!
+	^Icon fromFile: 'icons/trait.ico'!
 
 name: aSymbol sequence: anUMLSequenceNode
 

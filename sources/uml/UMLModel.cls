@@ -632,6 +632,6 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'uml.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/umlmodel.ico'! !
+	^Icon fromFile: 'icons/umlmodel.ico'! !
 !UMLModel class categoriesFor: #icon!constants!public! !
 

@@ -2659,7 +2659,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'vm02.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/vm01.ico'!
+	^Icon fromFile: 'icons/vm01.ico'!
 
 setDefault: anUMLVirtualMachine 
 

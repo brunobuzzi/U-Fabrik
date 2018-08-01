@@ -34,7 +34,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Command User.ico'! !
+	^Icon fromFile: 'icons/Command User.ico'! !
 !UMLGUIButtomUserCategory class categoriesFor: #defaultName!public! !
 !UMLGUIButtomUserCategory class categoriesFor: #icon!public! !
 

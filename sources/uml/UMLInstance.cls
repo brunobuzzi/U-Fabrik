@@ -390,7 +390,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'object5.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/umlinstance.ico'!
+	^Icon fromFile: 'icons/umlinstance.ico'!
 
 new
 	^self shouldNotImplement!

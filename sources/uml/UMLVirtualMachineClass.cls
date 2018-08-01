@@ -72,6 +72,6 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'vmclass3.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/vmclass01.ico'! !
+	^Icon fromFile: 'icons/vmclass01.ico'! !
 !UMLVirtualMachineClass class categoriesFor: #icon!constants!public! !
 

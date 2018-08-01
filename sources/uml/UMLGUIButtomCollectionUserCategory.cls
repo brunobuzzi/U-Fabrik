@@ -33,7 +33,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Command Collection with user.ico'! !
+	^Icon fromFile: 'icons/Command Collection with user.ico'! !
 !UMLGUIButtomCollectionUserCategory class categoriesFor: #defaultName!public! !
 !UMLGUIButtomCollectionUserCategory class categoriesFor: #icon!public! !
 

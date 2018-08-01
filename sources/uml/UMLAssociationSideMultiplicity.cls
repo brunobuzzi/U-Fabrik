@@ -114,7 +114,7 @@ association: anUMLRelation
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Side Multiplicity.ico'!
+	^Icon fromFile: 'icons/Side Multiplicity.ico'!
 
 multiplicityCharacters
 

@@ -149,7 +149,7 @@ input, button {
 }
 a.button {
     background-color: gainsboro;
-    background: gainsboro url(''U-Fabrik/icons/bg_button_a.gif'') no-repeat scroll top right;
+    background: gainsboro url(''icons/bg_button_a.gif'') no-repeat scroll top right;
     color: black;
     display: block;
     float: left;
@@ -161,7 +161,7 @@ a.button {
     text-decoration: none;
 }
 a.button span {
-    background: transparent url(''U-Fabrik/icons/bg_button_span.gif'') no-repeat;
+    background: transparent url(''icons/bg_button_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
@@ -177,7 +177,7 @@ a.button:active span {
 }
 a.buttonGray {
     background-color: gainsboro;
-    background: rgb(218,212,174) url(''U-Fabrik/icons/bg_buttonGray_a.gif'') no-repeat scroll top right;
+    background: rgb(218,212,174) url(''icons/bg_buttonGray_a.gif'') no-repeat scroll top right;
     color: black;
     display: block;
     float: left;
@@ -189,7 +189,7 @@ a.buttonGray {
     text-decoration: none;
 }
 a.buttonGray span {
-    background: rgb(218,212,174) url(''U-Fabrik/icons/bg_buttonGray_span.gif'') no-repeat;
+    background: rgb(218,212,174) url(''icons/bg_buttonGray_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
@@ -205,7 +205,7 @@ a.buttonGray:active span {
 }
 a.buttonGreenSquared {
     background-color: gainsboro;
-    background: transparent url(''U-Fabrik/icons/bg_buttonGreenSquared_a.gif'') no-repeat scroll top right;
+    background: transparent url(''icons/bg_buttonGreenSquared_a.gif'') no-repeat scroll top right;
     color: #444;
     display: block;
     float: left;
@@ -217,7 +217,7 @@ a.buttonGreenSquared {
     text-decoration: none;
 }
 a.buttonGreenSquared span {
-    background: transparent url(''U-Fabrik/icons/bg_buttonGreenSquared_span.gif'') no-repeat;
+    background: transparent url(''icons/bg_buttonGreenSquared_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
@@ -233,7 +233,7 @@ a.buttonGreenSquared:active span {
 }
 a.buttonWhite {
     background-color: gainsboro;
-    background: gainsboro url(''U-Fabrik/icons/bg_buttonWhite_a.gif'') no-repeat scroll top right;
+    background: gainsboro url(''icons/bg_buttonWhite_a.gif'') no-repeat scroll top right;
     color: #444;
     display: block;
     float: left;
@@ -245,7 +245,7 @@ a.buttonWhite {
     text-decoration: none;
 }
 a.buttonWhite span {
-    background: transparent url(''U-Fabrik/icons/bg_buttonWhite_span.gif'') no-repeat;
+    background: transparent url(''icons/bg_buttonWhite_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
@@ -261,7 +261,7 @@ a.buttonWhite:active span {
 }
 a.buttonBlue {
     background-color: gainsboro;
-    background: gainsboro url(''U-Fabrik/icons/bg_buttonBlue_a.gif'') no-repeat scroll top right;
+    background: gainsboro url(''icons/bg_buttonBlue_a.gif'') no-repeat scroll top right;
     color: #444;
     display: block;
     float: left;
@@ -273,7 +273,7 @@ a.buttonBlue {
     text-decoration: none;
 }
 a.buttonBlue span {
-    background: transparent url(''U-Fabrik/icons/bg_buttonBlue_span.gif'') no-repeat;
+    background: transparent url(''icons/bg_buttonBlue_span.gif'') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 0 5px 18px;
@@ -1124,7 +1124,7 @@ navigationBarElement
 	| e |
 	e := WebElement newId: #navigation.
 
-	e addImage: 'U-Fabrik\icons\lateralLoginBar.png'.
+	e addImage: 'icons\lateralLoginBar.png'.
 
 	^e!
 

@@ -28,7 +28,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Command Collection3.ico'! !
+	^Icon fromFile: 'icons/Command Collection3.ico'! !
 !UMLGUIButtomCollectionCategory class categoriesFor: #defaultName!public! !
 !UMLGUIButtomCollectionCategory class categoriesFor: #icon!public! !
 

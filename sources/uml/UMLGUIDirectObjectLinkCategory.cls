@@ -23,7 +23,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/objectlink.ico'! !
+	^Icon fromFile: 'icons/objectlink.ico'! !
 !UMLGUIDirectObjectLinkCategory class categoriesFor: #defaultName!public! !
 !UMLGUIDirectObjectLinkCategory class categoriesFor: #icon!public! !
 

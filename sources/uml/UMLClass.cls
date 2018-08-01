@@ -495,7 +495,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'umlclass4.png'.
 	"
-	^Icon fromFile: 'U-Fabrik/icons/class01.ico'!
+	^Icon fromFile: 'icons/class01.ico'!
 
 named: aString
 

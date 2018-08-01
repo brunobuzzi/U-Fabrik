@@ -1325,7 +1325,7 @@ headerDashboard
 headerElement
 	^(WebElement newId: #header)
 		add: ((WebElement newId: #logo)
-			addImage: '/U-Fabrik/icons/logo.png'; yourself ); yourself!
+			addImage: '/icons/logo.png'; yourself ); yourself!
 
 headerLogin
 	| e name |

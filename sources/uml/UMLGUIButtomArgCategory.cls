@@ -28,7 +28,7 @@ defaultName
 
 icon
 
-	^Icon fromFile: 'U-Fabrik/icons/Command Store Args.ico'! !
+	^Icon fromFile: 'icons/Command Store Args.ico'! !
 !UMLGUIButtomArgCategory class categoriesFor: #defaultName!public! !
 !UMLGUIButtomArgCategory class categoriesFor: #icon!public! !
 
