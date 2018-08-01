@@ -10,7 +10,6 @@ umllist := #(
 	'UML Live Engine Views'
 	'XMI Import-Export Interfase II Tests'
 	'UML Paint'
-	'UML Smalltalk Bridge'
 	'UML Development Add In'
 	'UML Model Comparision Views'
 	'UML Live Engine View Composer II'
