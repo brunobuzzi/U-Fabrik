@@ -29,14 +29,7 @@ ProgressDialog showModalWhile: [:progress |
 	].
 ].
 aidalist := #(
-	'AIDA Dolphin'
 	'AIDA for UML Live Engine'
-	'XMI Import-Export Interfase II Tests'
-	'UML Paint'
-	'UML Smalltalk Bridge'
-	'UML Development Add In'
-	'UML Model Comparision Views'
-	'UML Live Engine View Composer II'
 ).
 ProgressDialog showModalWhile: [:progress |
 	1 to: aidalist size do: [:i |
@@ -53,6 +46,7 @@ ProgressDialog showModalWhile: [:progress |
 dblist := #(
 	'DataBase Modeler Views'
 	'DataBase Migration Views'
+	'DataBase Modeler Comparision Views'
 ).
 ProgressDialog showModalWhile: [:progress |
 	1 to: dblist size do: [:i |
