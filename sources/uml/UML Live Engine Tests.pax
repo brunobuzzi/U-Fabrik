@@ -16,6 +16,7 @@ package classNames
 	add: #UMLFalseTest;
 	add: #UMLGUIEnvironmentTest;
 	add: #UMLNumberTest;
+	add: #UMLObjectsReferencesTest;
 	add: #UMLOrderedCollectionTest;
 	add: #UMLTestCase;
 	add: #UMLTimeTest;
@@ -35,6 +36,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: (IdentitySet new
 	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
 	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
@@ -85,6 +87,11 @@ UMLVirtualMachineTestClass subclass: #UMLNumberTest
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLObjectsReferencesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLTimeTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -106,7 +113,7 @@ UMLVirtualMachineTestClass subclass: #UMLVirtualMachineBootstrapTest
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLVirtualMachineTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'executionSnapshot'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

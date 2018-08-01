@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLVirtualMachineTestClass subclass: #UMLVirtualMachineTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'executionSnapshot'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,66 +10,58 @@ UMLVirtualMachineTest comment: ''!
 !UMLVirtualMachineTest categoriesForClass!Unclassified! !
 !UMLVirtualMachineTest methodsFor!
 
-testBasicClassesVirtualmachine
+externaFileClass
 
-	self assert: (virtualMachine systemDictionary allSatisfy: [:each | each virtualMachine == virtualMachine])!
+	^virtualMachine virtualMachineClassNamed: 'ExternalFile'!
 
-testBasicObjectsVirtualmachine
+msOfficeClass
 
-	self assert: (virtualMachine primitiveObjects allSatisfy: [:each | each virtualMachine == virtualMachine])!
+	^virtualMachine virtualMachineClassNamed: 'MSOffice'!
 
-testSuiteBasicVirtualMachine
-	| result suite |
+msWordClass
 
-	suite := (TestSuite new)
-		addTest: (UMLTrueTest selector: #testNot);
-		addTest: (UMLFalseTest selector: #testNot);
-		addTest: (UMLDateClassTest selector: #testAddDays);
-		addTest: (UMLDateClassTest selector: #testEqualTo);
-		addTest: (UMLDateClassTest selector: #testGreaterThan);
-		addTest: (UMLDateClassTest selector: #testLowerThan);
-		addTest: (UMLDateClassTest selector: #testSubtractDays);
-		addTest: (UMLNumberTest selector: #testAbs);
-		addTest: (UMLNumberTest selector: #testDivide);
-		addTest: (UMLNumberTest selector: #testEqualTo);
-		addTest: (UMLNumberTest selector: #testEqualTo2);
-		addTest: (UMLNumberTest selector: #testGreaterThan);
-		addTest: (UMLNumberTest selector: #testLowerThan);
-		addTest: (UMLNumberTest selector: #testMinus);
-		addTest: (UMLNumberTest selector: #testMultiplication);
-		addTest: (UMLNumberTest selector: #testPlus);
-		addTest: (UMLOrderedCollectionTest selector: #testAdd);
-		addTest: (UMLOrderedCollectionTest selector: #testIncludes);
-		addTest: (UMLOrderedCollectionTest selector: #testIsEmpty);
-		addTest: (UMLOrderedCollectionTest selector: #testRemove);
-		addTest: (UMLOrderedCollectionTest selector: #testSize);
-		addTest: (UMLTimeTest selector: #testAddTime);
-		addTest: (UMLTimeTest selector: #testAsSeconds);
-		addTest: (UMLTimeTest selector: #testEqualTo);
-		addTest: (UMLTimeTest selector: #testHours);
-		addTest: (UMLTimeTest selector: #testMillisenconds);
-		addTest: (UMLTimeTest selector: #testMinutes);
-		addTest: (UMLTimeTest selector: #testSubtractTime);
-	yourself.
-	result := suite run.
-	self assert: result hasFailures not!
+	^virtualMachine virtualMachineClassNamed: 'MSWord'!
 
-testUMLModelClassesVirtualmachine
-	| allClasses |
+setUp
+	| newImplementation |
 
-	allClasses := OrderedCollection new.
-	virtualMachine umlModels do: [:each | allClasses addAll: each umlClasses].
+	super setUp.
 
-	self assert: (allClasses allSatisfy: [:each | (each virtualMachine == virtualMachine) and: [each getMetaclass virtualMachine == virtualMachine] ]).
+	executionSnapshot :=  UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
 
-	!
+	newImplementation := UMLParsedImplementation newNamed: #test withCode: 'test'.
+	self externaFileClass addImplementation: newImplementation.
 
-testUMLModelVirtualmachine
+	newImplementation := UMLParsedImplementation newNamed: #test withCode: 'test
+		super test initialize.'.
+	self msOfficeClass addImplementation: newImplementation.
 
-	self assert: (virtualMachine umlModels allSatisfy: [:each | each virtualMachine == virtualMachine])! !
-!UMLVirtualMachineTest categoriesFor: #testBasicClassesVirtualmachine!public! !
-!UMLVirtualMachineTest categoriesFor: #testBasicObjectsVirtualmachine!public! !
-!UMLVirtualMachineTest categoriesFor: #testSuiteBasicVirtualMachine!public! !
-!UMLVirtualMachineTest categoriesFor: #testUMLModelClassesVirtualmachine!public! !
-!UMLVirtualMachineTest categoriesFor: #testUMLModelVirtualmachine!public! !
+	newImplementation := UMLParsedImplementation newNamed: #test withCode: 'test
+		super test initialize.'.
+	self msWordClass addImplementation: newImplementation.!
+
+tearDown
+
+	super tearDown.
+
+	self externaFileClass removeImplementationNamed: #test.
+
+	self msOfficeClass removeImplementationNamed: #test.
+
+	self msWordClass removeImplementationNamed: #test.
+!
+
+testSuperSend
+	| parsedCode |
+
+	parsedCode := SmalltalkParser parseExpression: 'MSWord new test'.
+	executionSnapshot activateSnaphotWith: parsedCode.
+
+	virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot! !
+!UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !
+!UMLVirtualMachineTest categoriesFor: #msOfficeClass!public! !
+!UMLVirtualMachineTest categoriesFor: #msWordClass!public! !
+!UMLVirtualMachineTest categoriesFor: #setUp!public! !
+!UMLVirtualMachineTest categoriesFor: #tearDown!public! !
+!UMLVirtualMachineTest categoriesFor: #testSuperSend!public! !
 
