@@ -912,7 +912,9 @@ installUMLModel: anUMLModel
 
 	anUMLModel classesDo: [:eachClass | eachClass addTrait: (self traitNamed: 'UML Relations Methods')].
 
-	anUMLModel generateKeysAtGlobalCache.!
+	anUMLModel generateKeysAtGlobalCache.
+
+	anUMLModel generateInitializeMethodToAllClasses.!
 
 intervalClass
 	^self virtualMachineClassNamed: 'Interval'!

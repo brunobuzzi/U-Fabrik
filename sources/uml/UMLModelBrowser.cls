@@ -207,9 +207,7 @@ importXMIFile
 	xmlNode duplicatedClass notEmpty ifTrue: [^MessageBox notify: 'The Diagram has a duplicated class name <', xmlNode duplicatedClass, '>'].
 	self defaultVirtualMachine installUMLModel: newModel.
 "	self licenciaPorDefecto removerClassesDe: newModel."
-	modelsPresenter model: (ListModel 
-				on: (self defaultVirtualMachine umlModels asSortedCollection: [:a :b | a name <= b name])).
-	newModel generateInitializeMethodToAllClasses!
+	modelsPresenter model: (ListModel on: (self defaultVirtualMachine umlModels asSortedCollection: [:a :b | a name <= b name])).!
 
 isClassSideSelected
 

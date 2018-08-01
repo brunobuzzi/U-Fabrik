@@ -186,8 +186,10 @@ generateInitializeMethodToAllClasses
 
 	umlClasses do: [:each | 
 		each setAttributesType."added 02-04-2009"
-		each generateAttributesForRelations.
-		each autoGenerateInitializeMethodIn: virtualMachine]!
+		each generateAttributesForRelations].
+
+	"all attributes has its types not the #initialize method is generated"
+	umlClasses do: [:each | each autoGenerateInitializeMethodIn: virtualMachine]!
 
 generateKeysAtGlobalCache
 
@@ -560,7 +562,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #duplicatedAttributes!public! !
 !UMLModel categoriesFor: #duplicatedAttributesAsOrderedCollection!public! !
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
-!UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public! !
+!UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
 !UMLModel categoriesFor: #getAllCategories!public! !
 !UMLModel categoriesFor: #getAllGlobalObjectsOf:!public! !
