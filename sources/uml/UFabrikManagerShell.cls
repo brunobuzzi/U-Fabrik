@@ -109,7 +109,7 @@ onViewOpened
 	"self iniciarSitioWeb."
 	self createToolsIcons.
 	self createLoginIcons.
-	UMLVirtualMachine fileInVirtualMachineFrom: SessionManager current imageBase , 'U-Fabrik/lastVM.uvm'.
+	UMLVirtualMachine fileInVirtualMachineFrom: SessionManager current imageBase , 'lastVM.uvm'.
 	"LicenciaSoftware setLicence: (LicenciaSoftware fileInEncriptedLicenceFrom: (SessionManager current imageBase, 'licenceDefault.uli'))."
 "	LicenciaSoftware setLicence: LicenciaPermanteSoftware new.
 	self setLicenceCaption.
