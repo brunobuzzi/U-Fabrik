@@ -104,6 +104,7 @@ package methodNames
 	add: #UMLDialog -> #defaultVirtualMachine;
 	add: #UMLInstance -> #inspectUMLInstance;
 	add: #UMLInstance -> #isCollectionNode;
+	add: #UMLInstance -> #showClassDiagram;
 	add: #UMLModel -> #showSetupObjects;
 	add: #UMLObjectBehavior -> #createListViewFor:;
 	add: #UMLObjectBehavior -> #resourceIdentifierFor:;
@@ -204,6 +205,7 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Database Mapper';
 	add: 'UML Licence Manager';
 	add: 'UML Live Engine';
+	add: 'UML Paint';
 	add: 'UML Smalltalk Bridge';
 	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
 	add: 'XMI Import-Export Interfase II';
@@ -419,7 +421,7 @@ UMLComposite subclass: #UMLVMTransLogComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLEnvironmentTool subclass: #UMLBasicInspectorComposite
-	instanceVariableNames: 'instVarTreePresenter containerPresenter workspaceComposite urlPresenter aspectPresenter'
+	instanceVariableNames: 'instVarTreePresenter containerPresenter workspaceComposite urlPresenter aspectPresenter diagramPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -886,9 +888,15 @@ inspectUMLInstance
 
 isCollectionNode
 
-	^false! !
+	^false!
+
+showClassDiagram
+
+	(UMLPaint on: umlClass) show.
+	^self! !
 !UMLInstance categoriesFor: #inspectUMLInstance!gui!public! !
 !UMLInstance categoriesFor: #isCollectionNode!public! !
+!UMLInstance categoriesFor: #showClassDiagram!public! !
 
 !UMLModel methodsFor!
 

@@ -10,12 +10,6 @@ package classNames
 	add: #UMLPaint;
 	yourself.
 
-package methodNames
-	add: #UMLClassBrowserComposite -> #onChangedIn:;
-	add: #UMLInstance -> #showClassDiagram;
-	add: #UMLListComposite -> #showClassDiagram;
-	yourself.
-
 package binaryGlobalNames: (Set new
 	yourself).
 
@@ -23,11 +17,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
-	add: 'UML Live Engine';
-	add: 'UML Live Engine Views';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
 	yourself).
 
 package!
@@ -44,39 +36,6 @@ Object subclass: #UMLPaint
 
 
 "Loose Methods"!
-
-!UMLClassBrowserComposite methodsFor!
-
-onChangedIn: aSelectablePresenter
-	| classDescription diagram |
-
-	aSelectablePresenter hasSelection ifFalse: [self resetAttributesAndRelations. ^categoryBrowser model: OrderedCollection new].
-
-	classDescription := self isClassSideSelected ifTrue: [aSelectablePresenter selection] ifFalse: [aSelectablePresenter selection getMetaclass].
-
-	self setMethodsFor: classDescription.
-
-	self resetSanityCheck.
-
-	(Canvas forView: diagramPresenter view) erase.
-	diagram := (UMLPaint on: classDescription) generate; yourself.
-	diagramPresenter model: diagram bitmap! !
-!UMLClassBrowserComposite categoriesFor: #onChangedIn:!class changed!public! !
-
-!UMLInstance methodsFor!
-
-showClassDiagram
-
-	(UMLPaint on: umlClass) show.
-	^self! !
-!UMLInstance categoriesFor: #showClassDiagram!public! !
-
-!UMLListComposite methodsFor!
-
-showClassDiagram
-
-	self selection showClassDiagram! !
-!UMLListComposite categoriesFor: #showClassDiagram!public! !
 
 "End of package definition"!
 

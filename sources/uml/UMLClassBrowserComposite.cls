@@ -350,6 +350,21 @@ onCategoriaAdded
 onCategoriaChanged
 	^categoryBrowser onCategoriaChanged!
 
+onChangedIn: aSelectablePresenter
+	| classDescription diagram |
+
+	aSelectablePresenter hasSelection ifFalse: [self resetAttributesAndRelations. ^categoryBrowser model: OrderedCollection new].
+
+	classDescription := self isClassSideSelected ifTrue: [aSelectablePresenter selection] ifFalse: [aSelectablePresenter selection getMetaclass].
+
+	self setMethodsFor: classDescription.
+
+	self resetSanityCheck.
+
+	(Canvas forView: diagramPresenter view) erase.
+	diagram := (UMLPaint on: classDescription) generate; yourself.
+	diagramPresenter model: diagram bitmap!
+
 onClassChanged
 
 	classesPresenter view == DeafObject current ifTrue: [^self].
@@ -638,6 +653,7 @@ virtualMachine
 !UMLClassBrowserComposite categoriesFor: #onAttributeDoubleClicked:!public! !
 !UMLClassBrowserComposite categoriesFor: #onCategoriaAdded!public! !
 !UMLClassBrowserComposite categoriesFor: #onCategoriaChanged!public! !
+!UMLClassBrowserComposite categoriesFor: #onChangedIn:!class changed!public! !
 !UMLClassBrowserComposite categoriesFor: #onClassChanged!class changed!public! !
 !UMLClassBrowserComposite categoriesFor: #onDragOverClass:!class changed!drag & drop!public!uml env events! !
 !UMLClassBrowserComposite categoriesFor: #onDropUMLImplementationOverClass:!class changed!drag & drop!public!uml env events! !

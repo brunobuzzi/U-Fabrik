@@ -271,6 +271,10 @@ selectedInstVar
 selection
 	^objectListPresenter selection!
 
+showClassDiagram
+
+	self selection showClassDiagram!
+
 storeAsGlobalObject
 	self hasSelection ifFalse: [^self].
 	self selection storeAsGlobalObject.
@@ -321,6 +325,7 @@ umlRelation
 !UMLListComposite categoriesFor: #selectClassForTheNewInstance!public! !
 !UMLListComposite categoriesFor: #selectedInstVar!public! !
 !UMLListComposite categoriesFor: #selection!public! !
+!UMLListComposite categoriesFor: #showClassDiagram!public! !
 !UMLListComposite categoriesFor: #storeAsGlobalObject!public! !
 !UMLListComposite categoriesFor: #storeAsSetupObject!public! !
 !UMLListComposite categoriesFor: #umlClass!public! !
