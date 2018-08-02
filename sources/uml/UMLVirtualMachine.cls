@@ -113,12 +113,15 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 
 	collectionResult := OrderedCollection new.
 	anUMLImplementation nodes do: [:each |
-		anUMLExecutionSnapshot isCurtailed "if a program node has a _^_ then the message stack is not executed any more"
+		anUMLExecutionSnapshot isCurtailed"if a program node has a _^_ then the message stack is not executed any more"
 		ifFalse: [(each isMessage and: [each selector = #halt"debug"]) 
-					ifFalse: [collectionResult add: (each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments). " process the message node in a regular way"
+					ifFalse: [ | nodeExecutionResult |
+						" process the message node in a regular way"
+						nodeExecutionResult := [each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments] on: UMLLiveEngineError do: [:ex | ^anUMLObject].
+						collectionResult add: nodeExecutionResult. 
 						anUMLExecutionSnapshot hasDNU 
-						ifTrue: [ self errorLogIsActive 
-							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
+						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
+							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot].
 							^self nilObject]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] ]. " apply the super implementation to anObject "
 	collectionResult isEmpty ifTrue: [^anUMLObject"^self errorNotImplementedYet: symbolMessage in: anUMLObject"].
@@ -987,7 +990,7 @@ openInfiniteLoopDebuggerFor: anUMLExecutionSnapshot answer: anUMLObject
 
 	debugger view caption: (debugger view caption, ': Infinite Loop Detected !!!!!!').
 
-	^anUMLObject
+	^UMLInfiniteLoopError signal: 'Infinite Loop Detected at: <', anUMLExecutionSnapshot printName, '>'
 !
 
 orderedCollectionClass

@@ -45,6 +45,7 @@ package classNames
 	add: #UMLImplementationEmptyError;
 	add: #UMLImplementationExecutionSnapshot;
 	add: #UMLImplementationNotFoundError;
+	add: #UMLInfiniteLoopError;
 	add: #UMLInstance;
 	add: #UMLLiveEngineError;
 	add: #UMLMetaclass;
@@ -212,6 +213,11 @@ UMLLiveEngineError subclass: #UMLImplementationEmptyError
 	classInstanceVariableNames: ''!
 UMLLiveEngineError subclass: #UMLImplementationNotFoundError
 	instanceVariableNames: 'implementationName errorClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLInfiniteLoopError
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
