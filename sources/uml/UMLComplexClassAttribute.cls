@@ -42,11 +42,27 @@ isBasic
 
 	^false!
 
+isNavigable: anUMLClass 
+	"The receiver answer whether or not the argument <anUMLClass> is navigable"
+
+	^relation isNavigable: anUMLClass !
+
 isSelfReferenceAttribute
 
 	^relation isSelfReferenceClass!
 
+isSourceNavigable
+
+	^relation isSourceNavigable!
+
+isTargetNavigable
+
+	^relation isTargetNavigable!
+
 relatedClassTo: anUMLClass 
+	"Answer the related UMLClass of the receiver with the UMLClass argument <anUMLClass>
+	1. If the argument <anUMLClass> is the source class or a superclass of <anUMLClass> is the source class then answer the target class
+	2. If the argument <anUMLClass> is the target class or a superclass of <anUMLClass> is the target class then answer the source class"
 
 	^relation relatedClassTo: anUMLClass 
 !
@@ -69,7 +85,10 @@ uninstall
 !UMLComplexClassAttribute categoriesFor: #icon!public! !
 !UMLComplexClassAttribute categoriesFor: #isAssociationClass!public! !
 !UMLComplexClassAttribute categoriesFor: #isBasic!public! !
+!UMLComplexClassAttribute categoriesFor: #isNavigable:!public! !
 !UMLComplexClassAttribute categoriesFor: #isSelfReferenceAttribute!public! !
+!UMLComplexClassAttribute categoriesFor: #isSourceNavigable!navigability!public! !
+!UMLComplexClassAttribute categoriesFor: #isTargetNavigable!navigability!public! !
 !UMLComplexClassAttribute categoriesFor: #relatedClassTo:!public! !
 !UMLComplexClassAttribute categoriesFor: #relation!accessing!private! !
 !UMLComplexClassAttribute categoriesFor: #relation:!accessing!private! !

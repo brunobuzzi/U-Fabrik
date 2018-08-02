@@ -121,6 +121,7 @@ isManyToMany
 	^relationMultiplicity isManyToMany!
 
 isNavigable: anUMLClass 
+	"The receiver answer whether or not the argument <anUMLClass> is navigable"
 
 	((anUMLClass allSuperclasses, (OrderedCollection with: anUMLClass))  includes: targetClass) ifTrue: [^self isTargetNavigable].
 
@@ -250,8 +251,8 @@ printTypeName
 
 relatedClassTo: anUMLClass
 	"Answer the related UMLClass of the receiver with the UMLClass argument <anUMLClass>
-	1. If the argument <anUMLClass> is the source class or one of the superclass of <anUMLClass> is the source class then answer the target class
-	2. If the argument <anUMLClass> is the target class or one of the superclass of <anUMLClass> is the target class then answer the source class"
+	1. If the argument <anUMLClass> is the source class or a superclass of <anUMLClass> is the source class then answer the target class
+	2. If the argument <anUMLClass> is the target class or a superclass of <anUMLClass> is the target class then answer the source class"
 
 	((sourceClass == anUMLClass) or: [anUMLClass allSuperclasses anySatisfy: [:each | each == sourceClass]]) 
 	ifTrue: [^targetClass].
@@ -406,8 +407,8 @@ uninstall
 !UMLRelation categoriesFor: #isOneToManyOrManyToOne!public! !
 !UMLRelation categoriesFor: #isOneToOne!public! !
 !UMLRelation categoriesFor: #isSelfReferenceClass!public! !
-!UMLRelation categoriesFor: #isSourceNavigable!public! !
-!UMLRelation categoriesFor: #isTargetNavigable!public! !
+!UMLRelation categoriesFor: #isSourceNavigable!navigability!public! !
+!UMLRelation categoriesFor: #isTargetNavigable!navigability!public! !
 !UMLRelation categoriesFor: #isUndefined!public! !
 !UMLRelation categoriesFor: #name!public! !
 !UMLRelation categoriesFor: #navigability!accessing!private! !
