@@ -41,6 +41,10 @@ isCollectionNode
 smalltalkObject
 	^value smalltalkObject!
 
+umlClass
+
+	^value umlClass!
+
 value
 	^value!
 
@@ -58,6 +62,7 @@ vmPerform: aSymbol
 !UMLTreeNode categoriesFor: #instVarName:!accessing!private! !
 !UMLTreeNode categoriesFor: #isCollectionNode!public! !
 !UMLTreeNode categoriesFor: #smalltalkObject!public! !
+!UMLTreeNode categoriesFor: #umlClass!public! !
 !UMLTreeNode categoriesFor: #value!accessing!private! !
 !UMLTreeNode categoriesFor: #value:!accessing!private! !
 !UMLTreeNode categoriesFor: #vmPerform:!public! !
