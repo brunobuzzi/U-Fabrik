@@ -24,21 +24,35 @@ createHierarchyRelationFor: anIXMLDOMElement
 
 createSourceSideMultiplicityFor: relationElement for: anUMLRelation 
 	"Creates the multiplicity for the source part"
-	| sideNode isNavigable |
+	| ownedEndNode isNavigable |
 
-	sideNode := (relationElement selectNodes: 'ownedEnd/lowerValue') first.
-	isNavigable := ((relationElement selectNodes: 'ownedEnd') first getAttribute: 'isNavigable') = 'true'.
+	ownedEndNode := (relationElement selectNodes: 'ownedEnd') first.
+	isNavigable := (ownedEndNode getAttribute: 'isNavigable') = 'true'.
 
-	^self createSourceSideMultiplicityFor: relationElement for: anUMLRelation sideNode: sideNode isNavigable: isNavigable!
+	^self createSideMultiplicityFor: relationElement for: anUMLRelation sideNode: ownedEndNode isNavigable: isNavigable!
 
 createTargetSideMultiplicityFor: relationElement for: anUMLRelation 
 	"Creates the multiplicity for the target part"
-	| sideNode isNavigable |
+	| ownedEndNode isNavigable |
 
-	sideNode := (relationElement selectNodes: 'ownedEnd/lowerValue') last.
-	isNavigable := ((relationElement selectNodes: 'ownedEnd') last getAttribute: 'isNavigable') = 'true'.
+	ownedEndNode := (relationElement selectNodes: 'ownedEnd') last.
+	isNavigable := (ownedEndNode getAttribute: 'isNavigable') = 'true'.
 
-	^self createSourceSideMultiplicityFor: relationElement for: anUMLRelation sideNode: sideNode isNavigable: isNavigable!
+	^self createSideMultiplicityFor: relationElement for: anUMLRelation sideNode: ownedEndNode isNavigable: isNavigable!
+
+extractMultiplicityValueFrom: ownedEndElement
+	"The receiver extract the multiplicity value from <ownedEndElement>"
+	| multiplicityString selectedNodes |
+
+	multiplicityString := ''.
+
+	selectedNodes := ownedEndElement selectNodes: 'lowerValue'.
+	selectedNodes isEmpty ifFalse: [multiplicityString := multiplicityString, (selectedNodes first getAttribute: 'value')].
+
+	selectedNodes := ownedEndElement selectNodes: 'upperValue'.
+	selectedNodes isEmpty ifFalse: [multiplicityString := multiplicityString, '..' ,(selectedNodes first getAttribute: 'value')].
+
+	^multiplicityString!
 
 generateUMLClasses
 	"The receiver generates the UMLClasses from the XMI 2.1 file. The UMLStructure is anOrderedCollection of Arrays (one for each class), where each Array has three positions.
@@ -167,6 +181,7 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiVisualParadigm categoriesFor: #createHierarchyRelationFor:!public! !
 !XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityFor:for:!public! !
 !XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityFor:for:!public! !
+!XmiVisualParadigm categoriesFor: #extractMultiplicityValueFrom:!public! !
 !XmiVisualParadigm categoriesFor: #generateUMLClasses!public!uml-class creation! !
 !XmiVisualParadigm categoriesFor: #getClassElementWithId:ifNone:!public! !
 !XmiVisualParadigm categoriesFor: #getClassesNamesAndXmiID!getting classes!public! !

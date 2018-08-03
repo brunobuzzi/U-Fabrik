@@ -84,7 +84,7 @@ package methodNames
 	add: #XmiUModel -> #createSourceSideMultiplicityForAssociationClass:for:sideNode:;
 	add: #XmiUModel -> #generateRelationFrom:;
 	add: #XmiVisualParadigm -> #createRelationsOfClassAssociations;
-	add: #XmiVisualParadigm -> #createSourceSideMultiplicityFor:for:sideNode:isNavigable:;
+	add: #XmiVisualParadigm -> #createSideMultiplicityFor:for:sideNode:isNavigable:;
 	add: #XmiVisualParadigm -> #createSourceSideMultiplicityForAssociationClass:for:;
 	add: #XmiVisualParadigm -> #createTargetSideMultiplicityForAssociationClass:for:;
 	add: #XmiVisualParadigm -> #generateAttributesToAll:;
@@ -863,11 +863,12 @@ createRelationsOfClassAssociations
 		].
 !
 
-createSourceSideMultiplicityFor: relationElement for: anUMLRelation sideNode: sideNode isNavigable: aBoolean
+createSideMultiplicityFor: relationElement for: anUMLRelation sideNode: ownedEndNode isNavigable: aBoolean
 	"Creates the multiplicity for the source part"
 	| mutliplicityValue multiplicitySideClass |
 
-	mutliplicityValue := sideNode ifNil: [nil] ifNotNil: [:value | value getAttribute: 'value'].
+	mutliplicityValue := self extractMultiplicityValueFrom: ownedEndNode.
+
 	multiplicitySideClass := mutliplicityValue 
 		ifNil: [UMLUndefinedSD] "the multiplicity is not defined"
 		ifNotNil: [:value | UMLAssociationSideMultiplicity allSubclasses "we match <multiplicityCharacters> of all classes of UMLAssociationSideMultiplicity hierarchy "
@@ -955,7 +956,7 @@ generateRelationFrom: relationElement
 
 	^umlRelation! !
 !XmiVisualParadigm categoriesFor: #createRelationsOfClassAssociations!attributes!public!uml-class creation! !
-!XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityFor:for:sideNode:isNavigable:!public! !
+!XmiVisualParadigm categoriesFor: #createSideMultiplicityFor:for:sideNode:isNavigable:!public! !
 !XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityForAssociationClass:for:!public! !
 !XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityForAssociationClass:for:!public! !
 !XmiVisualParadigm categoriesFor: #generateAttributesToAll:!attributes!public!uml-class creation!xpath! !
