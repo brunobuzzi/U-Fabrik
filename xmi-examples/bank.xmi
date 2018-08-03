@@ -1973,7 +1973,7 @@
 							<properties>
 								<property name="name" type="string" value="Opportunity"/>
 								<property name="modelType" type="string" value="BMMAssessmentCategory"/>
-								<property htmlValue="&lt;HTML&gt;&lt;BODY&gt;&lt;p style=&quot;margin-top: 0&quot;&gt;This category indicates that some Influencer can have a favorable impact on the organization's employment of Means or achievement of Ends.&lt;/p&gt;&lt;/BODY&gt;&lt;/HTML&gt;" name="documentation" type="htmlString" value="This category indicates that some Influencer can have a favorable impact on the organization's employment of Means or achievement of Ends."/>
+								<property htmlValue="&lt;HTML&gt;&lt;BODY&gt;&lt;p style=&quot;margin-top: 0&quot;&gt;This category indicates that some Influencer can have a favorable impact on the organizations employment of Means or achievement of Ends.&lt;/p&gt;&lt;/BODY&gt;&lt;/HTML&gt;" name="documentation" type="htmlString" value="This category indicates that some Influencer can have a favorable impact on the organizations employment of Means or achievement of Ends."/>
 								<property name="pmAuthor" type="string" value="Usuario"/>
 								<property name="pmCreateDateTime" type="string" value="1533232890979"/>
 								<property name="pmLastModified" type="string" value="1533232901505"/>
@@ -1986,7 +1986,7 @@
 							<properties>
 								<property name="name" type="string" value="Threat"/>
 								<property name="modelType" type="string" value="BMMAssessmentCategory"/>
-								<property htmlValue="&lt;HTML&gt;&lt;BODY&gt;&lt;p style=&quot;margin-top: 0&quot;&gt;This category indicates that some Influencer can have an unfavorable impact on the organization's employment of Means or achievement of Ends.&lt;/p&gt;&lt;/BODY&gt;&lt;/HTML&gt;" name="documentation" type="htmlString" value="This category indicates that some Influencer can have an unfavorable impact on the organization's employment of Means or achievement of Ends."/>
+								<property htmlValue="&lt;HTML&gt;&lt;BODY&gt;&lt;p style=&quot;margin-top: 0&quot;&gt;This category indicates that some Influencer can have an unfavorable impact on the organizations employment of Means or achievement of Ends.&lt;/p&gt;&lt;/BODY&gt;&lt;/HTML&gt;" name="documentation" type="htmlString" value="This category indicates that some Influencer can have an unfavorable impact on the organizations employment of Means or achievement of Ends."/>
 								<property name="pmAuthor" type="string" value="Usuario"/>
 								<property name="pmCreateDateTime" type="string" value="1533232890979"/>
 								<property name="pmLastModified" type="string" value="1533232901505"/>
