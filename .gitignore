@@ -6,4 +6,4 @@
 *.sml
 *.exe
 *.dll
-installer/
+runtime/
