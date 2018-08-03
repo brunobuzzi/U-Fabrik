@@ -589,11 +589,15 @@ appendOneToOneRelationsOn: aWriteStream overflowCollection: overflowCollection
 										[each hasMultipleInstances or: 
 										[each isSelfReferenceAttribute]]]]) asOrderedCollection.
 
-	selectedAttributes do: [:classAttribute | | newMethodName |
+	(selectedAttributes reject: [:each | each type == virtualMachine nilObjectClass]) do: [:classAttribute | | newMethodName |
 		newMethodName := ' newFrom', name,': self.'.
 		aWriteStream nextPutAll: classAttribute getName,' := ', (classAttribute getInitializeTypeFor: self) name, newMethodName, String lineDelimiter. "instances variables assigment for domain objects"
 		classAttribute getType metaclass compileNewFromMethodFor: self triggerAttribute: classAttribute.
 		classAttribute getType autoGenerateInitializeMethodIn: self defaultVirtualMachine overflowCollection: overflowCollection.
+	].
+
+	(selectedAttributes select: [:each | each type == virtualMachine nilObjectClass]) do: [:classAttribute | 
+		aWriteStream nextPutAll: classAttribute getName, ' := nil. "error: mismatch type mapping for this variable" '
 	].!
 
 appendStringAttributesOn: aWriteStream
