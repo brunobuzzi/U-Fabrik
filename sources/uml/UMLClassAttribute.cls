@@ -167,6 +167,9 @@ umlClass
 umlClass: anObject
 	umlClass := anObject!
 
+umlClassName
+	^umlClass name!
+
 uninstall
 
 	type := nil.
@@ -211,6 +214,7 @@ virtualMachine
 !UMLClassAttribute categoriesFor: #typeName!public! !
 !UMLClassAttribute categoriesFor: #umlClass!accessing!private! !
 !UMLClassAttribute categoriesFor: #umlClass:!accessing!private! !
+!UMLClassAttribute categoriesFor: #umlClassName!public! !
 !UMLClassAttribute categoriesFor: #uninstall!public! !
 !UMLClassAttribute categoriesFor: #virtualMachine!public! !
 

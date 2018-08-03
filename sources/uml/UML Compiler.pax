@@ -588,8 +588,10 @@ appendOneToOneRelationsOn: aWriteStream overflowCollection: overflowCollection
 										[(basicValues includes: each type name) or: 
 										[each hasMultipleInstances or: 
 										[each isSelfReferenceAttribute]]]]) asOrderedCollection.
-	selectedAttributes do: [:classAttribute | 
-		aWriteStream nextPutAll: classAttribute getName,' := ', (classAttribute getInitializeTypeFor: self) name, ' newFrom: self.', String lineDelimiter. "instances variables assigment for domain objects"
+
+	selectedAttributes do: [:classAttribute | | newMethodName |
+		newMethodName := ' newFrom', name,': self.'.
+		aWriteStream nextPutAll: classAttribute getName,' := ', (classAttribute getInitializeTypeFor: self) name, newMethodName, String lineDelimiter. "instances variables assigment for domain objects"
 		classAttribute getType metaclass compileNewFromMethodFor: self triggerAttribute: classAttribute.
 		classAttribute getType autoGenerateInitializeMethodIn: self defaultVirtualMachine overflowCollection: overflowCollection.
 	].!

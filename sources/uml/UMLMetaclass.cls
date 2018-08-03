@@ -28,13 +28,14 @@ classNameForImplementationList
 
 compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribute
 	"The receiver create <anUMLPasrsedImplementation> named #newFrom: to related class of <anUMLClass>"
-	| initializeStream objectName varName umlImplementation parsedCode |
+	| initializeStream objectName varName umlImplementation parsedCode methodName |
 
 	initializeStream := WriteStream on: String new.
-	
+
+	methodName := 'newFrom', anUMLRelationClassAttribute umlClassName, ':'.
 	objectName := 'a', anUMLClass name.
 	varName := anUMLClass name first asLowercase asString, anUMLClass name allButFirst.
-	initializeStream nextPutAll: 'newFrom: ', objectName, String lineDelimiter;
+	initializeStream nextPutAll: methodName, objectName, String lineDelimiter;
 		nextPutAll: '	| newObject | ', String lineDelimiter, String lineDelimiter;
 		nextPutAll: '	newObject := super new.', String lineDelimiter.
 	"see issue #66 - if the relation is not navigable then this call must not be done"
@@ -43,7 +44,7 @@ compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribut
 	
 	initializeStream nextPutAll: '	^newObject'.
 	
-	umlImplementation := UMLParsedImplementation newNamed: #newFrom:.
+	umlImplementation := UMLParsedImplementation newNamed: methodName asSymbol.
 	parsedCode := SmalltalkParser parseMethod: initializeStream contents. "the compiler parse the string"
 	umlImplementation parsedCode: parsedCode.
 
