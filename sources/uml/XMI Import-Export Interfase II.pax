@@ -12,6 +12,7 @@ package classNames
 	add: #XmiReader;
 	add: #XmiUModel;
 	add: #XmiVisualParadigm;
+	add: #XmiVisualParadigm15;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -21,9 +22,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
 	yourself).
 
 package!
@@ -51,6 +52,11 @@ XmiReader subclass: #XmiUModel
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 XmiReader subclass: #XmiVisualParadigm
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiVisualParadigm subclass: #XmiVisualParadigm15
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

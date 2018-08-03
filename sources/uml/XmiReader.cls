@@ -252,15 +252,20 @@ loadFrom: pathFile
 	xmlSource := stream contents.
 	stream close.
 	xmlDocument := IXMLDOMDocument2 new.
+
+	self setNamespaceProperties.
+
 	xmlDocument loadText: xmlSource.
 
-	xmlDocument setProperty_: 'SelectionLanguage' value: 'XPath'.
-	xmlDocument setProperty_: 'SelectionNamespaces' value: 'xmlns:xmi="http://schema.omg.org/spec/XMI/2.1"'.
+
 !
 
 loadFromString: xmiString
 
 	xmlDocument := IXMLDOMDocument2 new.
+
+	self setNamespaceProperties.
+
 	xmlDocument loadText: xmiString.
 !
 
@@ -270,7 +275,12 @@ selectNodeOfClassNamed: aString
 
 selectNodes: aString
 
-	^xmlDocument selectNodes: aString! !
+	^xmlDocument selectNodes: aString!
+
+setNamespaceProperties
+
+	xmlDocument setProperty_: 'SelectionLanguage' value: 'XPath'.
+	xmlDocument setProperty_: 'SelectionNamespaces' value: 'xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0"'.! !
 !XmiReader categoriesFor: #askForAnotherClassNameFor:in:!public! !
 !XmiReader categoriesFor: #createHierarchyRelationFor:!public! !
 !XmiReader categoriesFor: #createRelationMultiplicityFor:for:!public!uml-class creation! !
@@ -314,6 +324,7 @@ selectNodes: aString
 !XmiReader categoriesFor: #loadFromString:!public!xmi top method! !
 !XmiReader categoriesFor: #selectNodeOfClassNamed:!getting classes!public! !
 !XmiReader categoriesFor: #selectNodes:!public!xmi top method! !
+!XmiReader categoriesFor: #setNamespaceProperties!public!xmi top method! !
 
 !XmiReader class methodsFor!
 

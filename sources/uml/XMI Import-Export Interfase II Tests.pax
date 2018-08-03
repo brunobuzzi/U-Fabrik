@@ -8,6 +8,7 @@ package classNames
 	add: #IXMLDOMDocumentTest;
 	add: #XmiEnterpriseArchitectTest;
 	add: #XmiReaderTest;
+	add: #XmiVisualParadigmTest;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -17,11 +18,11 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
 	add: 'XMI Import-Export Interfase II';
-	add: '..\..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
-	add: '..\..\..\Core\Contributions\ITC Gorisek\Yaxo\YAXO DOM';
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
+	add: '..\..\Core\Contributions\ITC Gorisek\Yaxo\YAXO DOM';
 	yourself).
 
 package!
@@ -39,6 +40,11 @@ XmiReaderTest subclass: #IXMLDOMDocumentTest
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 XmiReaderTest subclass: #XmiEnterpriseArchitectTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+XmiReaderTest subclass: #XmiVisualParadigmTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
