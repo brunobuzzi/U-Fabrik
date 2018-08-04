@@ -87,8 +87,18 @@ importLicence
 	self setLicenceCaption.!
 
 importStateMachineFromXMI
+	| shell xmiReaderClass |
 
-	UMLStateMachineImportShell show!
+	xmiReaderClass := (DetalleDeOpciones
+					listaCon: XmiReader subclasses asOrderedCollection
+					para: 'UMLTools view'
+					titulo: 'Select the UML Tool that genereted the XMI file')
+						ifNil: [nil]
+						ifNotNil: [:value | value last].
+
+	shell := UMLStateMachineImportShell show.
+
+	shell setXmiReaderClass: xmiReaderClass.!
 
 isCategoryBrowser
 	^false!
