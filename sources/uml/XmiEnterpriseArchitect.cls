@@ -117,6 +117,13 @@ getDiagramElements
 
 	^(self selectNodes: 'xmi:XMI/xmi:Extension/elements') first childNodes!
 
+getMachineStateNodes
+	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
+	| diagramElements |
+
+	diagramElements :=  self selectNodes: '//packagedElement'.
+	^diagramElements select: [:each | ((each getAttribute: 'xmi:type') = 'uml:StateMachine') and: [(each getAttribute: 'name') notNil] ]!
+
 getRelationElementWithId: xmiID
 	"Get the XMI relation element with xmi id equal to <xmiID>"
 
@@ -141,6 +148,13 @@ getStateElementWithId: xmiID ifNone: aBlock
 	"Get from all elements in the XMI model the element with id = <xmiID>"
 
 	^self getStateNodes detect: [:each | (each getAttribute: 'xmi:idref') = xmiID] ifNone: aBlock!
+
+getStateNodes
+	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
+	| diagramElements |
+
+	diagramElements := self getDiagramElements.
+	^diagramElements select: [:each | ((each getAttribute: 'xmi:type') = 'uml:State') and: [(each getAttribute: 'name') notNil] ]!
 
 getStatesMachineNamesAndXmiID
 	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
@@ -197,10 +211,12 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiEnterpriseArchitect categoriesFor: #getClassesNamesIDandRelationsID!getting classes!public!uml-class creation!xpath! !
 !XmiEnterpriseArchitect categoriesFor: #getDiagramConnectors!getting connectors!public!xpath! !
 !XmiEnterpriseArchitect categoriesFor: #getDiagramElements!getting classes!public!xpath! !
+!XmiEnterpriseArchitect categoriesFor: #getMachineStateNodes!getting classes!getting states!public!xpath! !
 !XmiEnterpriseArchitect categoriesFor: #getRelationElementWithId:!getting connectors!public! !
 !XmiEnterpriseArchitect categoriesFor: #getSourceAndTargetElementOf:!getting connectors!public!xpath! !
 !XmiEnterpriseArchitect categoriesFor: #getStateElementWithId:!getting states!public! !
 !XmiEnterpriseArchitect categoriesFor: #getStateElementWithId:ifNone:!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #getStateNodes!getting classes!getting states!public!xpath! !
 !XmiEnterpriseArchitect categoriesFor: #getStatesMachineNamesAndXmiID!getting states!public! !
 !XmiEnterpriseArchitect categoriesFor: #getStatesNamesAndXmiID!getting states!public! !
 !XmiEnterpriseArchitect categoriesFor: #getTransitionNodesAndXmiID!getting states!public! !

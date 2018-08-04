@@ -152,6 +152,13 @@ getDiagramElements
 
 	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember'!
 
+getMachineStateNodes
+	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
+	| diagramElements |
+
+	diagramElements :=  self selectNodes: '//ownedMember'.
+	^diagramElements select: [:each | (each getAttribute: 'xmi:type') = 'uml:StateMachine']!
+
 getRelationElementWithId: xmiID
 	"Get the XMI relation element with xmi id equal to <xmiID>"
 
@@ -246,6 +253,7 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiVisualParadigm categoriesFor: #getClassNodeOf:!getting classes!public! !
 !XmiVisualParadigm categoriesFor: #getDiagramConnectors!public! !
 !XmiVisualParadigm categoriesFor: #getDiagramElements!getting classes!public!xpath! !
+!XmiVisualParadigm categoriesFor: #getMachineStateNodes!getting classes!getting states!public!xpath! !
 !XmiVisualParadigm categoriesFor: #getRelationElementWithId:!public! !
 !XmiVisualParadigm categoriesFor: #getSourceAndTargetElementOf:!getting connectors!public!xpath! !
 !XmiVisualParadigm categoriesFor: #getStateElementWithId:!getting states!public! !
