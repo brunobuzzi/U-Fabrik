@@ -167,6 +167,63 @@ getSourceAndTargetElementOf: relationID
 		with: (self getClassElementWithId: ((relationElement selectNodes: 'ownedEnd') first getAttribute: 'type'))
 		with: (self getClassElementWithId: ((relationElement selectNodes: 'ownedEnd') last getAttribute: 'type'))!
 
+getStateElementWithId: xmiID
+	"Get from all elements in the XMI model the element with id = <xmiID>"
+
+	^self getStateElementWithId: xmiID ifNone: []!
+
+getStateElementWithId: xmiID ifNone: aBlock
+	"Get from all elements in the XMI model the element with id = <xmiID>"
+
+	^self getStateNodes detect: [:each | (each getAttribute: 'xmi:idref') = xmiID] ifNone: aBlock!
+
+getStateMachineNames
+	| diagramElements |
+
+	diagramElements := self selectNodes: '//uml:Diagram'.
+
+	^diagramElements select: [:each | (each getAttribute: 'diagramType') = 'StateDiagram']!
+
+getStateNodes
+	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
+
+	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember/region/subvertex'!
+
+getStatesMachineNamesAndXmiID
+	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
+{ ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
+	| stateNodes stateMachineNames statesCollection |
+
+	statesCollection := OrderedCollection new.
+	stateNodes := self getMachineStateNodes.
+	stateMachineNames := self getStateMachineNames.
+
+	stateNodes do: [:each | statesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id') with: each) ].
+
+	^statesCollection!
+
+getStatesNamesAndXmiID
+	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
+{ ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
+	| stateNodes statesCollection |
+
+	statesCollection := OrderedCollection new.
+	stateNodes := self getStateNodes.
+	stateNodes do: [:each | statesCollection add: (Array with: (each getAttribute: 'name') with: (each getAttribute: 'xmi:id') with: each) ].
+
+	^statesCollection!
+
+getTransitionNodesAndXmiID
+	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
+{ ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
+	| stateNodes statesCollection |
+
+	statesCollection := OrderedCollection new.
+	stateNodes := self getTransitionNodes.
+	stateNodes do: [:each | statesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id') with: each) ].
+
+	^statesCollection!
+
 isAssociationClassXmiID: xmiID
 
 	^((self getClassElementWithId: xmiID ifNone: [^false]) getAttribute: 'xmi:type') = 'uml:AssociationClass'!
@@ -191,6 +248,13 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiVisualParadigm categoriesFor: #getDiagramElements!getting classes!public!xpath! !
 !XmiVisualParadigm categoriesFor: #getRelationElementWithId:!public! !
 !XmiVisualParadigm categoriesFor: #getSourceAndTargetElementOf:!getting connectors!public!xpath! !
+!XmiVisualParadigm categoriesFor: #getStateElementWithId:!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getStateElementWithId:ifNone:!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getStateMachineNames!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getStateNodes!getting classes!getting states!public!xpath! !
+!XmiVisualParadigm categoriesFor: #getStatesMachineNamesAndXmiID!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getStatesNamesAndXmiID!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getTransitionNodesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #isAssociationClassXmiID:!public!uml-class creation!xpath! !
 !XmiVisualParadigm categoriesFor: #isAssociationRelationXmiID:!public! !
 !XmiVisualParadigm categoriesFor: #isHierarchyRelation:!public! !

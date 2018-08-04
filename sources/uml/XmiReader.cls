@@ -151,8 +151,8 @@ getMachineStateNodes
 	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
 	| diagramElements |
 
-	diagramElements :=  self selectNodes: '//packagedElement'.
-	^diagramElements select: [:each | ((each getAttribute: 'xmi:type') = 'uml:StateMachine') and: [(each getAttribute: 'name') notNil] ]!
+	diagramElements :=  self selectNodes: '//ownedMember'.
+	^diagramElements select: [:each | (each getAttribute: 'xmi:type') = 'uml:StateMachine']!
 
 getRelationElementWithId: xmiID
 	"Get the XMI relation element with xmi id equal to <xmiID>"
@@ -186,10 +186,8 @@ getStateElementWithId: xmiID ifNone: aBlock
 
 getStateNodes
 	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
-	| diagramElements |
 
-	diagramElements := self getDiagramElements.
-	^diagramElements select: [:each | ((each getAttribute: 'xmi:type') = 'uml:State') and: [(each getAttribute: 'name') notNil] ]!
+	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember/region/subvertex'!
 
 getStatesMachineNamesAndXmiID
 	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
