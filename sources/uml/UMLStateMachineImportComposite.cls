@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLComposite subclass: #UMLStateMachineImportComposite
-	instanceVariableNames: 'fileNamePresenter stateMachineListPresenter stateMachineNamePresenter stateMachineVariableNamePresenter umlModelPresenter stateMachineClassPresenter transitionVariableNamePresenter currentStateMessagePresenter nextStateMessagePresenter transitionClassPresenter stateVariableNamePresenter stateClassPresenter'
+	instanceVariableNames: 'fileNamePresenter stateMachineListPresenter stateMachineNamePresenter stateMachineVariableNamePresenter umlModelPresenter stateMachineClassPresenter transitionVariableNamePresenter currentStateMessagePresenter nextStateMessagePresenter transitionClassPresenter stateVariableNamePresenter stateClassPresenter xmiReaderClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -46,8 +46,8 @@ createSchematicWiring
 
 generateStateMachines
 	| xmi machines |
-
-	xmi := XmiEnterpriseArchitect fromFile: fileNamePresenter value.
+self halt.
+	xmi := xmiReaderClass fromFile: fileNamePresenter value.
 
 	machines := xmi createUMLStateMachines.
 	
@@ -121,7 +121,11 @@ onUMLModelChanged
 
 openXMIfile
 
-	fileNamePresenter model: FileOpenDialog  showModal asValue! !
+	fileNamePresenter model: FileOpenDialog  showModal asValue!
+
+setXmiReaderClass: aXmiReaderClass
+
+	xmiReaderClass := aXmiReaderClass! !
 !UMLStateMachineImportComposite categoriesFor: #clearAll!public! !
 !UMLStateMachineImportComposite categoriesFor: #createComponents!public! !
 !UMLStateMachineImportComposite categoriesFor: #createSchematicWiring!public! !
@@ -134,6 +138,7 @@ openXMIfile
 !UMLStateMachineImportComposite categoriesFor: #onTransitionClassChanged!public! !
 !UMLStateMachineImportComposite categoriesFor: #onUMLModelChanged!public! !
 !UMLStateMachineImportComposite categoriesFor: #openXMIfile!public! !
+!UMLStateMachineImportComposite categoriesFor: #setXmiReaderClass:!public! !
 
 !UMLStateMachineImportComposite class methodsFor!
 

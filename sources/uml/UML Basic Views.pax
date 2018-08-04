@@ -70,7 +70,6 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Compiler';
 	add: 'UML Live Engine';
 	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
-	add: 'XMI Import-Export Interfase II';
 	yourself).
 
 package!
@@ -178,7 +177,7 @@ UMLComposite subclass: #UMLRelationComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLComposite subclass: #UMLStateMachineImportComposite
-	instanceVariableNames: 'fileNamePresenter stateMachineListPresenter stateMachineNamePresenter stateMachineVariableNamePresenter umlModelPresenter stateMachineClassPresenter transitionVariableNamePresenter currentStateMessagePresenter nextStateMessagePresenter transitionClassPresenter stateVariableNamePresenter stateClassPresenter'
+	instanceVariableNames: 'fileNamePresenter stateMachineListPresenter stateMachineNamePresenter stateMachineVariableNamePresenter umlModelPresenter stateMachineClassPresenter transitionVariableNamePresenter currentStateMessagePresenter nextStateMessagePresenter transitionClassPresenter stateVariableNamePresenter stateClassPresenter xmiReaderClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -87,6 +87,9 @@ package methodNames
 	add: #XmiVisualParadigm -> #createSideMultiplicityFor:for:sideNode:isNavigable:;
 	add: #XmiVisualParadigm -> #createSourceSideMultiplicityForAssociationClass:for:;
 	add: #XmiVisualParadigm -> #createTargetSideMultiplicityForAssociationClass:for:;
+	add: #XmiVisualParadigm -> #createTransitionsFor:;
+	add: #XmiVisualParadigm -> #createUMLStateMachines;
+	add: #XmiVisualParadigm -> #createUMLStates;
 	add: #XmiVisualParadigm -> #generateAttributesToAll:;
 	add: #XmiVisualParadigm -> #generateRelationFrom:;
 	yourself.
@@ -918,6 +921,58 @@ createTargetSideMultiplicityForAssociationClass: relationElement for: anUMLAssoc
 		isNavigable: isNavigable;
 		yourself.!
 
+createTransitionsFor: anOrderedCollection
+	| transitionNodes |
+
+	transitionNodes := self getTransitionNodes.
+	anOrderedCollection do: [:eachState | | realTransitions |
+		realTransitions := OrderedCollection new.
+		eachState transitions do: [:eachNode | | transition startId endId start end name transitionNode | 
+			endId := eachNode getAttribute: 'source'.
+			startId := eachNode getAttribute: 'target'.
+			start := anOrderedCollection detect: [:each | each id = startId] ifNone: [nil].
+			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
+			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
+			name :=  transitionNode ifNil: [(start ifNil: ['-'] ifNotNil: [:value | value name]), ' --> ', (end ifNil: ['-'] ifNotNil: [:value | value name])] ifNotNil: [:value | value getAttribute: 'name'].
+			transition := UMLStateTransition name: name 
+						id: (eachNode getAttribute: 'xmi:id')
+						start: start 
+						end: end.
+			realTransitions add: transition.].
+		eachState transitions: realTransitions].
+	^anOrderedCollection!
+
+createUMLStateMachines
+	| stateMachines stateMachinesNodes stateMachinesNames umlStates transitionNodesId |
+
+	stateMachines := OrderedCollection new.
+	stateMachinesNodes := self getMachineStateNodes.
+	stateMachinesNames := self getStateMachineNames.
+	umlStates := self createUMLStates.
+
+	stateMachinesNodes do: [:eachStateMachineArray |  | stateMachine |
+		stateMachine := UMLStateMachine new.
+		stateMachine name: (eachStateMachineArray third getAttribute: 'name').
+		stateMachines add: stateMachine.
+		transitionNodesId := (self getTransitionNodesFor: eachStateMachineArray third "node") collect: [:each | each getAttribute: 'xmi:id' ].
+		stateMachine addAllStates: (
+			umlStates select: [:eachState | transitionNodesId anySatisfy: [:eachId | eachState includesTransitionId: eachId]]).
+	].
+
+	^stateMachines
+!
+
+createUMLStates
+	| states |
+
+	states := OrderedCollection new.
+	self getStatesNamesAndXmiID do: [:eachArray | | umlState |
+		umlState := UMLState name: eachArray first  id: eachArray second.
+		states add: umlState.
+		umlState transitions: (self getTransitionsFor: eachArray)].
+	self createTransitionsFor: states.
+	^states!
+
 generateAttributesToAll: generatedClasses
 	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
 
@@ -959,6 +1014,9 @@ generateRelationFrom: relationElement
 !XmiVisualParadigm categoriesFor: #createSideMultiplicityFor:for:sideNode:isNavigable:!public! !
 !XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityForAssociationClass:for:!public! !
 !XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityForAssociationClass:for:!public! !
+!XmiVisualParadigm categoriesFor: #createTransitionsFor:!getting states!public! !
+!XmiVisualParadigm categoriesFor: #createUMLStateMachines!getting states!public! !
+!XmiVisualParadigm categoriesFor: #createUMLStates!getting states!public! !
 !XmiVisualParadigm categoriesFor: #generateAttributesToAll:!attributes!public!uml-class creation!xpath! !
 !XmiVisualParadigm categoriesFor: #generateRelationFrom:!public! !
 

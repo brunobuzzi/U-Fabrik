@@ -20,9 +20,14 @@ model: anOrderedCollection
 
 	super model: anOrderedCollection.
 
-	composite model: anOrderedCollection.! !
+	composite model: anOrderedCollection.!
+
+setXmiReaderClass: aXmiReaderClass
+
+	composite setXmiReaderClass: aXmiReaderClass! !
 !UMLStateMachineImportShell categoriesFor: #createComponents!public! !
 !UMLStateMachineImportShell categoriesFor: #model:!public! !
+!UMLStateMachineImportShell categoriesFor: #setXmiReaderClass:!public! !
 
 !UMLStateMachineImportShell class methodsFor!
 
