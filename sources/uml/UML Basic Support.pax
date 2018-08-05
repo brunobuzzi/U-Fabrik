@@ -928,8 +928,8 @@ createTransitionsFor: anOrderedCollection
 	anOrderedCollection do: [:eachState | | realTransitions |
 		realTransitions := OrderedCollection new.
 		eachState transitions do: [:eachNode | | transition startId endId start end name transitionNode | 
-			endId := eachNode getAttribute: 'source'.
-			startId := eachNode getAttribute: 'target'.
+			endId := eachNode getAttribute: 'target'.
+			startId := eachNode getAttribute: 'source'.
 			start := anOrderedCollection detect: [:each | each id = startId] ifNone: [nil].
 			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
 			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
@@ -950,11 +950,11 @@ createUMLStateMachines
 	stateMachinesNames := self getStateMachineNames.
 	umlStates := self createUMLStates.
 
-	stateMachinesNodes do: [:eachStateMachineArray |  | stateMachine |
+	stateMachinesNodes keysAndValuesDo: [:index :eachNode | | stateMachine |
 		stateMachine := UMLStateMachine new.
-		stateMachine name: (eachStateMachineArray third getAttribute: 'name').
+		stateMachine name: ((stateMachinesNames at: index) getAttribute: 'name').
 		stateMachines add: stateMachine.
-		transitionNodesId := (self getTransitionNodesFor: eachStateMachineArray third "node") collect: [:each | each getAttribute: 'xmi:id' ].
+		transitionNodesId := (self getTransitionNodesFor: (stateMachinesNodes at: index)) collect: [:each | each getAttribute: 'xmi:id' ].
 		stateMachine addAllStates: (
 			umlStates select: [:eachState | transitionNodesId anySatisfy: [:eachId | eachState includesTransitionId: eachId]]).
 	].
