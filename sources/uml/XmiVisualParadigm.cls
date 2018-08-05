@@ -249,7 +249,14 @@ isAssociationRelationXmiID: xmiID
 
 isHierarchyRelation: anIXMLDOMElement 
 
-	^(anIXMLDOMElement selectSingleNode: 'generalization') notNil! !
+	^(anIXMLDOMElement selectSingleNode: 'generalization') notNil!
+
+TransitionNodes
+	"Get from XMI diagrams all elements that are UML Transitions answer IXMLDOM elements"
+	| diagramElements |
+
+	diagramElements :=  self selectNodes: '//transition'.
+	^diagramElements select: [:each | ((each getAttribute: 'xmi:type') = 'uml:Transition') and: [(each getAttribute: 'name') notNil] ]! !
 !XmiVisualParadigm categoriesFor: #createHierarchyRelationFor:!public! !
 !XmiVisualParadigm categoriesFor: #createSourceSideMultiplicityFor:for:!public! !
 !XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityFor:for:!public! !
@@ -275,6 +282,7 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiVisualParadigm categoriesFor: #isAssociationClassXmiID:!public!uml-class creation!xpath! !
 !XmiVisualParadigm categoriesFor: #isAssociationRelationXmiID:!public! !
 !XmiVisualParadigm categoriesFor: #isHierarchyRelation:!public! !
+!XmiVisualParadigm categoriesFor: #TransitionNodes!getting states!public! !
 
 !XmiVisualParadigm class methodsFor!
 
