@@ -231,6 +231,14 @@ getTransitionNodesAndXmiID
 
 	^statesCollection!
 
+getTransitionsFor: anArray
+	"The receiver get the transitions of the UMLState with id equal to <anArray> at: 2"
+	| stateId |
+
+	stateId := anArray second.
+	^(self selectNodes: 'xmi:XMI/uml:Model//ownedMember/region/transition') select: [:each | ((each getAttribute: 'source') = stateId) or: [(each getAttribute: 'target') = stateId] ]
+!
+
 isAssociationClassXmiID: xmiID
 
 	^((self getClassElementWithId: xmiID ifNone: [^false]) getAttribute: 'xmi:type') = 'uml:AssociationClass'!
@@ -263,6 +271,7 @@ isHierarchyRelation: anIXMLDOMElement
 !XmiVisualParadigm categoriesFor: #getStatesMachineNamesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getStatesNamesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getTransitionNodesAndXmiID!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getTransitionsFor:!public! !
 !XmiVisualParadigm categoriesFor: #isAssociationClassXmiID:!public!uml-class creation!xpath! !
 !XmiVisualParadigm categoriesFor: #isAssociationRelationXmiID:!public! !
 !XmiVisualParadigm categoriesFor: #isHierarchyRelation:!public! !
