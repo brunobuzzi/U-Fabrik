@@ -61,9 +61,30 @@ importStateMachines
 	missingMessages := self missingTransitionMessages.
 	missingMessages isEmpty ifFalse: [^self notifyMissingMessages: missingMessages].
 
+	missingMessages := self missingStateMessages.
+	missingMessages isEmpty ifFalse: [^self notifyMissingMessages: missingMessages].
+
 	stateMachineListPresenter selection createAllUMLStateAndTransitionInstances.
 
 	MessageBox notify: 'The state machine has been imported !!' caption: self applicationName.!
+
+missingStateMessages
+	"The messages #isInitial and #isFinal are mandatories for the UML state class.
+	With these two booleans the Inital and Final state can be detected"
+	| missingMessages stateClass  |
+
+	missingMessages := OrderedCollection new.
+	stateClass := stateMachineListPresenter selection umlStateClass.
+
+	(stateClass hasVariableNamed: #isInitial)
+	ifFalse: [(stateClass canUnderstand: #isInitial) ifFalse: [missingMessages add:  #isInitial].
+		(stateClass canUnderstand: #isInitial:) ifFalse: [missingMessages add:  #isInitial:]].
+
+	(stateClass hasVariableNamed: #isFinal)
+	ifFalse: [(stateClass canUnderstand: #isFinal) ifFalse: [missingMessages add:  #isFinal].
+		(stateClass canUnderstand: #isFinal:) ifFalse: [missingMessages add:  #isFinal:]].
+
+	^missingMessages!
 
 missingTransitionMessages
 	| missingMessages transitionClass startMessage endMessage |
@@ -162,6 +183,7 @@ setXmiReaderClass: aXmiReaderClass
 !UMLStateMachineImportComposite categoriesFor: #createSchematicWiring!public! !
 !UMLStateMachineImportComposite categoriesFor: #generateStateMachines!public!state machine creation! !
 !UMLStateMachineImportComposite categoriesFor: #importStateMachines!public!state machine creation! !
+!UMLStateMachineImportComposite categoriesFor: #missingStateMessages!public! !
 !UMLStateMachineImportComposite categoriesFor: #missingTransitionMessages!public! !
 !UMLStateMachineImportComposite categoriesFor: #model:!public! !
 !UMLStateMachineImportComposite categoriesFor: #notifyMissingMessages:!public! !

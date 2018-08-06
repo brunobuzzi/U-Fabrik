@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLState
-	instanceVariableNames: 'name id transitions'
+	instanceVariableNames: 'name id transitions isInitial isFinal'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -39,7 +39,21 @@ initialize
 
 	super initialize.
 
-	transitions := OrderedCollection new.!
+	transitions := OrderedCollection new.
+	isInitial := false.
+	isFinal := false.!
+
+isFinal
+	^isFinal!
+
+isFinal: anObject
+	isFinal := anObject!
+
+isInitial
+	^isInitial!
+
+isInitial: anObject
+	isInitial := anObject!
 
 name
 	^name!
@@ -70,6 +84,10 @@ transitions: anObject
 !UMLState categoriesFor: #id:!accessing!private! !
 !UMLState categoriesFor: #includesTransitionId:!public! !
 !UMLState categoriesFor: #initialize!public! !
+!UMLState categoriesFor: #isFinal!accessing!private! !
+!UMLState categoriesFor: #isFinal:!accessing!private! !
+!UMLState categoriesFor: #isInitial!accessing!private! !
+!UMLState categoriesFor: #isInitial:!accessing!private! !
 !UMLState categoriesFor: #name!accessing!private! !
 !UMLState categoriesFor: #name:!accessing!private! !
 !UMLState categoriesFor: #printOn:!public! !

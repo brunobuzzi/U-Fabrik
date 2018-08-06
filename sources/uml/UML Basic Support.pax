@@ -174,7 +174,7 @@ UMLObject subclass: #UMLRelation
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLState
-	instanceVariableNames: 'name id transitions'
+	instanceVariableNames: 'name id transitions isInitial isFinal'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -973,6 +973,8 @@ createUMLStatesAndTransitions
 	states := OrderedCollection new.
 	self getStatesNamesAndXmiID do: [:eachArray | | umlState |
 		umlState := UMLState name: eachArray first  id: eachArray second.
+		((eachArray third getAttribute: 'kind') = 'initial') ifTrue: [umlState isInitial: true].
+		((eachArray third getAttribute: 'kind') = 'final') ifTrue: [umlState isFinal: true].
 		states add: umlState.
 		umlState transitions: (self getTransitionsFor: eachArray)].
 	transitions := self createTransitionsFor: states.

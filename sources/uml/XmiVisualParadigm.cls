@@ -208,8 +208,8 @@ getStateNodes
 	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember/region/subvertex'!
 
 getStatesNamesAndXmiID
-	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
-{ ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
+	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State - Array third is the XML node. 
+{ ('Start' 'ERTHY25' node) '(Reviewed' 'ERTHY14' node) ('Accepted' 'ERTHY10' node) } "
 	| stateNodes statesCollection |
 
 	statesCollection := OrderedCollection new.
