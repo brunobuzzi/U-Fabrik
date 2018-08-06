@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLModel
-	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager stateMachineClass'
+	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager stateMachineSpecification'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -330,6 +330,17 @@ includesClassNamed: aString
 
 	^umlClasses anySatisfy: [:each | each name = aString]!
 
+initialize
+
+	super initialize.
+
+	name := ''.
+	umlClasses := OrderedCollection new.
+	virtualMachine := UMLVirtualMachine new.
+	setupObjects := LookupTable new.
+	systemRoot := LookupTable new.
+	customizedGUI := LookupTable new.!
+
 initializeAssociations
 
 	^self allAssociations do: [:each | each setClassesWith: umlClasses]!
@@ -430,6 +441,11 @@ setupObjects
 setupObjects: anObject
 	setupObjects := anObject!
 
+setVirtualMachineToAll
+
+	self setVirtualMachineToAllWith: UMLVirtualMachine default
+!
+
 setVirtualMachineToAllToNil
 
 	self setVirtualMachineToAllWith: nil
@@ -447,10 +463,22 @@ setVirtualMachineToAllWith: nilOrVirtualMachine
 		eachCollection do: [:each | each virtualMachine: nilOrVirtualMachine]]!
 
 stateMachineClass
-	^stateMachineClass!
 
-stateMachineClass: anObject
-	stateMachineClass := anObject!
+	^stateMachineSpecification stateMachineClass!
+
+stateMachineSpecification
+	^stateMachineSpecification!
+
+stateMachineSpecification: anObject
+	stateMachineSpecification := anObject!
+
+stateMachineStateClass
+
+	^stateMachineSpecification stateClass!
+
+stateMachineTransitionClass
+
+	^stateMachineSpecification transitionClass!
 
 stbSaveOn: anSTBOutFiler
 	"Output the receiver to anSTBOutFiler. The cached analyzers consume a lot of space, so 
@@ -595,6 +623,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #hasMetaDefinitionNamed:!public!uml msg tracking! !
 !UMLModel categoriesFor: #identityIncludes:!public! !
 !UMLModel categoriesFor: #includesClassNamed:!public! !
+!UMLModel categoriesFor: #initialize!public! !
 !UMLModel categoriesFor: #initializeAssociations!public! !
 !UMLModel categoriesFor: #loginManager!accessing!private! !
 !UMLModel categoriesFor: #loginManager:!accessing!private! !
@@ -614,10 +643,14 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #setSuperclasses!initializing!public!xmi-classes! !
 !UMLModel categoriesFor: #setupObjects!accessing!private! !
 !UMLModel categoriesFor: #setupObjects:!accessing!private! !
+!UMLModel categoriesFor: #setVirtualMachineToAll!initializing!public! !
 !UMLModel categoriesFor: #setVirtualMachineToAllToNil!initializing!public! !
 !UMLModel categoriesFor: #setVirtualMachineToAllWith:!initializing!public! !
-!UMLModel categoriesFor: #stateMachineClass!accessing!private! !
-!UMLModel categoriesFor: #stateMachineClass:!accessing!private! !
+!UMLModel categoriesFor: #stateMachineClass!public!state machine! !
+!UMLModel categoriesFor: #stateMachineSpecification!accessing!private! !
+!UMLModel categoriesFor: #stateMachineSpecification:!accessing!private! !
+!UMLModel categoriesFor: #stateMachineStateClass!public!state machine! !
+!UMLModel categoriesFor: #stateMachineTransitionClass!public!state machine! !
 !UMLModel categoriesFor: #stbSaveOn:!binary filing!public! !
 !UMLModel categoriesFor: #storeGlobalObject:!public! !
 !UMLModel categoriesFor: #storeSetupObject:!public!setup objects! !

@@ -85,7 +85,10 @@ createInstanceOf: anUMLClass nameMessage: aSymbol
 	| instance umlModel |
 
 	umlModel := self defaultVirtualMachine getUMLModelOf: anUMLClass ifNone: [UMLClassNotFoundError signal: 'No Model has a class named <', anUMLClass name, '>'].
-	umlModel stateMachineClass: anUMLClass.
+	umlModel stateMachineSpecification: (UMLStateMachineSpecification newFor: anUMLClass).
+	umlModel stateMachineSpecification 
+		transitionClass: umlTransitionClass;
+		stateClass: umlStateClass.
 	instance := anUMLClass newInstance.
 	instance storeAsGlobalObject.
 	instance vmPerform: #initialize.

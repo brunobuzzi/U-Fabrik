@@ -31,7 +31,6 @@ package classNames
 	add: #UMLManyToManyMultiplicity;
 	add: #UMLManyToOneMultiplicity;
 	add: #UMLMirrorMultiplicity;
-	add: #UMLModel;
 	add: #UMLObject;
 	add: #UMLObjectBehavior;
 	add: #UMLOneSM;
@@ -72,7 +71,6 @@ package methodNames
 	add: #XmiMagicDraw -> #generateRelationFrom:;
 	add: #XmiReader -> #createSideMultiplicityFor:relation:attributeID:isSource:;
 	add: #XmiReader -> #generateAttributesToAll:;
-	add: #XmiReader -> #generateUMLModelNamed:;
 	add: #XmiUModel -> #createRelationsOfClassAssociations;
 	add: #XmiUModel -> #createSideMultiplicityFor:relation:attributeID:isSource:;
 	add: #XmiUModel -> #createSourceSideMultiplicityForAssociationClass:for:sideNode:;
@@ -154,11 +152,6 @@ UMLObject subclass: #UMLDiagramModelMapping
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'current'!
-UMLObject subclass: #UMLModel
-	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager stateMachineClass'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLRelation
 	instanceVariableNames: 'sourceClass targetClass sourceNavigable targetNavigable sourceMultiplicity targetMultiplicity relationMultiplicity navigability alias hasDoubleRelation'
 	classVariableNames: ''
@@ -641,25 +634,9 @@ generateAttributesToAll: generatedClasses
 				originalType: (self getTypeFromElement: eachAttribute).
 				"description: (eachAttribute selectSingleNode: 'documentation') text." "no description in Visual Paradigm"
 			eachClass addAttribute: umlAttribute].
-		]	!
-
-generateUMLModelNamed: aString
-	"We generate the UML Model. "
-	| generatedClasses newUMLModel |
-
-	generatedClasses := self generateUMLClasses.
-
-	self createRelationsOfClassAssociations.
-
-	self generateUMLAttributesTo: generatedClasses.
-	newUMLModel := UMLModel new name: aString.
-
-	(generatedClasses collect: [:each | each instanceClass]) do: [:each | newUMLModel addClass: each].
-
-	^newUMLModel! !
+		]	! !
 !XmiReader categoriesFor: #createSideMultiplicityFor:relation:attributeID:isSource:!public! !
 !XmiReader categoriesFor: #generateAttributesToAll:!public! !
-!XmiReader categoriesFor: #generateUMLModelNamed:!attributes!public!uml-class creation! !
 
 !XmiUModel methodsFor!
 

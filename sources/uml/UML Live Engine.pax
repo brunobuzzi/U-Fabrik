@@ -50,6 +50,7 @@ package classNames
 	add: #UMLInstance;
 	add: #UMLLiveEngineError;
 	add: #UMLMetaclass;
+	add: #UMLModel;
 	add: #UMLPrimitiveNotFound;
 	add: #UMLScriptDebugerSnapshot;
 	add: #UMLScriptExecutionSnapshot;
@@ -138,8 +139,6 @@ package methodNames
 	add: #UMLClass -> #newInstance;
 	add: #UMLClass -> #uninstall;
 	add: #UMLClassAttribute -> #setTypeSecondTime;
-	add: #UMLModel -> #initialize;
-	add: #UMLModel -> #setVirtualMachineToAll;
 	add: #UMLObject -> #defaultVirtualMachine;
 	add: #UMLObjectBehavior -> #basicInstancesVariables;
 	add: #UMLObjectBehavior -> #getAllCategories;
@@ -153,6 +152,7 @@ package methodNames
 	add: #XmiEnterpriseArchitect -> #createUMLStateMachines;
 	add: #XmiEnterpriseArchitect -> #createUMLStates;
 	add: #XmiReader -> #createAllClasses;
+	add: #XmiReader -> #generateUMLModelNamed:;
 	add: #XmiVisualParadigm -> #createTransitionsFor:;
 	add: #XmiVisualParadigm -> #createUMLStateMachines;
 	add: #XmiVisualParadigm -> #createUMLStatesAndTransitions;
@@ -269,6 +269,11 @@ UMLObject subclass: #UMLEditWebObject
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLExecutionSnapshot
 	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLModel
+	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager stateMachineSpecification'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -992,26 +997,6 @@ setTypeSecondTime
 	^type := self virtualMachine virtualMachineClassNamed: type virtualMachineClassName.! !
 !UMLClassAttribute categoriesFor: #setTypeSecondTime!importing XML!public! !
 
-!UMLModel methodsFor!
-
-initialize
-
-	super initialize.
-
-	name := ''.
-	umlClasses := OrderedCollection new.
-	virtualMachine := UMLVirtualMachine new.
-	setupObjects := LookupTable new.
-	systemRoot := LookupTable new.
-	customizedGUI := LookupTable new.!
-
-setVirtualMachineToAll
-
-	self setVirtualMachineToAllWith: UMLVirtualMachine default
-! !
-!UMLModel categoriesFor: #initialize!public! !
-!UMLModel categoriesFor: #setVirtualMachineToAll!initializing!public! !
-
 !UMLObject methodsFor!
 
 defaultVirtualMachine
@@ -1164,8 +1149,24 @@ createAllClasses
 	do: [:each | (umlClasses includesKey: each name) ifTrue: [duplicatedClass := each name].
 		umlClasses at: each name put: each]. "we put each UMLMetaclas into <umlClasses> dictionary"
 
-	^umlClasses! !
+	^umlClasses!
+
+generateUMLModelNamed: aString
+	"We generate the UML Model. "
+	| generatedClasses newUMLModel |
+
+	generatedClasses := self generateUMLClasses.
+
+	self createRelationsOfClassAssociations.
+
+	self generateUMLAttributesTo: generatedClasses.
+	newUMLModel := UMLModel new name: aString.
+
+	(generatedClasses collect: [:each | each instanceClass]) do: [:each | newUMLModel addClass: each].
+
+	^newUMLModel! !
 !XmiReader categoriesFor: #createAllClasses!public!uml-class creation! !
+!XmiReader categoriesFor: #generateUMLModelNamed:!attributes!public!uml-class creation! !
 
 !XmiVisualParadigm methodsFor!
 
