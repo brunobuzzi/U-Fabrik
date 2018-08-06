@@ -54,12 +54,35 @@ generateStateMachines
 	stateMachineListPresenter model: (ListModel on: machines)!
 
 importStateMachines
+	| missingMessages |
 
 	stateMachineListPresenter hasSelection ifFalse: [^self].
+
+	missingMessages := self missingTransitionMessages.
+	missingMessages isEmpty ifFalse: [^self notifyMissingMessages: missingMessages].
 
 	stateMachineListPresenter selection createAllUMLStateAndTransitionInstances.
 
 	MessageBox notify: 'The state machine has been imported !!' caption: self applicationName.!
+
+missingTransitionMessages
+	| missingMessages transitionClass startMessage endMessage |
+
+	missingMessages := OrderedCollection new.
+
+	transitionClass := stateMachineListPresenter selection umlTransitionClass.
+	startMessage := stateMachineListPresenter selection currentStateMessage.
+	endMessage := stateMachineListPresenter selection nextStateMessage.
+
+	(transitionClass hasVariableNamed: startMessage)
+	ifFalse: [(transitionClass canUnderstand: startMessage) ifFalse: [missingMessages add:  startMessage].
+		(transitionClass canUnderstand: (startMessage, ':') asSymbol) ifFalse: [missingMessages add:  (startMessage, ':') asSymbol]].
+
+	(transitionClass hasVariableNamed: endMessage)
+	ifFalse: [(transitionClass canUnderstand: endMessage) ifFalse: [missingMessages add:  endMessage].
+		(transitionClass canUnderstand: (endMessage, ':') asSymbol) ifFalse: [missingMessages add:  (endMessage, ':') asSymbol]].
+
+	^missingMessages!
 
 model: anOrderedCollection
 
@@ -68,6 +91,14 @@ model: anOrderedCollection
 	stateMachineListPresenter model: (ListModel on: anOrderedCollection).
 
 	umlModelPresenter model: (ListModel on: self defaultVirtualMachine umlModels asOrderedCollection).!
+
+notifyMissingMessages: anOrderedCollection
+	| messagesString |
+
+	messagesString := WriteStream on: String new.
+	anOrderedCollection do: [:each | messagesString nextPutAll: each, ','].
+
+	^MessageBox notify: 'Missing Transition Messages: ', messagesString contents allButLast.!
 
 onStateClassChanged
 
@@ -131,7 +162,9 @@ setXmiReaderClass: aXmiReaderClass
 !UMLStateMachineImportComposite categoriesFor: #createSchematicWiring!public! !
 !UMLStateMachineImportComposite categoriesFor: #generateStateMachines!public! !
 !UMLStateMachineImportComposite categoriesFor: #importStateMachines!public! !
+!UMLStateMachineImportComposite categoriesFor: #missingTransitionMessages!public! !
 !UMLStateMachineImportComposite categoriesFor: #model:!public! !
+!UMLStateMachineImportComposite categoriesFor: #notifyMissingMessages:!public! !
 !UMLStateMachineImportComposite categoriesFor: #onStateClassChanged!public! !
 !UMLStateMachineImportComposite categoriesFor: #onStateMachineChanged!public! !
 !UMLStateMachineImportComposite categoriesFor: #onStateMachineClassChanged!public! !
