@@ -76,11 +76,11 @@ missingStateMessages
 	missingMessages := OrderedCollection new.
 	stateClass := stateMachineListPresenter selection umlStateClass.
 
-	(stateClass hasVariableNamed: #isInitial)
+	(stateClass hasVariableNamed: 'isInitial')
 	ifFalse: [(stateClass canUnderstand: #isInitial) ifFalse: [missingMessages add:  #isInitial].
 		(stateClass canUnderstand: #isInitial:) ifFalse: [missingMessages add:  #isInitial:]].
 
-	(stateClass hasVariableNamed: #isFinal)
+	(stateClass hasVariableNamed: 'isFinal')
 	ifFalse: [(stateClass canUnderstand: #isFinal) ifFalse: [missingMessages add:  #isFinal].
 		(stateClass canUnderstand: #isFinal:) ifFalse: [missingMessages add:  #isFinal:]].
 

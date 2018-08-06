@@ -13388,6 +13388,20 @@
 					<qualityScore value="-1"/>
 				</xmi:Extension>
 			</ownedAttribute>
+			<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="isInitial" type="boolean_id" visibility="private" xmi:id="EdzWCKaGAqA6AQxx" xmi:type="uml:Property">
+				<xmi:Extension extender="Visual Paradigm">
+					<attribute/>
+					<isVisble xmi:value="true"/>
+					<qualityScore value="-1"/>
+				</xmi:Extension>
+			</ownedAttribute>
+			<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="isFinal" type="boolean_id" visibility="private" xmi:id="Yw7WCKaGAqA6AQxz" xmi:type="uml:Property">
+				<xmi:Extension extender="Visual Paradigm">
+					<attribute/>
+					<isVisble xmi:value="true"/>
+					<qualityScore value="-1"/>
+				</xmi:Extension>
+			</ownedAttribute>
 		</ownedMember>
 		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="ForeignTransaction" visibility="public" xmi:id="Z8VW4KaGAqA6AQxM" xmi:type="uml:Class">
 			<xmi:Extension extender="Visual Paradigm">
@@ -13878,7 +13892,7 @@
 				<ashowAllocatedTo value="true"/>
 				<apmAuthor value="Usuario"/>
 				<apmCreateDateTime value="1533233499340"/>
-				<apmLastModified value="1533487512836"/>
+				<apmLastModified value="1533578848306"/>
 				<ateamworkCreateDateTime value="0"/>
 				<ashowShapeLegend value="false"/>
 				<ashowColorLegend value="false"/>
@@ -13919,11 +13933,11 @@
 				<amodelElementNameAlignment value="4"/>
 				<ashapePresentationOption value="0"/>
 				<azoomRatio value="1.0"/>
-				<amaximized value="false"/>
+				<amaximized value="true"/>
 				<ax value="0"/>
 				<ay value="0"/>
-				<awidth value="982"/>
-				<aheight value="597"/>
+				<awidth value="1334"/>
+				<aheight value="583"/>
 				<aqualityScore value="-1"/>
 				<a_globalPaletteOption value="true"/>
 				<ainitializeDiagramForCreate value="true"/>
@@ -14025,9 +14039,9 @@
 				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
 				<CompartmentFont value="none"/>
 			</uml:DiagramElement>
-			<uml:DiagramElement geometry="1045,130,88,40" preferredShapeType="Class" subject="IRJW4KaGAqA6AQwt" xmi:id="IRJW4KaGAqA6AQws">
+			<uml:DiagramElement geometry="1043,113,93,68" preferredShapeType="Class" subject="IRJW4KaGAqA6AQwt" xmi:id="IRJW4KaGAqA6AQws">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="0,0,88,15"/>
+					<captionBounds value="0,0,93,15"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
@@ -16414,14 +16428,14 @@
 				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
 				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
 			</uml:DiagramElement>
-			<uml:DiagramElement fromDiagramElement="9P.W4KaGAqA6AQwe" geometry="1069,271;1069,171;" preferredShapeType="Association" subject="W6..4KaGAqA6AQyp" toDiagramElement="IRJW4KaGAqA6AQws" xmi:id="yW..4KaGAqA6AQyu">
+			<uml:DiagramElement fromDiagramElement="9P.W4KaGAqA6AQwe" geometry="1067,271;1067,182;" preferredShapeType="Association" subject="W6..4KaGAqA6AQyp" toDiagramElement="IRJW4KaGAqA6AQws" xmi:id="yW..4KaGAqA6AQyu">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="1010,217,55,15"/>
+					<captionBounds value="1008,222,55,15"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
-					<roleB multiplicity="1068,168,27,15"/>
+					<roleB multiplicity="1066,179,27,15"/>
 					<properties>
 						<azOrder value="74"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -16453,7 +16467,7 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
-						<amultiplicityBRectangle value="Re:1068.0,168.0,27.0,15.0"/>
+						<amultiplicityBRectangle value="Re:1066.0,179.0,27.0,15.0"/>
 						<ahasMultiplicityAShape value="false"/>
 						<ahasMultiplicityBShape value="true"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
@@ -16488,14 +16502,14 @@
 				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
 				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
 			</uml:DiagramElement>
-			<uml:DiagramElement fromDiagramElement="9P.W4KaGAqA6AQwe" geometry="1115,271;1115,171;" preferredShapeType="Association" subject="P.B.4KaGAqA6AQy8" toDiagramElement="IRJW4KaGAqA6AQws" xmi:id="sRB.4KaGAqA6AQzB">
+			<uml:DiagramElement fromDiagramElement="9P.W4KaGAqA6AQwe" geometry="1113,271;1113,182;" preferredShapeType="Association" subject="P.B.4KaGAqA6AQy8" toDiagramElement="IRJW4KaGAqA6AQws" xmi:id="sRB.4KaGAqA6AQzB">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="1118,211,41,15"/>
+					<captionBounds value="1116,216,41,15"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
-					<roleB multiplicity="1114,168,27,15"/>
+					<roleB multiplicity="1112,179,27,15"/>
 					<properties>
 						<azOrder value="76"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -16527,7 +16541,7 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
-						<amultiplicityBRectangle value="Re:1114.0,168.0,27.0,15.0"/>
+						<amultiplicityBRectangle value="Re:1112.0,179.0,27.0,15.0"/>
 						<ahasMultiplicityAShape value="false"/>
 						<ahasMultiplicityBShape value="true"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
@@ -17380,10 +17394,10 @@
 				<amodelElementNameAlignment value="4"/>
 				<ashapePresentationOption value="0"/>
 				<azoomRatio value="1.0"/>
-				<amaximized value="true"/>
+				<amaximized value="false"/>
 				<ax value="0"/>
 				<ay value="0"/>
-				<awidth value="1334"/>
+				<awidth value="1358"/>
 				<aheight value="583"/>
 				<aqualityScore value="-1"/>
 				<a_globalPaletteOption value="true"/>

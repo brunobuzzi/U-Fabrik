@@ -23,6 +23,8 @@ createInstanceOf: anUMLClass nameMessage: aSymbol
 	instance storeAsGlobalObject.
 	instance vmPerform: #initialize.
 	instance vmPerform: (aSymbol,':') asSymbol withArguments: (Array with: (name asUMLObject: self defaultVirtualMachine)).
+	instance vmPerform: #isInitial: withArguments: (Array with: (isInitial asUMLObject: self defaultVirtualMachine)).
+	instance vmPerform: #isFinal: withArguments: (Array with: (isFinal asUMLObject: self defaultVirtualMachine)).
 	^instance!
 
 id
