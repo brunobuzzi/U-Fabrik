@@ -98,7 +98,7 @@ notifyMissingMessages: anOrderedCollection
 	messagesString := WriteStream on: String new.
 	anOrderedCollection do: [:each | messagesString nextPutAll: each, ','].
 
-	^MessageBox notify: 'Missing Transition Messages: ', messagesString contents allButLast.!
+	^MessageBox notify: 'Import Failed. Missing Transition Messages: ', messagesString contents allButLast.!
 
 onStateClassChanged
 
