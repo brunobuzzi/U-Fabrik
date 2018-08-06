@@ -195,6 +195,9 @@ generateKeysAtGlobalCache
 
 	self getClassesWithoutGlobalObjects do: [:each | self createGlobalKey: each name]!
 
+generateStateMachineMethods
+	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"!
+
 getAllCategories
 	| all |
 
@@ -598,6 +601,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
+!UMLModel categoriesFor: #generateStateMachineMethods!public!state machine! !
 !UMLModel categoriesFor: #getAllCategories!public! !
 !UMLModel categoriesFor: #getAllGlobalObjectsOf:!public! !
 !UMLModel categoriesFor: #getAllImplementations!public! !

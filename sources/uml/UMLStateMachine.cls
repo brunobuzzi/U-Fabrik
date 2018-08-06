@@ -62,7 +62,7 @@ asSmalltalkObject: threeClassArray
 
 createAllUMLStateAndTransitionInstances
 	"The receiver create an UML represent of it self including: State Machine, Transitions and States "
-	| transitionNames processInstance umlStates |
+	| transitionNames processInstance umlStates umlModel |
 
 	umlStates := OrderedCollection new.
 	processInstance := self createInstanceOf: umlProcessClass nameMessage: processVarName.
@@ -79,7 +79,10 @@ createAllUMLStateAndTransitionInstances
 						endState := umlStates detect: [:eachS | (eachS vmPerform: stateNameVar) smalltalkObject = eachT endState name] ifNone: [nil asUMLObject: self defaultVirtualMachine].
 						transition vmPerform: (currentStateMessage, ':') asSymbol withArguments: (Array with: initialState).
 						transition vmPerform: (nextStateMessage, ':') asSymbol withArguments: (Array with: endState).
-						].].!
+						].].
+
+	umlModel := self defaultVirtualMachine getUMLModelOf: umlProcessClass ifNone: [UMLClassNotFoundError signal: 'No Model has a class named <', umlProcessClass name, '>'].
+	umlModel generateStateMachineMethods.!
 
 createInstanceOf: anUMLClass nameMessage: aSymbol
 	| instance umlModel |
