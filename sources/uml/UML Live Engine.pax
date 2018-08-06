@@ -21,6 +21,7 @@ package classNames
 	add: #UMLAllImplementationCategory;
 	add: #UMLCategory;
 	add: #UMLClassCategory;
+	add: #UMLClassNotFoundError;
 	add: #UMLDebugerSnapshot;
 	add: #UMLDebugExecutionProgress;
 	add: #UMLDebugIfTrueIfFalseBlock;
@@ -52,6 +53,10 @@ package classNames
 	add: #UMLPrimitiveNotFound;
 	add: #UMLScriptDebugerSnapshot;
 	add: #UMLScriptExecutionSnapshot;
+	add: #UMLState;
+	add: #UMLStateMachine;
+	add: #UMLStateMachineSpecification;
+	add: #UMLStateTransition;
 	add: #UMLTrait;
 	add: #UMLTraitCategory;
 	add: #UMLTraitMethod;
@@ -144,7 +149,13 @@ package methodNames
 	add: #UMLObjectBehavior -> #virtualMachine;
 	add: #UndefinedObject -> #asUMLObject:;
 	add: #UndefinedObject -> #deepDestroy;
+	add: #XmiEnterpriseArchitect -> #createTransitionsFor:;
+	add: #XmiEnterpriseArchitect -> #createUMLStateMachines;
+	add: #XmiEnterpriseArchitect -> #createUMLStates;
 	add: #XmiReader -> #createAllClasses;
+	add: #XmiVisualParadigm -> #createTransitionsFor:;
+	add: #XmiVisualParadigm -> #createUMLStateMachines;
+	add: #XmiVisualParadigm -> #createUMLStatesAndTransitions;
 	add: 'Array class' -> #newForUML;
 	add: 'Date class' -> #newForUML;
 	add: 'Dictionary class' -> #newForUML;
@@ -206,6 +217,11 @@ Error subclass: #UMLLiveEngineError
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLClassNotFoundError
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 UMLLiveEngineError subclass: #UMLImplementationEmptyError
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -253,6 +269,26 @@ UMLObject subclass: #UMLEditWebObject
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLExecutionSnapshot
 	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLState
+	instanceVariableNames: 'name id transitions isInitial isFinal'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLStateMachine
+	instanceVariableNames: 'name states transitions umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLStateMachineSpecification
+	instanceVariableNames: 'stateMachineClass transitionClass stateClass'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLStateTransition
+	instanceVariableNames: 'name id startState endState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -1053,6 +1089,64 @@ newForUML
 	^nil! !
 !UndefinedObject class categoriesFor: #newForUML!public! !
 
+!XmiEnterpriseArchitect methodsFor!
+
+createTransitionsFor: anOrderedCollection
+	| transitionNodes |
+
+	transitionNodes := self getTransitionNodes.
+	anOrderedCollection do: [:eachState | | realTransitions |
+		realTransitions := OrderedCollection new.
+		eachState transitions do: [:eachNode | | transition startId endId start end name transitionNode | 
+			endId := eachNode getAttribute: 'end'.
+			startId := eachNode getAttribute: 'start'.
+			start := anOrderedCollection detect: [:each | each id = startId] ifNone: [nil].
+			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
+			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
+			name :=  transitionNode ifNil: [(start ifNil: ['-'] ifNotNil: [:value | value name]), ' --> ', (end ifNil: ['-'] ifNotNil: [:value | value name])] ifNotNil: [:value | value getAttribute: 'name'].
+			transition := UMLStateTransition name: name 
+						id: (eachNode getAttribute: 'xmi:id')
+						start: start 
+						end: end.
+			realTransitions add: transition.].
+		eachState transitions: realTransitions].
+	^anOrderedCollection!
+
+createUMLStateMachines
+	| stateMachines stateMachinesNodes umlStates transitionNodesId |
+
+	stateMachines := OrderedCollection new.
+	stateMachinesNodes := self getStatesMachineNamesAndXmiID.
+	umlStates := self createUMLStates.
+
+	stateMachinesNodes do: [:eachStateMachineArray |  | stateMachine |
+		stateMachine := UMLStateMachine new.
+		stateMachine name: (eachStateMachineArray third getAttribute: 'name').
+		stateMachines add: stateMachine.
+		transitionNodesId := (self getTransitionNodesFor: eachStateMachineArray third "node") collect: [:each | each getAttribute: 'xmi:id' ].
+		stateMachine addAllStates: (
+			umlStates select: [:eachState | transitionNodesId anySatisfy: [:eachId | eachState includesTransitionId: eachId]]).
+	].
+
+	^stateMachines
+!
+
+createUMLStates
+	| states |
+
+	states := OrderedCollection new.
+	self getStatesNamesAndXmiID do: [:eachArray | | umlState stateNode transitionNodes |
+		umlState := UMLState name: eachArray first  id: eachArray second.
+		states add: umlState.
+		stateNode := eachArray third. "we get the actual XMI node"
+		transitionNodes := stateNode selectNodes: 'links/StateFlow'.
+		umlState transitions: transitionNodes].
+	self createTransitionsFor: states.
+	^states! !
+!XmiEnterpriseArchitect categoriesFor: #createTransitionsFor:!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #createUMLStateMachines!getting states!public! !
+!XmiEnterpriseArchitect categoriesFor: #createUMLStates!getting states!public! !
+
 !XmiReader methodsFor!
 
 createAllClasses
@@ -1072,6 +1166,70 @@ createAllClasses
 
 	^umlClasses! !
 !XmiReader categoriesFor: #createAllClasses!public!uml-class creation! !
+
+!XmiVisualParadigm methodsFor!
+
+createTransitionsFor: anOrderedCollection
+	| transitionNodes allTransitions |
+
+	allTransitions := Dictionary new.
+	transitionNodes := self getTransitionNodes.
+	anOrderedCollection do: [:eachState | | realTransitions |
+		realTransitions := OrderedCollection new.
+		eachState transitions do: [:eachNode | | transition startId endId start end name transitionNode | 
+			endId := eachNode getAttribute: 'target'.
+			startId := eachNode getAttribute: 'source'.
+			start := anOrderedCollection detect: [:each | each id = startId] ifNone: [nil].
+			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
+			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
+			name :=  transitionNode ifNil: [(start ifNil: ['-'] ifNotNil: [:value | value name]), ' --> ', (end ifNil: ['-'] ifNotNil: [:value | value name])] ifNotNil: [:value | value getAttribute: 'name'].
+			transition := (allTransitions includesKey: (eachNode getAttribute: 'xmi:id'))
+				ifTrue: [allTransitions at: (eachNode getAttribute: 'xmi:id')] 
+				ifFalse: [UMLStateTransition name: name 
+						id: (eachNode getAttribute: 'xmi:id')
+						start: start 
+						end: end].
+			allTransitions at: transition id put: transition.
+			realTransitions add: transition.].
+		eachState transitions: realTransitions].
+	^allTransitions asOrderedCollection!
+
+createUMLStateMachines
+	"The receiver create the State Machine contained in the XMI file"
+	| stateMachines statesAndTransitions umlStates umlTransitions |
+
+	stateMachines := OrderedCollection new.
+
+	statesAndTransitions := self createUMLStatesAndTransitions.
+	umlStates  := statesAndTransitions at: 1.
+	umlTransitions := statesAndTransitions at: 2.
+
+	self getStateMachineDiagramNodes do: [:stateMachinediagramNode | | stateMachine |
+		stateMachine := UMLStateMachine new.
+		stateMachine name: (stateMachinediagramNode getAttribute: 'name').
+		stateMachines add: stateMachine.
+		stateMachine addAllStates: (umlStates select: [:eachState | (stateMachinediagramNode selectNodes: 'uml:Diagram.element/uml:DiagramElement') anySatisfy: [:elementNode | eachState id = (elementNode getAttribute: 'subject')]]).
+		stateMachine addAllTransitions: (umlTransitions select: [:eachTr | (stateMachinediagramNode selectNodes: 'uml:Diagram.element/uml:DiagramElement') anySatisfy: [:elementNode | eachTr id = (elementNode getAttribute: 'subject')]]) asSet.	
+	].
+
+	^stateMachines
+!
+
+createUMLStatesAndTransitions
+	| states transitions |
+
+	states := OrderedCollection new.
+	self getStatesNamesAndXmiID do: [:eachArray | | umlState |
+		umlState := UMLState name: eachArray first  id: eachArray second.
+		((eachArray third getAttribute: 'kind') = 'initial') ifTrue: [umlState isInitial: true].
+		((eachArray third getAttribute: 'kind') = 'final') ifTrue: [umlState isFinal: true].
+		states add: umlState.
+		umlState transitions: (self getTransitionsFor: eachArray)].
+	transitions := self createTransitionsFor: states.
+	^Array with: states with: transitions! !
+!XmiVisualParadigm categoriesFor: #createTransitionsFor:!getting states!public! !
+!XmiVisualParadigm categoriesFor: #createUMLStateMachines!getting states!public! !
+!XmiVisualParadigm categoriesFor: #createUMLStatesAndTransitions!getting states!public! !
 
 "End of package definition"!
 

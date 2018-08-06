@@ -26,6 +26,18 @@ addTransition: anUMLStateTransition
 
 	^transitions add: anUMLStateTransition!
 
+addUMLQueryMethodFor: anUMLState
+	| parsedMethod newImplementation source |
+
+	source := self getUMLStateSourceFor: anUMLState.
+	parsedMethod := SmalltalkParser parseMethod: source.
+	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	umlStateClass getMetaclass addImplementation: newImplementation.
+	^newImplementation
+
+	
+	!
+
 asSmalltalkObject: threeClassArray
 	"first class - UMLStateMachine, second - UMLStateTransition, third - UMLState"
 	| smalltalkStateMachine smalltalkStates smalltalkTransitions umlTransitions |
@@ -49,6 +61,7 @@ asSmalltalkObject: threeClassArray
 	^smalltalkStateMachine!
 
 createAllUMLStateAndTransitionInstances
+	"The receiver create an UML represent of it self including: State Machine, Transitions and States "
 	| transitionNames processInstance umlStates |
 
 	umlStates := OrderedCollection new.
@@ -69,8 +82,10 @@ createAllUMLStateAndTransitionInstances
 						].].!
 
 createInstanceOf: anUMLClass nameMessage: aSymbol
-	| instance |
+	| instance umlModel |
 
+	umlModel := self defaultVirtualMachine getUMLModelOf: anUMLClass ifNone: [UMLClassNotFoundError signal: 'No Model has a class named <', anUMLClass name, '>'].
+	umlModel stateMachineClass: anUMLClass.
 	instance := anUMLClass newInstance.
 	instance storeAsGlobalObject.
 	instance vmPerform: #initialize.
@@ -173,6 +188,7 @@ umlTransitionClass: anObject
 !UMLStateMachine categoriesFor: #addAllTransitions:!public! !
 !UMLStateMachine categoriesFor: #addState:!public! !
 !UMLStateMachine categoriesFor: #addTransition:!public! !
+!UMLStateMachine categoriesFor: #addUMLQueryMethodFor:!public! !
 !UMLStateMachine categoriesFor: #asSmalltalkObject:!public! !
 !UMLStateMachine categoriesFor: #createAllUMLStateAndTransitionInstances!public! !
 !UMLStateMachine categoriesFor: #createInstanceOf:nameMessage:!public! !

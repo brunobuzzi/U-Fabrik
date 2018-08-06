@@ -106,7 +106,6 @@ package methodNames
 	add: #UMLClass -> #createUMLDBSourceForCreateAllInstancesWith:;
 	add: #UMLClass -> #createUMLSourceForCreateAllInstancesWith:;
 	add: #UMLObjectBehavior -> #defaultImplementationClass;
-	add: #UMLStateMachine -> #addUMLQueryMethodFor:;
 	add: 'StProgramNode class' -> #icon;
 	yourself.
 
@@ -818,21 +817,6 @@ createUMLSourceForCreateAllInstancesWith: anOrderedCollection
 defaultImplementationClass
 	^UMLParsedImplementation! !
 !UMLObjectBehavior categoriesFor: #defaultImplementationClass!public! !
-
-!UMLStateMachine methodsFor!
-
-addUMLQueryMethodFor: anUMLState
-	| parsedMethod newImplementation source |
-
-	source := self getUMLStateSourceFor: anUMLState.
-	parsedMethod := SmalltalkParser parseMethod: source.
-	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
-	umlStateClass getMetaclass addImplementation: newImplementation.
-	^newImplementation
-
-	
-	! !
-!UMLStateMachine categoriesFor: #addUMLQueryMethodFor:!public! !
 
 "End of package definition"!
 

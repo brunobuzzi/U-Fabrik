@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLModel
-	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager'
+	instanceVariableNames: 'name umlClasses virtualMachine setupObjects systemRoot customizedGUI loginManager stateMachineClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -446,6 +446,12 @@ setVirtualMachineToAllWith: nilOrVirtualMachine
 	setupObjects do: [:eachCollection | 
 		eachCollection do: [:each | each virtualMachine: nilOrVirtualMachine]]!
 
+stateMachineClass
+	^stateMachineClass!
+
+stateMachineClass: anObject
+	stateMachineClass := anObject!
+
 stbSaveOn: anSTBOutFiler
 	"Output the receiver to anSTBOutFiler. The cached analyzers consume a lot of space, so 
 	we don't want to include them in the binary file."
@@ -610,6 +616,8 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #setupObjects:!accessing!private! !
 !UMLModel categoriesFor: #setVirtualMachineToAllToNil!initializing!public! !
 !UMLModel categoriesFor: #setVirtualMachineToAllWith:!initializing!public! !
+!UMLModel categoriesFor: #stateMachineClass!accessing!private! !
+!UMLModel categoriesFor: #stateMachineClass:!accessing!private! !
 !UMLModel categoriesFor: #stbSaveOn:!binary filing!public! !
 !UMLModel categoriesFor: #storeGlobalObject:!public! !
 !UMLModel categoriesFor: #storeSetupObject:!public!setup objects! !

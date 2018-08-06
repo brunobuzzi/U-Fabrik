@@ -825,6 +825,12 @@ getUMLModelNamed: aString ifNone: aBlock
 
 	^umlModels detect: [:each | each name = aString] ifNone: [aBlock value]!
 
+getUMLModelOf: anUMLClass ifNone: aBlock
+	"The receiver answer <anUMLModel> that includes <anUMLClass> if none is found evaluate the niladic block <aBlock>"
+
+	^umlModels detect: [:each | each includesClassNamed: anUMLClass name] ifNone: [aBlock value]
+!
+
 getUserCategories
 
 	^self getAllCategories select: [:each | each isUserCategory]!
@@ -2461,6 +2467,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #getUMLClasses!public! !
 !UMLVirtualMachine categoriesFor: #getUMLModelNamed:!public! !
 !UMLVirtualMachine categoriesFor: #getUMLModelNamed:ifNone:!public! !
+!UMLVirtualMachine categoriesFor: #getUMLModelOf:ifNone:!public!searching! !
 !UMLVirtualMachine categoriesFor: #getUserCategories!public! !
 !UMLVirtualMachine categoriesFor: #getVirtualMachineImplementations!public! !
 !UMLVirtualMachine categoriesFor: #hasClassNamed:!public! !
