@@ -2662,7 +2662,7 @@ icon
 	"Generated from:
 	self createIconMethodOfSize: 32@32 fromFile: 'vm02.png'.
 	"
-	^Icon fromFile: 'icons/vm01.ico'!
+	^Icon fromFile: 'icons/Chrisbanks2-Cold-Fusion-Hd-Cpu.ico'!
 
 setDefault: anUMLVirtualMachine 
 
