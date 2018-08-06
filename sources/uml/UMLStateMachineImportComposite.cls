@@ -160,8 +160,8 @@ setXmiReaderClass: aXmiReaderClass
 !UMLStateMachineImportComposite categoriesFor: #clearAll!public! !
 !UMLStateMachineImportComposite categoriesFor: #createComponents!public! !
 !UMLStateMachineImportComposite categoriesFor: #createSchematicWiring!public! !
-!UMLStateMachineImportComposite categoriesFor: #generateStateMachines!public! !
-!UMLStateMachineImportComposite categoriesFor: #importStateMachines!public! !
+!UMLStateMachineImportComposite categoriesFor: #generateStateMachines!public!state machine creation! !
+!UMLStateMachineImportComposite categoriesFor: #importStateMachines!public!state machine creation! !
 !UMLStateMachineImportComposite categoriesFor: #missingTransitionMessages!public! !
 !UMLStateMachineImportComposite categoriesFor: #model:!public! !
 !UMLStateMachineImportComposite categoriesFor: #notifyMissingMessages:!public! !

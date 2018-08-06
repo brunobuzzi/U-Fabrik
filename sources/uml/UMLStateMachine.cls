@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLStateMachine
-	instanceVariableNames: 'name states umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
+	instanceVariableNames: 'name states transitions umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,9 +14,17 @@ addAllStates: anOrderedCollection
 
 	anOrderedCollection do: [:each | self addState: each ]!
 
+addAllTransitions: anOrderedCollection
+
+	anOrderedCollection do: [:each | self addTransition: each ]!
+
 addState: anUMLState
 
 	^states add: anUMLState!
+
+addTransition: anUMLStateTransition
+
+	^transitions add: anUMLStateTransition!
 
 asSmalltalkObject: threeClassArray
 	"first class - UMLStateMachine, second - UMLStateTransition, third - UMLState"
@@ -95,7 +103,8 @@ initialize
 
 	super initialize.
 
-	states := OrderedCollection new.!
+	states := OrderedCollection new.
+	transitions := OrderedCollection new.!
 
 name
 	^name!
@@ -137,6 +146,12 @@ transitionNameVar
 transitionNameVar: anObject
 	transitionNameVar := anObject asSymbol!
 
+transitions
+	^transitions!
+
+transitions: anObject
+	transitions := anObject!
+
 umlProcessClass
 	^umlProcessClass!
 
@@ -155,7 +170,9 @@ umlTransitionClass
 umlTransitionClass: anObject
 	umlTransitionClass := anObject! !
 !UMLStateMachine categoriesFor: #addAllStates:!public! !
+!UMLStateMachine categoriesFor: #addAllTransitions:!public! !
 !UMLStateMachine categoriesFor: #addState:!public! !
+!UMLStateMachine categoriesFor: #addTransition:!public! !
 !UMLStateMachine categoriesFor: #asSmalltalkObject:!public! !
 !UMLStateMachine categoriesFor: #createAllUMLStateAndTransitionInstances!public! !
 !UMLStateMachine categoriesFor: #createInstanceOf:nameMessage:!public! !
@@ -177,6 +194,8 @@ umlTransitionClass: anObject
 !UMLStateMachine categoriesFor: #states:!accessing!private! !
 !UMLStateMachine categoriesFor: #transitionNameVar!accessing!private! !
 !UMLStateMachine categoriesFor: #transitionNameVar:!accessing!private! !
+!UMLStateMachine categoriesFor: #transitions!accessing!private! !
+!UMLStateMachine categoriesFor: #transitions:!accessing!private! !
 !UMLStateMachine categoriesFor: #umlProcessClass!accessing!private! !
 !UMLStateMachine categoriesFor: #umlProcessClass:!accessing!private! !
 !UMLStateMachine categoriesFor: #umlStateClass!accessing!private! !

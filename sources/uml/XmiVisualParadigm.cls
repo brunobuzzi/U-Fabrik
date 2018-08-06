@@ -153,7 +153,7 @@ getDiagramElements
 	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember'!
 
 getMachineStateNodes
-	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
+	"Answer a collection with all IXMLDOM elements from XMI diagrams that define a State Machine"
 	| diagramElements |
 
 	diagramElements :=  self selectNodes: '//ownedMember'.
@@ -184,7 +184,18 @@ getStateElementWithId: xmiID ifNone: aBlock
 
 	^self getStateNodes detect: [:each | (each getAttribute: 'xmi:idref') = xmiID] ifNone: aBlock!
 
+getStateMachineDiagramNodes
+	"Answer a collection with all names of defined State Machine in a XMI diagram.
+	In Visual Paradigm the State Machine definition and its name are located in different XML nodes :( "
+	| diagramElements |
+
+	diagramElements := self selectNodes: '//uml:Diagram'.
+
+	^diagramElements select: [:each | (each getAttribute: 'diagramType') = 'StateDiagram']!
+
 getStateMachineNames
+	"Answer a collection with all names of defined State Machine in a XMI diagram.
+	In Visual Paradigm the State Machine definition and its name are located in different XML nodes :( "
 	| diagramElements |
 
 	diagramElements := self selectNodes: '//uml:Diagram'.
@@ -195,19 +206,6 @@ getStateNodes
 	"Get from XMI diagrams all elements that are UML States answer IXMLDOM elements"
 
 	^self selectNodes: 'xmi:XMI/uml:Model//ownedMember/region/subvertex'!
-
-getStatesMachineNamesAndXmiID
-	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
-{ ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
-	| stateNodes stateMachineNames statesCollection |
-
-	statesCollection := OrderedCollection new.
-	stateNodes := self getMachineStateNodes.
-	stateMachineNames := self getStateMachineNames.
-
-	stateNodes do: [:each | statesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id') with: each) ].
-
-	^statesCollection!
 
 getStatesNamesAndXmiID
 	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the UML State. 
@@ -273,9 +271,9 @@ TransitionNodes
 !XmiVisualParadigm categoriesFor: #getSourceAndTargetElementOf:!getting connectors!public!xpath! !
 !XmiVisualParadigm categoriesFor: #getStateElementWithId:!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getStateElementWithId:ifNone:!getting states!public! !
+!XmiVisualParadigm categoriesFor: #getStateMachineDiagramNodes!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getStateMachineNames!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getStateNodes!getting classes!getting states!public!xpath! !
-!XmiVisualParadigm categoriesFor: #getStatesMachineNamesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getStatesNamesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getTransitionNodesAndXmiID!getting states!public! !
 !XmiVisualParadigm categoriesFor: #getTransitionsFor:!public! !

@@ -89,7 +89,7 @@ package methodNames
 	add: #XmiVisualParadigm -> #createTargetSideMultiplicityForAssociationClass:for:;
 	add: #XmiVisualParadigm -> #createTransitionsFor:;
 	add: #XmiVisualParadigm -> #createUMLStateMachines;
-	add: #XmiVisualParadigm -> #createUMLStates;
+	add: #XmiVisualParadigm -> #createUMLStatesAndTransitions;
 	add: #XmiVisualParadigm -> #generateAttributesToAll:;
 	add: #XmiVisualParadigm -> #generateRelationFrom:;
 	yourself.
@@ -179,7 +179,7 @@ UMLObject subclass: #UMLState
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLStateMachine
-	instanceVariableNames: 'name states umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
+	instanceVariableNames: 'name states transitions umlProcessClass umlStateClass umlTransitionClass processVarName stateNameVar currentStateMessage nextStateMessage transitionNameVar'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -922,8 +922,9 @@ createTargetSideMultiplicityForAssociationClass: relationElement for: anUMLAssoc
 		yourself.!
 
 createTransitionsFor: anOrderedCollection
-	| transitionNodes |
+	| transitionNodes allTransitions |
 
+	allTransitions := Dictionary new.
 	transitionNodes := self getTransitionNodes.
 	anOrderedCollection do: [:eachState | | realTransitions |
 		realTransitions := OrderedCollection new.
@@ -934,44 +935,48 @@ createTransitionsFor: anOrderedCollection
 			end := anOrderedCollection detect: [:each | each id = endId] ifNone: [nil].
 			transitionNode := transitionNodes detect: [:eachTNode | (eachTNode getAttribute: 'xmi:id') = (eachNode getAttribute: 'xmi:id')] ifNone: [nil].
 			name :=  transitionNode ifNil: [(start ifNil: ['-'] ifNotNil: [:value | value name]), ' --> ', (end ifNil: ['-'] ifNotNil: [:value | value name])] ifNotNil: [:value | value getAttribute: 'name'].
-			transition := UMLStateTransition name: name 
+			transition := (allTransitions includesKey: (eachNode getAttribute: 'xmi:id'))
+				ifTrue: [allTransitions at: (eachNode getAttribute: 'xmi:id')] 
+				ifFalse: [UMLStateTransition name: name 
 						id: (eachNode getAttribute: 'xmi:id')
 						start: start 
-						end: end.
+						end: end].
+			allTransitions at: transition id put: transition.
 			realTransitions add: transition.].
 		eachState transitions: realTransitions].
-	^anOrderedCollection!
+	^allTransitions asOrderedCollection!
 
 createUMLStateMachines
-	| stateMachines stateMachinesNodes stateMachinesNames umlStates transitionNodesId |
+	"The receiver create the State Machine contained in the XMI file"
+	| stateMachines statesAndTransitions umlStates umlTransitions |
 
 	stateMachines := OrderedCollection new.
-	stateMachinesNodes := self getMachineStateNodes.
-	stateMachinesNames := self getStateMachineNames.
-	umlStates := self createUMLStates.
 
-	stateMachinesNodes keysAndValuesDo: [:index :eachNode | | stateMachine |
+	statesAndTransitions := self createUMLStatesAndTransitions.
+	umlStates  := statesAndTransitions at: 1.
+	umlTransitions := statesAndTransitions at: 2.
+
+	self getStateMachineDiagramNodes do: [:stateMachinediagramNode | | stateMachine |
 		stateMachine := UMLStateMachine new.
-		stateMachine name: ((stateMachinesNames at: index) getAttribute: 'name').
+		stateMachine name: (stateMachinediagramNode getAttribute: 'name').
 		stateMachines add: stateMachine.
-		transitionNodesId := (self getTransitionNodesFor: (stateMachinesNodes at: index)) collect: [:each | each getAttribute: 'xmi:id' ].
-		stateMachine addAllStates: (
-			umlStates select: [:eachState | transitionNodesId anySatisfy: [:eachId | eachState includesTransitionId: eachId]]).
+		stateMachine addAllStates: (umlStates select: [:eachState | (stateMachinediagramNode selectNodes: 'uml:Diagram.element/uml:DiagramElement') anySatisfy: [:elementNode | eachState id = (elementNode getAttribute: 'subject')]]).
+		stateMachine addAllTransitions: (umlTransitions select: [:eachTr | (stateMachinediagramNode selectNodes: 'uml:Diagram.element/uml:DiagramElement') anySatisfy: [:elementNode | eachTr id = (elementNode getAttribute: 'subject')]]) asSet.	
 	].
 
 	^stateMachines
 !
 
-createUMLStates
-	| states |
+createUMLStatesAndTransitions
+	| states transitions |
 
 	states := OrderedCollection new.
 	self getStatesNamesAndXmiID do: [:eachArray | | umlState |
 		umlState := UMLState name: eachArray first  id: eachArray second.
 		states add: umlState.
 		umlState transitions: (self getTransitionsFor: eachArray)].
-	self createTransitionsFor: states.
-	^states!
+	transitions := self createTransitionsFor: states.
+	^Array with: states with: transitions!
 
 generateAttributesToAll: generatedClasses
 	"Creates the attributes to all UML classes in <generatedClasses>, searching the description in the XMI definition of the class "
@@ -1016,7 +1021,7 @@ generateRelationFrom: relationElement
 !XmiVisualParadigm categoriesFor: #createTargetSideMultiplicityForAssociationClass:for:!public! !
 !XmiVisualParadigm categoriesFor: #createTransitionsFor:!getting states!public! !
 !XmiVisualParadigm categoriesFor: #createUMLStateMachines!getting states!public! !
-!XmiVisualParadigm categoriesFor: #createUMLStates!getting states!public! !
+!XmiVisualParadigm categoriesFor: #createUMLStatesAndTransitions!getting states!public! !
 !XmiVisualParadigm categoriesFor: #generateAttributesToAll:!attributes!public!uml-class creation!xpath! !
 !XmiVisualParadigm categoriesFor: #generateRelationFrom:!public! !
 
