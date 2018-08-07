@@ -35,6 +35,8 @@ checkCompilationErrorsFor: aStMethodNode inClass: anUMLClass
 
 	self setCompilationErrorsWith: result.
 
+	self selectSanityCard.
+
 	^false
 
 	!
@@ -85,6 +87,10 @@ parser
 
 	^SmalltalkParser!
 
+selectSanityCard
+
+	self subclassResponsibility!
+
 setCompilationErrorsWith: anArray
 	| treeModel roots |
 
@@ -109,5 +115,6 @@ setCompilationErrorsWith: anArray
 !UMLEnvironmentTool categoriesFor: #mainComposite!public! !
 !UMLEnvironmentTool categoriesFor: #onCategoriaAdded!public! !
 !UMLEnvironmentTool categoriesFor: #parser!public! !
+!UMLEnvironmentTool categoriesFor: #selectSanityCard!public! !
 !UMLEnvironmentTool categoriesFor: #setCompilationErrorsWith:!compiling!public! !
 

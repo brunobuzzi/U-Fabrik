@@ -130,13 +130,19 @@ selectedImplementation
 	^model!
 
 selectSanityCard
-	| currentCard |
+	| index |
 
-	currentCard := (view viewNamed: 'card') currentCard.
+	index := 0.
+	[(view viewNamed: 'card') currentCard name = 'sanityPresenter' and: [index < 5]] whileFalse: [
+		(view viewNamed: 'card') cycleNextCard.
+		index := index + 1.
+	].
 
-	[(view viewNamed: 'card') lastCard.
-	(Delay forMilliseconds: 500) wait.
-	[(view viewNamed: 'card') cycleNextCard == currentCard] whileFalse.] forkAt: 3!
+	[
+	(view viewNamed: 'card') currentCard backcolor: Color red.
+	(Delay forMilliseconds: 900) wait.
+	(view viewNamed: 'card') currentCard backcolor: Color white.] forkAt: 4.
+!
 
 setSanityCheckWith: aTreeModel
 
