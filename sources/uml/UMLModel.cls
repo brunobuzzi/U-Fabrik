@@ -266,6 +266,19 @@ generateMethod_getStartTransition
 	implementation := UMLParsedImplementation newNamed: #getStartTransition withCode: methodCode.
 	self stateMachineClass addImplementation: implementation.!
 
+generateMethod_goToNextState
+	"The receiver generate the method #goToNextState for UML class defined at <stateMachineSpecification>"
+
+	self getClassesWithMachineStates do: [:eachClass | | methodCode implementation |
+			methodCode := 'goToNextState
+	"The receiver go to the next state based on its own rules"'.
+
+	implementation := UMLParsedImplementation newNamed: #goToNextState withCode: methodCode.
+	eachClass addImplementation: implementation.
+	].
+
+!
+
 generateMethod_isFinal
 	"The receiver generate the method #isFinal for UML class defined at <stateMachineSpecification>"
 	| stateAttributes startState endState methodCode implementation |
@@ -306,21 +319,73 @@ generateMethod_isInitial
 
 !
 
+generateMethod_possibleNextTransitions
+	"The receiver generate the method #possibleNextTransitions for UML class defined at <stateMachineSpecification>"
+
+	self getClassesWithMachineStates do: [:eachClass | | machineStateAttribute methodCode implementation |
+		machineStateAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineClass name) detect: [:each | each umlClass == eachClass] ifNone: [^self].
+			methodCode := 'possibleNextTransitions
+	"The receiver answer the next possible transitions based on the current state" 
+
+	^', machineStateAttribute getName, ' possibleNextTransitionsFrom: self currentState.'.
+
+		implementation := UMLParsedImplementation newNamed: #possibleNextTransitions withCode: methodCode.
+		eachClass addImplementation: implementation.
+	].
+
+!
+
+generateMethod_possibleNextTransitionsFrom
+	"The receiver generate the method #possibleNextTransitionsFrom: for UML class defined at <stateMachineSpecification>"
+	| methodCode implementation |
+
+	methodCode := 'possibleNextTransitionsFrom: aState
+	"The receiver answer a collection of possibles next transitions from <aState>"
+
+	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each start == aState]'.
+
+	implementation := UMLParsedImplementation newNamed: #possibleNextTransitionsFrom: withCode: methodCode.
+	self stateMachineClass addImplementation: implementation.!
+
+generateMethod_setStateMachineNamed
+	"The receiver generate the method #setStateMachineNamed: for UML class defined at <stateMachineSpecification>"
+
+	self getClassesWithMachineStates do: [:eachClass | | methodCode stateMachineAttribute implementation |
+		stateMachineAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineClass name) detect: [:each | each umlClass == eachClass] ifNone: [^nil].
+		methodCode := 'setStateMachineNamed: aString
+	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
+
+	', stateMachineAttribute getName, ' := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.'.
+
+	implementation := UMLParsedImplementation newNamed: #setStateMachineNamed: withCode: methodCode.
+	eachClass addImplementation: implementation.	
+	].!
+
 generateMethod_startStateMachineNamed
 	"The receiver generate the method #startStateMachineNamed: for UML class defined at <stateMachineSpecification>"
 
-	self getClassesWithMachineStates do: [:eachClass | | methodCode |
+	self getClassesWithMachineStates do: [:eachClass | | methodCode stateAttribute implementation |
+		stateAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) detect: [:each | each umlClass == eachClass] ifNone: [^nil].
 		methodCode := 'startStateMachineNamed: aString
-	"The receiver start to aStateMachine named <aString>" '
+	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
+	| stateMachine |
 
+	stateMachine := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.
+	', stateAttribute getName, ' := stateMachine getInitialState.'.
+
+	implementation := UMLParsedImplementation newNamed: #startStateMachineNamed: withCode: methodCode.
+	eachClass addImplementation: implementation.	
 	].!
 
 generateStateMachineMethods
 	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"
 
 	"state machine owner class"
-	self generateMethod_startStateMachineNamed.
 	self generateMethod_currentState.
+	self generateMethod_setStateMachineNamed.
+	self generateMethod_startStateMachineNamed.
+	self generateMethod_possibleNextTransitions.
+	self generateMethod_goToNextState.
 
 	"state machine class"
 	self generateMethod_isInitial.
@@ -329,9 +394,7 @@ generateStateMachineMethods
 	self generateMethod_getStartTransition.
 	self generateMethod_getFinalTransitions.
 	self generateMethod_getInitialState.
-	self generateMethod_possibleNextStates.
-	self generateMethod_possibleNextStatesFrom.	
-	self generateMethod_getAllTransitions.!
+	self generateMethod_possibleNextTransitionsFrom.!
 
 getAllCategories
 	| all |
@@ -780,8 +843,12 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateMethod_getFinalTransitions!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getInitialState!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getStartTransition!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_goToNextState!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isFinal!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isInitial!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_possibleNextTransitions!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_possibleNextTransitionsFrom!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_setStateMachineNamed!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_startStateMachineNamed!public!state machine! !
 !UMLModel categoriesFor: #generateStateMachineMethods!public!state machine! !
 !UMLModel categoriesFor: #getAllCategories!public! !
