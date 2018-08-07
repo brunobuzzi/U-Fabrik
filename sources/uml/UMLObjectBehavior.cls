@@ -16,6 +16,12 @@ add: anUMLImplementation toCategory: anUMLImplementationCategory
 
 	(categoriesCatalogue at: anUMLImplementationCategory name) add: anUMLImplementation methodName.!
 
+add: anUMLImplementation toCategoryNamed: aString
+
+	(self includesCategoryNamed: aString) ifFalse: [categoriesCatalogue at: aString put: Set new].
+
+	(categoriesCatalogue at: aString) add: anUMLImplementation methodName.!
+
 addCategory: anUMLImplementationCategory
 
 	(self includesCategory: anUMLImplementationCategory) ifFalse: [categoriesCatalogue at: anUMLImplementationCategory name put: Set new].!
@@ -185,6 +191,10 @@ includesCategory: anUMLImplementationCategory
 
 	^categoriesCatalogue includesKey: anUMLImplementationCategory name!
 
+includesCategoryNamed: aString
+
+	^categoriesCatalogue includesKey: aString!
+
 includesImplementationNamed: aSymbol
 
 	^implementations includesKey: aSymbol!
@@ -306,6 +316,7 @@ vmPerform: aSymbol withArguments: anArray  parentSnapshot: anUMLExecutionSnapsho
 
 	^self subclassResponsibility! !
 !UMLObjectBehavior categoriesFor: #add:toCategory:!categories!public! !
+!UMLObjectBehavior categoriesFor: #add:toCategoryNamed:!categories!public! !
 !UMLObjectBehavior categoriesFor: #addCategory:!categories!public! !
 !UMLObjectBehavior categoriesFor: #addImplementation:!behavior!public! !
 !UMLObjectBehavior categoriesFor: #allAttributesNames!public! !
@@ -344,6 +355,7 @@ vmPerform: aSymbol withArguments: anArray  parentSnapshot: anUMLExecutionSnapsho
 !UMLObjectBehavior categoriesFor: #implementationsAsSortedCollection!public! !
 !UMLObjectBehavior categoriesFor: #implementationsNamesAsOrderedCollection!public! !
 !UMLObjectBehavior categoriesFor: #includesCategory:!categories!public! !
+!UMLObjectBehavior categoriesFor: #includesCategoryNamed:!categories!public! !
 !UMLObjectBehavior categoriesFor: #includesImplementationNamed:!behavior!public! !
 !UMLObjectBehavior categoriesFor: #initialize!public! !
 !UMLObjectBehavior categoriesFor: #instancesVariables!accessing!private! !
