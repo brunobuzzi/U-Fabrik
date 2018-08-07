@@ -91,7 +91,9 @@ createInstanceOf: anUMLClass nameMessage: aSymbol
 	umlModel stateMachineSpecification: (UMLStateMachineSpecification newFor: anUMLClass).
 	umlModel stateMachineSpecification 
 		transitionClass: umlTransitionClass;
-		stateClass: umlStateClass.
+		stateClass: umlStateClass;
+		currentStateMessage: currentStateMessage;
+		nextStateMessage: nextStateMessage.
 	instance := anUMLClass newInstance.
 	instance storeAsGlobalObject.
 	instance vmPerform: #initialize.

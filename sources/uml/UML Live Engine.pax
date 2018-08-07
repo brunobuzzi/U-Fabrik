@@ -287,7 +287,7 @@ UMLObject subclass: #UMLStateMachine
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLStateMachineSpecification
-	instanceVariableNames: 'stateMachineClass transitionClass stateClass'
+	instanceVariableNames: 'stateMachineClass transitionClass stateClass currentStateMessage nextStateMessage'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

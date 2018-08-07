@@ -146,6 +146,10 @@ createSetupKey: aString
 
 	^setupObjects at: aString put: OrderedCollection new!
 
+currentStateMessage
+
+	^stateMachineSpecification currentStateMessage!
+
 customizedGUI
 	^customizedGUI!
 
@@ -195,20 +199,45 @@ generateKeysAtGlobalCache
 
 	self getClassesWithoutGlobalObjects do: [:each | self createGlobalKey: each name]!
 
-generateMethod_getStartNode
-	"The receiver generate the method #getStartNode for UML class defined at <stateMachineSpecification>"
-	| transitionsAttribute methodCode |
+generateMethod_getAllStates
+	"The receiver generate the method #getAllState for UML class defined at <stateMachineSpecification>"
+	| methodCode implementation |
 
-	transitionsAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineTransitionClass) detect: [:each | each umlClass == self stateMachineClass] ifNone: [^self].
+	methodCode := 'getAllStates
+	"The receiver answer a collection of all states of the State Machine"
+	| states |
 
-	methodCode := 'getStartNode
-	"Answer the start node of the receiver"
+	states := OrderedCollection new.
+	self in: ', self stateMachineTransitionClass name, ' do: [:each | states add: each ', self currentStateMessage ,'.
+		states add: each ', self nextStateMessage,'].
+	^states copyWithoutDuplicates'.
 
-	^self in: ', transitionsAttribute umlClass name, ' select: [:each | each isInitial]'.
+	implementation := UMLParsedImplementation newNamed: #getAllStates withCode: methodCode.
+	self stateMachineClass addImplementation: implementation.!
 
-	
+generateMethod_getFinalTransitions
+	"The receiver generate the method #getStartTransition for UML class defined at <stateMachineSpecification>"
+	| methodCode implementation |
 
-!
+	methodCode := 'getFinalTransitions
+	"The receiver answer a collection of final transitions of the State Machine"
+
+	^self in: ', self stateMachineTransitionClass name, ' select: [:each | each isFinal]'.
+
+	implementation := UMLParsedImplementation newNamed: #getFinalTransitions withCode: methodCode.
+	self stateMachineClass addImplementation: implementation.!
+
+generateMethod_getStartTransition
+	"The receiver generate the method #getStartTransition for UML class defined at <stateMachineSpecification>"
+	| methodCode implementation |
+
+	methodCode := 'getStartTransition
+	"The receiver answer the start transition of the State Machine"
+
+	^self in: ', self stateMachineTransitionClass name, ' select: [:each | each isInitial]'.
+
+	implementation := UMLParsedImplementation newNamed: #getStartTransition withCode: methodCode.
+	self stateMachineClass addImplementation: implementation.!
 
 generateMethod_isFinal
 	"The receiver generate the method #isInitial for UML class defined at <stateMachineSpecification>"
@@ -272,13 +301,12 @@ generateStateMachineMethods
 	"state machine class"
 	self generateMethod_isInitial.
 	self generateMethod_isFinal.
-	self generateMethod_getStartNode.
-	self generateMethod_getEndNode.
 	self generateMethod_getStartTransition.
+	self generateMethod_getFinalTransitions.
 	self generateMethod_getAllStates.
 	self generateMethod_possibleNextStates.
 	self generateMethod_possibleNextStatesFrom.	
-	self generateMethod_getAllTransitions.	!
+	self generateMethod_getAllTransitions.!
 
 getAllCategories
 	| all |
@@ -463,6 +491,10 @@ name
 
 name: anObject
 	name := anObject!
+
+nextStateMessage
+
+	^stateMachineSpecification nextStateMessage!
 
 printLoginManagerClass
 
@@ -696,6 +728,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #createLinkTipoAsunto_CategoriaTipoAsunto!public!uml import! !
 !UMLModel categoriesFor: #createLinkTipoAsunto_MetaEstructuraProcesal!public!uml import! !
 !UMLModel categoriesFor: #createSetupKey:!public! !
+!UMLModel categoriesFor: #currentStateMessage!public!state machine! !
 !UMLModel categoriesFor: #customizedGUI!accessing!private! !
 !UMLModel categoriesFor: #customizedGUI:!accessing!private! !
 !UMLModel categoriesFor: #destroyGlobalKey:!public! !
@@ -705,7 +738,9 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
-!UMLModel categoriesFor: #generateMethod_getStartNode!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_getAllStates!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_getFinalTransitions!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_getStartTransition!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isFinal!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isInitial!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_startStateMachineNamed!public!state machine! !
@@ -743,6 +778,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #loginManager:!accessing!private! !
 !UMLModel categoriesFor: #name!accessing!private! !
 !UMLModel categoriesFor: #name:!accessing!private! !
+!UMLModel categoriesFor: #nextStateMessage!public!state machine! !
 !UMLModel categoriesFor: #printLoginManagerClass!public! !
 !UMLModel categoriesFor: #relateMultiplicity1aNWith:and:keys:!public!uml import! !
 !UMLModel categoriesFor: #removeClass:!public! !
