@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLStateMachineSpecification
-	instanceVariableNames: 'stateMachineClass transitionClass stateClass currentStateMessage nextStateMessage'
+	instanceVariableNames: 'stateMachineClass transitionClass stateClass currentStateMessage nextStateMessage machineVarName transitionVarName stateVarName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -15,6 +15,12 @@ currentStateMessage
 
 currentStateMessage: anObject
 	currentStateMessage := anObject!
+
+machineVarName
+	^machineVarName!
+
+machineVarName: anObject
+	machineVarName := anObject!
 
 nextStateMessage
 	^nextStateMessage!
@@ -34,21 +40,39 @@ stateMachineClass
 stateMachineClass: anObject
 	stateMachineClass := anObject!
 
+stateVarName
+	^stateVarName!
+
+stateVarName: anObject
+	stateVarName := anObject!
+
 transitionClass
 	^transitionClass!
 
 transitionClass: anObject
-	transitionClass := anObject! !
+	transitionClass := anObject!
+
+transitionVarName
+	^transitionVarName!
+
+transitionVarName: anObject
+	transitionVarName := anObject! !
 !UMLStateMachineSpecification categoriesFor: #currentStateMessage!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #currentStateMessage:!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #machineVarName!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #machineVarName:!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #nextStateMessage!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #nextStateMessage:!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #stateClass!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #stateClass:!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #stateMachineClass!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #stateMachineClass:!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #stateVarName!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #stateVarName:!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #transitionClass!accessing!private! !
 !UMLStateMachineSpecification categoriesFor: #transitionClass:!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #transitionVarName!accessing!private! !
+!UMLStateMachineSpecification categoriesFor: #transitionVarName:!accessing!private! !
 
 !UMLStateMachineSpecification class methodsFor!
 

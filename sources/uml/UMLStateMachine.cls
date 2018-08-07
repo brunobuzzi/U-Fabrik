@@ -93,7 +93,10 @@ createInstanceOf: anUMLClass nameMessage: aSymbol
 		transitionClass: umlTransitionClass;
 		stateClass: umlStateClass;
 		currentStateMessage: currentStateMessage;
-		nextStateMessage: nextStateMessage.
+		nextStateMessage: nextStateMessage;
+		machineVarName: processVarName;
+		transitionVarName: transitionNameVar;
+		stateVarName: stateNameVar.
 	instance := anUMLClass newInstance.
 	instance storeAsGlobalObject.
 	instance vmPerform: #initialize.

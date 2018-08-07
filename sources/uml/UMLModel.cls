@@ -199,6 +199,21 @@ generateKeysAtGlobalCache
 
 	self getClassesWithoutGlobalObjects do: [:each | self createGlobalKey: each name]!
 
+generateMethod_currentState
+	"The receiver generate the method #currentState for UML class defined at <stateMachineSpecification>"
+
+	self getClassesWithMachineStates do: [:eachClass | | stateAttribute methodCode implementation |
+		stateAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) detect: [:each | each umlClass == eachClass] ifNone: [^self].
+			methodCode := 'currentState
+	"Answer the receiver is the final transition" 
+
+	^', stateAttribute getName.
+	implementation := UMLParsedImplementation newNamed: #currentState withCode: methodCode.
+	eachClass addImplementation: implementation.
+	].
+
+!
+
 generateMethod_getAllStates
 	"The receiver generate the method #getAllState for UML class defined at <stateMachineSpecification>"
 	| methodCode implementation |
@@ -240,7 +255,7 @@ generateMethod_getStartTransition
 	self stateMachineClass addImplementation: implementation.!
 
 generateMethod_isFinal
-	"The receiver generate the method #isInitial for UML class defined at <stateMachineSpecification>"
+	"The receiver generate the method #isFinal for UML class defined at <stateMachineSpecification>"
 	| stateAttributes startState endState methodCode implementation |
 
 	stateAttributes := ((self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) select: [:each | each umlClass == self stateMachineTransitionClass]) asArray.
@@ -281,15 +296,8 @@ generateMethod_isInitial
 
 generateMethod_startStateMachineNamed
 	"The receiver generate the method #startStateMachineNamed: for UML class defined at <stateMachineSpecification>"
-	| classesWithStateMachines |
 
-	classesWithStateMachines := OrderedCollection new.
-	
-	(self getInstanceVariablesOfTypeNamed: self stateMachineClass name) do: [:eachAttribute | 
-		((eachAttribute relatedClassTo: self stateMachineClass) == self stateMachineTransitionClass) ifFalse: [classesWithStateMachines add: eachAttribute].
-	].
-
-	classesWithStateMachines do: [:each | each].!
+	self getClassesWithMachineStates do: [:eachClass | ].!
 
 generateStateMachineMethods
 	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"
@@ -486,6 +494,10 @@ loginManager
 loginManager: anObject
 	loginManager := anObject!
 
+machineVarName
+
+	^stateMachineSpecification machineVarName!
+
 name
 	^name!
 
@@ -619,6 +631,10 @@ stateMachineTransitionClass
 
 	^stateMachineSpecification transitionClass!
 
+stateVarName
+
+	^stateMachineSpecification stateVarName!
+
 stbSaveOn: anSTBOutFiler
 	"Output the receiver to anSTBOutFiler. The cached analyzers consume a lot of space, so 
 	we don't want to include them in the binary file."
@@ -655,6 +671,10 @@ systemRoot
 
 systemRoot: anObject
 	systemRoot := anObject!
+
+transitionVarName
+
+	^stateMachineSpecification transitionVarName!
 
 trimClassNamesWithSpaces
 
@@ -728,7 +748,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #createLinkTipoAsunto_CategoriaTipoAsunto!public!uml import! !
 !UMLModel categoriesFor: #createLinkTipoAsunto_MetaEstructuraProcesal!public!uml import! !
 !UMLModel categoriesFor: #createSetupKey:!public! !
-!UMLModel categoriesFor: #currentStateMessage!public!state machine! !
+!UMLModel categoriesFor: #currentStateMessage!public!state machine spec! !
 !UMLModel categoriesFor: #customizedGUI!accessing!private! !
 !UMLModel categoriesFor: #customizedGUI:!accessing!private! !
 !UMLModel categoriesFor: #destroyGlobalKey:!public! !
@@ -738,6 +758,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
+!UMLModel categoriesFor: #generateMethod_currentState!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getAllStates!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getFinalTransitions!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getStartTransition!public!state machine! !
@@ -776,9 +797,10 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #initializeAssociations!public! !
 !UMLModel categoriesFor: #loginManager!accessing!private! !
 !UMLModel categoriesFor: #loginManager:!accessing!private! !
+!UMLModel categoriesFor: #machineVarName!public!state machine spec! !
 !UMLModel categoriesFor: #name!accessing!private! !
 !UMLModel categoriesFor: #name:!accessing!private! !
-!UMLModel categoriesFor: #nextStateMessage!public!state machine! !
+!UMLModel categoriesFor: #nextStateMessage!public!state machine spec! !
 !UMLModel categoriesFor: #printLoginManagerClass!public! !
 !UMLModel categoriesFor: #relateMultiplicity1aNWith:and:keys:!public!uml import! !
 !UMLModel categoriesFor: #removeClass:!public! !
@@ -796,17 +818,19 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #setVirtualMachineToAll!initializing!public! !
 !UMLModel categoriesFor: #setVirtualMachineToAllToNil!initializing!public! !
 !UMLModel categoriesFor: #setVirtualMachineToAllWith:!initializing!public! !
-!UMLModel categoriesFor: #stateMachineClass!public!state machine! !
+!UMLModel categoriesFor: #stateMachineClass!public!state machine spec! !
 !UMLModel categoriesFor: #stateMachineSpecification!accessing!private! !
 !UMLModel categoriesFor: #stateMachineSpecification:!accessing!private! !
-!UMLModel categoriesFor: #stateMachineStateClass!public!state machine! !
-!UMLModel categoriesFor: #stateMachineTransitionClass!public!state machine! !
+!UMLModel categoriesFor: #stateMachineStateClass!public!state machine spec! !
+!UMLModel categoriesFor: #stateMachineTransitionClass!public!state machine spec! !
+!UMLModel categoriesFor: #stateVarName!public!state machine spec! !
 !UMLModel categoriesFor: #stbSaveOn:!binary filing!public! !
 !UMLModel categoriesFor: #storeGlobalObject:!public! !
 !UMLModel categoriesFor: #storeSetupObject:!public!setup objects! !
 !UMLModel categoriesFor: #storeViewOf:withDesign:!gui!public! !
 !UMLModel categoriesFor: #systemRoot!accessing!private! !
 !UMLModel categoriesFor: #systemRoot:!accessing!private! !
+!UMLModel categoriesFor: #transitionVarName!public!state machine spec! !
 !UMLModel categoriesFor: #trimClassNamesWithSpaces!initializing!public! !
 !UMLModel categoriesFor: #umlClasses!accessing!private! !
 !UMLModel categoriesFor: #umlClasses:!accessing!private! !
