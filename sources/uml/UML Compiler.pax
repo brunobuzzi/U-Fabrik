@@ -511,9 +511,14 @@ nodes
 
 	^OrderedCollection with: self!
 
-processInsideSnapshot: anUMLScriptExecutionSnapshot context: anUMLObject parameters: anArray 
+processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
 
-	^anUMLScriptExecutionSnapshot getObjectFromProgramNode: self!
+	anUMLObject isNil
+	ifTrue: [^(anUMLExecutionSnapshot getTemporaryNamed: self name) asUMLObject: self defaultVirtualMachine].
+
+	^(anUMLObject hasVariableNamed: self name) 
+	ifTrue: [anUMLObject atVariableName: self name]
+	ifFalse: [^(anUMLExecutionSnapshot getTemporaryNamed: self name) asUMLObject: self defaultVirtualMachine].!
 
 receiverName
 

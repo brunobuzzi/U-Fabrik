@@ -162,7 +162,7 @@ getBasicObjectNamed: aName
 
 getObjectFromProgramNode: aStProgramNode
 
-	^aStProgramNode getUMLObjectFrom: self!
+	^aStProgramNode getUMLObjectFrom: self !
 
 getObjectNamed: aSymbol
 

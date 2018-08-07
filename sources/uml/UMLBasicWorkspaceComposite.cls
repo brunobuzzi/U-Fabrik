@@ -116,6 +116,7 @@ evaluate: aString
 		hasDNU: false;
 		hasOnErrorDo: false;
 		isCurtailed: false.
+
 	parsedCode := self parser parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	self topShell selectedObject ifNotNil: [:value | executionSnapshot addTemporary:  value named: 'self'].
