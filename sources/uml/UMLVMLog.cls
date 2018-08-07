@@ -41,7 +41,9 @@ methodName: anObject
 printMethodName
 	| receiverString hierarchyString |
 
-	hierarchyString := (umlReceiver className = snapshot printSequenceClassName) ifTrue: [''] ifFalse: ['(', snapshot printSequenceClassName,')'].
+	hierarchyString := snapshot isNil	
+		ifFalse: [(umlReceiver className = snapshot printSequenceClassName) ifTrue: [''] ifFalse: ['(', snapshot printSequenceClassName,')'].]
+		ifTrue: ['nil'].
 
 	receiverString  := umlReceiver isUMLInstance
 		ifTrue: [umlReceiver printString] 
