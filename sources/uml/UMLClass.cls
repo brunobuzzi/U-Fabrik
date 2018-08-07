@@ -140,6 +140,11 @@ getAllGlobalObjects
 
 	^self umlModel getAllGlobalObjectsOf: self!
 
+getAllRelationsForClassNamed: aString
+
+	^relations select: [:eachRelation | ((self relatedClassIn: eachRelation) name = aString) 
+										or:[(self relatedClassIn: eachRelation) allSubclasses anySatisfy: [:eachSubclass | eachSubclass name = aString ] ]] !
+
 getAllRelationsNames
 
 	^self allRelations inject: OrderedCollection new
@@ -158,9 +163,13 @@ getAllSubclasses
 
 getAnyRelationForClassNamed: aString
 
+	^self getAnyRelationForClassNamed: aString ifNone: [virtualMachine nilObject]!
+
+getAnyRelationForClassNamed: aString ifNone: aBlock
+
 	^relations detect: [:eachRelation | ((self relatedClassIn: eachRelation) name = aString) 
 										or:[(self relatedClassIn: eachRelation) allSubclasses anySatisfy: [:eachSubclass | eachSubclass name = aString ] ]] 
-		ifNone: [virtualMachine nilObject]!
+		ifNone: [aBlock value]!
 
 getAnyVariableNamed: aSymbol 
 
@@ -370,6 +379,14 @@ relations: anObject
 removeRelation: anUMLRelation
 	^relations remove: anUMLRelation!
 
+selectAttributesOfType: anUMLClass
+
+	^instancesVariables select: [:each | (each relatedClassTo: self) == anUMLClass]!
+
+selectAttributesOfTypeNamed: aString
+
+	^(instancesVariables select: [:each | each isBasic not and: [(each relatedClassTo: self) name = aString]]) asOrderedCollection!
+
 setAllRelationsMultiplicity
 
 	^relations do: [:each | each setRelationMultiplicity]!
@@ -423,9 +440,11 @@ uninstallClass
 !UMLClass categoriesFor: #generateAttributeForRelation:!attributes!public!relations!transforming!xmi-relations! !
 !UMLClass categoriesFor: #generateAttributesForRelations!attributes!public!relations!transforming!xmi-relations! !
 !UMLClass categoriesFor: #getAllGlobalObjects!public! !
+!UMLClass categoriesFor: #getAllRelationsForClassNamed:!get elements!public!relations! !
 !UMLClass categoriesFor: #getAllRelationsNames!get elements!public!relations! !
 !UMLClass categoriesFor: #getAllSubclasses!public!relations! !
 !UMLClass categoriesFor: #getAnyRelationForClassNamed:!get elements!public!relations! !
+!UMLClass categoriesFor: #getAnyRelationForClassNamed:ifNone:!get elements!public!relations! !
 !UMLClass categoriesFor: #getAnyVariableNamed:!behavior!instance variables!public! !
 !UMLClass categoriesFor: #getAnyVariableNamed:ifNone:!behavior!instance variables!public! !
 !UMLClass categoriesFor: #getGlobalObjects!public! !
@@ -461,6 +480,8 @@ uninstallClass
 !UMLClass categoriesFor: #relations!accessing!private! !
 !UMLClass categoriesFor: #relations:!accessing!private! !
 !UMLClass categoriesFor: #removeRelation:!public!relations! !
+!UMLClass categoriesFor: #selectAttributesOfType:!attributes!public! !
+!UMLClass categoriesFor: #selectAttributesOfTypeNamed:!attributes!public! !
 !UMLClass categoriesFor: #setAllRelationsMultiplicity!public!relations!xmi!xmi-relations! !
 !UMLClass categoriesFor: #setInstancesVariablesForLicence!public! !
 !UMLClass categoriesFor: #setSubclassesIn:!public!relations!xmi-classes! !

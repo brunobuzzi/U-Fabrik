@@ -195,8 +195,90 @@ generateKeysAtGlobalCache
 
 	self getClassesWithoutGlobalObjects do: [:each | self createGlobalKey: each name]!
 
+generateMethod_getStartNode
+	"The receiver generate the method #getStartNode for UML class defined at <stateMachineSpecification>"
+	| transitionsAttribute methodCode |
+
+	transitionsAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineTransitionClass) detect: [:each | each umlClass == self stateMachineClass] ifNone: [^self].
+
+	methodCode := 'getStartNode
+	"Answer the start node of the receiver"
+
+	^self in: ', transitionsAttribute umlClass name, ' select: [:each | each isInitial]'.
+
+	
+
+!
+
+generateMethod_isFinal
+	"The receiver generate the method #isInitial for UML class defined at <stateMachineSpecification>"
+	| stateAttributes startState endState methodCode implementation |
+
+	stateAttributes := ((self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) select: [:each | each umlClass == self stateMachineTransitionClass]) asArray.
+	(stateAttributes size = 2) ifFalse: [^self].
+
+	startState := stateAttributes at: 1.
+	endState := stateAttributes at: 2.
+	methodCode := 'isFinal
+	"Answer the receiver is the final transition"
+
+	^', startState getName, ' isFinal or: [', endState getName, ' isFinal]'.
+
+	implementation := UMLParsedImplementation newNamed: #isFinal withCode: methodCode.
+	self stateMachineTransitionClass addImplementation: implementation.
+	
+
+!
+
+generateMethod_isInitial
+	"The receiver generate the method #isInitial for UML class defined at <stateMachineSpecification>"
+	| stateAttributes startState endState methodCode implementation |
+
+	stateAttributes := ((self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) select: [:each | each umlClass == self stateMachineTransitionClass]) asArray.
+	(stateAttributes size = 2) ifFalse: [^self].
+
+	startState := stateAttributes at: 1.
+	endState := stateAttributes at: 2.
+	methodCode := 'isInitial
+	"Answer the receiver is the initial transition"
+
+	^', startState getName, ' isInitial or: [', endState getName, ' isInitial]'.
+
+	implementation := UMLParsedImplementation newNamed: #isInitial withCode: methodCode.
+	self stateMachineTransitionClass addImplementation: implementation.
+	
+
+!
+
+generateMethod_startStateMachineNamed
+	"The receiver generate the method #startStateMachineNamed: for UML class defined at <stateMachineSpecification>"
+	| classesWithStateMachines |
+
+	classesWithStateMachines := OrderedCollection new.
+	
+	(self getInstanceVariablesOfTypeNamed: self stateMachineClass name) do: [:eachAttribute | 
+		((eachAttribute relatedClassTo: self stateMachineClass) == self stateMachineTransitionClass) ifFalse: [classesWithStateMachines add: eachAttribute].
+	].
+
+	classesWithStateMachines do: [:each | each].!
+
 generateStateMachineMethods
-	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"!
+	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"
+
+	"state machine owner class"
+	self generateMethod_startStateMachineNamed.
+	self generateMethod_currentState.
+
+	"state machine class"
+	self generateMethod_isInitial.
+	self generateMethod_isFinal.
+	self generateMethod_getStartNode.
+	self generateMethod_getEndNode.
+	self generateMethod_getStartTransition.
+	self generateMethod_getAllStates.
+	self generateMethod_possibleNextStates.
+	self generateMethod_possibleNextStatesFrom.	
+	self generateMethod_getAllTransitions.	!
 
 getAllCategories
 	| all |
@@ -268,6 +350,17 @@ getClassesWithInstVarWithOriginalType: aString
 
 	^umlClasses select: [:each | each hasInstVarWithOriginalType: aString]!
 
+getClassesWithMachineStates
+	"Answer a collection of <UMLClass>es which implement a Machine State"
+	| classesWithStateMachines |
+
+	classesWithStateMachines := OrderedCollection new.
+
+	(self getInstanceVariablesOfTypeNamed: self stateMachineClass name) do: [:eachAttribute | 
+		((eachAttribute relatedClassTo: self stateMachineClass) == self stateMachineTransitionClass) ifFalse: [classesWithStateMachines add: eachAttribute]].
+
+	^classesWithStateMachines collect: [:eachAttr | eachAttr umlClass]!
+
 getClassesWithoutGlobalObjects
 	"Get classes that has NO instances in the Global Cache <systemRoot>"
 
@@ -302,6 +395,17 @@ getInstancesWithoutGlobalObjects
 	self getClassesWithGlobalObjects do: [:eachUMLClass |
 		(self getGlobalObjectsOf: eachUMLClass) do: [:eachObject | instances addAll: eachObject getInstancesVariablesNotInGlobalCache].].
 	^instances!
+
+getInstanceVariablesOfTypeNamed: aString
+	"The receiver answer a collection of uml classes with any relation with uml class named <aString>"
+	| relatedClasses |
+
+	relatedClasses := Set new.
+
+	umlClasses do: [:eachClass | relatedClasses addAll: (eachClass selectAttributesOfTypeNamed: aString)].
+
+	^relatedClasses
+!
 
 getSetupObjectsOf: anUMLClass
 
@@ -601,6 +705,10 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
+!UMLModel categoriesFor: #generateMethod_getStartNode!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_isFinal!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_isInitial!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_startStateMachineNamed!public!state machine! !
 !UMLModel categoriesFor: #generateStateMachineMethods!public!state machine! !
 !UMLModel categoriesFor: #getAllCategories!public! !
 !UMLModel categoriesFor: #getAllGlobalObjectsOf:!public! !
@@ -613,6 +721,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #getClassesWithGlobalObjects!public! !
 !UMLModel categoriesFor: #getClassesWithInstVarNamed:!public!searching! !
 !UMLModel categoriesFor: #getClassesWithInstVarWithOriginalType:!public!searching! !
+!UMLModel categoriesFor: #getClassesWithMachineStates!public!state machine! !
 !UMLModel categoriesFor: #getClassesWithoutGlobalObjects!public! !
 !UMLModel categoriesFor: #getClassesWithWildCardInstVarNamed:!public!searching! !
 !UMLModel categoriesFor: #getClassNamed:!public! !
@@ -620,6 +729,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #getClassNamedLike:!public! !
 !UMLModel categoriesFor: #getGlobalObjectsOf:!public!setup objects! !
 !UMLModel categoriesFor: #getInstancesWithoutGlobalObjects!public! !
+!UMLModel categoriesFor: #getInstanceVariablesOfTypeNamed:!public!searching! !
 !UMLModel categoriesFor: #getSetupObjectsOf:!public!setup objects! !
 !UMLModel categoriesFor: #getSetupObjectsOfClassNamed:!public!setup objects! !
 !UMLModel categoriesFor: #getUserCategories!public! !

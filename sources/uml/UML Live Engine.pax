@@ -138,7 +138,6 @@ package methodNames
 	add: #UMLClass -> #defaultInstanceClass;
 	add: #UMLClass -> #newInstance;
 	add: #UMLClass -> #uninstall;
-	add: #UMLClassAttribute -> #setTypeSecondTime;
 	add: #UMLObject -> #defaultVirtualMachine;
 	add: #UMLObjectBehavior -> #basicInstancesVariables;
 	add: #UMLObjectBehavior -> #getAllCategories;
@@ -987,15 +986,6 @@ uninstall
 !UMLClass categoriesFor: #defaultInstanceClass!public! !
 !UMLClass categoriesFor: #newInstance!instance creation!public! !
 !UMLClass categoriesFor: #uninstall!public! !
-
-!UMLClassAttribute methodsFor!
-
-setTypeSecondTime
-
-	(type class == UMLClass or:[type class == UMLVirtualMachineClass or:[type class == UMLClassAssociation]]) ifTrue: [^type].
-
-	^type := self virtualMachine virtualMachineClassNamed: type virtualMachineClassName.! !
-!UMLClassAttribute categoriesFor: #setTypeSecondTime!importing XML!public! !
 
 !UMLObject methodsFor!
 

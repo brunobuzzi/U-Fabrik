@@ -82,7 +82,7 @@ createAllUMLStateAndTransitionInstances
 						].].
 
 	umlModel := self defaultVirtualMachine getUMLModelOf: umlProcessClass ifNone: [UMLClassNotFoundError signal: 'No Model has a class named <', umlProcessClass name, '>'].
-	umlModel generateStateMachineMethods.!
+	"umlModel generateStateMachineMethods."!
 
 createInstanceOf: anUMLClass nameMessage: aSymbol
 	| instance umlModel |
