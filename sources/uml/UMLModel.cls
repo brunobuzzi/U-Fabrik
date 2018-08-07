@@ -242,6 +242,18 @@ generateMethod_getFinalTransitions
 	implementation := UMLParsedImplementation newNamed: #getFinalTransitions withCode: methodCode.
 	self stateMachineClass addImplementation: implementation.!
 
+generateMethod_getInitialState
+	"The receiver generate the method #getInitialState for UML class defined at <stateMachineSpecification>"
+	| methodCode implementation |
+
+	methodCode := 'getInitialState
+	"The receiver answer the initial state of the State Machine"
+
+	^self getStartTransition ', self nextStateMessage.
+
+	implementation := UMLParsedImplementation newNamed: #getInitialState withCode: methodCode.
+	self stateMachineClass addImplementation: implementation.!
+
 generateMethod_getStartTransition
 	"The receiver generate the method #getStartTransition for UML class defined at <stateMachineSpecification>"
 	| methodCode implementation |
@@ -249,7 +261,7 @@ generateMethod_getStartTransition
 	methodCode := 'getStartTransition
 	"The receiver answer the start transition of the State Machine"
 
-	^self in: ', self stateMachineTransitionClass name, ' select: [:each | each isInitial]'.
+	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each isInitial]'.
 
 	implementation := UMLParsedImplementation newNamed: #getStartTransition withCode: methodCode.
 	self stateMachineClass addImplementation: implementation.!
@@ -297,7 +309,11 @@ generateMethod_isInitial
 generateMethod_startStateMachineNamed
 	"The receiver generate the method #startStateMachineNamed: for UML class defined at <stateMachineSpecification>"
 
-	self getClassesWithMachineStates do: [:eachClass | ].!
+	self getClassesWithMachineStates do: [:eachClass | | methodCode |
+		methodCode := 'startStateMachineNamed: aString
+	"The receiver start to aStateMachine named <aString>" '
+
+	].!
 
 generateStateMachineMethods
 	"The receiver create all convenience methods for the State Machine Specification <stateMachineSpecification>"
@@ -309,9 +325,10 @@ generateStateMachineMethods
 	"state machine class"
 	self generateMethod_isInitial.
 	self generateMethod_isFinal.
+	self generateMethod_getAllStates.
 	self generateMethod_getStartTransition.
 	self generateMethod_getFinalTransitions.
-	self generateMethod_getAllStates.
+	self generateMethod_getInitialState.
 	self generateMethod_possibleNextStates.
 	self generateMethod_possibleNextStatesFrom.	
 	self generateMethod_getAllTransitions.!
@@ -761,6 +778,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #generateMethod_currentState!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getAllStates!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getFinalTransitions!public!state machine! !
+!UMLModel categoriesFor: #generateMethod_getInitialState!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_getStartTransition!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isFinal!public!state machine! !
 !UMLModel categoriesFor: #generateMethod_isInitial!public!state machine! !
