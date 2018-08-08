@@ -81,7 +81,7 @@ getClassesNamesAndXmiID
 
 	classesCollection := OrderedCollection new.
 
-	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:idref')) ].
+	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:idref') with: each) ].
 
 	^classesCollection!
 

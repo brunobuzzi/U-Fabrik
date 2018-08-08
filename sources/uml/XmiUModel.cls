@@ -93,10 +93,10 @@ getClassesNamesAndXmiID
 
 	classesCollection := OrderedCollection new.
 
-	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id')) ].
+	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id') with: each) ].
 
 	(self getDiagramElements select: [:eachElement | (eachElement getAttribute: 'xmi:type') = 'uml:AssociationClass']) do: [:eachAssClass | 
-			classesCollection add: (Array with: (eachAssClass getAttribute: 'name') with: (eachAssClass getAttribute: 'xmi:id'))].
+			classesCollection add: (Array with: (eachAssClass getAttribute: 'name') with: (eachAssClass getAttribute: 'xmi:id') with: eachAssClass)].
 
 	^classesCollection!
 

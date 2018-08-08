@@ -152,9 +152,11 @@ package methodNames
 	add: #XmiEnterpriseArchitect -> #createUMLStates;
 	add: #XmiReader -> #createAllClasses;
 	add: #XmiReader -> #generateUMLModelNamed:;
+	add: #XmiReader -> #setCommentsOf:with:;
 	add: #XmiVisualParadigm -> #createTransitionsFor:;
 	add: #XmiVisualParadigm -> #createUMLStateMachines;
 	add: #XmiVisualParadigm -> #createUMLStatesAndTransitions;
+	add: #XmiVisualParadigm -> #setCommentsOf:with:;
 	add: 'Array class' -> #newForUML;
 	add: 'Date class' -> #newForUML;
 	add: 'Dictionary class' -> #newForUML;
@@ -1128,14 +1130,16 @@ createAllClasses
 	"The receiver creates all classes from XMI file"
 
 	umlClasses := LookupTable new.
-	(self getClassesNamesAndXmiID collect: [:eachArray |  "we iterate over a collection of Array <class name, class xmi id>"
-		(self isAssociationClassXmiID: eachArray second) "with the <xmi id> we check if is an association class and the we create the metaclass"
-		ifFalse: [UMLMetaclass newNamed: eachArray first] 
-		ifTrue: [ | metaclass |
-			metaclass := UMLMetaclass newNamed: eachArray first for: (UMLClassAssociation new name: eachArray first).
-			metaclass instanceClass metaclass: metaclass.
-			metaclass]]) 
-
+	(self getClassesNamesAndXmiID collect: [:eachArray |  | newMetaclass | "we iterate over a collection of Array <class name, class xmi id>"
+		newMetaclass := (self isAssociationClassXmiID: eachArray second) "with the <xmi id> we check if is an association class and the we create the metaclass"
+			ifFalse: [UMLMetaclass newNamed: eachArray first] 
+			ifTrue: [ | metaclass |
+				metaclass := UMLMetaclass newNamed: eachArray first for: (UMLClassAssociation new name: eachArray first).
+				metaclass instanceClass metaclass: metaclass.
+				metaclass].
+		self setCommentsOf: newMetaclass instanceClass with: eachArray third.
+		newMetaclass.
+	]) 
 	do: [:each | (umlClasses includesKey: each name) ifTrue: [duplicatedClass := each name].
 		umlClasses at: each name put: each]. "we put each UMLMetaclas into <umlClasses> dictionary"
 
@@ -1154,9 +1158,14 @@ generateUMLModelNamed: aString
 
 	(generatedClasses collect: [:each | each instanceClass]) do: [:each | newUMLModel addClass: each].
 
-	^newUMLModel! !
+	^newUMLModel!
+
+setCommentsOf: anUMLClass with: classNode
+	"The receiver set comments of uml class <anUMLClass> with data contained in XML node <classNode>"
+! !
 !XmiReader categoriesFor: #createAllClasses!public!uml-class creation! !
 !XmiReader categoriesFor: #generateUMLModelNamed:!attributes!public!uml-class creation! !
+!XmiReader categoriesFor: #setCommentsOf:with:!public!uml-class creation! !
 
 !XmiVisualParadigm methodsFor!
 
@@ -1217,10 +1226,20 @@ createUMLStatesAndTransitions
 		states add: umlState.
 		umlState transitions: (self getTransitionsFor: eachArray)].
 	transitions := self createTransitionsFor: states.
-	^Array with: states with: transitions! !
+	^Array with: states with: transitions!
+
+setCommentsOf: anUMLClass with: classNode
+	"The receiver set comments of uml class <anUMLClass> with data contained in XML node <classNode>"
+	| commentsNode |
+
+	commentsNode := classNode selectSingleNode: 'ownedComment'.
+	commentsNode isNil ifTrue: [^self].
+
+	anUMLClass comments: (commentsNode selectSingleNode: 'body') innerXML ! !
 !XmiVisualParadigm categoriesFor: #createTransitionsFor:!getting states!public! !
 !XmiVisualParadigm categoriesFor: #createUMLStateMachines!getting states!public! !
 !XmiVisualParadigm categoriesFor: #createUMLStatesAndTransitions!getting states!public! !
+!XmiVisualParadigm categoriesFor: #setCommentsOf:with:!public!uml-class creation! !
 
 "End of package definition"!
 

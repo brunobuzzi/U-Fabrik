@@ -93,16 +93,16 @@ getClassElementWithId: xmiID ifNone: aBlock
 	^self getDiagramElements detect: [:each | (each getAttribute: 'xmi:id') = xmiID] ifNone: aBlock!
 
 getClassesNamesAndXmiID
-	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the class . 
+	"Answer a collection of Array where Array first is the class name - Array second is the <xmi> id of the class - Array third is the XML element. 
 { ('Project' 'ERTHY25') '(Person' 'ERTHY14') ('Team' 'ERTHY10') } "
 	| classesCollection |
 
 	classesCollection := OrderedCollection new.
 
-	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id')) ].
+	self getClassesNodes do: [:each | classesCollection add: (Array with: ((each getAttribute: 'name') copyWithoutAll: ' ') with: (each getAttribute: 'xmi:id') with: each) ].
 
 	(self getDiagramElements select: [:eachElement | (eachElement getAttribute: 'xmi:type') = 'uml:AssociationClass']) do: [:eachAssClass | 
-			classesCollection add: (Array with: ((eachAssClass getAttribute: 'name') copyWithoutAll: ' ') with: (eachAssClass getAttribute: 'xmi:id') with: OrderedCollection new)].
+			classesCollection add: (Array with: ((eachAssClass getAttribute: 'name') copyWithoutAll: ' ') with: (eachAssClass getAttribute: 'xmi:id') with: eachAssClass)].
 
 	^classesCollection!
 
