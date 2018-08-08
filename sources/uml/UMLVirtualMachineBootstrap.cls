@@ -36,6 +36,12 @@ createVirtualMachineFromVersion1
 
 	^self createVirtualMachineFrom: self class virtualMachineV1Code!
 
+createVirtualMachineFromVersion1_1
+	"The receiver generate a new <UMLVirtualMachine> using the code of Version 1 VM.
+	This method is the entry point to create a new U-Fabrik Virtual Machine"
+
+	^self createVirtualMachineFrom: self class virtualMachineV1_1Code!
+
 fileInFromXml: pathFile
 	"The receiver create a new Virtual Machine contained in XML file <pathFile>"
 	| stream xmlSource |
@@ -142,15 +148,24 @@ generateVirtualMachineTraits
 	traits := Dictionary new.
 	traitNodes := (xmlDocument selectNodes: 'VM/Traits') asArray last childNodes.
 
-	 traitNodes  do: [:eachTrait | | traitName implementationsNodes trait |
+	 traitNodes  do: [:eachTrait | | traitName implementationsNodes trait requirementNodes |
 		traitName := (eachTrait selectSingleNode: 'TraitNamed') innerXML.
 		trait := UMLTrait new name: traitName.
 		implementationsNodes := (eachTrait selectNodes: 'Implementation') asArray.
-		implementationsNodes do: [:impNode | | source implementation parsedSource |
-			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3.
+		implementationsNodes do: [:impNode | | source implementation parsedSource comments |
+			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
+			comments := ((impNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 			parsedSource := SmalltalkParser  parseMethod: source.
-			implementation := (UMLTraitMethod newNamed: parsedSource selector) parsedCode: parsedSource. 
+			implementation := (UMLTraitMethod newNamed: parsedSource selector) parsedCode: parsedSource.
+			implementation comments: comments.
 			trait addMethod: implementation.
+		].
+		requirementNodes := (eachTrait selectNodes: 'Requirement') asArray.
+		requirementNodes do: [:reqNode | | req |
+			req := UMLTraitRequirement new.
+			req message: (reqNode selectSingleNode: 'MessageName') innerXML asSymbol;
+				comments: (((reqNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
+			trait addRequirement: req.
 		].
 		traits at: trait name put: trait.
 	].
@@ -348,6 +363,7 @@ virtualMachine: anObject
 	virtualMachine := anObject! !
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFrom:!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1!public!vm generation!vm generation api! !
+!UMLVirtualMachineBootstrap categoriesFor: #createVirtualMachineFromVersion1_1!public!vm generation!vm generation api! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileInFromXml:!fileIn/Out!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #fileOutAsXmlTo:!fileIn/Out!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #generateVirtualMachine!public!vm generation! !
