@@ -449,8 +449,8 @@ removeCategory
 		ifTrue: [^MessageBox notify: 'Virtual categories can NOT be deleted !!' caption: self applicationName].
 	(MessageBox confirm: 'Are you sure to remove this category (no implementations will be deleted) ?'
 		caption: self applicationName) ifFalse: [^self].
-	self selectedClass removeCategory: categoriesPresenter selection.
-	categoriesPresenter model: (ListModel on: self selectedClass getAllCategoriesButGUICategories)!
+	self selectedClassDescription removeCategory: categoriesPresenter selection.
+	categoriesPresenter model: (ListModel on: self selectedClassDescription getAllCategoriesButGUICategories)!
 
 removeClass
 	| selectedClass |

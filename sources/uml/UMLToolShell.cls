@@ -25,6 +25,21 @@ fileInVirtualMachine
 	fileStream := FileStream read: pathFile text: false.
 	UMLVirtualMachine setDefault: (UMLVirtualMachine binaryReadFrom: fileStream).!
 
+fileInVirtualMachineFromXml
+	| fileStream pathFile bootstrap |
+
+	pathFile := (FileOpenDialog new)
+				caption: 'Virtual Machine...';
+				fileTypes: #(#('Virtual Machine (*.xml)' '*.xml'));
+				showModal.
+	pathFile ifNil: [^self].
+	fileStream := FileStream read: pathFile text: true.
+
+	bootstrap := UMLVirtualMachineBootstrap new.
+	UMLVirtualMachine setDefault: (bootstrap createVirtualMachineFrom: fileStream contents).
+	fileStream close.
+	!
+
 fileOutVirtualMachine
 	| fileStream pathFile |
 
@@ -35,6 +50,32 @@ fileOutVirtualMachine
 	pathFile ifNil: [^self].
 	fileStream := FileStream write: pathFile text: false.
 	UMLVirtualMachine default binaryStoreOn: fileStream.!
+
+fileOutVirtualMachineAsXml
+	| fileStream pathFile |
+
+	pathFile := (FileSaveDialog new)
+				caption: 'File out Virtual Machine code...';
+				fileTypes: #(#('Virtual Machine (*.xml)' '*.xml'));
+				showModal.
+	pathFile ifNil: [^self].
+	fileStream := FileStream write: pathFile text: true.
+	UMLVirtualMachine default fileOutAsXmlTo: fileStream.
+	fileStream flush; close.!
+
+importStateMachineFromXMI
+	| shell xmiReaderClass |
+
+	xmiReaderClass := (DetalleDeOpciones
+					listaCon: XmiReader subclasses asOrderedCollection
+					para: 'UMLTools view'
+					titulo: 'Select the UML Tool that genereted the XMI file')
+						ifNil: [nil]
+						ifNotNil: [:value | value last].
+
+	shell := UMLStateMachineImportShell show.
+
+	shell setXmiReaderClass: xmiReaderClass.!
 
 isCustomizedInspector
 	^false!
@@ -68,7 +109,10 @@ releaseWebState
 	(AIDASite named: self applicationName, ' Web Server') releaseApplicationState! !
 !UMLToolShell categoriesFor: #developmentEnvironment!public! !
 !UMLToolShell categoriesFor: #fileInVirtualMachine!public! !
+!UMLToolShell categoriesFor: #fileInVirtualMachineFromXml!public! !
 !UMLToolShell categoriesFor: #fileOutVirtualMachine!public! !
+!UMLToolShell categoriesFor: #fileOutVirtualMachineAsXml!public! !
+!UMLToolShell categoriesFor: #importStateMachineFromXMI!public! !
 !UMLToolShell categoriesFor: #isCustomizedInspector!public! !
 !UMLToolShell categoriesFor: #isIdeaSpace!public! !
 !UMLToolShell categoriesFor: #isMethodBrowser!public! !

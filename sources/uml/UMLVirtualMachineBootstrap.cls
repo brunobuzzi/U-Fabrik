@@ -115,6 +115,10 @@ generateVirtualMachinePackages
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlMetaclass addImplementation: newImplementation.
+				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
+					umlMetaclass addCategory: (UMLImplementationCategory newNamed: catNameNode innerXML).
+					umlMetaclass add: newImplementation toCategoryNamed: catNameNode innerXML.
+				].
 			].
 		].
 		classesNodes := (eachPackage selectSingleNode: 'Classes') childNodes asArray.
@@ -133,6 +137,10 @@ generateVirtualMachinePackages
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlClass addImplementation: newImplementation.
+				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
+					umlClass addCategory: (UMLImplementationCategory newNamed: catNameNode innerXML).
+					umlClass add: newImplementation toCategoryNamed: catNameNode innerXML.
+				].
 			].
 		].
 		packages add: package .

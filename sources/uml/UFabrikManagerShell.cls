@@ -86,20 +86,6 @@ importLicence
 
 	self setLicenceCaption.!
 
-importStateMachineFromXMI
-	| shell xmiReaderClass |
-
-	xmiReaderClass := (DetalleDeOpciones
-					listaCon: XmiReader subclasses asOrderedCollection
-					para: 'UMLTools view'
-					titulo: 'Select the UML Tool that genereted the XMI file')
-						ifNil: [nil]
-						ifNotNil: [:value | value last].
-
-	shell := UMLStateMachineImportShell show.
-
-	shell setXmiReaderClass: xmiReaderClass.!
-
 isCategoryBrowser
 	^false!
 
@@ -217,7 +203,6 @@ workspaceBrowserIcon
 !UFabrikManagerShell categoriesFor: #hasSelectedClass!public! !
 !UFabrikManagerShell categoriesFor: #hasSelectedModel!public! !
 !UFabrikManagerShell categoriesFor: #importLicence!licence!public! !
-!UFabrikManagerShell categoriesFor: #importStateMachineFromXMI!public! !
 !UFabrikManagerShell categoriesFor: #isCategoryBrowser!public! !
 !UFabrikManagerShell categoriesFor: #onCategoriaAdded!public! !
 !UFabrikManagerShell categoriesFor: #onViewClosed!binary filing!licence!public! !
