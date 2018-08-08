@@ -243,7 +243,7 @@ defaultModel
 
 icon
 
-	^UMLVirtualMachine icon!
+	^Icon fromFile: 'icons/Double-J-Design-Diagram-Free-Chip.ico'!
 
 resource_Default_view
 	"Answer the literal data from which the 'Default view' resource can be reconstituted.
