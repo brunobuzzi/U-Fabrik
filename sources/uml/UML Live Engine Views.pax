@@ -445,7 +445,7 @@ UMLEnvironmentTool subclass: #UMLCategoryBrowser
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLEnvironmentTool subclass: #UMLClassBrowserComposite
-	instanceVariableNames: 'classesPresenter hierarchyPresenter categoryBrowser attributesPresenter relationsPresenter traitsPresenter radioButtonsPresenter diagramPresenter'
+	instanceVariableNames: 'classesPresenter hierarchyPresenter categoryBrowser attributesPresenter relationsPresenter traitsPresenter radioButtonsPresenter diagramPresenter classCommentsPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -500,7 +500,7 @@ UMLEnvironmentTool subclass: #UMLTreeImplementationsComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLEnvironmentTool subclass: #UMLVirtualMachineBrowser
-	instanceVariableNames: 'hierarchyPresenter classListPresenter implementationsPresenter implementationComposite classSidePresenter metaclassSidePresenter radioButtonsPresenter categoriesPresenter packagesPresenter traitsPresenter'
+	instanceVariableNames: 'hierarchyPresenter classListPresenter implementationsPresenter implementationComposite classSidePresenter metaclassSidePresenter radioButtonsPresenter categoriesPresenter packagesPresenter traitsPresenter classCommentsPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
