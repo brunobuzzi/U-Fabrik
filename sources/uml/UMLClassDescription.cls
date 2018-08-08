@@ -146,6 +146,7 @@ fileOutAsXmlTo: aStream
 	aStream nextPutAll: '<VMClassTypeNamed>', self class name, '</VMClassTypeNamed>'.
 	aStream nextPutAll: '<VMClassNamed>', name, '</VMClassNamed>'.
 	aStream nextPutAll: '<SuperclassName>', self getSuperclass name, '</SuperclassName>'.
+	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.
 
 	aStream nextPutAll: '<Implementations>'.
 		implementations do: [:eachImp | 
