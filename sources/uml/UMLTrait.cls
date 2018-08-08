@@ -12,6 +12,7 @@ UMLTrait comment: ''!
 
 addMethod: anUMLTraitMethod
 
+	anUMLTraitMethod trait: self.
 	^methods at: anUMLTraitMethod methodName put: anUMLTraitMethod!
 
 addRequirement: anUMLTraitRequirement
@@ -91,6 +92,7 @@ name: anObject
 
 removeMethod: anUMLTraitMethod
 
+	anUMLTraitMethod trait: nil.
 	^methods removeKey: anUMLTraitMethod methodName!
 
 removeRequirement: anUMLTraitRequirement

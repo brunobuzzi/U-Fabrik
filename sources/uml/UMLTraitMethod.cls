@@ -39,6 +39,9 @@ arguments
 className
 	^'Trait: <', trait name, '.', methodName, '>'!
 
+classNameForImplementationList
+	^'Trait: ', trait name!
+
 fileOutAsXmlTo: aStream
 
 	aStream nextPutAll: '<TraitMethodNamed>', methodName, '</TraitMethodNamed>'.
@@ -136,12 +139,13 @@ trait: anObject
 	trait := anObject!
 
 umlModelName
-	^trait name! !
+	^'nil'! !
 !UMLTraitMethod categoriesFor: #allMessageNodes!public! !
 !UMLTraitMethod categoriesFor: #allNodes!public! !
 !UMLTraitMethod categoriesFor: #argumentAt:!public! !
 !UMLTraitMethod categoriesFor: #arguments!public! !
 !UMLTraitMethod categoriesFor: #className!public! !
+!UMLTraitMethod categoriesFor: #classNameForImplementationList!public! !
 !UMLTraitMethod categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLTraitMethod categoriesFor: #getInitialClassObjectNames!public! !
 !UMLTraitMethod categoriesFor: #getNodeAt:!public! !

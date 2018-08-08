@@ -62,7 +62,9 @@ fileOutAsXmlTo: aStream
 	self getCategories do: [:eachImpCat | 
 		aStream nextPutAll: '<CategoryName>', eachImpCat name, '</CategoryName>'.
 	].
-	aStream nextPutAll: '</Categories>'.!
+	aStream nextPutAll: '</Categories>'.
+
+	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.!
 
 getCategories
 

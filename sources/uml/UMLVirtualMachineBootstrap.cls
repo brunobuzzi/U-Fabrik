@@ -110,10 +110,10 @@ generateVirtualMachinePackages
 			umlMetaclasses at: umlMetaclass name put: umlMetaclass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
 			implementationNodes do: [:each | | newImplementation parsedMethod source |
-				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3.
+				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 				parsedMethod := SmalltalkParser  parseMethod: source.
-				newImplementation := (UMLTraitMethod newNamed: parsedMethod selector) parsedCode: parsedMethod. 
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlMetaclass addImplementation: newImplementation.
 			].
 		].
@@ -128,10 +128,10 @@ generateVirtualMachinePackages
 			package addClass: umlClass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
 			implementationNodes do: [:each | | newImplementation parsedMethod source |
-				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3.
+				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 				parsedMethod := SmalltalkParser  parseMethod: source.
-				newImplementation := (UMLTraitMethod newNamed: parsedMethod selector) parsedCode: parsedMethod. 
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlClass addImplementation: newImplementation.
 			].
 		].
