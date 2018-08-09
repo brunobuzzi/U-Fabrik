@@ -139,6 +139,7 @@ package methodNames
 	add: #UMLClass -> #newInstance;
 	add: #UMLClass -> #uninstall;
 	add: #UMLObject -> #defaultVirtualMachine;
+	add: #UMLObjectBehavior -> #addSourceImplementation:;
 	add: #UMLObjectBehavior -> #basicInstancesVariables;
 	add: #UMLObjectBehavior -> #getAllCategories;
 	add: #UMLObjectBehavior -> #getAllCategoriesButGUICategories;
@@ -1008,6 +1009,14 @@ umlUndefinedObject
 
 !UMLObjectBehavior methodsFor!
 
+addSourceImplementation: sourceCode
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+	| newImplementation |
+
+	newImplementation := UMLParsedImplementation newWithCode: sourceCode.
+
+	^self addImplementation: newImplementation !
+
 basicInstancesVariables
 
 	(instancesVariables select: [:each | each class == UMLUndefinedObject]) keysAndValuesDo: [:eachKey :eachValue | instancesVariables at: eachKey put: virtualMachine nilObject].
@@ -1041,6 +1050,7 @@ virtualMachine
 	virtualMachine ifNil: [virtualMachine:= UMLVirtualMachine default].
 
 	^virtualMachine! !
+!UMLObjectBehavior categoriesFor: #addSourceImplementation:!public! !
 !UMLObjectBehavior categoriesFor: #basicInstancesVariables!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #getAllCategories!categories!public! !
 !UMLObjectBehavior categoriesFor: #getAllCategoriesButGUICategories!categories!public! !
