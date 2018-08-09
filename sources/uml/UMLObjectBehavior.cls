@@ -143,6 +143,13 @@ getVariableNamed: aSymbol ifNone: aBlock
 
 	^self atVariableName: aSymbol ifAbsent: aBlock!
 
+getVariableNamed: aSymbol snapshot: anUMLExecutionSnapshot
+
+	virtualMachine logIsActive 
+	ifTrue: [virtualMachine registerTransLogFor: self methodName: aSymbol arguments: #() snapshot: anUMLExecutionSnapshot].
+
+	^self getVariableNamed: aSymbol ifNone: [self virtualMachine nilObject]!
+
 getVariableNamedIgnoreCase: aSymbol 
 
 	^self vmPerform: aSymbol withArguments: Array new!
@@ -344,6 +351,7 @@ vmPerform: aSymbol withArguments: anArray  parentSnapshot: anUMLExecutionSnapsho
 !UMLObjectBehavior categoriesFor: #getReferencesTo:!public! !
 !UMLObjectBehavior categoriesFor: #getVariableNamed:!behavior!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #getVariableNamed:ifNone:!behavior!instance variables!public! !
+!UMLObjectBehavior categoriesFor: #getVariableNamed:snapshot:!behavior!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #getVariableNamedIgnoreCase:!behavior!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #getVariableOrImplementationNamed:!behavior!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #hasAnyImplementationNamed:!public! !

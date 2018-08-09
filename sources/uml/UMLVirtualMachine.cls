@@ -2129,7 +2129,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 	ifTrue: [^((anUMLObject hasVariableNamed: symbolMessage) or:[(symbolMessage includes: $:) and: [anUMLObject hasVariableNamed: (symbolMessage allButLast asSymbol)]])
 		ifTrue: [ (symbolMessage includes: $:) 
 			ifTrue: [self setVariableNamed: symbolMessage allButLast asSymbol with: parameters first to: anUMLObject errorIfNotExist: true snapshot: anUMLExecutionSnapshot ] "is a setting message of an instance variable"
-			ifFalse: [anUMLObject getVariableNamed: symbolMessage]] " is a getting message of an instance variable "
+			ifFalse: [anUMLObject getVariableNamed: symbolMessage snapshot: anUMLExecutionSnapshot]] " is a getting message of an instance variable "
 		ifFalse:[self errorImplementation: symbolMessage notFoundFor: anUMLObject in: anUMLExecutionSnapshot isSuperSend: superBoolean]].
 
 	^self apply: implementation to: anUMLObject with: parameters parentSnapshot: anUMLExecutionSnapshot"process each message of the implementation. (each processInside: self context: anUMLObject parameters: arguments)"!
