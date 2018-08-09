@@ -29,7 +29,7 @@ evaluate: aString
 		hasDNU: false;
 		hasOnErrorDo: false;
 		isCurtailed: false.
-	parsedCode := self parser parseExpression: aString.
+	parsedCode := self umlCompiler parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	executionSnapshot addTemporary: (self topShell selectedObject ifNil: [^nil]) named: 'self'.
 
@@ -108,7 +108,7 @@ showVariables
 	| selectedClass temporaries parsedCode all |
 
 	selectedClass := self topShell selectedClass.
-	parsedCode := SmalltalkParser parseMethod: self getAllText.
+	parsedCode := self umlCompiler parseMethod: self getAllText.
 	temporaries := parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection.
 
 	all := selectedClass getAllAttributesNames, temporaries.

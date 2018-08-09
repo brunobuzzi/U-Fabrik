@@ -117,7 +117,7 @@ generateVirtualMachinePackages
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
 			implementationNodes do: [:each | | newImplementation parsedMethod source |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				parsedMethod := SmalltalkParser  parseMethod: source.
+				parsedMethod := self umlCompiler parseMethod: source.
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlMetaclass addImplementation: newImplementation.
@@ -139,7 +139,7 @@ generateVirtualMachinePackages
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
 			implementationNodes do: [:each | | newImplementation parsedMethod source |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				parsedMethod := SmalltalkParser  parseMethod: source.
+				parsedMethod := self umlCompiler parseMethod: source.
 				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlClass addImplementation: newImplementation.
@@ -169,7 +169,7 @@ generateVirtualMachineTraits
 		implementationsNodes do: [:impNode | | source implementation parsedSource comments |
 			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 			comments := ((impNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-			parsedSource := SmalltalkParser  parseMethod: source.
+			parsedSource := self umlCompiler parseMethod: source.
 			implementation := (UMLTraitMethod newNamed: parsedSource selector) parsedCode: parsedSource.
 			implementation comments: comments.
 			trait addMethod: implementation.
@@ -370,6 +370,10 @@ traits
 traits: anObject
 	traits := anObject!
 
+umlCompiler
+
+	^UMLCompiler!
+
 virtualMachine
 	^virtualMachine!
 
@@ -402,6 +406,7 @@ virtualMachine: anObject
 !UMLVirtualMachineBootstrap categoriesFor: #superclassesDictionary:!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #traits!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #traits:!accessing!private! !
+!UMLVirtualMachineBootstrap categoriesFor: #umlCompiler!public! !
 !UMLVirtualMachineBootstrap categoriesFor: #virtualMachine!accessing!private! !
 !UMLVirtualMachineBootstrap categoriesFor: #virtualMachine:!accessing!private! !
 

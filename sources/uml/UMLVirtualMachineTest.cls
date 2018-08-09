@@ -54,7 +54,7 @@ tearDown
 testSuperSend
 	| parsedCode |
 
-	parsedCode := SmalltalkParser parseExpression: 'MSWord new test'.
+	parsedCode := self umlCompiler parseExpression: 'MSWord new test'.
 	executionSnapshot activateSnaphotWith: parsedCode.
 
 	virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot! !

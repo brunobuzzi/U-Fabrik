@@ -20,14 +20,13 @@ bruno.brasesco@gmail.com'
 checkCompilationErrorsFor: aStMethodNode inClass: anUMLClass
 	| undefinedVariables unimplementedMethods result implementedMethodsOutsideUMLModel undefinedClasses |
 
-"detecta si todas variables estan definida en el metodo o son variables de la clase <anUMLClass>,devuelve las que estan en infraccion"
-	undefinedVariables := self getUndefinedVariablesIn: aStMethodNode for: anUMLClass.
+	undefinedVariables := self umlCompiler getUndefinedVariablesIn: aStMethodNode for: anUMLClass.
 
-	undefinedClasses := self getUndefinedClassesIn: aStMethodNode for: anUMLClass.
+	undefinedClasses := self umlCompiler getUndefinedClassesIn: aStMethodNode for: anUMLClass.
 
-	unimplementedMethods := self getUnimplementedMethodsIn: aStMethodNode for: anUMLClass.
+	unimplementedMethods := self umlCompiler getUnimplementedMethodsIn: aStMethodNode for: anUMLClass.
 
-	implementedMethodsOutsideUMLModel := self getLooseMethodIn: aStMethodNode for: anUMLClass.
+	implementedMethodsOutsideUMLModel := self umlCompiler getLooseMethodIn: aStMethodNode for: anUMLClass.
 
 	result := Array with: undefinedVariables with: unimplementedMethods with: implementedMethodsOutsideUMLModel with: undefinedClasses.
 
@@ -45,31 +44,6 @@ developmentEnvironment
 
 	^UMLDevelopmentEnvironment default!
 
-getLooseMethodIn: aStMethodNode for: anUMLClass
-
-	^(aStMethodNode allNodes select:[:e | e isMessage and: [e selector ~=  #initialize]])
-		select: [:each | self defaultVirtualMachine hasLooseDefinitionNamed: each selector for: anUMLClass umlModel].!
-
-getUndefinedClassesIn: aStMethodNode for: anUMLClass
-
-	^(aStMethodNode allNodes select:[:e | e isVariable and: [e name first isUpperCase] ]) 
-		reject: [:each | self defaultVirtualMachine hasClassNamed: each name ].!
-
-getUndefinedVariablesIn: aStMethodNode for: anUMLClass
-
-	^(aStMethodNode allNodes select:[:e | e isVariable and: [(e name ~=  'self') and: [(e name ~=  'super') and: [e name first isLowerCase] ] ]]) 
-		reject: [:each | 
-			(aStMethodNode allDefinedVariables includes: each name) or: [anUMLClass hasAnyVariableNamed: each name asSymbol] ]!
-
-getUnimplementedMethodsIn: aStMethodNode for: anUMLClass
-
-	^(aStMethodNode allNodes select:[:e | e isMessage]) reject: [:each | 
-		each receiver isVariable 
-		ifTrue: [each receiver name first isUpperCase 
-			ifTrue: [self defaultVirtualMachine hasMetaDefinitionNamed: each selector] 
-			ifFalse: [self defaultVirtualMachine hasDefinitionNamed: each selector] ]
-		ifFalse: [self defaultVirtualMachine hasDefinitionNamed: each selector].].!
-
 hasSelectedCategory
 	^false!
 
@@ -82,10 +56,6 @@ mainComposite
 
 onCategoriaAdded
 	^self!
-
-parser
-
-	^SmalltalkParser!
 
 selectSanityCard
 
@@ -102,19 +72,19 @@ setCompilationErrorsWith: anArray
 
 	self setSanityCheckWith: treeModel.
 
-	"self selectSanityCard."! !
+	"self selectSanityCard."!
+
+setSanityCheckWith: treeModel
+
+	self subclassResponsibility! !
 !UMLEnvironmentTool categoriesFor: #aboutUMLAlmighty!public! !
 !UMLEnvironmentTool categoriesFor: #checkCompilationErrorsFor:inClass:!compiling!public! !
 !UMLEnvironmentTool categoriesFor: #developmentEnvironment!public! !
-!UMLEnvironmentTool categoriesFor: #getLooseMethodIn:for:!compiling!public! !
-!UMLEnvironmentTool categoriesFor: #getUndefinedClassesIn:for:!compiling!public! !
-!UMLEnvironmentTool categoriesFor: #getUndefinedVariablesIn:for:!compiling!public! !
-!UMLEnvironmentTool categoriesFor: #getUnimplementedMethodsIn:for:!compiling!public! !
 !UMLEnvironmentTool categoriesFor: #hasSelectedCategory!public! !
 !UMLEnvironmentTool categoriesFor: #isCategoryBrowser!public! !
 !UMLEnvironmentTool categoriesFor: #mainComposite!public! !
 !UMLEnvironmentTool categoriesFor: #onCategoriaAdded!public! !
-!UMLEnvironmentTool categoriesFor: #parser!public! !
 !UMLEnvironmentTool categoriesFor: #selectSanityCard!public! !
 !UMLEnvironmentTool categoriesFor: #setCompilationErrorsWith:!compiling!public! !
+!UMLEnvironmentTool categoriesFor: #setSanityCheckWith:!compiling!public! !
 

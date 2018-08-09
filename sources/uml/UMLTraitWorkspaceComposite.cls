@@ -60,7 +60,7 @@ showAllNamesFor: aString
 		ifTrue: [self defaultVirtualMachine getAllClassesNames select: [:each | (aString, '*') match: each asString] ] "if is uppercase then is an incomplete class name"
 "if not then is: 1. incomplete instVar, 2. incomplete temp variable"
 		ifFalse: [ | instVar |
-			instVar := ((SmalltalkParser parseMethod: self getAllText) allDefinedVariables select: [:each | (aString, '*') match: each]).
+			instVar := ((self umlCompiler parseMethod: self getAllText) allDefinedVariables select: [:each | (aString, '*') match: each]).
 			instVar isEmpty 
 			ifTrue: [(self defaultVirtualMachine hasClassNamed: aString capitalized) 
 				ifTrue: [^self showImplementationsOfClassNamed: aString capitalized] 
@@ -95,7 +95,7 @@ showVariables
 	| selectedClass temporaries parsedCode all |
 
 	selectedClass := self topShell selectedClass.
-	parsedCode := SmalltalkParser parseMethod: self getAllText.
+	parsedCode := self umlCompiler parseMethod: self getAllText.
 	temporaries := parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection.
 
 	all := selectedClass getAllAttributesNames, temporaries.

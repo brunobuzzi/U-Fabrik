@@ -16,7 +16,7 @@ addCategory
 addMessageToImplementation
 	| result implementation selectedClass |
 
-	result := self parser parseMethod: self getAllText.	"we parse the source code into aStMethodNode"
+	result := self umlCompiler parseMethod: self getAllText.	"we parse the source code into aStMethodNode"
 	selectedClass := self topShell isClassSideSelected 
 				ifTrue: [self selectedClass]
 				ifFalse: [self selectedClass getMetaclass].
@@ -388,7 +388,7 @@ onDropUMLImplementationOverClass: aDragDropSession
 
 	class := self isClassSideSelected ifTrue: [aDragDropSession suggestedTarget] ifFalse: [aDragDropSession suggestedTarget getMetaclass].
 	method := aDragDropSession suggestedSource.
-	newMethod := (UMLParsedImplementation newNamed: method name) parsedCode: (SmalltalkParser parseMethod: method printMessage).
+	newMethod := (UMLParsedImplementation newNamed: method name) parsedCode: (self umlCompiler parseMethod: method printMessage).
 	class addImplementation: newMethod.
 	self topShell selectClass: class instanceClass.
 	self topShell selectImplementation: newMethod.

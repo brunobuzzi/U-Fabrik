@@ -14,7 +14,7 @@ setUp
 
 	vmBootstrap := UMLVirtualMachineBootstrap new.
 
-	vmBootstrap createVirtualMachineFromVersion1.
+	vmBootstrap createVirtualMachineFromVersion1_2.
 
 	virtualMachine := vmBootstrap virtualMachine.!
 
@@ -118,14 +118,14 @@ testVirtualMachinePackagesNames
 	
 ! !
 !UMLVirtualMachineBootstrapTest categoriesFor: #setUp!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testClassesInVirtualMachinePackages!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testCollectionsTrait!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testFalse!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testFileManipulationTrait!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testNil!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testSystemDictionaryClasses!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testTraits!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testTrue!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testTypeMapping!public! !
-!UMLVirtualMachineBootstrapTest categoriesFor: #testVirtualMachinePackagesNames!public! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testClassesInVirtualMachinePackages!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testCollectionsTrait!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testFalse!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testFileManipulationTrait!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testNil!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testSystemDictionaryClasses!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testTraits!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testTrue!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testTypeMapping!public!tests! !
+!UMLVirtualMachineBootstrapTest categoriesFor: #testVirtualMachinePackagesNames!public!tests! !
 

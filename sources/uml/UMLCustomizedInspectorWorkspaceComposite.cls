@@ -18,7 +18,7 @@ evaluate: aString
 		hasDNU: false;
 		hasOnErrorDo: false;
 		isCurtailed: false.
-	parsedCode := self parser parseExpression: aString.
+	parsedCode := self umlCompiler parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	executionSnapshot addTemporary: self topShell getUMLObject named: 'self'.
 	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot

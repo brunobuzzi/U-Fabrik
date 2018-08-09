@@ -76,8 +76,8 @@ debugIt
 	| formattedCode debuggerSnapshot parsedCode|
 
 	self getSelectedText isEmpty ifTrue: [^self].
-	parsedCode := SmalltalkParser parseExpression: self getSelectedText.
-	formattedCode := SmalltalkParser parseExpression: parsedCode formattedCode.
+	parsedCode := self umlCompiler parseExpression: self getSelectedText.
+	formattedCode := self umlCompiler parseExpression: parsedCode formattedCode.
 
 	executionSnapshot sequence: formattedCode.
 
@@ -117,7 +117,7 @@ evaluate: aString
 		hasOnErrorDo: false;
 		isCurtailed: false.
 
-	parsedCode := self parser parseExpression: aString.
+	parsedCode := self umlCompiler parseExpression: aString.
 	executionSnapshot activateSnaphotWith: parsedCode.
 	self topShell selectedObject ifNotNil: [:value | executionSnapshot addTemporary:  value named: 'self'].
 
@@ -541,7 +541,7 @@ showImplementationsOfWrittenClass: className
 showVariables
 	| temporaries |
 
-	temporaries := (SmalltalkParser parseMethod: self getAllText) allTemporaryVariables asSortedCollection.
+	temporaries := (self umlCompiler parseMethod: self getAllText) allTemporaryVariables asSortedCollection.
 
 	^self showAutocompletationList: temporaries, (executionSnapshot sequenceTemporaries keys asSortedCollection) , self defaultVirtualMachine getAllClassesNames!
 

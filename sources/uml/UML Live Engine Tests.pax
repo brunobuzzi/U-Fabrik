@@ -35,9 +35,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
-	add: '..\..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
+	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
 	add: 'UML Live Engine';

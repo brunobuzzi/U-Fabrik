@@ -30,7 +30,7 @@ addUMLQueryMethodFor: anUMLState
 	| parsedMethod newImplementation source |
 
 	source := self getUMLStateSourceFor: anUMLState.
-	parsedMethod := SmalltalkParser parseMethod: source.
+	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	umlStateClass getMetaclass addImplementation: newImplementation.
 	^newImplementation

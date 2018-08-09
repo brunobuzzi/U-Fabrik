@@ -110,6 +110,7 @@ package methodNames
 	add: #Presenter -> #registerUMLObjectAspect:;
 	add: #SWLinkButton -> #commandDescription:;
 	add: #UMLClass -> #inspectUMLInstance;
+	add: #UMLComposite -> #umlCompiler;
 	add: #UMLDialog -> #defaultVirtualMachine;
 	add: #UMLInstance -> #inspectUMLInstance;
 	add: #UMLInstance -> #isCollectionNode;
@@ -881,6 +882,13 @@ inspectUMLInstance
 
 	^UMLBasicInspectorShell showOn: self! !
 !UMLClass categoriesFor: #inspectUMLInstance!gui!public! !
+
+!UMLComposite methodsFor!
+
+umlCompiler
+
+	^UMLCompiler! !
+!UMLComposite categoriesFor: #umlCompiler!public! !
 
 !UMLDialog methodsFor!
 

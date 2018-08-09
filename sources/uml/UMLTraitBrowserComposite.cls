@@ -16,7 +16,7 @@ aboutThisTool
 addMessageToImplementation
 	| result implementation selectedTrait |
 
-	result := self parser parseMethod: traitComposite getAllText. "we parse the source code into a UMLMessageSequenceNode"
+	result := self umlCompiler parseMethod: traitComposite getAllText. "we parse the source code into a UMLMessageSequenceNode"
 	selectedTrait := self selectedTrait.
 
 	implementation := (UMLTraitMethod newNamed: result selector) parsedCode: result. "we create the implementation for the parsed code"

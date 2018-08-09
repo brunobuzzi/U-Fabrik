@@ -265,7 +265,7 @@ newNamed: aSymbol withCode: stringCode
 	"The receiver create a new instance of itself with metdhod name <aSymbol> and code <stringCode>"
 
 	^(self newNamed: aSymbol)
-		parsedCode: (SmalltalkParser parseMethod: stringCode);
+		parsedCode: (self umlCompiler parseMethod: stringCode);
 		yourself! !
 !UMLParsedImplementation class categoriesFor: #icon!constants!public! !
 !UMLParsedImplementation class categoriesFor: #newNamed:withCode:!public! !

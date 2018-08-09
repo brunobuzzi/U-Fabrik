@@ -13,7 +13,7 @@ UMLDebugerComposite comment: ''!
 addMessageToImplementation
 	| parsedCode implementation |
 
-	parsedCode := SmalltalkParser parseMethod: sourcePresenter getAllText.
+	parsedCode := self umlCompiler parseMethod: sourcePresenter getAllText.
 
 	implementation := UMLParsedImplementation newNamed: parsedCode selector.
 	implementation parsedCode: parsedCode.
@@ -58,7 +58,7 @@ implementationNotFound: anUMLImplementationNotFoundError
 				para: 'UMLClasses view') ifNil: [^self] ifNotNil: [:value | value last].
 	implementation := UMLParsedImplementation 
 				newNamed: anUMLImplementationNotFoundError implementationName.
-	implementation parsedCode: (SmalltalkParser 
+	implementation parsedCode: (self umlCompiler 
 				parseMethod: anUMLImplementationNotFoundError implementationName , String lineDelimiter , String tab 
 						, '^self').
 	implementorClass addImplementation: implementation.

@@ -39,7 +39,7 @@ getAllNamesForCurrentObject
 getAllNamesForEmptyString
 	| parsedCode |
 
-	parsedCode := self parser parseMethod: self getAllText.
+	parsedCode := self umlCompiler parseMethod: self getAllText.
 
 	^(parsedCode allTemporaryVariables, parsedCode argumentNames,(self selectedClass allAttributes collect: [:each | each name]))
 		asSortedCollection
@@ -51,7 +51,7 @@ getArgumentsMatchingCurrentWord
 
 	currentWord := self currentWord.
 	currentWord isEmpty ifTrue: [^SortedCollection new].
-	^((self parser parseMethod: self getAllText) argumentNames select: [:each | (currentWord, '*') match: each]) asSortedCollection.
+	^((self umlCompiler parseMethod: self getAllText) argumentNames select: [:each | (currentWord, '*') match: each]) asSortedCollection.
 
 !
 
@@ -82,7 +82,7 @@ getTemporariesMatchingCurrentWord
 
 	currentWord := self currentWord.
 	currentWord isEmpty ifTrue: [^SortedCollection new].
-	^((self parser parseMethod: self getAllText) allTemporaryVariables select: [:each | (currentWord, '*') match: each]) asSortedCollection.
+	^((self umlCompiler parseMethod: self getAllText) allTemporaryVariables select: [:each | (currentWord, '*') match: each]) asSortedCollection.
 
 !
 
@@ -141,7 +141,7 @@ showAllNamesFor: aString
 "if not then is: 1. incomplete instVar, 2. incomplete temp variable"
 		ifFalse: [ | instVar |
 			instVar := (self selectedClass allAttributesNames select: [:each | (aString, '*') match: each]) ,
-				((SmalltalkParser parseMethod: self getAllText) allDefinedVariables select: [:each | (aString, '*') match: each]).
+				((self umlCompiler parseMethod: self getAllText) allDefinedVariables select: [:each | (aString, '*') match: each]).
 			instVar isEmpty 
 			ifTrue: [(self defaultVirtualMachine hasClassNamed: aString capitalized) 
 				ifTrue: [^self showImplementationsOfClassNamed: aString capitalized] 
@@ -214,7 +214,7 @@ showVariables
 	| selectedClass temporaries parsedCode all |
 
 	selectedClass := self topShell selectedClass.
-	parsedCode := SmalltalkParser parseMethod: self getAllText.
+	parsedCode := self umlCompiler parseMethod: self getAllText.
 	temporaries := parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection.
 
 	all := (selectedClass ifNotNil: [:value | value getAllAttributesNames ] ifNil: ['']) , temporaries.

@@ -20,7 +20,7 @@ addMessageToImplementation
 
 	self hasSelectedImplementation ifFalse: [^self].
 
-	result := self parser parseMethod: self getAllText. "we parse the source code into a UMLMessageSequenceNode"
+	result := self umlCompiler parseMethod: self getAllText. "we parse the source code into a UMLMessageSequenceNode"
 	selectedMethod := self selectedImplementation.
 
 	implementation := (UMLParsedImplementation newNamed: result selector) parsedCode: result. "we create the implementation for the parsed code"

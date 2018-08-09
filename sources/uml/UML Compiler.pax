@@ -10,6 +10,7 @@ package classNames
 	add: #UMLBlockClosureNode;
 	add: #UMLCompilationBranch;
 	add: #UMLCompilationError;
+	add: #UMLCompiler;
 	add: #UMLImplementation;
 	add: #UMLParsedImplementation;
 	add: #UMLSanityCheck;
@@ -105,8 +106,10 @@ package methodNames
 	add: #UMLClass -> #createUMLDBCreationSourceFor:using:;
 	add: #UMLClass -> #createUMLDBSourceForCreateAllInstancesWith:;
 	add: #UMLClass -> #createUMLSourceForCreateAllInstancesWith:;
+	add: #UMLObject -> #umlCompiler;
 	add: #UMLObjectBehavior -> #defaultImplementationClass;
 	add: 'StProgramNode class' -> #icon;
+	add: 'UMLObject class' -> #umlCompiler;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -130,6 +133,11 @@ package!
 
 UMLObject subclass: #UMLBlockClosureNode
 	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLCompiler
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -654,7 +662,7 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: overflow
 	self appendNtoXrelationsOn: initializeStream.
 	self appendClassSelfReferencesOn: initializeStream.
 
-	parsedCode := SmalltalkParser parseMethod: initializeStream contents. "the compiler parse the string"
+	parsedCode := self umlCompiler parseMethod: initializeStream contents. "the compiler parse the string"
 	umlImplementation parsedCode: parsedCode.
 
 	self addImplementation: umlImplementation!
@@ -663,7 +671,7 @@ createClassAccessorsForGlobalObject: anUMLInstance using: varName
 	| parsedMethod newImplementation source |
 
 	source := self createUMLAccessorsSourceFor: anUMLInstance using: varName.
-	parsedMethod := SmalltalkParser parseMethod: source.
+	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	self getMetaclass addImplementation: newImplementation.
 	^newImplementation!
@@ -673,7 +681,7 @@ createClassAccessorsForGlobalObjectsUsing: varName
 
 	self myRootObjects do: [:each | 
 		source := self createUMLAccessorsSourceFor: each using: varName.
-		parsedMethod := SmalltalkParser parseMethod: source.
+		parsedMethod := self umlCompiler parseMethod: source.
 		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 		self getMetaclass addImplementation: newImplementation.
 		newImplementation].!
@@ -682,7 +690,7 @@ createClassCreationMethodForGlobalObject: anUMLInstance using: varName
 	| parsedMethod newImplementation source |
 
 	source := self createUMLCreationSourceFor: anUMLInstance using: varName.
-	parsedMethod := SmalltalkParser parseMethod: source.
+	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	self getMetaclass addImplementation: newImplementation.
 	^newImplementation!
@@ -693,14 +701,14 @@ createClassCreationMethodsForGlobalObjectsUsing: aSymbol
 	methodsName := OrderedCollection new.
 	self myRootObjects do: [:each | 
 		source := self createUMLCreationSourceFor: each using: aSymbol.
-		parsedMethod := SmalltalkParser parseMethod: source.
+		parsedMethod := self umlCompiler parseMethod: source.
 		methodsName add: parsedMethod selector.
 		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 		self getMetaclass addImplementation: newImplementation.
 		newImplementation].
 
 	source := self createUMLSourceForCreateAllInstancesWith: methodsName.
-	parsedMethod := SmalltalkParser parseMethod: source.
+	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	self getMetaclass addImplementation: newImplementation.!
 
@@ -709,7 +717,7 @@ createClassDBAccessorsForGlobalObjectsUsing: varName
 
 	self myRootObjects do: [:each | 
 		source := self createUMLDBAccessorsSourceFor: each using: varName.
-		parsedMethod := SmalltalkParser parseMethod: source.
+		parsedMethod := self umlCompiler parseMethod: source.
 		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 		self getMetaclass addImplementation: newImplementation.
 		newImplementation].!
@@ -720,14 +728,14 @@ createClassDBCreationMethodsForGlobalObjectsUsing: aSymbol
 	methodsName := OrderedCollection new.
 	self myRootObjects do: [:each | 
 		source := self createUMLDBCreationSourceFor: each using: aSymbol.
-		parsedMethod := SmalltalkParser parseMethod: source.
+		parsedMethod := self umlCompiler parseMethod: source.
 		methodsName add: parsedMethod selector.
 		newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 		self getMetaclass addImplementation: newImplementation.
 		newImplementation].
 
 	source := self createUMLDBSourceForCreateAllInstancesWith: methodsName.
-	parsedMethod := SmalltalkParser parseMethod: source.
+	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	self getMetaclass addImplementation: newImplementation.!
 
@@ -816,6 +824,20 @@ createUMLSourceForCreateAllInstancesWith: anOrderedCollection
 !UMLClass categoriesFor: #createUMLDBCreationSourceFor:using:!public! !
 !UMLClass categoriesFor: #createUMLDBSourceForCreateAllInstancesWith:!public! !
 !UMLClass categoriesFor: #createUMLSourceForCreateAllInstancesWith:!public! !
+
+!UMLObject methodsFor!
+
+umlCompiler
+
+	^self class umlCompiler! !
+!UMLObject categoriesFor: #umlCompiler!public! !
+
+!UMLObject class methodsFor!
+
+umlCompiler
+
+	^UMLCompiler! !
+!UMLObject class categoriesFor: #umlCompiler!public! !
 
 !UMLObjectBehavior methodsFor!
 

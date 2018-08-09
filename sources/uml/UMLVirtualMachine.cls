@@ -460,7 +460,7 @@ fileInCategoryMethodsFrom: pathFile
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
 			| umlClass parsedCode parsedImplementation |
-			parsedCode := SmalltalkParser 
+			parsedCode := self umlCompiler 
 						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
 			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
 			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
@@ -499,7 +499,7 @@ fileInMethodsFrom: pathFile
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
 			| umlClass parsedCode parsedImplementation |
-			parsedCode := SmalltalkParser 
+			parsedCode := self umlCompiler 
 						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
 			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
 			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
@@ -530,7 +530,7 @@ fileInUMLModelImplementationsFrom: pathFile
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
 			| parsedCode parsedImplementation |
-			parsedCode := SmalltalkParser 
+			parsedCode := self umlCompiler 
 						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
 			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
 			(self getAnyClassNamed: (each selectSingleNode: 'className') innerXML) 

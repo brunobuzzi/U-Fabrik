@@ -44,7 +44,7 @@ addImplementationClass: anUMLImplementationClass
 
 addMessageToImplementation
 	| result implementation selectedClass |
-	result := self parser parseMethod: self getAllText.	"we parse the source code into aStMethodNode"
+	result := self umlCompiler parseMethod: self getAllText.	"we parse the source code into aStMethodNode"
 	selectedClass := self topShell isClassSideSelected 
 				ifTrue: [self selectedClass]
 				ifFalse: [self selectedClass getMetaclass].

@@ -13,7 +13,7 @@ UMLAbstractButtonStructureComposite comment: ''!
 compileCommandMethod: aString 
 	| parsedMethod newImplementation |
 
-	parsedMethod := SmalltalkParser parseMethod: aString.
+	parsedMethod := self umlCompiler parseMethod: aString.
 	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
 	self model addImplementation: newImplementation.
 	self topShell methodDone: newImplementation.

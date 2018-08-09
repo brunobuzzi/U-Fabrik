@@ -45,7 +45,7 @@ compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribut
 	initializeStream nextPutAll: '	^newObject'.
 	
 	umlImplementation := UMLParsedImplementation newNamed: methodName asSymbol.
-	parsedCode := SmalltalkParser parseMethod: initializeStream contents. "the compiler parse the string"
+	parsedCode := self umlCompiler parseMethod: initializeStream contents. "the compiler parse the string"
 	umlImplementation parsedCode: parsedCode.
 
 	self addImplementation: umlImplementation!
