@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLImplementation subclass: #UMLParsedImplementation
-	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass'
+	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass hasCompilationFailure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -95,6 +95,12 @@ hasArgumentNamed: aString
 
 	^parsedCode hasArgumentNamed: aString !
 
+hasCompilationFailure
+	^hasCompilationFailure!
+
+hasCompilationFailure: anObject
+	hasCompilationFailure := anObject!
+
 hasInstanceVariableSendingAddRemoveIn: anUMLClass 
 	"It is forbidden to send #add: or #remove: to an instance variable, because it can break the UML Model, adding anObject of class A to a collection that holds objects of class B. This should be done by: self add: XXX. Where a Trait is activated an perform the add operation using the UML Model."
 	| messages allInstVar |
@@ -134,6 +140,18 @@ hideShowMessageClass
 
 hideShowMessageClass: anObject
 	hideShowMessageClass := anObject!
+
+icon
+
+	hasCompilationFailure ifFalse: [^self class icon].
+
+	^Error icon!
+
+initialize
+
+	super initialize.
+
+	hasCompilationFailure := false!
 
 isPrimitiveCall
 	"Answer whether or not the receiver is a primitive call (has special handling)"
@@ -228,6 +246,8 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #getNodeAt:!public! !
 !UMLParsedImplementation categoriesFor: #getNodes!public! !
 !UMLParsedImplementation categoriesFor: #hasArgumentNamed:!public! !
+!UMLParsedImplementation categoriesFor: #hasCompilationFailure!accessing!private! !
+!UMLParsedImplementation categoriesFor: #hasCompilationFailure:!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hasInstanceVariableSendingAddRemoveIn:!public! !
 !UMLParsedImplementation categoriesFor: #hasReferencesToClassName:!public! !
 !UMLParsedImplementation categoriesFor: #hasReferenceTo:!public!uml msg tracking! !
@@ -236,6 +256,8 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #hideShowMessage:!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hideShowMessageClass!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hideShowMessageClass:!accessing!private! !
+!UMLParsedImplementation categoriesFor: #icon!public! !
+!UMLParsedImplementation categoriesFor: #initialize!public! !
 !UMLParsedImplementation categoriesFor: #isPrimitiveCall!public! !
 !UMLParsedImplementation categoriesFor: #nodes!public! !
 !UMLParsedImplementation categoriesFor: #parsedCode!accessing!private! !

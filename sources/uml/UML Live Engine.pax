@@ -373,7 +373,7 @@ UMLInstance subclass: #UMLVirtualMachineInstance
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLBehaviorDescriptor subclass: #UMLTraitMethod
-	instanceVariableNames: 'methodName trait parsedCode'
+	instanceVariableNames: 'methodName trait parsedCode hasCompilationFailure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -1038,6 +1038,8 @@ addSourceImplementation: sourceCode withCategories: categoriesNames withComments
 	categoriesNames do: [:catName | 
 		self addCategory: (UMLImplementationCategory newNamed: catName).
 		self add: newImplementation toCategoryNamed: catName].
+
+	newImplementation hasCompilationFailure: (self umlCompiler hasCompilationFailure: newImplementation parsedCode for: self).
 
 	^newImplementation!
 

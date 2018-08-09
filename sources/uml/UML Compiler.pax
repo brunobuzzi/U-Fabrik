@@ -152,7 +152,7 @@ UMLBehaviorDescriptor subclass: #UMLImplementation
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLImplementation subclass: #UMLParsedImplementation
-	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass'
+	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass hasCompilationFailure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

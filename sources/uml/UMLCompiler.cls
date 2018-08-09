@@ -74,6 +74,10 @@ getUnimplementedMethodsIn: aStMethodNode for: anUMLClass
 			ifFalse: [self defaultVirtualMachine hasDefinitionNamed: each selector] ]
 		ifFalse: [self defaultVirtualMachine hasDefinitionNamed: each selector].].!
 
+hasCompilationFailure: aStMethodNode for: anUMLClass
+
+	^((self getUndefinedClassesIn: aStMethodNode for: anUMLClass) , (self getUndefinedVariablesIn: aStMethodNode for: anUMLClass)) notEmpty!
+
 icon
 
 	^Icon fromId: 'Compiler.ico'!
@@ -100,6 +104,7 @@ parseMethod: methodCode
 !UMLCompiler class categoriesFor: #getUndefinedClassesIn:for:!public!uml compilation errors! !
 !UMLCompiler class categoriesFor: #getUndefinedVariablesIn:for:!public!uml compilation errors! !
 !UMLCompiler class categoriesFor: #getUnimplementedMethodsIn:for:!public!uml compilation errors! !
+!UMLCompiler class categoriesFor: #hasCompilationFailure:for:!public!uml compilation errors! !
 !UMLCompiler class categoriesFor: #icon!public! !
 !UMLCompiler class categoriesFor: #parseExpression:!public!uml compile! !
 !UMLCompiler class categoriesFor: #parseMethod:!public!uml compile! !

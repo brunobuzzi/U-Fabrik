@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLBehaviorDescriptor subclass: #UMLTraitMethod
-	instanceVariableNames: 'methodName trait parsedCode'
+	instanceVariableNames: 'methodName trait parsedCode hasCompilationFailure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -65,6 +65,12 @@ hasArgumentNamed: aString
 
 	^parsedCode hasArgumentNamed: aString !
 
+hasCompilationFailure
+	^hasCompilationFailure!
+
+hasCompilationFailure: anObject
+	hasCompilationFailure := anObject!
+
 hasReferencesToClassName: className
 
 	^parsedCode references: className
@@ -81,6 +87,18 @@ hasState
 
 hideShowMessage
 	^nil!
+
+icon
+
+	hasCompilationFailure ifFalse: [^self class icon].
+
+	^Error icon!
+
+initialize
+
+	super initialize.
+
+	hasCompilationFailure := false!
 
 isTrait
 
@@ -154,10 +172,14 @@ umlModelName
 !UMLTraitMethod categoriesFor: #getNodeAt:!public! !
 !UMLTraitMethod categoriesFor: #getNodes!public! !
 !UMLTraitMethod categoriesFor: #hasArgumentNamed:!public! !
+!UMLTraitMethod categoriesFor: #hasCompilationFailure!accessing!private! !
+!UMLTraitMethod categoriesFor: #hasCompilationFailure:!accessing!private! !
 !UMLTraitMethod categoriesFor: #hasReferencesToClassName:!public! !
 !UMLTraitMethod categoriesFor: #hasReferenceTo:!public! !
 !UMLTraitMethod categoriesFor: #hasState!public! !
 !UMLTraitMethod categoriesFor: #hideShowMessage!public! !
+!UMLTraitMethod categoriesFor: #icon!public! !
+!UMLTraitMethod categoriesFor: #initialize!public! !
 !UMLTraitMethod categoriesFor: #isTrait!public! !
 !UMLTraitMethod categoriesFor: #methodClass!public! !
 !UMLTraitMethod categoriesFor: #methodName!accessing!public! !

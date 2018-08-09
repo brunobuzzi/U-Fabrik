@@ -31,6 +31,8 @@ addSourceMethod: sourceCode comments: methodComments
 	newMethod := UMLTraitMethod newWithCode: sourceCode.
 	newMethod comments: methodComments.
 
+	newMethod hasCompilationFailure: (self umlCompiler hasCompilationFailure: newMethod parsedCode for: self).
+
 	^self addMethod: newMethod!
 
 allImplementations
