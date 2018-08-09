@@ -1312,7 +1312,9 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
 
-	^blockResult last!
+	^blockResult isEmpty 
+	ifFalse: [blockResult last] 
+	ifTrue: [self nilObject]!
 
 processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
@@ -1326,7 +1328,9 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
 
-	^blockResult last!
+	^blockResult isEmpty 
+	ifFalse: [blockResult last] 
+	ifTrue: [self nilObject]!
 
 processPrimitiveCall_205: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
@@ -1336,7 +1340,6 @@ processPrimitiveCall_205: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	blockToEvaluate := anArray first.
 
 	[(anUMLInstance vmPerform: #value) smalltalkObject] whileTrue: [blockResult := blockToEvaluate vmPerform: #value].
-
 
 	^blockResult ifNil: [self nilObject] ifNotNil: [:value | value]!
 
@@ -1356,7 +1359,6 @@ processPrimitiveCall_207: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	blockToEvaluate := anArray first.
 
 	[(anUMLInstance vmPerform: #value) smalltalkObject] whileFalse: [blockResult := blockToEvaluate vmPerform: #value].
-
 
 	^blockResult ifNil: [self nilObject] ifNotNil: [:value | value]!
 
