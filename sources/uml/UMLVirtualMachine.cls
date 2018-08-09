@@ -459,17 +459,15 @@ fileInCategoryMethodsFrom: pathFile
 				newNamed: (xmlDocument selectSingleNode: '/categoryFileOut/categoryName') innerXML.
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
-			| umlClass parsedCode parsedImplementation |
-			parsedCode := self umlCompiler 
-						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
-			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
+			| umlClass source parsedImplementation |
+			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
+			parsedImplementation := UMLParsedImplementation newWithCode: source.
 			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
 						ifAbsent: 
 							[xmlDocument free.
 							xmlDocument := nil.
 							^MessageBox notify: 'Can not import methods, an UML Class does not exist'
 								caption: self applicationName].
-			parsedImplementation parsedCode: parsedCode.
 			umlClass addImplementation: parsedImplementation.
 			umlClass add: parsedImplementation toCategory: category].
 	xmlDocument free.
@@ -498,17 +496,15 @@ fileInMethodsFrom: pathFile
 	xmlDocument loadText: xmlSource.
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
-			| umlClass parsedCode parsedImplementation |
-			parsedCode := self umlCompiler 
-						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
-			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
+			| umlClass source parsedImplementation |
+			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
+			parsedImplementation := UMLParsedImplementation newWithCode: source.
 			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
 						ifAbsent: 
 							[xmlDocument free.
 							xmlDocument := nil.
 							^MessageBox notify: 'Can not import methods, an UML Class does not exist'
 								caption: self applicationName].
-			parsedImplementation parsedCode: parsedCode.
 			umlClass addImplementation: parsedImplementation].
 	xmlDocument free.
 	xmlDocument := nil.
@@ -529,10 +525,9 @@ fileInUMLModelImplementationsFrom: pathFile
 		ifNone: [^MessageBox notify: 'UML Model is not installed' caption: self applicationName].
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
-			| parsedCode parsedImplementation |
-			parsedCode := self umlCompiler 
-						parseMethod: (((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3).
-			parsedImplementation := UMLParsedImplementation newNamed: parsedCode selector.
+			| source parsedImplementation |
+			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
+			parsedImplementation := UMLParsedImplementation newWithCode: source.
 			(self getAnyClassNamed: (each selectSingleNode: 'className') innerXML) 
 				ifNil: 
 					[xmlDocument free.
@@ -543,7 +538,6 @@ fileInUMLModelImplementationsFrom: pathFile
 						caption: self applicationName]
 				ifNotNil: 
 					[:umlClass | 
-					parsedImplementation parsedCode: parsedCode.
 					(each selectSingleNode: 'isMeta') innerXML = 'true' 
 						ifTrue: [umlClass metaclass addImplementation: parsedImplementation]
 						ifFalse: [umlClass addImplementation: parsedImplementation].

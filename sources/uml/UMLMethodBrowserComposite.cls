@@ -14,18 +14,15 @@ aboutThisTool
 	^Error notYetImplemented!
 
 addMessageToImplementation
-	| result implementation selectedMethod |
+	| implementation selectedMethod |
 
 	self hasClassBrowserAsParent ifTrue: [^self classBrowser addMessageToImplementation].
 
 	self hasSelectedImplementation ifFalse: [^self].
 
-	result := self umlCompiler parseMethod: self getAllText. "we parse the source code into a UMLMessageSequenceNode"
 	selectedMethod := self selectedImplementation.
 
-	implementation := (UMLParsedImplementation newNamed: result selector) parsedCode: result. "we create the implementation for the parsed code"
-
-"	(result canBeCompiledIn: context) "
+	implementation := UMLParsedImplementation newWithCode: self getAllText. "we create the implementation for the parsed code"
 
 	selectedMethod methodClass addImplementation: implementation.
 

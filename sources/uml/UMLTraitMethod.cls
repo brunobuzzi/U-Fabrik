@@ -106,8 +106,11 @@ nodes
 parsedCode
 	^parsedCode!
 
-parsedCode: anObject
-	parsedCode := anObject!
+parsedCode: aStMethodNode
+
+	parsedCode := aStMethodNode.
+
+	methodName := aStMethodNode selector!
 
 printMessage
 
@@ -162,7 +165,7 @@ umlModelName
 !UMLTraitMethod categoriesFor: #name!public! !
 !UMLTraitMethod categoriesFor: #nodes!public! !
 !UMLTraitMethod categoriesFor: #parsedCode!accessing!private! !
-!UMLTraitMethod categoriesFor: #parsedCode:!accessing!private! !
+!UMLTraitMethod categoriesFor: #parsedCode:!accessing!public!uml compile! !
 !UMLTraitMethod categoriesFor: #printMessage!public! !
 !UMLTraitMethod categoriesFor: #printOn:!public! !
 !UMLTraitMethod categoriesFor: #printParsedCode!public! !
@@ -181,7 +184,15 @@ newNamed: aSymbol
 
 	^super new initialize
 		methodName: aSymbol;
-		yourself.! !
+		yourself.!
+
+newWithCode: stringCode
+	"The receiver create a new instance of itself with code <stringCode>"
+
+	^super new initialize
+		parsedCode: (self umlCompiler parseMethod: stringCode);
+		yourself! !
 !UMLTraitMethod class categoriesFor: #icon!public! !
 !UMLTraitMethod class categoriesFor: #newNamed:!public! !
+!UMLTraitMethod class categoriesFor: #newWithCode:!public! !
 

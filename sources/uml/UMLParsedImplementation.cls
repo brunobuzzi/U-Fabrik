@@ -151,11 +151,11 @@ nodes
 parsedCode
 	^parsedCode!
 
-parsedCode: aStMethodNode "anUMLImplementationSequenceNode"
+parsedCode: aStMethodNode
 
-	"anUMLImplementationSequenceNode implementation: self."
+	parsedCode := aStMethodNode.
 
-	parsedCode := aStMethodNode!
+	methodName := aStMethodNode selector!
 
 printHideShowMessage
 	hideShowMessage ifNil: [^''].
@@ -239,7 +239,7 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #isPrimitiveCall!public! !
 !UMLParsedImplementation categoriesFor: #nodes!public! !
 !UMLParsedImplementation categoriesFor: #parsedCode!accessing!private! !
-!UMLParsedImplementation categoriesFor: #parsedCode:!accessing!private! !
+!UMLParsedImplementation categoriesFor: #parsedCode:!accessing!public!uml compile! !
 !UMLParsedImplementation categoriesFor: #printHideShowMessage!public! !
 !UMLParsedImplementation categoriesFor: #printMessage!public! !
 !UMLParsedImplementation categoriesFor: #printParsedCode!public! !
@@ -261,12 +261,12 @@ icon
 	"
 	^Icon fromFile: 'icons/implementation02.ico'!
 
-newNamed: aSymbol withCode: stringCode
-	"The receiver create a new instance of itself with metdhod name <aSymbol> and code <stringCode>"
+newWithCode: stringCode
+	"The receiver create a new instance of itself with code <stringCode>"
 
-	^(self newNamed: aSymbol)
+	^super new initialize
 		parsedCode: (self umlCompiler parseMethod: stringCode);
 		yourself! !
 !UMLParsedImplementation class categoriesFor: #icon!constants!public! !
-!UMLParsedImplementation class categoriesFor: #newNamed:withCode:!public! !
+!UMLParsedImplementation class categoriesFor: #newWithCode:!public! !
 

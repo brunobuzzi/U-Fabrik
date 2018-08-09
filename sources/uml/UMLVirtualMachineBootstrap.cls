@@ -115,10 +115,9 @@ generateVirtualMachinePackages
 			umlMetaclass virtualMachine: virtualMachine.
 			umlMetaclasses at: umlMetaclass name put: umlMetaclass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
-			implementationNodes do: [:each | | newImplementation parsedMethod source |
+			implementationNodes do: [:each | | newImplementation source |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				parsedMethod := self umlCompiler parseMethod: source.
-				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+				newImplementation := UMLParsedImplementation newWithCode: source.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlMetaclass addImplementation: newImplementation.
 				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
@@ -137,10 +136,9 @@ generateVirtualMachinePackages
 			(umlMetaclasses at: className) instanceClass: umlClass.
 			package addClass: umlClass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
-			implementationNodes do: [:each | | newImplementation parsedMethod source |
+			implementationNodes do: [:each | | newImplementation source |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				parsedMethod := self umlCompiler parseMethod: source.
-				newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+				newImplementation := UMLParsedImplementation newWithCode: source.
 				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				umlClass addImplementation: newImplementation.
 				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
@@ -166,11 +164,10 @@ generateVirtualMachineTraits
 		traitName := (eachTrait selectSingleNode: 'TraitNamed') innerXML.
 		trait := UMLTrait new name: traitName.
 		implementationsNodes := (eachTrait selectNodes: 'Implementation') asArray.
-		implementationsNodes do: [:impNode | | source implementation parsedSource comments |
+		implementationsNodes do: [:impNode | | source implementation comments |
 			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 			comments := ((impNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-			parsedSource := self umlCompiler parseMethod: source.
-			implementation := (UMLTraitMethod newNamed: parsedSource selector) parsedCode: parsedSource.
+			implementation := UMLTraitMethod newWithCode: source.
 			implementation comments: comments.
 			trait addMethod: implementation.
 		].

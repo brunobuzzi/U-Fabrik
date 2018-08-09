@@ -218,15 +218,15 @@ licenciaPorDefecto
 	^LicenciaSoftware current!
 
 loginImplementation
-	|  parsedMethod  |
+	|  source |
 
-	parsedMethod := self umlCompiler parseMethod: 'getLoginMainObjectFor: userName password: password
+	source := 'getLoginMainObjectFor: userName password: password
 "Automatically generated, this method answer the objects to be showed after login"
 "^', self selectedModel loginManager name , ' getGlobalObjectSatisfying: [:each | each name = userName and: [each password = password]]"
 
 	^', self selectedModel loginManager name , '  allGlobalObjects'.
 
-	^(UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod
+	^UMLParsedImplementation newWithCode: source
 	!
 
 menuBar

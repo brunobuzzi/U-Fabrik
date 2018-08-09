@@ -14,14 +14,11 @@ aboutThisTool
 	^Error notYetImplemented!
 
 addMessageToImplementation
-	| result implementation selectedTrait |
+	| implementation selectedTrait |
 
-	result := self umlCompiler parseMethod: traitComposite getAllText. "we parse the source code into a UMLMessageSequenceNode"
 	selectedTrait := self selectedTrait.
 
-	implementation := (UMLTraitMethod newNamed: result selector) parsedCode: result. "we create the implementation for the parsed code"
-
-"	(result canBeCompiledIn: context) "
+	implementation := UMLTraitMethod newWithCode: traitComposite getAllText. "we create the implementation for the parsed code"
 
 	selectedTrait addMethod: implementation.
 

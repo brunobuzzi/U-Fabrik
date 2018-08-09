@@ -11,12 +11,9 @@ UMLDebugerComposite comment: ''!
 !UMLDebugerComposite methodsFor!
 
 addMessageToImplementation
-	| parsedCode implementation |
+	| implementation |
 
-	parsedCode := self umlCompiler parseMethod: sourcePresenter getAllText.
-
-	implementation := UMLParsedImplementation newNamed: parsedCode selector.
-	implementation parsedCode: parsedCode.
+	implementation := UMLParsedImplementation newWithCode: sourcePresenter getAllText.
 
 	self selectedClass addImplementation: implementation.
 
@@ -50,18 +47,18 @@ executionStack
 	^stackPresenter model!
 
 implementationNotFound: anUMLImplementationNotFoundError 
-	| implementorClass implementation |
-	(MessageBox 
-		confirm: anUMLImplementationNotFoundError description , '. Do you want to implement it ?'
-		caption: self applicationName) ifFalse: [^self].
-	implementorClass := (DetalleDeOpciones listaCon: anUMLImplementationNotFoundError getAllClasses
-				para: 'UMLClasses view') ifNil: [^self] ifNotNil: [:value | value last].
-	implementation := UMLParsedImplementation 
-				newNamed: anUMLImplementationNotFoundError implementationName.
-	implementation parsedCode: (self umlCompiler 
-				parseMethod: anUMLImplementationNotFoundError implementationName , String lineDelimiter , String tab 
-						, '^self').
+	| implementorClass implementation source |
+
+	(MessageBox confirm: anUMLImplementationNotFoundError description , '. Do you want to implement it ?' caption: self applicationName) ifFalse: [^self].
+
+	implementorClass := (DetalleDeOpciones listaCon: anUMLImplementationNotFoundError getAllClasses para: 'UMLClasses view') ifNil: [^self] ifNotNil: [:value | value last].
+
+	source := anUMLImplementationNotFoundError implementationName , String lineDelimiter , String tab, '^self'.
+
+	implementation := UMLParsedImplementation newWithCode: source.
+
 	implementorClass addImplementation: implementation.
+
 	self stepInto!
 
 isClassSideSelected

@@ -24,15 +24,6 @@ addCategory
 	self selectedClassDescription addCategory: newCategory.
 	categoriesPresenter model: (ListModel on: self selectedClassDescription getAllCategoriesButGUICategories)!
 
-addImplementation
-	| implementationName |
-
-	implementationName := (Prompter prompt: 'Enter Implementation Name:') ifNil: [^nil] ifNotNil: [:value | value asSymbol].
-
-	self currentCardSelectionPresenter selection addImplementation: (UMLParsedImplementation newNamed: implementationName).
-
-	implementationsPresenter model: (ListModel on: self currentCardSelectionPresenter selection implementations asOrderedCollection)!
-
 addImplementationClass: anUMLImplementationClass
 	| implementationName |
 
@@ -43,19 +34,19 @@ addImplementationClass: anUMLImplementationClass
 	implementationsPresenter model: (ListModel on: (self selectedClass implementations asSortedCollection: [:a :b | a methodName <= b methodName])).!
 
 addMessageToImplementation
-	| result implementation selectedClass |
-	result := self umlCompiler parseMethod: self getAllText.	"we parse the source code into aStMethodNode"
+	| implementation selectedClass |
+
+	implementation := UMLParsedImplementation newWithCode: self getAllText.	"we create the implementation for the parsed code"
 	selectedClass := self topShell isClassSideSelected 
 				ifTrue: [self selectedClass]
 				ifFalse: [self selectedClass getMetaclass].
 	selectedClass 
 		ifNil: 
 			[^MessageBox notify: 'You have to select a class to create a method' caption: self applicationName].
-	(self checkCompilationErrorsFor: result inClass: selectedClass) 
+	(self checkCompilationErrorsFor: implementation parsedCode inClass: selectedClass) 
 		ifFalse: 
 			[(MessageBox confirm: 'Do you want to proceed any way ?' caption: self applicationName) 
 				ifFalse: [^self]].
-	implementation := (UMLParsedImplementation newNamed: result selector) parsedCode: result.	"we create the implementation for the parsed code"
 	"	(result canBeCompiledIn: context) "
 	selectedClass addImplementation: implementation.
 	self topShell onClassListChanged.
@@ -65,7 +56,7 @@ addMessageToImplementation
 				with: implementation
 				with: selectedClass
 				with: self topShell mainComposite).
-	self checkCompilationErrorsFor: result inClass: selectedClass!
+	self checkCompilationErrorsFor: implementation parsedCode inClass: selectedClass!
 
 addParsedImplementation
 
@@ -547,7 +538,6 @@ showMetaclassSide
 	implementationsPresenter model: (ListModel on: selectedClass metaclass implementations asOrderedCollection).! !
 !UMLVirtualMachineBrowser categoriesFor: #aboutThisTool!public! !
 !UMLVirtualMachineBrowser categoriesFor: #addCategory!categories!public! !
-!UMLVirtualMachineBrowser categoriesFor: #addImplementation!public! !
 !UMLVirtualMachineBrowser categoriesFor: #addImplementationClass:!implementations!public! !
 !UMLVirtualMachineBrowser categoriesFor: #addMessageToImplementation!public! !
 !UMLVirtualMachineBrowser categoriesFor: #addParsedImplementation!implementations!public! !

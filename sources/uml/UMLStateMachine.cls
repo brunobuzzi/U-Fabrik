@@ -27,11 +27,10 @@ addTransition: anUMLStateTransition
 	^transitions add: anUMLStateTransition!
 
 addUMLQueryMethodFor: anUMLState
-	| parsedMethod newImplementation source |
+	| newImplementation source |
 
 	source := self getUMLStateSourceFor: anUMLState.
-	parsedMethod := self umlCompiler parseMethod: source.
-	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	newImplementation := UMLParsedImplementation newWithCode: source.
 	umlStateClass getMetaclass addImplementation: newImplementation.
 	^newImplementation
 

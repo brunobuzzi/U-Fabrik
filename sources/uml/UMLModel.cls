@@ -209,7 +209,7 @@ generateMethod_currentState
 
 	^', stateAttribute getName.
 
-		implementation := UMLParsedImplementation newNamed: #currentState withCode: methodCode.
+		implementation := UMLParsedImplementation newWithCode: methodCode.
 		eachClass addImplementation: implementation.
 
 		eachClass addCategory: (UMLImplementationCategory newNamed: 'state machine').
@@ -231,7 +231,7 @@ generateMethod_getAllStates
 		states add: each ', self nextStateMessage,'].
 	^states copyWithoutDuplicates'.
 
-	implementation := UMLParsedImplementation newNamed: #getAllStates withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineClass addImplementation: implementation.
 	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
 
@@ -244,7 +244,7 @@ generateMethod_getFinalTransitions
 
 	^self in: ', self stateMachineTransitionClass name, ' select: [:each | each isFinal]'.
 
-	implementation := UMLParsedImplementation newNamed: #getFinalTransitions withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineClass addImplementation: implementation.
 
 	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
@@ -258,7 +258,7 @@ generateMethod_getInitialState
 
 	^self getStartTransition ', self nextStateMessage.
 
-	implementation := UMLParsedImplementation newNamed: #getInitialState withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineClass addImplementation: implementation.
 
 	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
@@ -272,7 +272,7 @@ generateMethod_getStartTransition
 
 	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each isInitial]'.
 
-	implementation := UMLParsedImplementation newNamed: #getStartTransition withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineClass addImplementation: implementation.
 
 	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
@@ -284,7 +284,7 @@ generateMethod_goToNextState
 		methodCode := 'goToNextState
 	"The receiver go to the next state based on its own rules"'.
 
-		implementation := UMLParsedImplementation newNamed: #goToNextState withCode: methodCode.
+		implementation := UMLParsedImplementation newWithCode: methodCode.
 		eachClass addImplementation: implementation.
 
 		eachClass add: implementation toCategoryNamed: 'state machine'.
@@ -306,7 +306,7 @@ generateMethod_isFinal
 
 	^', startState getName, ' isFinal or: [', endState getName, ' isFinal]'.
 
-	implementation := UMLParsedImplementation newNamed: #isFinal withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineTransitionClass addImplementation: implementation.
 	
 	self stateMachineTransitionClass add: implementation toCategoryNamed: 'state machine'.
@@ -326,7 +326,7 @@ generateMethod_isInitial
 
 	^', startState getName, ' isInitial or: [', endState getName, ' isInitial]'.
 
-	implementation := UMLParsedImplementation newNamed: #isInitial withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineTransitionClass addImplementation: implementation.
 
 	self stateMachineTransitionClass add: implementation toCategoryNamed: 'state machine'.
@@ -344,7 +344,7 @@ generateMethod_possibleNextTransitions
 
 	^', machineStateAttribute getName, ' possibleNextTransitionsFrom: self currentState.'.
 
-		implementation := UMLParsedImplementation newNamed: #possibleNextTransitions withCode: methodCode.
+		implementation := UMLParsedImplementation newWithCode: methodCode.
 		eachClass addImplementation: implementation.
 		eachClass add: implementation toCategoryNamed: 'state machine'.
 	].
@@ -360,7 +360,7 @@ generateMethod_possibleNextTransitionsFrom
 
 	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each start == aState]'.
 
-	implementation := UMLParsedImplementation newNamed: #possibleNextTransitionsFrom: withCode: methodCode.
+	implementation := UMLParsedImplementation newWithCode: methodCode.
 	self stateMachineClass addImplementation: implementation.
 
 	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
@@ -375,7 +375,7 @@ generateMethod_setStateMachineNamed
 
 	', stateMachineAttribute getName, ' := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.'.
 
-		implementation := UMLParsedImplementation newNamed: #setStateMachineNamed: withCode: methodCode.
+		implementation := UMLParsedImplementation newWithCode: methodCode.
 		eachClass addImplementation: implementation.
 
 		eachClass add: implementation toCategoryNamed: 'state machine'.
@@ -393,7 +393,7 @@ generateMethod_startStateMachineNamed
 	stateMachine := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.
 	', stateAttribute getName, ' := stateMachine getInitialState.'.
 
-		implementation := UMLParsedImplementation newNamed: #startStateMachineNamed: withCode: methodCode.
+		implementation := UMLParsedImplementation newWithCode: methodCode.
 		eachClass addImplementation: implementation.
 
 		eachClass add: implementation toCategoryNamed: 'state machine'.

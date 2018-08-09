@@ -11,10 +11,9 @@ UMLAbstractButtonStructureComposite comment: ''!
 !UMLAbstractButtonStructureComposite methodsFor!
 
 compileCommandMethod: aString 
-	| parsedMethod newImplementation |
+	| newImplementation |
 
-	parsedMethod := self umlCompiler parseMethod: aString.
-	newImplementation := (UMLParsedImplementation newNamed: parsedMethod selector) parsedCode: parsedMethod.
+	newImplementation := UMLParsedImplementation newWithCode: aString.
 	self model addImplementation: newImplementation.
 	self topShell methodDone: newImplementation.
 

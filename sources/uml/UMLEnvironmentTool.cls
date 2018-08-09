@@ -62,17 +62,20 @@ selectSanityCard
 	self subclassResponsibility!
 
 setCompilationErrorsWith: anArray
+	"The receiver create the Sanity Check TreeModel to be displayed to the user"
 	| treeModel roots |
 
-	roots := OrderedCollection with: (UMLCompilationBranch name: 'Undefined Variables') with: (UMLCompilationBranch name: 'Unimplemented Messages') with: (UMLCompilationBranch name: 'Loose Messages') with: (UMLCompilationBranch name: 'Undefined Classes').
+	roots := OrderedCollection with: (UMLCompilationBranch name: 'Undefined Variables') "tree roots"
+						with: (UMLCompilationBranch name: 'Unimplemented Messages') 
+						with: (UMLCompilationBranch name: 'Loose Messages') 
+						with: (UMLCompilationBranch name: 'Undefined Classes').
+
 	treeModel := TreeModel withRoots: roots.
 
-	anArray keysAndValuesDo: [:eachIndex :eachCollection | 
-		eachCollection do: [:each | treeModel add: (UMLCompilationError node: each) asChildOf: (roots at: eachIndex)].].
+	anArray keysAndValuesDo: [:eachIndex :nodeCollection | 
+		nodeCollection do: [:each | treeModel add: (UMLCompilationError node: each) asChildOf: (roots at: eachIndex)].].
 
-	self setSanityCheckWith: treeModel.
-
-	"self selectSanityCard."!
+	self setSanityCheckWith: treeModel.!
 
 setSanityCheckWith: treeModel
 

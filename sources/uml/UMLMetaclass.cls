@@ -28,7 +28,7 @@ classNameForImplementationList
 
 compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribute
 	"The receiver create <anUMLPasrsedImplementation> named #newFrom: to related class of <anUMLClass>"
-	| initializeStream objectName varName umlImplementation parsedCode methodName |
+	| initializeStream objectName varName umlImplementation methodName |
 
 	initializeStream := WriteStream on: String new.
 
@@ -44,9 +44,7 @@ compileNewFromMethodFor: anUMLClass triggerAttribute: anUMLRelationClassAttribut
 	
 	initializeStream nextPutAll: '	^newObject'.
 	
-	umlImplementation := UMLParsedImplementation newNamed: methodName asSymbol.
-	parsedCode := self umlCompiler parseMethod: initializeStream contents. "the compiler parse the string"
-	umlImplementation parsedCode: parsedCode.
+	umlImplementation := UMLParsedImplementation newWithCode: initializeStream contents.
 
 	self addImplementation: umlImplementation!
 
