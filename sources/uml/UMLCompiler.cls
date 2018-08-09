@@ -14,6 +14,41 @@ defaultParserClass
 
 	^SmalltalkParser!
 
+formatExpression: aString
+
+	^self parseExpression: (self parseExpression: aString) formattedCode!
+
+getAllDefinedVariablesFrom: stringCode
+
+	^(self parseMethod: stringCode) allDefinedVariables!
+
+getAllDefinedVariablesFrom: stringCode satisfying: aBlock
+
+	^(self getAllDefinedVariablesFrom: stringCode) select: aBlock !
+
+getAllTemporariesIn: stringCode
+
+	^(self parseMethod: stringCode) allTemporaryVariables asSortedCollection!
+
+getAllTemporariesIn: stringCode satisfyng: aBlock
+
+	^(self getAllTemporariesIn: stringCode) select: aBlock!
+
+getArgumentsNamesAndTemporariesFrom: stringCode
+	| parsedCode |
+
+	parsedCode := self parseMethod: stringCode.
+
+	^parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection!
+
+getArgumentsNamesFrom: stringCode
+
+	^(self parseMethod: stringCode) argumentNames asSortedCollection!
+
+getArgumentsNamesFrom: stringCode satisfying: aBlock
+
+	^(self getArgumentsNamesFrom: stringCode) select: aBlock!
+
 getLooseMethodIn: aStMethodNode for: anUMLClass
 
 	^(aStMethodNode allNodes select:[:e | e isMessage and: [e selector ~=  #initialize]])
@@ -53,6 +88,14 @@ parseMethod: methodCode
 
 	^self defaultParserClass parseMethod: methodCode! !
 !UMLCompiler class categoriesFor: #defaultParserClass!public! !
+!UMLCompiler class categoriesFor: #formatExpression:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getAllDefinedVariablesFrom:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getAllDefinedVariablesFrom:satisfying:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getAllTemporariesIn:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getAllTemporariesIn:satisfyng:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getArgumentsNamesAndTemporariesFrom:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getArgumentsNamesFrom:!parser queries!public! !
+!UMLCompiler class categoriesFor: #getArgumentsNamesFrom:satisfying:!parser queries!public! !
 !UMLCompiler class categoriesFor: #getLooseMethodIn:for:!public!uml compilation errors! !
 !UMLCompiler class categoriesFor: #getUndefinedClassesIn:for:!public!uml compilation errors! !
 !UMLCompiler class categoriesFor: #getUndefinedVariablesIn:for:!public!uml compilation errors! !

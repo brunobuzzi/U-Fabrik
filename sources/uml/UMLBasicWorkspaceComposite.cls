@@ -73,11 +73,10 @@ currentWord
 
 debugIt
 	"The receiver open a debugger with the selected text"
-	| formattedCode debuggerSnapshot parsedCode|
+	| formattedCode debuggerSnapshot |
 
 	self getSelectedText isEmpty ifTrue: [^self].
-	parsedCode := self umlCompiler parseExpression: self getSelectedText.
-	formattedCode := self umlCompiler parseExpression: parsedCode formattedCode.
+	formattedCode := self umlCompiler formatExpression: self getSelectedText.
 
 	executionSnapshot sequence: formattedCode.
 
@@ -541,7 +540,7 @@ showImplementationsOfWrittenClass: className
 showVariables
 	| temporaries |
 
-	temporaries := (self umlCompiler parseMethod: self getAllText) allTemporaryVariables asSortedCollection.
+	temporaries := self umlCompiler getAllTemporariesIn: self getAllText.
 
 	^self showAutocompletationList: temporaries, (executionSnapshot sequenceTemporaries keys asSortedCollection) , self defaultVirtualMachine getAllClassesNames!
 

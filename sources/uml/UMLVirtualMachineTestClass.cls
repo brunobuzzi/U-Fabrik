@@ -15,6 +15,11 @@ setUp
 	super setUp.
 
 	virtualMachine := UMLVirtualMachine default.
-! !
+!
+
+umlCompiler
+
+	^UMLCompiler! !
 !UMLVirtualMachineTestClass categoriesFor: #setUp!public! !
+!UMLVirtualMachineTestClass categoriesFor: #umlCompiler!public! !
 

@@ -37,11 +37,8 @@ getAllNamesForCurrentObject
 !
 
 getAllNamesForEmptyString
-	| parsedCode |
 
-	parsedCode := self umlCompiler parseMethod: self getAllText.
-
-	^(parsedCode allTemporaryVariables, parsedCode argumentNames,(self selectedClass allAttributes collect: [:each | each name]))
+	^((self umlCompiler getArgumentsNamesAndTemporariesFrom: self getAllText),(self selectedClass allAttributes collect: [:each | each name]))
 		asSortedCollection
 
 !
@@ -51,7 +48,7 @@ getArgumentsMatchingCurrentWord
 
 	currentWord := self currentWord.
 	currentWord isEmpty ifTrue: [^SortedCollection new].
-	^((self umlCompiler parseMethod: self getAllText) argumentNames select: [:each | (currentWord, '*') match: each]) asSortedCollection.
+	^self umlCompiler getArgumentsNamesFrom: self getAllText satisfying: [:each | (currentWord, '*') match: each].
 
 !
 
@@ -82,7 +79,7 @@ getTemporariesMatchingCurrentWord
 
 	currentWord := self currentWord.
 	currentWord isEmpty ifTrue: [^SortedCollection new].
-	^((self umlCompiler parseMethod: self getAllText) allTemporaryVariables select: [:each | (currentWord, '*') match: each]) asSortedCollection.
+	^self umlCompiler getAllTemporariesIn: self getAllText satisfyng: [:each | (currentWord, '*') match: each].
 
 !
 
@@ -141,7 +138,7 @@ showAllNamesFor: aString
 "if not then is: 1. incomplete instVar, 2. incomplete temp variable"
 		ifFalse: [ | instVar |
 			instVar := (self selectedClass allAttributesNames select: [:each | (aString, '*') match: each]) ,
-				((self umlCompiler parseMethod: self getAllText) allDefinedVariables select: [:each | (aString, '*') match: each]).
+				(self umlCompiler getAllDefinedVariablesFrom: self getAllText satisfying: [:each | (aString, '*') match: each]).
 			instVar isEmpty 
 			ifTrue: [(self defaultVirtualMachine hasClassNamed: aString capitalized) 
 				ifTrue: [^self showImplementationsOfClassNamed: aString capitalized] 
@@ -211,11 +208,11 @@ showImplementationsOfWrittenClass: className
 	^self showImplementationsOfClass: (self defaultVirtualMachine getAnyClassNamed: className) getMetaclass!
 
 showVariables
-	| selectedClass temporaries parsedCode all |
+	| selectedClass temporaries all |
 
 	selectedClass := self topShell selectedClass.
-	parsedCode := self umlCompiler parseMethod: self getAllText.
-	temporaries := parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection.
+
+	temporaries := self umlCompiler getArgumentsNamesAndTemporariesFrom: self getAllText.
 
 	all := (selectedClass ifNotNil: [:value | value getAllAttributesNames ] ifNil: ['']) , temporaries.
 

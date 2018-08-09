@@ -105,11 +105,11 @@ showAutocompletationOn: aString
 	!
 
 showVariables
-	| selectedClass temporaries parsedCode all |
+	| selectedClass temporaries all |
 
 	selectedClass := self topShell selectedClass.
-	parsedCode := self umlCompiler parseMethod: self getAllText.
-	temporaries := parsedCode allTemporaryVariables asSortedCollection, parsedCode argumentNames asSortedCollection.
+
+	temporaries := self umlCompiler getArgumentsNamesAndTemporariesFrom: self getAllText.
 
 	all := selectedClass getAllAttributesNames, temporaries.
 

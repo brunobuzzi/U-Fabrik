@@ -696,14 +696,12 @@ createClassCreationMethodsForGlobalObjectsUsing: aSymbol
 	methodsName := OrderedCollection new.
 	self myRootObjects do: [:each | 
 		source := self createUMLCreationSourceFor: each using: aSymbol.
-		parsedMethod := self umlCompiler parseMethod: source.
-		methodsName add: parsedMethod selector.
 		newImplementation := UMLParsedImplementation newWithCode: source.
+		methodsName add: newImplementation methodName.
 		self getMetaclass addImplementation: newImplementation.
 		newImplementation].
 
 	source := self createUMLSourceForCreateAllInstancesWith: methodsName.
-	parsedMethod := self umlCompiler parseMethod: source.
 	newImplementation := UMLParsedImplementation newWithCode: source.
 	self getMetaclass addImplementation: newImplementation.!
 
