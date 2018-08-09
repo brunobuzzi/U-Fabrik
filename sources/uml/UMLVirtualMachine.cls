@@ -872,9 +872,14 @@ includesTraitNamed: aString
 	^traits includesKey: aString!
 
 includesUMLModel: anUMLModel
-	" Add <anUMLModel> to the receiver "
+	" Answer whether or not exist <anUMLModel>"
 
 	^umlModels includesKey: anUMLModel name!
+
+includesUMLModelNamed: aString
+	" Answer whether or not exist <anUMLModel> named <aString>"
+
+	^umlModels includesKey: aString!
 
 initialize
 
@@ -2132,7 +2137,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 setAssociationVariable: anUMLAssociationClassAttribute with: anUMLInstance to: anUMLObject snapshot: anUMLExecutionSnapshot
 
 	"register the message in the UMLVMTransLog"
-	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name asSymbol arguments: anUMLInstance snapshot: anUMLExecutionSnapshot].
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: (anUMLAssociationClassAttribute name, ':') asSymbol arguments: anUMLInstance snapshot: anUMLExecutionSnapshot].
 
 	((anUMLObject umlClass == anUMLAssociationClassAttribute type) or: [anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass])
 	ifTrue: [((anUMLInstance umlClass == anUMLAssociationClassAttribute seteableClass) or: [(anUMLAssociationClassAttribute seteableClass subclasses includes: anUMLInstance umlClass)]) 
@@ -2180,7 +2185,7 @@ setVariableForSelfReferenceClass: anUMLRelationClassAttribute with: setObject to
 
 
 	"register the message in the UMLVMTransLog"
-	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLRelationClassAttribute name asSymbol arguments: setObject snapshot: anUMLExecutionSnapshot].
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: (anUMLRelationClassAttribute name, ':') asSymbol arguments: setObject snapshot: anUMLExecutionSnapshot].
 
 	setObject belongToVirtualMachine ifTrue: [^self errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject].
 
@@ -2208,7 +2213,7 @@ setVariableNamed: symbolName with: setObject to: anUMLObject errorIfNotExist: aB
 	| var instanceAttributes |
 
 	"register the message in the UMLVMTransLog"
-	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: symbolName arguments: setObject snapshot: anUMLExecutionSnapshot].
+	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: (symbolName, ':') asSymbol arguments: setObject snapshot: anUMLExecutionSnapshot].
 
 	instanceAttributes := anUMLObject umlClass allAttributes select: [:each | (each name asString = symbolName asString) and: [each alias isNil]].
 	var := (instanceAttributes size = 1) 
@@ -2464,6 +2469,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #includesPackageNamed:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #includesTraitNamed:!public! !
 !UMLVirtualMachine categoriesFor: #includesUMLModel:!public! !
+!UMLVirtualMachine categoriesFor: #includesUMLModelNamed:!public! !
 !UMLVirtualMachine categoriesFor: #initialize!public! !
 !UMLVirtualMachine categoriesFor: #installUMLModel:!public!uml models install!xmi-model!xmi-others! !
 !UMLVirtualMachine categoriesFor: #intervalClass!public! !
