@@ -29,16 +29,13 @@ setUp
 
 	executionSnapshot :=  UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
 
-	newImplementation := UMLParsedImplementation newWithCode: 'test'.
-	self externaFileClass addImplementation: newImplementation.
+	self externaFileClass addSourceImplementation: 'test'.
 
-	newImplementation := UMLParsedImplementation newWithCode: 'test
+	self msOfficeClass addSourceImplementation: 'test
 		super test initialize.'.
-	self msOfficeClass addImplementation: newImplementation.
 
-	newImplementation := UMLParsedImplementation newWithCode: 'test
-		super test initialize.'.
-	self msWordClass addImplementation: newImplementation.!
+	self msWordClass addSourceImplementation: 'test
+		super test initialize.'.!
 
 tearDown
 

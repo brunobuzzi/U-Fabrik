@@ -115,15 +115,11 @@ generateVirtualMachinePackages
 			umlMetaclass virtualMachine: virtualMachine.
 			umlMetaclasses at: umlMetaclass name put: umlMetaclass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
-			implementationNodes do: [:each | | newImplementation source |
+			implementationNodes do: [:each | | categories source comments |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				newImplementation := UMLParsedImplementation newWithCode: source.
-				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
-				umlMetaclass addImplementation: newImplementation.
-				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
-					umlMetaclass addCategory: (UMLImplementationCategory newNamed: catNameNode innerXML).
-					umlMetaclass add: newImplementation toCategoryNamed: catNameNode innerXML.
-				].
+				comments := (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
+				categories := (each selectNodes: 'Categories/CategoryName') collect: [:catNameNode | catNameNode innerXML].
+				umlMetaclass addSourceImplementation: source withCategories: categories withComments: comments.
 			].
 		].
 		classesNodes := (eachPackage selectSingleNode: 'Classes') childNodes asArray.
@@ -136,15 +132,11 @@ generateVirtualMachinePackages
 			(umlMetaclasses at: className) instanceClass: umlClass.
 			package addClass: umlClass.
 			implementationNodes := (classNode selectSingleNode: 'Implementations') childNodes asArray.
-			implementationNodes do: [:each | | newImplementation source |
+			implementationNodes do: [:each | | categories source comments |
 				source := ((each selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-				newImplementation := UMLParsedImplementation newWithCode: source.
-				newImplementation comments: (((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
-				umlClass addImplementation: newImplementation.
-				(each selectNodes: 'Categories/CategoryName') do: [:catNameNode | 
-					umlClass addCategory: (UMLImplementationCategory newNamed: catNameNode innerXML).
-					umlClass add: newImplementation toCategoryNamed: catNameNode innerXML.
-				].
+				categories := (each selectNodes: 'Categories/CategoryName') collect: [:catNameNode | catNameNode innerXML].
+				comments := ((each selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
+				umlClass addSourceImplementation: source withCategories: categories withComments: comments.
 			].
 		].
 		packages add: package .
@@ -164,12 +156,10 @@ generateVirtualMachineTraits
 		traitName := (eachTrait selectSingleNode: 'TraitNamed') innerXML.
 		trait := UMLTrait new name: traitName.
 		implementationsNodes := (eachTrait selectNodes: 'Implementation') asArray.
-		implementationsNodes do: [:impNode | | source implementation comments |
+		implementationsNodes do: [:impNode | | source comments |
 			source := ((impNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 			comments := ((impNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
-			implementation := UMLTraitMethod newWithCode: source.
-			implementation comments: comments.
-			trait addMethod: implementation.
+			trait addSourceMethod: source comments: comments.
 		].
 		requirementNodes := (eachTrait selectNodes: 'Requirement') asArray.
 		requirementNodes do: [:reqNode | | req |

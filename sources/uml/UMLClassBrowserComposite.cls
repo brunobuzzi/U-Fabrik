@@ -16,22 +16,21 @@ addCategory
 addMessageToImplementation
 	| implementation selectedClass |
 
-	implementation := UMLParsedImplementation newWithCode: self getAllText.	"we create the implementation for the parsed code"
-
 	selectedClass := self topShell isClassSideSelected 
 				ifTrue: [self selectedClass]
 				ifFalse: [self selectedClass getMetaclass].
-	selectedClass 
-		ifNil: 
-			[^MessageBox notify: 'You have to select a class to create a method' caption: self applicationName].
-	(self checkCompilationErrorsFor: implementation parsedCode inClass: selectedClass) 
-		ifFalse: 
-			[(MessageBox confirm: 'Do you want to proceed any way ?' caption: self applicationName) 
-				ifFalse: [^self]].
 
-	(implementation hasInstanceVariableSendingAddRemoveIn: selectedClass) 
-		ifTrue: [^MessageBox notify: self canNotSendAddRemoveToInstanceVariable caption: self applicationName].
-	selectedClass addImplementation: implementation.
+	implementation := selectedClass addSourceImplementation: self getAllText.
+
+	selectedClass ifNil: [^MessageBox notify: 'You have to select a class to create a method' caption: self applicationName].
+	(self checkCompilationErrorsFor: implementation parsedCode inClass: selectedClass) 
+	ifFalse: [(MessageBox confirm: 'Do you want to proceed any way ?' caption: self applicationName) 
+			ifFalse: [selectedClass removeImplementationNamed: implementation methodName.
+				^self]
+	].
+
+	(implementation hasInstanceVariableSendingAddRemoveIn: selectedClass) ifTrue: [^MessageBox notify: self canNotSendAddRemoveToInstanceVariable caption: self applicationName].
+
 	self topShell onUMLModelClassChanged.
 	self topShell selectImplementation: implementation.
 	self topShell mainComposite trigger: #newMethod:toClass:in:
@@ -388,8 +387,8 @@ onDropUMLImplementationOverClass: aDragDropSession
 
 	class := self isClassSideSelected ifTrue: [aDragDropSession suggestedTarget] ifFalse: [aDragDropSession suggestedTarget getMetaclass].
 	method := aDragDropSession suggestedSource.
-	newMethod := UMLParsedImplementation newWithCode: method printMessage.
-	class addImplementation: newMethod.
+	newMethod := class addSourceImplementation: method printMessage.
+
 	self topShell selectClass: class instanceClass.
 	self topShell selectImplementation: newMethod.
 	self topShell mainComposite trigger: #newMethod:toClass:in: withArguments: (Array with: newMethod with: class with: self topShell mainComposite).!

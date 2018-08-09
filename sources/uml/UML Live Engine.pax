@@ -140,6 +140,9 @@ package methodNames
 	add: #UMLClass -> #uninstall;
 	add: #UMLObject -> #defaultVirtualMachine;
 	add: #UMLObjectBehavior -> #addSourceImplementation:;
+	add: #UMLObjectBehavior -> #addSourceImplementation:comments:;
+	add: #UMLObjectBehavior -> #addSourceImplementation:withCategories:withComments:;
+	add: #UMLObjectBehavior -> #addSourceImplementation:withCategory:;
 	add: #UMLObjectBehavior -> #basicInstancesVariables;
 	add: #UMLObjectBehavior -> #getAllCategories;
 	add: #UMLObjectBehavior -> #getAllCategoriesButGUICategories;
@@ -1011,11 +1014,39 @@ umlUndefinedObject
 
 addSourceImplementation: sourceCode
 	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+
+	^self addSourceImplementation: sourceCode 
+		withCategories: OrderedCollection new 
+		withComments: ''!
+
+addSourceImplementation: sourceCode comments: implementationComments
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+
+	^self addSourceImplementation: sourceCode 
+		withCategories: OrderedCollection new
+		withComments: implementationComments !
+
+addSourceImplementation: sourceCode withCategories: categoriesNames withComments: implementationComments 
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
 	| newImplementation |
 
 	newImplementation := UMLParsedImplementation newWithCode: sourceCode.
+	newImplementation comments: implementationComments.
 
-	^self addImplementation: newImplementation !
+	self addImplementation: newImplementation.
+
+	categoriesNames do: [:catName | 
+		self addCategory: (UMLImplementationCategory newNamed: catName).
+		self add: newImplementation toCategoryNamed: catName].
+
+	^newImplementation!
+
+addSourceImplementation: sourceCode withCategory: categoryName 
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+
+	^self addSourceImplementation: sourceCode 
+		withCategories: (OrderedCollection with: categoryName)
+		withComments: ''!
 
 basicInstancesVariables
 
@@ -1051,6 +1082,9 @@ virtualMachine
 
 	^virtualMachine! !
 !UMLObjectBehavior categoriesFor: #addSourceImplementation:!public! !
+!UMLObjectBehavior categoriesFor: #addSourceImplementation:comments:!public! !
+!UMLObjectBehavior categoriesFor: #addSourceImplementation:withCategories:withComments:!public! !
+!UMLObjectBehavior categoriesFor: #addSourceImplementation:withCategory:!public! !
 !UMLObjectBehavior categoriesFor: #basicInstancesVariables!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #getAllCategories!categories!public! !
 !UMLObjectBehavior categoriesFor: #getAllCategoriesButGUICategories!categories!public! !

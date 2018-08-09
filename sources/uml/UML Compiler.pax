@@ -661,58 +661,48 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: overflow
 	self appendNtoXrelationsOn: initializeStream.
 	self appendClassSelfReferencesOn: initializeStream.
 
-	umlImplementation := UMLParsedImplementation newWithCode: initializeStream contents. "the compiler parse the string"
-
-	self addImplementation: umlImplementation!
+	self addSourceImplementation: initializeStream contents!
 
 createClassAccessorsForGlobalObject: anUMLInstance using: varName
-	| parsedMethod newImplementation source |
+	| source |
 
 	source := self createUMLAccessorsSourceFor: anUMLInstance using: varName.
-	newImplementation := UMLParsedImplementation newWithCode: source.
-	self getMetaclass addImplementation: newImplementation.
-	^newImplementation!
+	^self getMetaclass addSourceImplementation: source!
 
 createClassAccessorsForGlobalObjectsUsing: varName
-	| newImplementation source |
+	| source |
 
 	self myRootObjects do: [:each | 
 		source := self createUMLAccessorsSourceFor: each using: varName.
-		newImplementation := UMLParsedImplementation newWithCode: source.
-		self getMetaclass addImplementation: newImplementation.
-		newImplementation].!
+		^self getMetaclass addSourceImplementation: source].!
 
 createClassCreationMethodForGlobalObject: anUMLInstance using: varName
-	| newImplementation source |
+	| source |
 
 	source := self createUMLCreationSourceFor: anUMLInstance using: varName.
-	newImplementation := UMLParsedImplementation newWithCode: source.
-	self getMetaclass addImplementation: newImplementation.
-	^newImplementation!
+
+	^self getMetaclass addSourceImplementation: source!
 
 createClassCreationMethodsForGlobalObjectsUsing: aSymbol 
-	| parsedMethod newImplementation source methodsName |
+	| newImplementation source methodsName |
 
 	methodsName := OrderedCollection new.
 	self myRootObjects do: [:each | 
 		source := self createUMLCreationSourceFor: each using: aSymbol.
-		newImplementation := UMLParsedImplementation newWithCode: source.
+		newImplementation := self getMetaclass addSourceImplementation: source.
 		methodsName add: newImplementation methodName.
-		self getMetaclass addImplementation: newImplementation.
-		newImplementation].
+	].
 
 	source := self createUMLSourceForCreateAllInstancesWith: methodsName.
-	newImplementation := UMLParsedImplementation newWithCode: source.
-	self getMetaclass addImplementation: newImplementation.!
+	self getMetaclass addSourceImplementation: source.!
 
 createClassDBAccessorsForGlobalObjectsUsing: varName
-	| parsedMethod newImplementation source |
+	| source |
 
 	self myRootObjects do: [:each | 
 		source := self createUMLDBAccessorsSourceFor: each using: varName.
-		newImplementation := UMLParsedImplementation newWithCode: source.
-		self getMetaclass addImplementation: newImplementation.
-		newImplementation].!
+		self getMetaclass addSourceImplementation: source.
+	].!
 
 createClassDBCreationMethodsForGlobalObjectsUsing: aSymbol 
 	| newImplementation source methodsName |
@@ -720,14 +710,12 @@ createClassDBCreationMethodsForGlobalObjectsUsing: aSymbol
 	methodsName := OrderedCollection new.
 	self myRootObjects do: [:each | 
 		source := self createUMLDBCreationSourceFor: each using: aSymbol.
-		newImplementation := UMLParsedImplementation newWithCode: source.
+		newImplementation := self getMetaclass addSourceImplementation: source.
 		methodsName add: newImplementation methodName.
-		self getMetaclass addImplementation: newImplementation.
 		newImplementation].
 
 	source := self createUMLDBSourceForCreateAllInstancesWith: methodsName.
-	newImplementation := UMLParsedImplementation newWithCode: source.
-	self getMetaclass addImplementation: newImplementation.!
+	self getMetaclass addSourceImplementation: source.!
 
 createUMLAccessorsSourceFor: anUMLInstance using: varName
 	| instanceValue |

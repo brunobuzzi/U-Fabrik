@@ -36,19 +36,19 @@ addImplementationClass: anUMLImplementationClass
 addMessageToImplementation
 	| implementation selectedClass |
 
-	implementation := UMLParsedImplementation newWithCode: self getAllText.	"we create the implementation for the parsed code"
 	selectedClass := self topShell isClassSideSelected 
 				ifTrue: [self selectedClass]
 				ifFalse: [self selectedClass getMetaclass].
-	selectedClass 
-		ifNil: 
-			[^MessageBox notify: 'You have to select a class to create a method' caption: self applicationName].
+
+	implementation := selectedClass addSourceImplementation: self getAllText.	"we create the implementation for the parsed code"
+
+	selectedClass ifNil: [^MessageBox notify: 'You have to select a class to create a method' caption: self applicationName].
 	(self checkCompilationErrorsFor: implementation parsedCode inClass: selectedClass) 
-		ifFalse: 
-			[(MessageBox confirm: 'Do you want to proceed any way ?' caption: self applicationName) 
-				ifFalse: [^self]].
-	"	(result canBeCompiledIn: context) "
-	selectedClass addImplementation: implementation.
+	ifFalse: [(MessageBox confirm: 'Do you want to proceed any way ?' caption: self applicationName) 
+		ifFalse: [selectedClass removeImplementationNamed:  implementation methodName.
+			^self]
+	].
+
 	self topShell onClassListChanged.
 	self topShell selectImplementation: implementation.
 	self topShell mainComposite trigger: #newMethod:toClass:in:

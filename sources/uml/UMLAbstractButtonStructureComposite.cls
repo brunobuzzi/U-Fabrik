@@ -11,11 +11,8 @@ UMLAbstractButtonStructureComposite comment: ''!
 !UMLAbstractButtonStructureComposite methodsFor!
 
 compileCommandMethod: aString 
-	| newImplementation |
 
-	newImplementation := UMLParsedImplementation newWithCode: aString.
-	self model addImplementation: newImplementation.
-	self topShell methodDone: newImplementation.
+	self topShell methodDone: (self model addSourceImplementation: aString).
 
 
  !

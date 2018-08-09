@@ -27,13 +27,10 @@ addTransition: anUMLStateTransition
 	^transitions add: anUMLStateTransition!
 
 addUMLQueryMethodFor: anUMLState
-	| newImplementation source |
+	| source |
 
 	source := self getUMLStateSourceFor: anUMLState.
-	newImplementation := UMLParsedImplementation newWithCode: source.
-	umlStateClass getMetaclass addImplementation: newImplementation.
-	^newImplementation
-
+	^umlStateClass getMetaclass addSourceImplementation: source
 	
 	!
 

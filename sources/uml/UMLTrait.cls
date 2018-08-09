@@ -21,9 +21,15 @@ addRequirement: anUMLTraitRequirement
 
 addSourceMethod: sourceCode
 	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+
+	^self addSourceMethod: sourceCode comments: ''!
+
+addSourceMethod: sourceCode comments: methodComments
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
 	| newMethod |
 
 	newMethod := UMLTraitMethod newWithCode: sourceCode.
+	newMethod comments: methodComments.
 
 	^self addMethod: newMethod!
 
@@ -124,6 +130,7 @@ umlModel
 !UMLTrait categoriesFor: #addMethod:!public! !
 !UMLTrait categoriesFor: #addRequirement:!public! !
 !UMLTrait categoriesFor: #addSourceMethod:!public! !
+!UMLTrait categoriesFor: #addSourceMethod:comments:!public! !
 !UMLTrait categoriesFor: #allImplementations!public! !
 !UMLTrait categoriesFor: #allImplementationsAsSortedCollection!public! !
 !UMLTrait categoriesFor: #allImplementationsButObject!public!relations! !

@@ -209,18 +209,14 @@ generateMethod_currentState
 
 	^', stateAttribute getName.
 
-		implementation := UMLParsedImplementation newWithCode: methodCode.
-		eachClass addImplementation: implementation.
-
-		eachClass addCategory: (UMLImplementationCategory newNamed: 'state machine').
-		eachClass add: implementation toCategoryNamed: 'state machine'.
+		eachClass addSourceImplementation: methodCode withCategory: 'state machine'.
 	].
 
 !
 
 generateMethod_getAllStates
 	"The receiver generate the method #getAllState for UML class defined at <stateMachineSpecification>"
-	| methodCode implementation |
+	| methodCode |
 
 	methodCode := 'getAllStates
 	"The receiver answer a collection of all states of the State Machine"
@@ -231,51 +227,40 @@ generateMethod_getAllStates
 		states add: each ', self nextStateMessage,'].
 	^states copyWithoutDuplicates'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineClass addImplementation: implementation.
-	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
+	self stateMachineClass addSourceImplementation: methodCode withCategory: 'state machine'.!
 
 generateMethod_getFinalTransitions
 	"The receiver generate the method #getStartTransition for UML class defined at <stateMachineSpecification>"
-	| methodCode implementation |
+	| methodCode |
 
 	methodCode := 'getFinalTransitions
 	"The receiver answer a collection of final transitions of the State Machine"
 
 	^self in: ', self stateMachineTransitionClass name, ' select: [:each | each isFinal]'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineClass addImplementation: implementation.
-
-	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
+	self stateMachineClass addSourceImplementation: methodCode withCategory: 'state machine'.!
 
 generateMethod_getInitialState
 	"The receiver generate the method #getInitialState for UML class defined at <stateMachineSpecification>"
-	| methodCode implementation |
+	| methodCode |
 
 	methodCode := 'getInitialState
 	"The receiver answer the initial state of the State Machine"
 
 	^self getStartTransition ', self nextStateMessage.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineClass addImplementation: implementation.
-
-	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
+	self stateMachineClass addSourceImplementation: methodCode withCategory: 'state machine'.!
 
 generateMethod_getStartTransition
 	"The receiver generate the method #getStartTransition for UML class defined at <stateMachineSpecification>"
-	| methodCode implementation |
+	| methodCode |
 
 	methodCode := 'getStartTransition
 	"The receiver answer the start transition of the State Machine"
 
 	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each isInitial]'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineClass addImplementation: implementation.
-
-	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
+	self stateMachineClass addSourceImplementation: methodCode withCategory: 'state machine'.!
 
 generateMethod_goToNextState
 	"The receiver generate the method #goToNextState for UML class defined at <stateMachineSpecification>"
@@ -284,17 +269,14 @@ generateMethod_goToNextState
 		methodCode := 'goToNextState
 	"The receiver go to the next state based on its own rules"'.
 
-		implementation := UMLParsedImplementation newWithCode: methodCode.
-		eachClass addImplementation: implementation.
-
-		eachClass add: implementation toCategoryNamed: 'state machine'.
+		eachClass addSourceImplementation: methodCode withCategory: 'state machine'.
 	].
 
 !
 
 generateMethod_isFinal
 	"The receiver generate the method #isFinal for UML class defined at <stateMachineSpecification>"
-	| stateAttributes startState endState methodCode implementation |
+	| stateAttributes startState endState methodCode |
 
 	stateAttributes := ((self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) select: [:each | each umlClass == self stateMachineTransitionClass]) asArray.
 	(stateAttributes size = 2) ifFalse: [^self].
@@ -306,15 +288,13 @@ generateMethod_isFinal
 
 	^', startState getName, ' isFinal or: [', endState getName, ' isFinal]'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineTransitionClass addImplementation: implementation.
-	
-	self stateMachineTransitionClass add: implementation toCategoryNamed: 'state machine'.
+	self stateMachineTransitionClass addSourceImplementation: methodCode withCategory: 'state machine'.
+
 !
 
 generateMethod_isInitial
 	"The receiver generate the method #isInitial for UML class defined at <stateMachineSpecification>"
-	| stateAttributes startState endState methodCode implementation |
+	| stateAttributes startState endState methodCode |
 
 	stateAttributes := ((self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) select: [:each | each umlClass == self stateMachineTransitionClass]) asArray.
 	(stateAttributes size = 2) ifFalse: [^self].
@@ -326,10 +306,7 @@ generateMethod_isInitial
 
 	^', startState getName, ' isInitial or: [', endState getName, ' isInitial]'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineTransitionClass addImplementation: implementation.
-
-	self stateMachineTransitionClass add: implementation toCategoryNamed: 'state machine'.
+	self stateMachineTransitionClass addSourceImplementation: methodCode withCategory: 'state machine'.
 	
 
 !
@@ -337,54 +314,47 @@ generateMethod_isInitial
 generateMethod_possibleNextTransitions
 	"The receiver generate the method #possibleNextTransitions for UML class defined at <stateMachineSpecification>"
 
-	self getClassesWithMachineStates do: [:eachClass | | machineStateAttribute methodCode implementation |
+	self getClassesWithMachineStates do: [:eachClass | | machineStateAttribute methodCode |
 		machineStateAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineClass name) detect: [:each | each umlClass == eachClass] ifNone: [^self].
 			methodCode := 'possibleNextTransitions
 	"The receiver answer the next possible transitions based on the current state" 
 
 	^', machineStateAttribute getName, ' possibleNextTransitionsFrom: self currentState.'.
 
-		implementation := UMLParsedImplementation newWithCode: methodCode.
-		eachClass addImplementation: implementation.
-		eachClass add: implementation toCategoryNamed: 'state machine'.
+		eachClass addSourceImplementation: methodCode withCategory: 'state machine'.
+
 	].
 
 !
 
 generateMethod_possibleNextTransitionsFrom
 	"The receiver generate the method #possibleNextTransitionsFrom: for UML class defined at <stateMachineSpecification>"
-	| methodCode implementation |
+	| methodCode |
 
 	methodCode := 'possibleNextTransitionsFrom: aState
 	"The receiver answer a collection of possibles next transitions from <aState>"
 
 	^self in: ', self stateMachineTransitionClass name, ' detect: [:each | each start == aState]'.
 
-	implementation := UMLParsedImplementation newWithCode: methodCode.
-	self stateMachineClass addImplementation: implementation.
-
-	self stateMachineClass add: implementation toCategoryNamed: 'state machine'.!
+	self stateMachineClass addSourceImplementation: methodCode withCategory: 'state machine'.!
 
 generateMethod_setStateMachineNamed
 	"The receiver generate the method #setStateMachineNamed: for UML class defined at <stateMachineSpecification>"
 
-	self getClassesWithMachineStates do: [:eachClass | | methodCode stateMachineAttribute implementation |
+	self getClassesWithMachineStates do: [:eachClass | | methodCode stateMachineAttribute |
 		stateMachineAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineClass name) detect: [:each | each umlClass == eachClass] ifNone: [^nil].
 		methodCode := 'setStateMachineNamed: aString
 	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
 
 	', stateMachineAttribute getName, ' := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.'.
 
-		implementation := UMLParsedImplementation newWithCode: methodCode.
-		eachClass addImplementation: implementation.
-
-		eachClass add: implementation toCategoryNamed: 'state machine'.
+		eachClass addSourceImplementation: methodCode withCategory: 'state machine'.
 	].!
 
 generateMethod_startStateMachineNamed
 	"The receiver generate the method #startStateMachineNamed: for UML class defined at <stateMachineSpecification>"
 
-	self getClassesWithMachineStates do: [:eachClass | | methodCode stateAttribute implementation |
+	self getClassesWithMachineStates do: [:eachClass | | methodCode stateAttribute |
 		stateAttribute := (self getInstanceVariablesOfTypeNamed: self stateMachineStateClass name) detect: [:each | each umlClass == eachClass] ifNone: [^nil].
 		methodCode := 'startStateMachineNamed: aString
 	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
@@ -393,10 +363,7 @@ generateMethod_startStateMachineNamed
 	stateMachine := (', self stateMachineClass name , ' getGlobalObjectSatisfying: [:each | each ', self machineVarName, ' = aString]) last.
 	', stateAttribute getName, ' := stateMachine getInitialState.'.
 
-		implementation := UMLParsedImplementation newWithCode: methodCode.
-		eachClass addImplementation: implementation.
-
-		eachClass add: implementation toCategoryNamed: 'state machine'.
+		eachClass addSourceImplementation: methodCode withCategory: 'state machine'.
 	].!
 
 generateStateMachineMethods

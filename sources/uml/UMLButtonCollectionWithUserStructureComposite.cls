@@ -11,11 +11,8 @@ UMLButtonCollectionWithUserStructureComposite comment: ''!
 !UMLButtonCollectionWithUserStructureComposite methodsFor!
 
 compileCommandMethod: aString 
-	| newImplementation |
 
-	newImplementation := UMLParsedImplementation newWithCode: aString.
-	self model subject addImplementation: newImplementation.
-	self topShell methodDone: newImplementation.!
+	self topShell methodDone: (self model subject addSourceImplementation: aString).!
 
 createMethod
 	| sourceCode |

@@ -14,15 +14,11 @@ aboutThisTool
 	^Error notYetImplemented!
 
 addMessageToImplementation
-	| implementation selectedTrait |
+	| selectedTrait |
 
 	selectedTrait := self selectedTrait.
 
-	implementation := UMLTraitMethod newWithCode: traitComposite getAllText. "we create the implementation for the parsed code"
-
-	selectedTrait addMethod: implementation.
-
-	traitComposite addMethod: implementation.
+	traitComposite addMethod: (selectedTrait addSourceMethod: traitComposite getAllText).
 
 	self onTraitChanged.!
 

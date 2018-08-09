@@ -448,28 +448,23 @@ fetchTraitIn: anUMLClass implementing: symbolMessage ifNone: aBlock
 
 fileInCategoryMethodsFrom: pathFile 
 	"The receiver create a file with path file <pathFile> and store all elements of <aListModel> in an XML file"
+	| fileStream xmlDocument xmlSource categoryName |
 
-	| fileStream xmlDocument xmlSource category |
 	fileStream := FileStream read: pathFile text: true.
 	xmlSource := fileStream contents.
 	fileStream close.
 	xmlDocument := IXMLDOMDocument new.
 	xmlDocument loadText: xmlSource.
-	category := UMLImplementationCategory 
-				newNamed: (xmlDocument selectSingleNode: '/categoryFileOut/categoryName') innerXML.
-	(xmlDocument selectNodes: '//implementation') do: 
-			[:each | 
-			| umlClass source parsedImplementation |
-			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
-			parsedImplementation := UMLParsedImplementation newWithCode: source.
-			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
-						ifAbsent: 
-							[xmlDocument free.
-							xmlDocument := nil.
-							^MessageBox notify: 'Can not import methods, an UML Class does not exist'
-								caption: self applicationName].
-			umlClass addImplementation: parsedImplementation.
-			umlClass add: parsedImplementation toCategory: category].
+	categoryName := (xmlDocument selectSingleNode: '/categoryFileOut/categoryName') innerXML.
+	(xmlDocument selectNodes: '//implementation') do: [:each |  | umlClass source |
+		source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
+		umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
+					ifAbsent: 
+						[xmlDocument free.
+						xmlDocument := nil.
+						^MessageBox notify: 'Can not import methods, an UML Class does not exist' caption: self applicationName].
+		umlClass addSourceImplementation: source withCategories: (OrderedCollection with: categoryName) withComments: ''.
+	].
 	xmlDocument free.
 	xmlDocument := nil.
 	fileStream := nil.
@@ -496,16 +491,15 @@ fileInMethodsFrom: pathFile
 	xmlDocument loadText: xmlSource.
 	(xmlDocument selectNodes: '//implementation') do: 
 			[:each | 
-			| umlClass source parsedImplementation |
+			| umlClass source |
 			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
-			parsedImplementation := UMLParsedImplementation newWithCode: source.
 			umlClass := self getAnyClassNamed: (each selectSingleNode: 'className') innerXML
 						ifAbsent: 
 							[xmlDocument free.
 							xmlDocument := nil.
 							^MessageBox notify: 'Can not import methods, an UML Class does not exist'
 								caption: self applicationName].
-			umlClass addImplementation: parsedImplementation].
+			umlClass addSourceImplementation: source].
 	xmlDocument free.
 	xmlDocument := nil.
 	fileStream := nil.
@@ -513,8 +507,8 @@ fileInMethodsFrom: pathFile
 
 fileInUMLModelImplementationsFrom: pathFile 
 	"The receiver create a file with path file <pathFile> and store all elements of <aListModel> in an XML file"
-
 	| fileStream xmlDocument xmlSource |
+
 	fileStream := FileStream read: pathFile text: true.
 	xmlSource := fileStream contents.
 	fileStream close.
@@ -523,11 +517,8 @@ fileInUMLModelImplementationsFrom: pathFile
 	self defaultVirtualMachine 
 		getUMLModelNamed: (xmlDocument selectSingleNode: '/modelImplementationsFileOut/modelName') innerXML
 		ifNone: [^MessageBox notify: 'UML Model is not installed' caption: self applicationName].
-	(xmlDocument selectNodes: '//implementation') do: 
-			[:each | 
-			| source parsedImplementation |
+	(xmlDocument selectNodes: '//implementation') do: [:each | | source parsedImplementation categories |
 			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
-			parsedImplementation := UMLParsedImplementation newWithCode: source.
 			(self getAnyClassNamed: (each selectSingleNode: 'className') innerXML) 
 				ifNil: 
 					[xmlDocument free.
@@ -538,14 +529,13 @@ fileInUMLModelImplementationsFrom: pathFile
 						caption: self applicationName]
 				ifNotNil: 
 					[:umlClass | 
+					categories := (each selectNodes: 'categories/categoryName') collect: [:each | each innerXML].
 					(each selectSingleNode: 'isMeta') innerXML = 'true' 
-						ifTrue: [umlClass metaclass addImplementation: parsedImplementation]
-						ifFalse: [umlClass addImplementation: parsedImplementation].
-					(each selectNodes: 'categories/categoryName') do: 
-							[:eachCategoryName | 
-							| category |
-							category := UMLImplementationCategory getOrNewNamed: eachCategoryName innerXML.
-							umlClass add: parsedImplementation toCategory: category]]].
+						ifTrue: [umlClass metaclass addSourceImplementation: source withCategories: categories withComments: '']
+						ifFalse: [umlClass addSourceImplementation: source withCategories: categories withComments: ''].
+
+				]
+			].
 	xmlDocument free.
 	xmlDocument := nil.
 	fileStream := nil.

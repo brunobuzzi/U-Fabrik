@@ -11,11 +11,8 @@ UMLDebugerComposite comment: ''!
 !UMLDebugerComposite methodsFor!
 
 addMessageToImplementation
-	| implementation |
 
-	implementation := UMLParsedImplementation newWithCode: sourcePresenter getAllText.
-
-	self selectedClass addImplementation: implementation.
+	self selectedClass addSourceImplementation: sourcePresenter getAllText.
 
 	self resumeProcess.
 
@@ -47,7 +44,7 @@ executionStack
 	^stackPresenter model!
 
 implementationNotFound: anUMLImplementationNotFoundError 
-	| implementorClass implementation source |
+	| implementorClass source |
 
 	(MessageBox confirm: anUMLImplementationNotFoundError description , '. Do you want to implement it ?' caption: self applicationName) ifFalse: [^self].
 
@@ -55,9 +52,7 @@ implementationNotFound: anUMLImplementationNotFoundError
 
 	source := anUMLImplementationNotFoundError implementationName , String lineDelimiter , String tab, '^self'.
 
-	implementation := UMLParsedImplementation newWithCode: source.
-
-	implementorClass addImplementation: implementation.
+	implementorClass addSourceImplementation: source.
 
 	self stepInto!
 

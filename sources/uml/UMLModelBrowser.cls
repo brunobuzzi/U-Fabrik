@@ -74,6 +74,18 @@ createComponents
 	modelsPresenter := self add: ListPresenter new name: 'modelsPresenter'.
 	classBrowser := self add: UMLClassBrowserComposite new name: 'classBrowser'.!
 
+createLoginImplementation
+	|  source |
+
+	source := 'getLoginMainObjectFor: userName password: password
+"Automatically generated, this method answer the objects to be showed after login"
+"^', self selectedModel loginManager name , ' getGlobalObjectSatisfying: [:each | each name = userName and: [each password = password]]"
+
+	^', self selectedModel loginManager name , '  allGlobalObjects'.
+
+	^self selectedModel loginManager addSourceImplementation: source
+	!
+
 createSchematicWiring
 
 	super createSchematicWiring.
@@ -92,8 +104,7 @@ defineLoginManagerClass
 	MessageBox notify: 'The new Login Manager class is <' , loginManagerClass last name , '>'
 		caption: self applicationName.
 	self selectClass: self selectedModel loginManager ifAbsent: [].
-	implementation := self loginImplementation.
-	self selectedModel loginManager getMetaclass addImplementation: implementation.
+	implementation := self createLoginImplementation.
 	self selectImplementation: implementation.
 	UMLDevelopmentEnvironment default 
 		onNewMethod: implementation
@@ -216,18 +227,6 @@ isClassSideSelected
 licenciaPorDefecto
 
 	^LicenciaSoftware current!
-
-loginImplementation
-	|  source |
-
-	source := 'getLoginMainObjectFor: userName password: password
-"Automatically generated, this method answer the objects to be showed after login"
-"^', self selectedModel loginManager name , ' getGlobalObjectSatisfying: [:each | each name = userName and: [each password = password]]"
-
-	^', self selectedModel loginManager name , '  allGlobalObjects'.
-
-	^UMLParsedImplementation newWithCode: source
-	!
 
 menuBar
 	| menu |
@@ -498,6 +497,7 @@ setShowHideMessage
 !UMLModelBrowser categoriesFor: #checkSelectedMethod!public! !
 !UMLModelBrowser categoriesFor: #chooseUMLTool!public!xmi-file! !
 !UMLModelBrowser categoriesFor: #createComponents!public! !
+!UMLModelBrowser categoriesFor: #createLoginImplementation!public! !
 !UMLModelBrowser categoriesFor: #createSchematicWiring!public! !
 !UMLModelBrowser categoriesFor: #defineLoginManagerClass!public! !
 !UMLModelBrowser categoriesFor: #deployDatabase!public! !
@@ -518,7 +518,6 @@ setShowHideMessage
 !UMLModelBrowser categoriesFor: #importXMIFile!public!xmi-file! !
 !UMLModelBrowser categoriesFor: #isClassSideSelected!public! !
 !UMLModelBrowser categoriesFor: #licenciaPorDefecto!public!xmi-file! !
-!UMLModelBrowser categoriesFor: #loginImplementation!public! !
 !UMLModelBrowser categoriesFor: #menuBar!public! !
 !UMLModelBrowser categoriesFor: #model:!public! !
 !UMLModelBrowser categoriesFor: #onCategoriaAdded!public! !

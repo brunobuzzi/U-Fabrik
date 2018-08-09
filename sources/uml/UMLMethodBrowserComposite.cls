@@ -22,9 +22,7 @@ addMessageToImplementation
 
 	selectedMethod := self selectedImplementation.
 
-	implementation := UMLParsedImplementation newWithCode: self getAllText. "we create the implementation for the parsed code"
-
-	selectedMethod methodClass addImplementation: implementation.
+	implementation := selectedMethod methodClass addSourceImplementation: self getAllText.
 
 	implementationsPresenter model remove: selectedMethod.
 	implementationsPresenter model add: implementation.
