@@ -230,6 +230,24 @@ anyStringMapUMLOriginalType: aString
 	^self mappingDictionary keys detect: [:each |
 		((aString asUppercase indexOfSubCollection: each asUppercase) ~= 0) or:[(each asUppercase indexOfSubCollection: aString asUppercase) ~= 0]] ifNone: ['UndefinedObject']!
 
+defaultTypeMapping
+
+	^LookupTable new
+		at: 'char' put: 'String';
+		at: 'string' put: 'String';
+		at: 'boolean' put: 'Boolean';
+		at: 'true' put: 'Boolean';
+		at: 'false' put: 'Boolean';
+		at: 'int' put: 'Number';
+		at: 'float' put: 'Number';
+		at: 'decimal' put: 'Number';
+		at: 'integer' put: 'Number';
+		at: 'num' put: 'Number';
+		at: 'date' put: 'Date';
+		at: 'time' put: 'Time';
+		at: 'timestamp' put: 'TimeStamp';
+		yourself.!
+
 icon
 
 	^Icon fromId: 'String.ico'!
@@ -263,22 +281,13 @@ removeType: typeName
 	^self mappingDictionary removeKey: typeName !
 
 typeMapping
+	| mapping |
 
-	^LookupTable new
-		at: 'char' put: 'String';
-		at: 'string' put: 'String';
-		at: 'boolean' put: 'Boolean';
-		at: 'true' put: 'Boolean';
-		at: 'false' put: 'Boolean';
-		at: 'int' put: 'Number';
-		at: 'float' put: 'Number';
-		at: 'decimal' put: 'Number';
-		at: 'integer' put: 'Number';
-		at: 'num' put: 'Number';
-		at: 'date' put: 'Date';
-		at: 'time' put: 'Time';
-		at: 'timestamp' put: 'TimeStamp';
-		yourself.!
+	mapping := self defaultTypeMapping.
+
+	self visualParadigmTypeMapping: mapping.
+		
+	^mapping!
 
 typeMappingAsOrderedCollection
 	| mappings |
@@ -287,15 +296,33 @@ typeMappingAsOrderedCollection
 	self mappingDictionary keysAndValuesDo: [:eachKey :eachValue | 
 		mappings add: (OrderedCollection with: eachKey with: eachValue).].
 
-	^mappings! !
+	^mappings!
+
+visualParadigmTypeMapping: aLookupTable
+
+	^aLookupTable
+		at: 'char_id' put: 'String';
+		at: 'string_id' put: 'String';
+		at: 'boolean_id' put: 'Boolean';
+		at: 'int_id' put: 'Number';
+		at: 'float_id' put: 'Number';
+		at: 'decimal_id' put: 'Number';
+		at: 'integer_id' put: 'Number';
+		at: 'num_id' put: 'Number';
+		at: 'date_id' put: 'Date';
+		at: 'time_id' put: 'Time';
+		at: 'timestamp_id' put: 'TimeStamp';		
+		yourself.! !
 !UMLClassAttribute class categoriesFor: #addType:class:!public!type mapping! !
 !UMLClassAttribute class categoriesFor: #anyStringMapUMLOriginalType:!public!type mapping! !
+!UMLClassAttribute class categoriesFor: #defaultTypeMapping!public!type mapping initialization! !
 !UMLClassAttribute class categoriesFor: #icon!public! !
 !UMLClassAttribute class categoriesFor: #identityStringMapUMLOriginalType:!public!type mapping! !
-!UMLClassAttribute class categoriesFor: #initializeTypeMapping!public!type mapping! !
+!UMLClassAttribute class categoriesFor: #initializeTypeMapping!public!type mapping initialization! !
 !UMLClassAttribute class categoriesFor: #mappingDictionary!public!type mapping! !
 !UMLClassAttribute class categoriesFor: #mapUMLOriginalType:!public!type mapping! !
 !UMLClassAttribute class categoriesFor: #removeType:!public!type mapping! !
-!UMLClassAttribute class categoriesFor: #typeMapping!public!type mapping! !
+!UMLClassAttribute class categoriesFor: #typeMapping!public!type mapping initialization! !
 !UMLClassAttribute class categoriesFor: #typeMappingAsOrderedCollection!public!type mapping! !
+!UMLClassAttribute class categoriesFor: #visualParadigmTypeMapping:!public!type mapping initialization! !
 
