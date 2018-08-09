@@ -1018,7 +1018,7 @@ processPrimitiveCall: primitiveNumber receiver: anUMLInstance withArguments: anA
 
 	^[self perform: primitiveSelector withArguments: (Array with: anUMLInstance with: anArray with: anUMLExecutionSnapshot)] 
 		on: Error, StackOverflow
-		do: [:ex | (MessageBox confirm: ('[', ex description, '].', String lineDelimiter,'Primitive call has failed do you want to open a Smalltalk debugger ?')) 
+		do: [:ex | (MessageBox confirm: ('[', ex description, '].', String lineDelimiter,'Call to Primitive <', primitiveNumber printString,'>has failed do you want to open a Smalltalk debugger ?')) 
 				ifTrue: [ex signal] 
 				ifFalse: [self nilObject] ]
 "<primitiveNumber> CLASSIFICATION
