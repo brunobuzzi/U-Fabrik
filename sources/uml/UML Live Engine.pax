@@ -971,10 +971,10 @@ uninstall
 	implementations do: [:each | each uninstall].
 	metaclass uninstall.
 
-	instancesVariables := Set new.
-	implementations := Set new.
+	instancesVariables := LookupTable new.
+	implementations := LookupTable new.
 	virtualMachine := nil.
-	categoriesCatalogue := #().
+	categoriesCatalogue := LookupTable new.
 	subclasses := Set new.
 	umlSuperclass := nil.
 	traits := Set new.
