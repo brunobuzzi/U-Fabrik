@@ -328,7 +328,7 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 
 executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
-	This method is invocaked from UMLWorkspace or UMLScritps"
+	This method is invocated from UMLWorkspace or UMLScritps"
 	| allResults |
 
 	allResults := OrderedCollection new.
