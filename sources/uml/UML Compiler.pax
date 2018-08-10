@@ -577,12 +577,12 @@ appendDateAttributesOn: aWriteStream
 appendNtoXrelationsOn: aWriteStream
 	"The receiver append instances variables of N to X (1 or N) relations (collections) to method code <aWriteStream>"
 
-	 (self attributes select: [:each | each hasMultipleInstances]) asOrderedCollection do: [:each | 
-		aWriteStream nextPutAll: each getName,' := OrderedCollection new.', String lineDelimiter.  "instances variables assigment for collections"
+	 (self attributes select: [:each | each hasMultipleInstances not and:[each relationIsOneToManyOrManyToOne]]) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := ', each getType name ,' new.', String lineDelimiter.
 	].
 
-	 (self attributes select: [:each | each hasMultipleInstances not and:[each relationIsOneToManyOrManyToOne]]) asOrderedCollection do: [:each | 
-		aWriteStream nextPutAll: each getName,' := ', each getType name ,' new.', String lineDelimiter.  "instances variables assigment for collections"
+	 (self attributes select: [:each | each hasMultipleInstances]) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := OrderedCollection new.', String lineDelimiter.  "instances variables assigment for collections"
 	].!
 
 appendNumberAttributesOn: aWriteStream
@@ -661,9 +661,9 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: overflow
 	self appendTimeStampAttributesOn: initializeStream.
 	self appendDateAttributesOn: initializeStream.
 	self appendTimeAttributesOn: initializeStream.
+	self appendClassSelfReferencesOn: initializeStream.
 	self appendOneToOneRelationsOn: initializeStream overflowCollection: overflowCollection.
 	self appendNtoXrelationsOn: initializeStream.
-	self appendClassSelfReferencesOn: initializeStream.
 
 	self addSourceImplementation: initializeStream contents!
 
