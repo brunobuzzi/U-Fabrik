@@ -303,10 +303,8 @@ onKeyPressed: aKeyEvent
 	((aKeyEvent wParam = 83 "S") and: [Keyboard default isControlDown "ctrl"]) 
 	ifTrue: [self classBrowserParent addMessageToImplementation.
 			^self methodBrowserParent onImplementationAdded].
-	((aKeyEvent wParam = 67 "C") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^workspacePresenter view copySelection].
-	((aKeyEvent wParam = 88 "X") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^workspacePresenter view cutSelection].
-
-	self workspaceView isAutoCompletionActive ifTrue: [^self].
+	((aKeyEvent wParam = 67 "C") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^self workspaceView copySelection].
+	((aKeyEvent wParam = 88 "X") and: [Keyboard default isControlDown "ctrl"]) ifTrue: [^self workspaceView cutSelection].
 
 	((aKeyEvent wParam = 190 "point") or: [(aKeyEvent wParam = 13 "enter") or: [(aKeyEvent wParam = 9 "tab") or: [lastCharacter = ';' ":"] ] ]) 
 	ifTrue: [lastAutocompletation := UMLAutocompletation new].
@@ -317,13 +315,20 @@ onKeyPressed: aKeyEvent
 
 	lastCharacter := Keyboard keyNameFromLParam: aKeyEvent lParam.
 	(#('SHIFT' 'RIGHT SHIFT' 'LEFT SHIFT' 'SPACE' 'TAB' 'RIGHT ALT' 'RIGHT' 'LEFT' 'DOWN' 'UP') includes: lastCharacter)
-	ifFalse: [lastCharacterCollection add: lastCharacter.].
+	ifFalse: [lastCharacterCollection add: lastCharacter.
+		self workspaceView selection notEmpty  "there is a selected text and the user has typed over it --> selected text is deleted"
+		ifTrue: [self workspaceView setTargetRangeFromSelection.
+			self workspaceView replaceTarget: ''].
+	].
 
 	lastWord := ''.
 	lastCharacterCollection do: [:each | lastWord := lastWord , (each ifNil: [''] ifNotNil: [:value | value]) ].
 
 	((aKeyEvent wParam = 32 "space") or: [aKeyEvent wParam = 9"tab"]) ifTrue: [lastCharacterCollection  := OrderedCollection  new].
 "	(lastAutocompletation originalName notEmpty and: [lastCharacterCollection notEmpty]) ifTrue: []."
+
+	self workspaceView isAutoCompletionActive ifTrue: [^self].
+
 	lastAutocompletation originalName notEmpty ifTrue: [^self showAutocompletationOn: lastAutocompletation originalName].
 	lastCharacterCollection notEmpty ifTrue: [^self showAutocompletationOn: lastWord].
 
