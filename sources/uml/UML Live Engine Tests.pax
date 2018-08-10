@@ -40,6 +40,7 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
 	add: 'UML Live Engine';
+	add: 'XMI Import-Export Interfase II';
 	yourself).
 
 package!
@@ -112,7 +113,7 @@ UMLVirtualMachineTestClass subclass: #UMLVirtualMachineBootstrapTest
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLVirtualMachineTest
-	instanceVariableNames: 'executionSnapshot'
+	instanceVariableNames: 'executionSnapshot uninstall umlModel'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
