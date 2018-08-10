@@ -101,6 +101,8 @@ processAssignment: aStAssignmentNode messageReceiver: anUMLInstance arguments: a
 				ifFalse: [self processSimpleAssingment: aStAssignmentNode messageReceiver: anUMLInstance arguments: anArray"we process the simple message send" ] 
 				ifTrue: [self processCascadeAssignmentNode: aStAssignmentNode context: anUMLInstance parameteres: anArray]]. 
 
+	hasInfiniteLoop ifTrue: [^sequenceReceiver]. "the right side of the assignment provoked an infinite loop --> we avoid the further execution see issue #97"
+
 	(sequenceReceiver hasVariableNamed: aStAssignmentNode variableName)  
 	ifTrue: [^sequenceReceiver atVariableName: aStAssignmentNode variableName put: lastResult snapshot: self] "we store the result of the message send in <sequenceReceiver>"
 	ifFalse: [self assignObject: lastResult toTemporary: aStAssignmentNode variableName.]. "we store the result in the temporaries of the receiver "

@@ -116,8 +116,8 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 
 	collectionResult := OrderedCollection new.
 	anUMLImplementation nodes do: [:each |
-		anUMLExecutionSnapshot isCurtailed"if a program node has a _^_ then the message stack is not executed any more"
-		ifFalse: [(each isMessage and: [each selector = #halt"debug"]) 
+		(anUMLExecutionSnapshot isCurtailed not and: [anUMLExecutionSnapshot hasInfiniteLoop not])"if a program node has a _^_ then the message stack is not executed any more"
+		ifTrue: [(each isMessage and: [each selector = #halt"debug"]) 
 					ifFalse: [ | nodeExecutionResult |
 						" process the message node in a regular way"
 						nodeExecutionResult := [each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments] on: UMLLiveEngineError do: [:ex | ^anUMLObject].
@@ -245,7 +245,8 @@ detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 	anUMLExecutionSnapshot hasInfiniteLoop: hasLoop.
 
 	"curtail the execution. If not ---> remaining <StProgramNode>s of current <UMLImplementation> will be processed by the VM (and we want to quit now)"
-	hasLoop ifTrue: [anUMLExecutionSnapshot isCurtailed: true].  
+	hasLoop ifTrue: [anUMLExecutionSnapshot  isCurtailed: true.
+		anUMLExecutionSnapshot allSnapshots do: [:each | each hasInfiniteLoop: true]].  
 
 	^hasLoop!
 

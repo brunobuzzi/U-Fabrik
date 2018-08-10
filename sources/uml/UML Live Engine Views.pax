@@ -1048,7 +1048,6 @@ errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapsh
 			^exception
 		].
 	].
-
 	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean)!
 
 processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
