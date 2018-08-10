@@ -232,9 +232,6 @@ detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 	| allExecutedImplementations hasLoop repeatedExecutions |
 
 	allExecutedImplementations := OrderedCollection new.
-	"we care only about #initialize methods of UML Model classes"
-"	anUMLExecutionSnapshot allSnapshots do: [:each | 
-		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object']] ) ]."
 
 	anUMLExecutionSnapshot allSnapshots do: [:each | allExecutedImplementations addAll: each executedImplementations].
 
