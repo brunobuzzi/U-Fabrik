@@ -127,16 +127,24 @@ testIssue66
 	!
 
 testIssue69
-	| source implementation umlObject result |
+	| source implementation umlObject snapshot |
 
-	source := 'testIssue69 
-	self testIssue69'.
-self halt.
+	source := 'testIssue69
+	| a b |
+	a := 1.
+	self testIssue69.
+	b := 2.'.
+
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass newInstance.
-	result := virtualMachine apply: implementation to: umlObject with: #().
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine . 
+	virtualMachine apply: implementation to: umlObject with: #()  snapshot: snapshot.
 
-	self assert: (result umlClass == self externaFileClass). "answer the receiver instead of the last result --> OK"
+	UMLDebuggerShell allInstances do: [:each | each view destroy].
+
+	self assert: snapshot hasInfiniteLoop.
+	self assert: ((snapshot getTemporaryNamed: 'a') smalltalkObject = 1).
+	self assert: ((snapshot getTemporaryNamed: 'b') smalltalkObject = nil).
 
 	self externaFileClass removeImplementationNamed: implementation methodName.! !
 !UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !

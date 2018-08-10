@@ -40,6 +40,7 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Basic Support';
 	add: 'UML Compiler';
 	add: 'UML Live Engine';
+	add: 'UML Live Engine Views';
 	add: 'XMI Import-Export Interfase II';
 	yourself).
 
