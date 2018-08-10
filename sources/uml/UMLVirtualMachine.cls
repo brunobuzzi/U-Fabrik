@@ -1886,6 +1886,20 @@ processPrimitiveCall_724: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	^self trueObject!
 
+processPrimitiveCall_728: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
+	"The receiver answer the value of <infiniteLoopThreshold> " 
+
+	^infiniteLoopThreshold asUMLObject: self!
+
+processPrimitiveCall_729: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
+	"The receiver set the value of <infiniteLoopThreshold> with the argument value in <anArray>"
+	
+	anArray isEmpty ifTrue: [^self nilObject].
+
+	self infiniteLoopThreshold: anArray first smalltalkObject.
+
+	^infiniteLoopThreshold asUMLObject: self!
+
 processPrimitiveCall_800: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	"Answer if the <anUMLInstance> can understand a message " 
 	| methodName |
@@ -2585,6 +2599,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_722:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_723:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_724:withArguments:snapshot:!primitive processing!public! !
+!UMLVirtualMachine categoriesFor: #processPrimitiveCall_728:withArguments:snapshot:!primitive processing!public! !
+!UMLVirtualMachine categoriesFor: #processPrimitiveCall_729:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_800:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_801:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_802:withArguments:snapshot:!primitive processing!public! !
