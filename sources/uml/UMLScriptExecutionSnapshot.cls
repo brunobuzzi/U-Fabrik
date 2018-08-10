@@ -47,6 +47,14 @@ getUndefinedTemporaries
 
 	^sequence nodes select: [:each | each isAssignment] thenCollect: [:each | each variableName]!
 
+getVariableNamed: aSymbol
+
+	aSymbol ifNil: [^self nilObject].
+
+	^temporaries at: aSymbol ifAbsent: [
+		sequenceTemporaries at: aSymbol ifAbsent: [
+					self defaultVirtualMachine getAnyClassNamed: aSymbol ifAbsent: [self nilObject]] ]!
+
 includesSelfObject
 
 	^temporaries includesKey: 'self'!
@@ -132,6 +140,7 @@ sequenceArguments
 !UMLScriptExecutionSnapshot categoriesFor: #asDebuggerSnapshot!debug process!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #getUndefinedTemporaries!public! !
+!UMLScriptExecutionSnapshot categoriesFor: #getVariableNamed:!processesing!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #includesSelfObject!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #initialize!public! !
 !UMLScriptExecutionSnapshot categoriesFor: #isScript!public! !
