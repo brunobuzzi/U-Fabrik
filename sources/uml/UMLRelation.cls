@@ -361,12 +361,10 @@ umlRelationWithNavigability
 	(targetMultiplicity isNavigable and: [sourceMultiplicity isNavigable]) ifTrue: [^UMLUndefinedMultiplicity].
 
 	^sourceMultiplicity isNavigable 
-"source can see target"
-	ifTrue: [UMLAssociationMultiplicity allConcreteClasses detect: [:each | each targetSideClasses includes: targetMultiplicity class] ifNone: [UMLUndefinedMultiplicity]
-		] 
-"target can see source"
-	ifFalse: [UMLAssociationMultiplicity allConcreteClasses detect: [:each | each sourceSideClasses includes: sourceMultiplicity class] ifNone: [UMLUndefinedMultiplicity]              
-		].
+	"source can not reach target - target can reach source"
+	ifTrue: [UMLAssociationMultiplicity allConcreteClasses detect: [:each | each sourceSideClasses includes: sourceMultiplicity class] ifNone: [UMLUndefinedMultiplicity]] 
+	"target can not reach source - source can reach target "
+	ifFalse: [UMLAssociationMultiplicity allConcreteClasses detect: [:each | each  targetSideClasses includes: targetMultiplicity class] ifNone: [UMLUndefinedMultiplicity]].
 
 !
 
