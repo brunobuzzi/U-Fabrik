@@ -120,7 +120,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 		ifTrue: [(each isMessage and: [each selector = #halt"debug"]) 
 					ifFalse: [ | nodeExecutionResult |
 						" process the message node in a regular way"
-						nodeExecutionResult := [each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments] on: UMLLiveEngineError do: [:ex | ^anUMLObject].
+						nodeExecutionResult := [each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments] on: UMLLiveEngineError do: [:ex | ex].
 						collectionResult add: nodeExecutionResult. 
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
@@ -132,7 +132,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 	"see issue #51"
 	"#isCurtailed indicate a (^) return node --> answer the last result"
 	"primitive call answer the result of the primitive call --> answer the last result"
-	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall])  
+	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall or:[anUMLExecutionSnapshot hasInfiniteLoop]])  
 		ifTrue: [collectionResult last] 
 		ifFalse: [anUMLObject] "no return (^) node present and not a primitive call --> answer the receiver"!
 
