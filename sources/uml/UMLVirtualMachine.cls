@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLVirtualMachine
-	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable'
+	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable infiniteLoopThreshold'
 	classVariableNames: 'Default'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -96,13 +96,16 @@ apply: anUMLImplementation to: anUMLObject with: arguments
 
 apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: anUMLExecutionSnapshot
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
-	| snapShot | 
+	| snapshot | 
 
 	(anUMLExecutionSnapshot notNil and:[anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject].
 
-	snapShot := UMLImplementationExecutionSnapshot activateSnapshotWith: anUMLImplementation receiver: anUMLObject arguments: arguments virtualMachine: self. "the vm creates the Execution Snapshot for the Implementation and involved objects"
-	snapShot parentSnapshot: anUMLExecutionSnapshot.
-	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapShot!
+	"the vm creates the Execution Snapshot for the Implementation and involved objects"
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: anUMLImplementation receiver: anUMLObject arguments: arguments virtualMachine: self. 
+
+	snapshot parentSnapshot: anUMLExecutionSnapshot.
+
+	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapshot!
 
 apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot 
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
@@ -226,14 +229,18 @@ depurateObjectClass
 
 detectInitializeInfiniteLoopIn: anUMLExecutionSnapshot
 	"The receiver answer whether or not there is an infinite loop calling method #initialize"
-	| allExecutedImplementations hasLoop |
+	| allExecutedImplementations hasLoop repeatedExecutions |
 
 	allExecutedImplementations := OrderedCollection new.
-	anUMLExecutionSnapshot allSnapshots do: [:each | "we care only about #initialize methods of UML Model classes"
-		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object']] ) ].
+	"we care only about #initialize methods of UML Model classes"
+"	anUMLExecutionSnapshot allSnapshots do: [:each | 
+		allExecutedImplementations addAll: (each executedImplementations select: [:eachImp | (eachImp methodName = #initialize) and: [eachImp className ~= 'Object']] ) ]."
+
+	anUMLExecutionSnapshot allSnapshots do: [:each | allExecutedImplementations addAll: each executedImplementations].
 
 	"aSet does not allow duplicated objects --> if size is different then two #initialize"
-	hasLoop := (allExecutedImplementations size > 1) and: [allExecutedImplementations asSet size ~= allExecutedImplementations size].
+	repeatedExecutions := allExecutedImplementations size - allExecutedImplementations asSet size.
+	hasLoop := (allExecutedImplementations size > 1) and: [(repeatedExecutions ~= 0) and: [repeatedExecutions > infiniteLoopThreshold]].
 
 	anUMLExecutionSnapshot hasInfiniteLoop: hasLoop.
 
@@ -881,10 +888,17 @@ includesUMLModelNamed: aString
 
 	^umlModels includesKey: aString!
 
+infiniteLoopThreshold
+	^infiniteLoopThreshold!
+
+infiniteLoopThreshold: anObject
+	infiniteLoopThreshold := anObject!
+
 initialize
 
 	super initialize.
 
+	infiniteLoopThreshold := 100.
 	systemDictionary := LookupTable new.
 	primitiveObjects := LookupTable new.
 	umlModels := LookupTable new.
@@ -2106,9 +2120,9 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 
 send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExecutionSnapshot isSuperSend: superBoolean isTrait: traitBoolean
 	" The Virtual Machine performs the implementation <implementation> <anUMLImplementation> named <symbolMessage> of the receiver <anUMLObject> with arguments array <parameters>.In order to do this:
-			1. The Virtual Machine obtain the class of <anUMLObject>.
-			2. The Virtual Machine dynamically lookup the UMLClass using <symbolMessage> to obtain the UMLImplementation.
-			3. The Virtual Machine performs the <implementation> against <anUMLObject> with arguments <parameters>."
+	1. The Virtual Machine obtain the class of <anUMLObject>.
+	2. The Virtual Machine dynamically lookup the UMLClass using <symbolMessage> to obtain the UMLImplementation.
+	3. The Virtual Machine performs the <implementation> against <anUMLObject> with arguments <parameters>."
 	| implementation targetObject |
 
 	(anUMLExecutionSnapshot notNil and: [anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject]. "abort further execution in an infinite loop case"
@@ -2472,6 +2486,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #includesTraitNamed:!public! !
 !UMLVirtualMachine categoriesFor: #includesUMLModel:!public! !
 !UMLVirtualMachine categoriesFor: #includesUMLModelNamed:!public! !
+!UMLVirtualMachine categoriesFor: #infiniteLoopThreshold!accessing!private! !
+!UMLVirtualMachine categoriesFor: #infiniteLoopThreshold:!accessing!private! !
 !UMLVirtualMachine categoriesFor: #initialize!public! !
 !UMLVirtualMachine categoriesFor: #installUMLModel:!public!uml models install!xmi-model!xmi-others! !
 !UMLVirtualMachine categoriesFor: #intervalClass!public! !
