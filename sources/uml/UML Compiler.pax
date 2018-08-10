@@ -579,6 +579,10 @@ appendNtoXrelationsOn: aWriteStream
 
 	 (self attributes select: [:each | each hasMultipleInstances]) asOrderedCollection do: [:each | 
 		aWriteStream nextPutAll: each getName,' := OrderedCollection new.', String lineDelimiter.  "instances variables assigment for collections"
+	].
+
+	 (self attributes select: [:each | each hasMultipleInstances not and:[each relationIsOneToManyOrManyToOne]]) asOrderedCollection do: [:each | 
+		aWriteStream nextPutAll: each getName,' := ', each getType name ,' new.', String lineDelimiter.  "instances variables assigment for collections"
 	].!
 
 appendNumberAttributesOn: aWriteStream
@@ -598,7 +602,7 @@ appendOneToOneRelationsOn: aWriteStream overflowCollection: overflowCollection
 
 	selectedAttributes := (self attributes reject: [:each | (overflowCollection includes: each type) "infinite loop detected" or: 
 										[(basicValues includes: each type name) or: 
-										[each hasMultipleInstances or: 
+										[each relationIsOneToOne not or: 
 										[each isSelfReferenceAttribute]]]]) asOrderedCollection.
 
 	(selectedAttributes reject: [:each | each type == virtualMachine nilObjectClass]) do: [:classAttribute | | newMethodName |
@@ -646,7 +650,7 @@ autoGenerateInitializeMethodIn: anUMLVirtualMachine
 
 autoGenerateInitializeMethodIn: anUMLVirtualMachine overflowCollection: overflowCollection
 	"The receiver create a String that represent each assgiment of it's instances variables, then the Compiler compile the contents of <WriteStream><initializeStream> to obtaind the parsed method "
-	| umlImplementation initializeStream |
+	| initializeStream |
 
 	initializeStream := WriteStream on: String new.
 

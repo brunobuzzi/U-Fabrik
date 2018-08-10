@@ -143,6 +143,18 @@ printURAName
 	umlClass ifNil: [^''].
 	^umlClass name, '.', name, ' {', type name, '}'!
 
+relationIsManyToMany
+
+	^false!
+
+relationIsOneToManyOrManyToOne
+
+	^false!
+
+relationIsOneToOne
+
+	^false!
+
 setTypeAsUMLType
 
 	^type := self class mapUMLOriginalType: originalType
@@ -208,6 +220,9 @@ virtualMachine
 !UMLClassAttribute categoriesFor: #printOn:!public! !
 !UMLClassAttribute categoriesFor: #printTypeName!public! !
 !UMLClassAttribute categoriesFor: #printURAName!public! !
+!UMLClassAttribute categoriesFor: #relationIsManyToMany!public! !
+!UMLClassAttribute categoriesFor: #relationIsOneToManyOrManyToOne!public! !
+!UMLClassAttribute categoriesFor: #relationIsOneToOne!public! !
 !UMLClassAttribute categoriesFor: #setTypeAsUMLType!importing XML!public! !
 !UMLClassAttribute categoriesFor: #type!accessing!private! !
 !UMLClassAttribute categoriesFor: #type:!accessing!private! !

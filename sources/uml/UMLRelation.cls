@@ -387,13 +387,13 @@ uninstall
 !UMLRelation categoriesFor: #alias:!accessing!private! !
 !UMLRelation categoriesFor: #classToCreateInstanceLinkedTo:!object links!public! !
 !UMLRelation categoriesFor: #getCounterpartMultiplicityFor:!object links!public!xmi-relations! !
-!UMLRelation categoriesFor: #getMultiplicityFor:!object links!public!xmi-relations! !
-!UMLRelation categoriesFor: #getPrimaryMultiplicityAssociation!object links!public! !
-!UMLRelation categoriesFor: #getSelfMultiplicityFor:!object links!public! !
+!UMLRelation categoriesFor: #getMultiplicityFor:!multiplicity!object links!public!xmi-relations! !
+!UMLRelation categoriesFor: #getPrimaryMultiplicityAssociation!multiplicity!object links!public! !
+!UMLRelation categoriesFor: #getSelfMultiplicityFor:!multiplicity!object links!public! !
 !UMLRelation categoriesFor: #hasAlias!public! !
 !UMLRelation categoriesFor: #hasDoubleRelation!accessing!private! !
 !UMLRelation categoriesFor: #hasDoubleRelation:!accessing!private! !
-!UMLRelation categoriesFor: #hasMultipleInstances:!public! !
+!UMLRelation categoriesFor: #hasMultipleInstances:!multiplicity!public! !
 !UMLRelation categoriesFor: #hasSameRelatedClassesAs:!public! !
 !UMLRelation categoriesFor: #hasUMLClass:!public! !
 !UMLRelation categoriesFor: #icon!public! !
@@ -401,11 +401,11 @@ uninstall
 !UMLRelation categoriesFor: #instancesDescriptorOf:!public! !
 !UMLRelation categoriesFor: #isAssociationClass!public! !
 !UMLRelation categoriesFor: #isGxLevelGenerator!public! !
-!UMLRelation categoriesFor: #isManyToMany!public! !
+!UMLRelation categoriesFor: #isManyToMany!multiplicity!public! !
 !UMLRelation categoriesFor: #isNavigable:!public! !
 !UMLRelation categoriesFor: #isNavigableFrom:!public! !
-!UMLRelation categoriesFor: #isOneToManyOrManyToOne!public! !
-!UMLRelation categoriesFor: #isOneToOne!public! !
+!UMLRelation categoriesFor: #isOneToManyOrManyToOne!multiplicity!public! !
+!UMLRelation categoriesFor: #isOneToOne!multiplicity!public! !
 !UMLRelation categoriesFor: #isSelfReferenceClass!public! !
 !UMLRelation categoriesFor: #isSourceNavigable!navigability!public! !
 !UMLRelation categoriesFor: #isTargetNavigable!navigability!public! !
@@ -433,7 +433,7 @@ uninstall
 !UMLRelation categoriesFor: #relationMultiplicity!accessing!private! !
 !UMLRelation categoriesFor: #relationMultiplicity:!accessing!private! !
 !UMLRelation categoriesFor: #setClassesWith:!public! !
-!UMLRelation categoriesFor: #setRelationMultiplicity!public!xmi-relations! !
+!UMLRelation categoriesFor: #setRelationMultiplicity!multiplicity!public!xmi-relations! !
 !UMLRelation categoriesFor: #setUMLClassToNil!public! !
 !UMLRelation categoriesFor: #shortName!public! !
 !UMLRelation categoriesFor: #sourceClass!accessing!private! !
@@ -443,7 +443,7 @@ uninstall
 !UMLRelation categoriesFor: #sourceMultiplicity:!accessing!private! !
 !UMLRelation categoriesFor: #sourceNavigable!accessing!private! !
 !UMLRelation categoriesFor: #sourceNavigable:!accessing!private! !
-!UMLRelation categoriesFor: #switchMultiplicity!public! !
+!UMLRelation categoriesFor: #switchMultiplicity!multiplicity!public! !
 !UMLRelation categoriesFor: #switchNavigability!public! !
 !UMLRelation categoriesFor: #targetClass!accessing!private! !
 !UMLRelation categoriesFor: #targetClass:!accessing!private! !
@@ -452,7 +452,7 @@ uninstall
 !UMLRelation categoriesFor: #targetMultiplicity:!accessing!private! !
 !UMLRelation categoriesFor: #targetNavigable!accessing!private! !
 !UMLRelation categoriesFor: #targetNavigable:!accessing!private! !
-!UMLRelation categoriesFor: #umlRelationMultiplicityClass!public! !
+!UMLRelation categoriesFor: #umlRelationMultiplicityClass!multiplicity!public! !
 !UMLRelation categoriesFor: #umlRelationWithNavigability!public! !
 !UMLRelation categoriesFor: #uninstall!public! !
 

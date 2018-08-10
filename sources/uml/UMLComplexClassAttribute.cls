@@ -73,6 +73,18 @@ relation
 relation: anObject
 	relation := anObject!
 
+relationIsManyToMany
+
+	^relation isManyToMany!
+
+relationIsOneToManyOrManyToOne
+
+	^relation isOneToManyOrManyToOne!
+
+relationIsOneToOne
+
+	^relation isOneToOne!
+
 uninstall
 
 	super uninstall.
@@ -92,6 +104,9 @@ uninstall
 !UMLComplexClassAttribute categoriesFor: #relatedClassTo:!public! !
 !UMLComplexClassAttribute categoriesFor: #relation!accessing!private! !
 !UMLComplexClassAttribute categoriesFor: #relation:!accessing!private! !
+!UMLComplexClassAttribute categoriesFor: #relationIsManyToMany!multiplicity!public! !
+!UMLComplexClassAttribute categoriesFor: #relationIsOneToManyOrManyToOne!multiplicity!public! !
+!UMLComplexClassAttribute categoriesFor: #relationIsOneToOne!multiplicity!public! !
 !UMLComplexClassAttribute categoriesFor: #uninstall!public! !
 
 !UMLComplexClassAttribute class methodsFor!

@@ -13603,6 +13603,7 @@
 					</qualifier>
 					<qualityScore value="-1"/>
 				</xmi:Extension>
+				<lowerValue value="1" xmi:id="G2sNAKaGAqA6AQgT_multiplicity_lowerValue" xmi:type="uml:LiteralString"/>
 			</ownedEnd>
 			<xmi:Extension extender="Visual Paradigm">
 				<qualityScore value="-1"/>
@@ -13928,7 +13929,7 @@
 				<ashowAllocatedTo value="true"/>
 				<apmAuthor value="Usuario"/>
 				<apmCreateDateTime value="1533233499340"/>
-				<apmLastModified value="1533762930971"/>
+				<apmLastModified value="1533919072835"/>
 				<ateamworkCreateDateTime value="0"/>
 				<ashowShapeLegend value="false"/>
 				<ashowColorLegend value="false"/>
@@ -15935,11 +15936,12 @@
 			</uml:DiagramElement>
 			<uml:DiagramElement fromDiagramElement="2HVr3yaGAqA6ARN1" geometry="397,182;167,113;" preferredShapeType="Association" subject="G2sNAKaGAqA6AQgQ" toDiagramElement="r2ANAKaGAqA6AQft" xmi:id="9usNAKaGAqA6AQgV">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="226,132,104,15"/>
+					<captionBounds value="235,116,104,15"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
+					<roleB multiplicity="166,96,27,15"/>
 					<properties>
 						<azOrder value="58"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -15971,8 +15973,9 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
+						<amultiplicityBRectangle value="Re:166.0,96.0,27.0,15.0"/>
 						<ahasMultiplicityAShape value="false"/>
-						<ahasMultiplicityBShape value="false"/>
+						<ahasMultiplicityBShape value="true"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
 						<ashowUniqueMultiplicityConstraint value="true"/>
 						<a0SwDr value="false"/>
