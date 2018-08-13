@@ -29,6 +29,7 @@ package classNames
 	add: #UMLDebugSpecialIteration;
 	add: #UMLEditWebObject;
 	add: #UMLExecutionSnapshot;
+	add: #UMLExecutionStack;
 	add: #UMLGUIButtomArgCategory;
 	add: #UMLGUIButtomCategory;
 	add: #UMLGUIButtomCollectionCategory;
@@ -184,6 +185,7 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
+	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
 	add: '..\aida\AIDAWeb';
 	add: '..\others\BBInteraccionOffice';
 	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO';
@@ -273,7 +275,12 @@ UMLObject subclass: #UMLEditWebObject
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLExecutionSnapshot
-	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception'
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception parentStack'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLExecutionStack
+	instanceVariableNames: 'virtualMachine creatorSnapshot currentSnapshots executedSnapshots dnuSnapshot infiniteLoopSnapshot onErrorDoSnapshot'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLExecutionSnapshot
-	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception'
+	instanceVariableNames: 'virtualMachine temporaries sequence sequenceTemporaries parentSnapshot nodesNotExecuted isDebugging isCurtailed hasDNU lastResult hasOnErrorDo currentUser executedNodes cascadeTemporaries executedImplementations hasInfiniteLoop exception parentStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -307,6 +307,12 @@ parentSnapshot
 parentSnapshot: anObject 
 	parentSnapshot := anObject!
 
+parentStack
+	^parentStack!
+
+parentStack: anObject
+	parentStack := anObject!
+
 parsedCode
 	^sequence parsedCode!
 
@@ -587,6 +593,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #nodesNotExecuted:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parentSnapshot!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parentSnapshot:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #parentStack!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #parentStack:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parsedCode!public! !
 !UMLExecutionSnapshot categoriesFor: #printMessage!public! !
 !UMLExecutionSnapshot categoriesFor: #printParsedCode!public! !
