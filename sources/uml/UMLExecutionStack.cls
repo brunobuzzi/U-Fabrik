@@ -66,12 +66,21 @@ onErrorDoSnapshot
 onErrorDoSnapshot: anObject
 	onErrorDoSnapshot := anObject!
 
-registerStackItem: anUMLExecutionSnapshot
+registerCurrentStackItem: anUMLExecutionSnapshot
 	"The receiver register <anUMLExecutionSnapshot> to the current stack"
 
 	currentSnapshots add: anUMLExecutionSnapshot.
 
 	anUMLExecutionSnapshot parentStack: self.
+
+	^anUMLExecutionSnapshot!
+
+registerExecutedStackItem: anUMLExecutionSnapshot
+	"The receiver register <anUMLExecutionSnapshot> to the current stack"
+
+	currentSnapshots remove: anUMLExecutionSnapshot ifAbsent: [UMLSnapshotNotFoundError signal: 'UML Snapshot Execution not found'].
+
+	executedSnapshots add: anUMLExecutionSnapshot.
 
 	^anUMLExecutionSnapshot!
 
@@ -95,7 +104,8 @@ virtualMachine: anObject
 !UMLExecutionStack categoriesFor: #initialize!public! !
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot!accessing!private! !
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot:!accessing!private! !
-!UMLExecutionStack categoriesFor: #registerStackItem:!public! !
+!UMLExecutionStack categoriesFor: #registerCurrentStackItem:!public! !
+!UMLExecutionStack categoriesFor: #registerExecutedStackItem:!public! !
 !UMLExecutionStack categoriesFor: #virtualMachine!accessing!private! !
 !UMLExecutionStack categoriesFor: #virtualMachine:!accessing!private! !
 

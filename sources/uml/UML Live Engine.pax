@@ -55,6 +55,7 @@ package classNames
 	add: #UMLPrimitiveNotFound;
 	add: #UMLScriptDebugerSnapshot;
 	add: #UMLScriptExecutionSnapshot;
+	add: #UMLSnapshotNotFoundError;
 	add: #UMLState;
 	add: #UMLStateMachine;
 	add: #UMLStateMachineSpecification;
@@ -245,6 +246,11 @@ UMLLiveEngineError subclass: #UMLInfiniteLoopError
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLLiveEngineError subclass: #UMLPrimitiveNotFound
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLSnapshotNotFoundError
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

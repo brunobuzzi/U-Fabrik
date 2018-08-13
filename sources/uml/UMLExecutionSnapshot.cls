@@ -124,6 +124,11 @@ executedNodes
 executedNodes: anObject
 	executedNodes := anObject!
 
+finalizeSnapshot
+	"The receiver finalize itself from its execution stack"
+
+	parentStack registerExecutedStackItem: self "move from current collection to executed collection"!
+
 generateDebugSnapshot
 	| debugSnap |
 
@@ -316,7 +321,7 @@ parentSnapshot: anUMLExecutionSnapshot
 	ifNil: [parentStack := UMLExecutionStack newStartWith: self]
 	ifNotNil: [parentStack := anUMLExecutionSnapshot parentStack].
 
-	parentStack registerStackItem: self.!
+	parentStack registerCurrentStackItem: self.!
 
 parentStack
 	^parentStack!
@@ -565,6 +570,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #executedImplementations:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #finalizeSnapshot!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #generateDebugSnapshot!public! !
 !UMLExecutionSnapshot categoriesFor: #getArgumentsFrom:!private!processesing! !
 !UMLExecutionSnapshot categoriesFor: #getBasicObjectNamed:!processesing!public! !
