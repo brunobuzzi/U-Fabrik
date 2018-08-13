@@ -36,6 +36,7 @@ package methodNames
 	add: #StIdentifierToken -> #getUMLObjectFrom:;
 	add: #StLiteralArrayNode -> #asUMLObject;
 	add: #StLiteralArrayNode -> #asUMLObject:;
+	add: #StLiteralArrayNode -> #getUMLObjectFrom:;
 	add: #StLiteralArrayNode -> #name;
 	add: #StLiteralArrayNode -> #processInsideSnapshot:context:parameters:;
 	add: #StLiteralNode -> #asUMLObject:;
@@ -275,6 +276,10 @@ asUMLObject
 asUMLObject: anUMLVirtualMachine 
 	^(contents collect: [:each | each asUMLObject: anUMLVirtualMachine]) asUMLObject: anUMLVirtualMachine !
 
+getUMLObjectFrom: anUMLExecutionSnapshot 
+
+	^self asUMLObject: anUMLExecutionSnapshot virtualMachine!
+
 name
 	^self asUMLObject!
 
@@ -284,6 +289,7 @@ processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: a
 ! !
 !StLiteralArrayNode categoriesFor: #asUMLObject!public! !
 !StLiteralArrayNode categoriesFor: #asUMLObject:!public! !
+!StLiteralArrayNode categoriesFor: #getUMLObjectFrom:!public! !
 !StLiteralArrayNode categoriesFor: #name!public! !
 !StLiteralArrayNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
 

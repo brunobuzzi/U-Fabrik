@@ -1358,6 +1358,8 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockNode := anUMLInstance smalltalkObject.
 
+	(blockNode arguments size = 1) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
+
 	anArray keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
@@ -1374,6 +1376,8 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	blockNode := anUMLInstance smalltalkObject.
 
 	arguments := anArray first smalltalkObject.
+	(blockNode arguments size = arguments size) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
+
 	arguments keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
