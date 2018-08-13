@@ -68,10 +68,9 @@ testIssue51
 testIssue53
 	| parsedCode result |
 
-	executionSnapshot := UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
 	parsedCode := self umlCompiler parseExpression: 'Card new account: 9'. "type mismatch to get an error"
-	executionSnapshot activateSnaphotWith: parsedCode.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
+
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 
 	self assert: (result last umlClass name = 'Error').!
 
@@ -79,19 +78,17 @@ testIssue54
 	| isActive parsedCode |
 
 	isActive := virtualMachine transLog logIsActive.
-	virtualMachine transLog logIsActive: true.
+	virtualMachine transLog cleanAll; logIsActive: true.
 
-	executionSnapshot := UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
 	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate: Date new'. 
-	executionSnapshot activateSnaphotWith: parsedCode.
-	virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
-	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate:) and: [each snapshot == executionSnapshot]] ifNone: [self assert: false]) notNil.
+	virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 
-	executionSnapshot := UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
+	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate:)] ifNone: [self assert: false]) notNil.
+
 	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate'. 
-	executionSnapshot activateSnaphotWith: parsedCode.
-	virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
-	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate) and: [each snapshot == executionSnapshot]] ifNone: [self assert: false]) notNil.
+	virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+
+	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate)] ifNone: [self assert: false]) notNil.
 
 	virtualMachine transLog logIsActive: isActive.
 !
@@ -99,13 +96,33 @@ testIssue54
 testIssue56
 	| parsedCode result |
 
-	executionSnapshot := UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
-	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex | ]'. 
-	executionSnapshot activateSnaphotWith: parsedCode.
+	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex |]'. 
 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 
 	self assert: (virtualMachine nilObject == result last).
+
+!
+
+testIssue56_b
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex | 97]'. 
+
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+
+	self assert: (result last smalltalkObject = 97).
+
+!
+
+testIssue56_c
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '[Array new. String new. Card foo. Array new] on: Error do: [:ex | 97]'. 
+
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+
+	self assert: (result last smalltalkObject = 97).
 
 !
 
@@ -138,7 +155,8 @@ testIssue69
 
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass newInstance.
-	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine. 
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine.
+	snapshot parentSnapshot: nil.
 	virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
 
 	UMLDebuggerShell allInstances do: [:each | each view destroy].
@@ -157,7 +175,8 @@ testIssue69_b
 
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass newInstance.
-	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine. 
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine.
+	snapshot parentSnapshot: nil.
 	result := virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
 
 	UMLDebuggerShell allInstances do: [:each | each view destroy].
@@ -195,6 +214,8 @@ testIssue72
 !UMLVirtualMachineTest categoriesFor: #testIssue53!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue54!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue56!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue56_b!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue56_c!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue66!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue69!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue69_b!public! !
