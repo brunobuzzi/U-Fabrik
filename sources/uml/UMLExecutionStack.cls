@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLExecutionStack
-	instanceVariableNames: 'virtualMachine creatorSnapshot currentSnapshots executedSnapshots dnuSnapshot infiniteLoopSnapshot onErrorDoSnapshot'
+	instanceVariableNames: 'virtualMachine creatorSnapshot currentSnapshots executedSnapshots dnuSnapshot infiniteLoopSnapshot exceptionSnapshot onErrorDoSnapshot'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -28,8 +28,16 @@ currentSnapshots: anObject
 dnuSnapshot
 	^dnuSnapshot!
 
-dnuSnapshot: anObject
-	dnuSnapshot := anObject!
+dnuSnapshot: anUMLExecutionSnapshot
+
+	dnuSnapshot := anUMLExecutionSnapshot!
+
+exceptionSnapshot
+	^exceptionSnapshot!
+
+exceptionSnapshot: anUMLExecutionSnapshot
+
+	exceptionSnapshot := anUMLExecutionSnapshot!
 
 executedSnapshots
 	^executedSnapshots!
@@ -42,16 +50,25 @@ hasDNU
 
 	^dnuSnapshot notNil!
 
+hasException
+
+	^exceptionSnapshot notNil!
+
 hasInfiniteLoop
 	"The receiver answer whether or not there is an infinite loop in the execution"
 
 	^infiniteLoopSnapshot notNil!
 
+hasOnErrorDo
+
+	^onErrorDoSnapshot notNil!
+
 infiniteLoopSnapshot
 	^infiniteLoopSnapshot!
 
-infiniteLoopSnapshot: anObject
-	infiniteLoopSnapshot := anObject!
+infiniteLoopSnapshot: anUMLExecutionSnapshot
+
+	infiniteLoopSnapshot := anUMLExecutionSnapshot!
 
 initialize
 
@@ -63,8 +80,9 @@ initialize
 onErrorDoSnapshot
 	^onErrorDoSnapshot!
 
-onErrorDoSnapshot: anObject
-	onErrorDoSnapshot := anObject!
+onErrorDoSnapshot: anUMLExecutionSnapshot
+
+	onErrorDoSnapshot := anUMLExecutionSnapshot!
 
 registerCurrentStackItem: anUMLExecutionSnapshot
 	"The receiver register <anUMLExecutionSnapshot> to the current stack"
@@ -90,22 +108,26 @@ virtualMachine
 virtualMachine: anObject
 	virtualMachine := anObject! !
 !UMLExecutionStack categoriesFor: #creatorSnapshot!accessing!private! !
-!UMLExecutionStack categoriesFor: #creatorSnapshot:!accessing!public! !
+!UMLExecutionStack categoriesFor: #creatorSnapshot:!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #currentSnapshots!accessing!private! !
 !UMLExecutionStack categoriesFor: #currentSnapshots:!accessing!private! !
 !UMLExecutionStack categoriesFor: #dnuSnapshot!accessing!private! !
-!UMLExecutionStack categoriesFor: #dnuSnapshot:!accessing!private! !
+!UMLExecutionStack categoriesFor: #dnuSnapshot:!accessing!public!snapshot handler! !
+!UMLExecutionStack categoriesFor: #exceptionSnapshot!accessing!private! !
+!UMLExecutionStack categoriesFor: #exceptionSnapshot:!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #executedSnapshots!accessing!private! !
 !UMLExecutionStack categoriesFor: #executedSnapshots:!accessing!private! !
-!UMLExecutionStack categoriesFor: #hasDNU!public! !
-!UMLExecutionStack categoriesFor: #hasInfiniteLoop!public! !
+!UMLExecutionStack categoriesFor: #hasDNU!public!testing! !
+!UMLExecutionStack categoriesFor: #hasException!public!testing! !
+!UMLExecutionStack categoriesFor: #hasInfiniteLoop!public!testing! !
+!UMLExecutionStack categoriesFor: #hasOnErrorDo!public!testing! !
 !UMLExecutionStack categoriesFor: #infiniteLoopSnapshot!accessing!private! !
-!UMLExecutionStack categoriesFor: #infiniteLoopSnapshot:!accessing!private! !
+!UMLExecutionStack categoriesFor: #infiniteLoopSnapshot:!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #initialize!public! !
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot!accessing!private! !
-!UMLExecutionStack categoriesFor: #onErrorDoSnapshot:!accessing!private! !
-!UMLExecutionStack categoriesFor: #registerCurrentStackItem:!public! !
-!UMLExecutionStack categoriesFor: #registerExecutedStackItem:!public! !
+!UMLExecutionStack categoriesFor: #onErrorDoSnapshot:!accessing!public!snapshot handler! !
+!UMLExecutionStack categoriesFor: #registerCurrentStackItem:!public!snapshot handler! !
+!UMLExecutionStack categoriesFor: #registerExecutedStackItem:!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #virtualMachine!accessing!private! !
 !UMLExecutionStack categoriesFor: #virtualMachine:!accessing!private! !
 

@@ -67,7 +67,9 @@ cascadeTemporaries: anObject
 
 catchException
 
-	hasOnErrorDo := true!
+	hasOnErrorDo := true.
+
+	parentStack onErrorDoSnapshot: self!
 
 className
 
@@ -109,8 +111,11 @@ currentUser: anObject
 exception
 	^exception!
 
-exception: anObject
-	exception := anObject!
+exception: exceptionObject
+
+	exception := exceptionObject.
+
+	parentStack exceptionSnapshot: exceptionObject.!
 
 executedImplementations
 	^executedImplementations!
@@ -188,8 +193,11 @@ getTemporaryNamed: aString
 hasDNU
 	^hasDNU!
 
-hasDNU: anObject
-	hasDNU := anObject!
+hasDNU: aBoolean
+
+	hasDNU := aBoolean.
+
+	aBoolean ifTrue: [parentStack dnuSnapshot: self]!
 
 hasException
 
@@ -202,8 +210,11 @@ hasExecuted: anUMLMessageNode
 hasInfiniteLoop
 	^hasInfiniteLoop!
 
-hasInfiniteLoop: anObject
-	hasInfiniteLoop := anObject!
+hasInfiniteLoop: aBoolean
+
+	hasInfiniteLoop := aBoolean.
+
+	aBoolean ifTrue: [parentStack infiniteLoopSnapshot: self].!
 
 hasOnErrorDo
 	^hasOnErrorDo!
@@ -556,7 +567,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #canStepIn!public! !
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #cascadeTemporaries:!accessing!private! !
-!UMLExecutionSnapshot categoriesFor: #catchException!public! !
+!UMLExecutionSnapshot categoriesFor: #catchException!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #className!public! !
 !UMLExecutionSnapshot categoriesFor: #clearExecutedImplementations!public! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public! !
@@ -565,7 +576,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #exception!accessing!private! !
-!UMLExecutionSnapshot categoriesFor: #exception:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #exception:!accessing!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes!accessing!private! !
@@ -579,7 +590,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #getReceiverObjectFrom:!private!processesing! !
 !UMLExecutionSnapshot categoriesFor: #getTemporaryNamed:!public! !
 !UMLExecutionSnapshot categoriesFor: #hasDNU!accessing!private! !
-!UMLExecutionSnapshot categoriesFor: #hasDNU:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #hasDNU:!accessing!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #hasException!exceptions!public! !
 !UMLExecutionSnapshot categoriesFor: #hasExecuted:!processesing!public! !
 !UMLExecutionSnapshot categoriesFor: #hasInfiniteLoop!accessing!private! !

@@ -286,7 +286,7 @@ UMLObject subclass: #UMLExecutionSnapshot
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLExecutionStack
-	instanceVariableNames: 'virtualMachine creatorSnapshot currentSnapshots executedSnapshots dnuSnapshot infiniteLoopSnapshot onErrorDoSnapshot'
+	instanceVariableNames: 'virtualMachine creatorSnapshot currentSnapshots executedSnapshots dnuSnapshot infiniteLoopSnapshot exceptionSnapshot onErrorDoSnapshot'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
