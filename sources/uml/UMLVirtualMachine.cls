@@ -133,12 +133,11 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 							 "^self nilObject"]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] 
 	].
+	anUMLExecutionSnapshot finalizeSnapshot. "move the snapshot from current to executed in the Stack"
 	aBoolean ifTrue: [^collectionResult].
-	collectionResult isEmpty ifTrue: [^anUMLObject"^self errorNotImplementedYet: symbolMessage in: anUMLObject"].
+	collectionResult isEmpty ifTrue: [^anUMLObject].
 
-	"see issue #51"
-	"#isCurtailed indicate a (^) return node --> answer the last result"
-	"primitive call answer the result of the primitive call --> answer the last result"
+	"see issue #51" "#isCurtailed indicate a (^) return node --> answer the last result" "primitive call answer the result of the primitive call --> answer the last result"
 	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall or:[anUMLExecutionSnapshot hasInfiniteLoop]])  
 		ifTrue: [collectionResult last] 
 		ifFalse: [anUMLObject] "no return (^) node present and not a primitive call --> answer the receiver"!
