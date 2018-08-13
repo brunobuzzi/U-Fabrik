@@ -97,15 +97,16 @@ testIssue54
 !
 
 testIssue56
-	| parsedCode |
+	| parsedCode result |
 
 	executionSnapshot := UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
-	parsedCode := self umlCompiler parseExpression: '[Card new foo] on: Error do: [:ex | ]'. 
+	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex | ]'. 
 	executionSnapshot activateSnaphotWith: parsedCode.
-	virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
 
-	self assert: executionSnapshot exception notNil.
-	self assert: executionSnapshot hasDNU.
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot.
+
+	self assert: (virtualMachine nilObject == result last).
+
 !
 
 testIssue66
@@ -137,8 +138,8 @@ testIssue69
 
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass newInstance.
-	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine . 
-	virtualMachine apply: implementation to: umlObject with: #()  snapshot: snapshot.
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine. 
+	virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
 
 	UMLDebuggerShell allInstances do: [:each | each view destroy].
 
@@ -146,7 +147,45 @@ testIssue69
 	self assert: ((snapshot getTemporaryNamed: 'a') smalltalkObject = 1).
 	self assert: ((snapshot getTemporaryNamed: 'b') smalltalkObject = nil).
 
-	self externaFileClass removeImplementationNamed: implementation methodName.! !
+	self externaFileClass removeImplementationNamed: implementation methodName.!
+
+testIssue69_b
+	| source implementation umlObject snapshot result |
+
+	source := 'testIssue69
+	self testIssue69.'.
+
+	implementation := self externaFileClass addSourceImplementation: source.
+	umlObject := self externaFileClass newInstance.
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine. 
+	result := virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
+
+	UMLDebuggerShell allInstances do: [:each | each view destroy].
+
+	self assert: (result smalltalkObject class == UMLInfiniteLoopError).
+	self assert: snapshot hasInfiniteLoop.
+
+	self externaFileClass removeImplementationNamed: implementation methodName.!
+
+testIssue72
+	| reader mappings |
+
+	(virtualMachine includesUMLModelNamed: 'bank.xmi')
+	ifTrue: [umlModel := virtualMachine getUMLModelNamed: 'bank.xmi'.
+		virtualMachine uninstallUMLModel: umlModel].
+
+	mappings := virtualMachine typeMapping.
+	virtualMachine typeMapping: LookupTable new. "force the installation without any mapping --> all basic attributes will fail to map"
+
+	reader := XmiVisualParadigm fromFile: (SessionManager current imageBase, 'xmi-examples\bank.xmi').
+	umlModel := reader generateUMLModelNamed: 'bank.xmi'.
+	[virtualMachine installUMLModel: umlModel] on: Error do: [:ex | self assert: false].
+
+	virtualMachine typeMapping:  mappings.
+	uninstall := true.
+
+	self assert: true.
+! !
 !UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !
 !UMLVirtualMachineTest categoriesFor: #msOfficeClass!public! !
 !UMLVirtualMachineTest categoriesFor: #msWordClass!public! !
@@ -158,4 +197,6 @@ testIssue69
 !UMLVirtualMachineTest categoriesFor: #testIssue56!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue66!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue69!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue69_b!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue72!public! !
 
