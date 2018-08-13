@@ -332,10 +332,10 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 
 	^exception!
 
-executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
-	| fakedImplementation sequenceNode result excutionSnapshot fakeReceiver |
+	| fakedImplementation sequenceNode result excutionSnapshot |
 
 	sequenceNode := aStProgramNode isSequence 
 				ifTrue: [aStProgramNode] 
@@ -344,13 +344,18 @@ executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: sequenceNode);
 		methodClass: self objectClass.
 
-	fakeReceiver := self objectClass newInstance.
-	excutionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: fakeReceiver arguments: #() virtualMachine: self. 
+	excutionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: anUMLObject arguments: #() virtualMachine: self. 
 	excutionSnapshot parentSnapshot: anUMLExecutionSnapshot.
 
-	result := self apply: fakedImplementation to: fakeReceiver with: #() snapshot: excutionSnapshot isFakeImplementation: true.
+	result := self apply: fakedImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
 
 	^result!
+
+executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
+	This method is invocated from UMLWorkspace or UMLScritps"
+
+	^self executeSequenceNodeReturningAll: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
 
 executeSequenceNodeReturningAll2: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
@@ -2484,6 +2489,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:snapshot:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll2:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll3:in:!double dispatch!message dispatching!public!vm core! !
