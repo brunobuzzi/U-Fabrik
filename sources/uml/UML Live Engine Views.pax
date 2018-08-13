@@ -1040,7 +1040,7 @@ errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapsh
 
 	anUMLExecutionSnapshot ifNotNil: [:executionSnapshot | | exception |
 		executionSnapshot hasDNU: true.
-		executionSnapshot hasOnErrorDo 
+		(executionSnapshot allSnapshots anySatisfy: [:each | each hasOnErrorDo]) 
 		ifTrue: [exception := self errorClass 
 							vmPerform: #message: 
 							withArguments: (Array with: (('Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>') asUMLObject: self)).

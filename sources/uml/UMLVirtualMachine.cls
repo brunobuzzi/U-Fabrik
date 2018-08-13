@@ -105,9 +105,14 @@ apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: anUML
 
 	snapshot parentSnapshot: anUMLExecutionSnapshot.
 
-	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapshot!
+	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapshot isFakeImplementation: false!
 
 apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot 
+	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
+
+	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot isFakeImplementation: false!
+
+apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot isFakeImplementation: aBoolean
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
 	| collectionResult | 
 
@@ -125,8 +130,10 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
 							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot].
-							^self nilObject]]
-					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] ]. " apply the super implementation to anObject "
+							 "^self nilObject"]]
+					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] 
+	].
+	aBoolean ifTrue: [^collectionResult].
 	collectionResult isEmpty ifTrue: [^anUMLObject"^self errorNotImplementedYet: symbolMessage in: anUMLObject"].
 
 	"see issue #51"
@@ -327,6 +334,38 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 	^exception!
 
 executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
+	This method is invocated from UMLWorkspace or UMLScritps"
+	| fakedImplementation sequenceNode result excutionSnapshot fakeReceiver |
+
+	sequenceNode := aStProgramNode isSequence 
+				ifTrue: [aStProgramNode] 
+				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
+	fakedImplementation := UMLParsedImplementation new.
+	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: sequenceNode);
+		methodClass: self objectClass.
+
+	fakeReceiver := self objectClass newInstance.
+	excutionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: fakeReceiver arguments: #() virtualMachine: self. 
+	excutionSnapshot parentSnapshot: anUMLExecutionSnapshot.
+
+	result := self apply: fakedImplementation to: fakeReceiver with: #() snapshot: excutionSnapshot isFakeImplementation: true.
+
+	^result!
+
+executeSequenceNodeReturningAll2: aStProgramNode in: anUMLExecutionSnapshot
+	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
+	This method is invocated from UMLWorkspace or UMLScritps"
+	| fakedImplementation statements |
+
+	statements := aStProgramNode isSequence ifTrue: [aStProgramNode] ifFalse: [StSequenceNode statements: (Array with: aStProgramNode)].
+	fakedImplementation := UMLParsedImplementation new.
+	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: statements);
+		methodClass: self objectClass.
+
+	^self apply: fakedImplementation to: self objectClass newInstance with: #() snapshot: anUMLExecutionSnapshot. !
+
+executeSequenceNodeReturningAll3: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
 	| allResults |
@@ -1393,7 +1432,7 @@ processPrimitiveCall_209: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockNode catchException.
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
-
+self halt.
 	(#('Error' 'Exception' 'Warning') includes: blockResult last umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
 	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult last)]. 
 	
@@ -2417,6 +2456,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #apply:to:with:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:parentSnapshot:!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
+!UMLVirtualMachine categoriesFor: #apply:to:with:snapshot:isFakeImplementation:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #arrayClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #avoidClassNameClashingFor:!public!uml models install!xmi-model!xmi-others! !
 !UMLVirtualMachine categoriesFor: #basicClasses!public! !
@@ -2442,6 +2482,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll2:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll3:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #fetchClassMethodNamed:for:ifNone:!message dispatching core!public! !
 !UMLVirtualMachine categoriesFor: #fetchImplementationNamed:for:ifNone:!double dispatch!message dispatching!message dispatching core!public!vm core! !

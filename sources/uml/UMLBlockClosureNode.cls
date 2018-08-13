@@ -102,8 +102,12 @@ printOn: aStream
 
 	aStream
 		nextPutAll: 'aBlock {', String lineDelimiter;
-		nextPutAll: self source;
+		nextPutAll: self printSource;
 		nextPutAll: String lineDelimiter, '}'!
+
+printSource
+
+	^self source ifNil: ['']!
 
 sequenceNode
 	^sequenceNode!
@@ -168,6 +172,7 @@ variableName
 !UMLBlockClosureNode categoriesFor: #nodes!public! !
 !UMLBlockClosureNode categoriesFor: #printMessage!public! !
 !UMLBlockClosureNode categoriesFor: #printOn:!public! !
+!UMLBlockClosureNode categoriesFor: #printSource!public! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #setExecutionSnapshot:!public! !
