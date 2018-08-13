@@ -1432,7 +1432,7 @@ processPrimitiveCall_209: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockNode catchException.
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
-self halt.
+
 	(#('Error' 'Exception' 'Warning') includes: blockResult last umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
 	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult last)]. 
 	
