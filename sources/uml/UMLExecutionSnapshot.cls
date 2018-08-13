@@ -236,6 +236,10 @@ initialize
 	executedImplementations := Set new.
 	hasInfiniteLoop := false!
 
+isAttachedToStack
+
+	^parentStack notNil!
+
 isCurtailed
 	^isCurtailed!
 
@@ -304,8 +308,15 @@ nodesNotExecuted: anObject
 parentSnapshot
 	^parentSnapshot!
 
-parentSnapshot: anObject 
-	parentSnapshot := anObject!
+parentSnapshot: anUMLExecutionSnapshot
+
+	parentSnapshot := anUMLExecutionSnapshot.
+
+	anUMLExecutionSnapshot 
+	ifNil: [parentStack := UMLExecutionStack newStartWith: self]
+	ifNotNil: [parentStack := anUMLExecutionSnapshot parentStack].
+
+	parentStack registerStackItem: self.!
 
 parentStack
 	^parentStack!
@@ -574,6 +585,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #hasSequence!public! !
 !UMLExecutionSnapshot categoriesFor: #includesObjectNamed:!public! !
 !UMLExecutionSnapshot categoriesFor: #initialize!public! !
+!UMLExecutionSnapshot categoriesFor: #isAttachedToStack!public! !
 !UMLExecutionSnapshot categoriesFor: #isCurtailed!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #isCurtailed:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #isDebugging!accessing!private! !
@@ -592,7 +604,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #nodesNotExecuted!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #nodesNotExecuted:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parentSnapshot!accessing!private! !
-!UMLExecutionSnapshot categoriesFor: #parentSnapshot:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #parentSnapshot:!accessing!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #parentStack!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parentStack:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #parsedCode!public! !

@@ -13,8 +13,11 @@ UMLExecutionStack comment: ''!
 creatorSnapshot
 	^creatorSnapshot!
 
-creatorSnapshot: anObject
-	creatorSnapshot := anObject!
+creatorSnapshot: anUMLExecutionSnapshot
+
+	creatorSnapshot := anUMLExecutionSnapshot.
+
+	anUMLExecutionSnapshot parentStack: self.!
 
 currentSnapshots
 	^currentSnapshots!
@@ -50,11 +53,27 @@ infiniteLoopSnapshot
 infiniteLoopSnapshot: anObject
 	infiniteLoopSnapshot := anObject!
 
+initialize
+
+	super initialize.
+
+	currentSnapshots := OrderedCollection new.
+	executedSnapshots := OrderedCollection new.!
+
 onErrorDoSnapshot
 	^onErrorDoSnapshot!
 
 onErrorDoSnapshot: anObject
 	onErrorDoSnapshot := anObject!
+
+registerStackItem: anUMLExecutionSnapshot
+	"The receiver register <anUMLExecutionSnapshot> to the current stack"
+
+	currentSnapshots add: anUMLExecutionSnapshot.
+
+	anUMLExecutionSnapshot parentStack: self.
+
+	^anUMLExecutionSnapshot!
 
 virtualMachine
 	^virtualMachine!
@@ -62,7 +81,7 @@ virtualMachine
 virtualMachine: anObject
 	virtualMachine := anObject! !
 !UMLExecutionStack categoriesFor: #creatorSnapshot!accessing!private! !
-!UMLExecutionStack categoriesFor: #creatorSnapshot:!accessing!private! !
+!UMLExecutionStack categoriesFor: #creatorSnapshot:!accessing!public! !
 !UMLExecutionStack categoriesFor: #currentSnapshots!accessing!private! !
 !UMLExecutionStack categoriesFor: #currentSnapshots:!accessing!private! !
 !UMLExecutionStack categoriesFor: #dnuSnapshot!accessing!private! !
@@ -73,8 +92,10 @@ virtualMachine: anObject
 !UMLExecutionStack categoriesFor: #hasInfiniteLoop!public! !
 !UMLExecutionStack categoriesFor: #infiniteLoopSnapshot!accessing!private! !
 !UMLExecutionStack categoriesFor: #infiniteLoopSnapshot:!accessing!private! !
+!UMLExecutionStack categoriesFor: #initialize!public! !
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot!accessing!private! !
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot:!accessing!private! !
+!UMLExecutionStack categoriesFor: #registerStackItem:!public! !
 !UMLExecutionStack categoriesFor: #virtualMachine!accessing!private! !
 !UMLExecutionStack categoriesFor: #virtualMachine:!accessing!private! !
 
