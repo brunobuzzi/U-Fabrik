@@ -342,8 +342,6 @@ onViewOpened
 
 	variables := Dictionary new.
 
-	executionSnapshot:= UMLScriptExecutionSnapshot virtualMachine: self defaultVirtualMachine.
-
 	workspacePresenter view textStyles: self class defaultTextStyles;
 		maxCompletionListHeight: 10.
 

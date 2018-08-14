@@ -30,12 +30,12 @@ evaluate: aString
 		hasOnErrorDo: false;
 		isCurtailed: false.
 	parsedCode := self umlCompiler parseExpression: aString.
-	executionSnapshot activateSnaphotWith: parsedCode.
+"	executionSnapshot activateSnaphotWith: parsedCode.
 	executionSnapshot addTemporary: (self topShell selectedObject ifNil: [^nil]) named: 'self'.
 
-	parsedCode isSelfVariable ifTrue: [^executionSnapshot getObjectNamed: 'self'].
+	parsedCode isSelfVariable ifTrue: [^executionSnapshot getObjectNamed: 'self']."
 
-	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot
+	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode forReceiver: (self topShell selectedObject ifNil: [^nil]) in: nil
 !
 
 onAutoComplete: aString startingAt: start accept: valueHolder
