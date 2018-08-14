@@ -361,37 +361,6 @@ executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
 
 	^self executeSequenceNodeReturningAll: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
 
-executeSequenceNodeReturningAll2: aStProgramNode in: anUMLExecutionSnapshot
-	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
-	This method is invocated from UMLWorkspace or UMLScritps"
-	| fakedImplementation statements |
-
-	statements := aStProgramNode isSequence ifTrue: [aStProgramNode] ifFalse: [StSequenceNode statements: (Array with: aStProgramNode)].
-	fakedImplementation := UMLParsedImplementation new.
-	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: statements);
-		methodClass: self objectClass.
-
-	^self apply: fakedImplementation to: self objectClass newInstance with: #() snapshot: anUMLExecutionSnapshot. !
-
-executeSequenceNodeReturningAll3: aStProgramNode in: anUMLExecutionSnapshot
-	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
-	This method is invocated from UMLWorkspace or UMLScritps"
-	| allResults |
-
-	allResults := OrderedCollection new.
-
-	aStProgramNode nodes collect: [:each | | nodeResult |
-		anUMLExecutionSnapshot isCurtailed "if we found an _^_ we halt the execution"
-		ifFalse: [nodeResult := each processInsideSnapshot: anUMLExecutionSnapshot context: nil parameters: #()."if an error occurs --> set #exception variable of <anUMLExecutionSnapshot>"
-
-			(anUMLExecutionSnapshot hasException and: [anUMLExecutionSnapshot hasOnErrorDo not]) ifTrue: [^OrderedCollection with: anUMLExecutionSnapshot exception].
-
-			anUMLExecutionSnapshot hasOnErrorDo ifTrue: [^OrderedCollection with: nodeResult]. "is a [] on: Error do: [] - we return the Error"
-			allResults add: nodeResult.
-		].
-	].
-	^allResults!
-
 falseObject
 
 	^primitiveObjects at: 'false'!
@@ -2495,8 +2464,6 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll2:in:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll3:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #fetchClassMethodNamed:for:ifNone:!message dispatching core!public! !
 !UMLVirtualMachine categoriesFor: #fetchImplementationNamed:for:ifNone:!double dispatch!message dispatching!message dispatching core!public!vm core! !
