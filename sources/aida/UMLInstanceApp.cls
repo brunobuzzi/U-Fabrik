@@ -828,13 +828,10 @@ getUMLInstancesOf: anUMLClass
 	^selectedArg last!
 
 getUserFromUMLApplication
-	| arguments block |
-
-	block := (UMLScriptExecutionSnapshot virtualMachine: self defaultVirtualMachine) createBlockFrom: (SmalltalkParser parseExpression: '[]').
+	| arguments |
 
 	arguments := Array with: ((self session user username) asUMLObject: self defaultVirtualMachine) "passing the AIDA Web User as arguments to the UML Application"
-					with: ((self session user password) asUMLObject: self defaultVirtualMachine)
-					with: block.
+					with: ((self session user password) asUMLObject: self defaultVirtualMachine).
 
 	umlApplicationUser := self umlApplicationLoginManager vmPerform: #getLoginMainObjectFor:password: withArguments: arguments.
 

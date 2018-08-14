@@ -53,6 +53,7 @@ package methodNames
 	add: #WebAdminApp -> #viewLogin;
 	add: #WebApplication -> #defaultVirtualMachine;
 	add: #WebApplication -> #isUMLApplication;
+	add: #WebApplication -> #umlCompiler;
 	add: #WebApplication -> #vmPerform:;
 	add: #WebApplication -> #vmPerform:withArguments:;
 	add: #WebElement -> #addUMLAbsoluteRedirectButtonText:action:destinationView:;
@@ -89,8 +90,8 @@ package setPrerequisites: (IdentitySet new
 	add: 'AIDAWeb';
 	add: '..\others\BBInteraccionOffice';
 	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
 	add: '..\uml\UML Basic Views';
+	add: '..\uml\UML Compiler';
 	add: '..\uml\UML Live Engine';
 	add: '..\uml\UML Live Engine Views';
 	yourself).
@@ -323,6 +324,10 @@ isUMLApplication
 
 	^false!
 
+umlCompiler
+
+	^UMLCompiler!
+
 vmPerform: aSymbol 
 
 	^self perform: aSymbol!
@@ -332,6 +337,7 @@ vmPerform: aSymbol withArguments: anArray
 	^self perform: aSymbol withArguments: anArray! !
 !WebApplication categoriesFor: #defaultVirtualMachine!public! !
 !WebApplication categoriesFor: #isUMLApplication!public! !
+!WebApplication categoriesFor: #umlCompiler!public! !
 !WebApplication categoriesFor: #vmPerform:!public! !
 !WebApplication categoriesFor: #vmPerform:withArguments:!public! !
 
