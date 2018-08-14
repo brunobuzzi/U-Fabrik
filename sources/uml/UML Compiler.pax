@@ -356,6 +356,8 @@ getUMLObjectFrom: anUMLScriptExecutionSnapshot
 
 	(receiver isBlock) ifTrue: [^anUMLScriptExecutionSnapshot createBlockFrom: receiver].
 
+	self receiver isLiteralNode ifTrue: [^self receiver value asUMLObject: anUMLScriptExecutionSnapshot virtualMachine].
+
 	^anUMLScriptExecutionSnapshot getObjectNamed: self receiverName!
 
 isSuperSend

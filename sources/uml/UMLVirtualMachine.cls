@@ -344,8 +344,12 @@ executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anU
 	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: sequenceNode);
 		methodClass: self objectClass.
 
-	excutionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: anUMLObject arguments: #() virtualMachine: self. 
-	excutionSnapshot parentSnapshot: anUMLExecutionSnapshot.
+	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
+	excutionSnapshot := anUMLObject isBlock 
+	ifFalse: [ | newSnapshot |
+		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
+		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
+	ifTrue: [anUMLExecutionSnapshot registerInStack].
 
 	result := self apply: fakedImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
 
@@ -1349,7 +1353,7 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockNode := anUMLInstance smalltalkObject.
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
+	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	blockResult isEmpty ifTrue: [^self nilObject].
 
@@ -1367,7 +1371,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anArray keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
+	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	^blockResult isEmpty 
 	ifFalse: [blockResult last] 
@@ -1385,7 +1389,7 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	arguments keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode snapshot.
+	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	^blockResult isEmpty 
 	ifFalse: [blockResult last] 

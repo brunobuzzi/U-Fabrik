@@ -81,6 +81,7 @@ clearExecutedImplementations
 	hasInfiniteLoop := false!
 
 createBlockFrom: aStBlockNode
+	"The receiver create an uml instance of <Block> class"
 
 	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode)
 !
@@ -328,11 +329,11 @@ parentSnapshot: anUMLExecutionSnapshot
 
 	parentSnapshot := anUMLExecutionSnapshot.
 
-	anUMLExecutionSnapshot 
-	ifNil: [parentStack := UMLExecutionStack newStartWith: self]
-	ifNotNil: [parentStack := anUMLExecutionSnapshot parentStack].
+	parentStack := anUMLExecutionSnapshot 
+		ifNil: [UMLExecutionStack newStartWith: self]
+		ifNotNil: [anUMLExecutionSnapshot parentStack].
 
-	parentStack registerCurrentStackItem: self.!
+	self registerInStack.!
 
 parentStack
 	^parentStack!
@@ -504,6 +505,12 @@ registerImplemenation: anUMLImplementation
 
 	^executedImplementations add: anUMLImplementation!
 
+registerInStack
+
+	parentStack ifNil: [UMLStackNotFoundError signal: 'No Stack found for this Execution Snapshot'].
+
+	parentStack registerCurrentStackItem: self!
+
 removeTemporaryNamed: aName
 
 	^temporaries removeKey: aName!
@@ -642,6 +649,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #processSimpleAssingment:messageReceiver:arguments:!processesing!public! !
 !UMLExecutionSnapshot categoriesFor: #receiverObject!private!processesing! !
 !UMLExecutionSnapshot categoriesFor: #registerImplemenation:!public! !
+!UMLExecutionSnapshot categoriesFor: #registerInStack!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #removeTemporaryNamed:!public! !
 !UMLExecutionSnapshot categoriesFor: #send:to:withAll:parentSnapshot:!public! !
 !UMLExecutionSnapshot categoriesFor: #sequence!accessing!private! !
