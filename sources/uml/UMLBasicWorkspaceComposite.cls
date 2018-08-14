@@ -110,17 +110,9 @@ enable: aBoolean
 evaluate: aString 
 	| parsedCode |
 
-	executionSnapshot clearExecutedImplementations;
-		exception: nil;
-		hasDNU: false;
-		hasOnErrorDo: false;
-		isCurtailed: false.
-
 	parsedCode := self umlCompiler parseExpression: aString.
-	executionSnapshot activateSnaphotWith: parsedCode.
-	self topShell selectedObject ifNotNil: [:value | executionSnapshot addTemporary:  value named: 'self'].
 
-	parsedCode isBlock ifFalse: [^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot].
+	parsedCode isBlock ifFalse: [^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: nil].
 
 	^executionSnapshot createBlockFrom: parsedCode 
 !

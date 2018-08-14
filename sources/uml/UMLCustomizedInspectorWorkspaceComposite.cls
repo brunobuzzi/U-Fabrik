@@ -13,15 +13,9 @@ UMLCustomizedInspectorWorkspaceComposite comment: ''!
 evaluate: aString 
 	| parsedCode |
 
-	executionSnapshot clearExecutedImplementations;
-		exception: nil;
-		hasDNU: false;
-		hasOnErrorDo: false;
-		isCurtailed: false.
 	parsedCode := self umlCompiler parseExpression: aString.
-	executionSnapshot activateSnaphotWith: parsedCode.
-	executionSnapshot addTemporary: self topShell getUMLObject named: 'self'.
-	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: executionSnapshot
+
+	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: nil
 !
 
 evaluateIt

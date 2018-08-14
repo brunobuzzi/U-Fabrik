@@ -24,16 +24,7 @@ currentWord
 evaluate: aString 
 	| parsedCode |
 
-	executionSnapshot clearExecutedImplementations;
-		exception: nil;
-		hasDNU: false;
-		hasOnErrorDo: false;
-		isCurtailed: false.
 	parsedCode := self umlCompiler parseExpression: aString.
-"	executionSnapshot activateSnaphotWith: parsedCode.
-	executionSnapshot addTemporary: (self topShell selectedObject ifNil: [^nil]) named: 'self'.
-
-	parsedCode isSelfVariable ifTrue: [^executionSnapshot getObjectNamed: 'self']."
 
 	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode forReceiver: (self topShell selectedObject ifNil: [^nil]) in: nil
 !
@@ -77,8 +68,7 @@ showAllNamesFor: aString
 	ifTrue: [^self showAutocompletationList: (self defaultVirtualMachine getAllClassesNames select: [:each | (aString, '*') match: each asString]). ]. "if is uppercase then is an incomplete class name"
 "if not then is: 1. incomplete instVar, 2. incomplete temp variable"
 	(aString = 'self') ifTrue: [^self showImplementationsOfClass: self selectedClass].
-	instVar := executionSnapshot sequenceTemporaries keys asSortedCollection select: [:each | (aString, '*') match: each].
-	instVar isEmpty ifFalse: [^self showImplementationsOfClass: (executionSnapshot getTemporaryNamed: aString) umlClass].
+
 	self selectedObject ifNil: [^self showAutocompletationList: OrderedCollection new].
 	(self selectedObject allAttributes keys includes: aString asSymbol) 
 	ifTrue: [^self showImplementationsOfClass: (self selectedObject atVariableName: aString asSymbol) umlClass].

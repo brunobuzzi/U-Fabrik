@@ -174,8 +174,7 @@ onInstVarChanged
 	| resourceIdentifier |
 
 	instVarTreePresenter hasSelection ifFalse: [^self].
-	workspaceComposite executionSnapshot addTemporary: instVarTreePresenter selection asUMLObject named: 'self'.
-	self setSequenceTemporariesFor: instVarTreePresenter selection.
+
 	containerPresenter subPresenters do: [:each | 
 		containerPresenter remove: each.
 		each view close].
