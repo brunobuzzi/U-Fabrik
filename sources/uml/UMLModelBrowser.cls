@@ -83,7 +83,7 @@ createLoginImplementation
 
 	^', self selectedModel loginManager name , '  allGlobalObjects'.
 
-	^self selectedModel loginManager addSourceImplementation: source
+	^self selectedModel loginManager metaclass addSourceImplementation: source
 	!
 
 createSchematicWiring
@@ -105,11 +105,12 @@ defineLoginManagerClass
 		caption: self applicationName.
 	self selectClass: self selectedModel loginManager ifAbsent: [].
 	implementation := self createLoginImplementation.
+	self switchToMetaclassSide.
 	self selectImplementation: implementation.
 	UMLDevelopmentEnvironment default 
 		onNewMethod: implementation
 		addedToClass: self selectedModel loginManager getMetaclass
-		in: nil!
+		in: nil.!
 
 deployDatabase
 	| dsn smalltalkMapper |
@@ -460,7 +461,15 @@ setShowHideMessage
 	self hasSelectedImplementation ifFalse: [^MessageBox notify: 'Select an UML Implementation to set Show/Hide message'].
 	^UMLShowHideAspectShell showModalOn: self selectedImplementation.
 
-	! !
+	!
+
+switchToClassSide
+
+	classBrowser switchToClassSide!
+
+switchToMetaclassSide
+
+	classBrowser switchToMetaclassSide! !
 !UMLModelBrowser categoriesFor: #aboutThisTool!public! !
 !UMLModelBrowser categoriesFor: #addCategory!public! !
 !UMLModelBrowser categoriesFor: #addTraitToSelectedClass!public! !
@@ -528,6 +537,8 @@ setShowHideMessage
 !UMLModelBrowser categoriesFor: #selectModel:ifAbsent:!public! !
 !UMLModelBrowser categoriesFor: #selectUMLClass:ifAbsent:!public! !
 !UMLModelBrowser categoriesFor: #setShowHideMessage!public! !
+!UMLModelBrowser categoriesFor: #switchToClassSide!public! !
+!UMLModelBrowser categoriesFor: #switchToMetaclassSide!public! !
 
 !UMLModelBrowser class methodsFor!
 

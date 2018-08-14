@@ -610,6 +610,14 @@ switchTargetNavigability
 
 	relationsPresenter selection targetMultiplicity isNavigable: relationsPresenter selection targetMultiplicity isNavigable not.!
 
+switchToClassSide
+
+	radioButtonsPresenter value: #classSide!
+
+switchToMetaclassSide
+
+	radioButtonsPresenter value: #metaclassSide!
+
 virtualMachine
 
 	^model virtualMachine! !
@@ -693,6 +701,8 @@ virtualMachine
 !UMLClassBrowserComposite categoriesFor: #switchLargeString!public! !
 !UMLClassBrowserComposite categoriesFor: #switchSourceNavigability!public! !
 !UMLClassBrowserComposite categoriesFor: #switchTargetNavigability!public! !
+!UMLClassBrowserComposite categoriesFor: #switchToClassSide!public! !
+!UMLClassBrowserComposite categoriesFor: #switchToMetaclassSide!public! !
 !UMLClassBrowserComposite categoriesFor: #virtualMachine!public! !
 
 !UMLClassBrowserComposite class methodsFor!
