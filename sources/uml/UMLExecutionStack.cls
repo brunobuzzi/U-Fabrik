@@ -63,6 +63,14 @@ hasOnErrorDo
 
 	^onErrorDoSnapshot notNil!
 
+hasSequenceTemporaryNamed: seqVarName withStValue: stObject
+	"The receiver answer whether or not has a sequence temporary variable named <seqVarName> and is equal to <stObject>.
+	The comparision is made at Smalltalk level"
+
+	^executedSnapshots anySatisfy: [:snapshot | 
+		(snapshot sequenceTemporaries includesKey: seqVarName) and: [(snapshot sequenceTemporaries at: seqVarName) smalltalkObject = stObject]
+	].!
+
 infiniteLoopSnapshot
 	^infiniteLoopSnapshot!
 
@@ -125,6 +133,7 @@ virtualMachine: anObject
 !UMLExecutionStack categoriesFor: #hasException!public!testing! !
 !UMLExecutionStack categoriesFor: #hasInfiniteLoop!public!testing! !
 !UMLExecutionStack categoriesFor: #hasOnErrorDo!public!testing! !
+!UMLExecutionStack categoriesFor: #hasSequenceTemporaryNamed:withStValue:!public!snapshot queries! !
 !UMLExecutionStack categoriesFor: #infiniteLoopSnapshot!accessing!private! !
 !UMLExecutionStack categoriesFor: #infiniteLoopSnapshot:!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #initialize!public! !

@@ -20,6 +20,35 @@ packages			- aDictionary to group virtual machine core classes.'!
 !UMLVirtualMachine categoriesForClass!Unclassified! !
 !UMLVirtualMachine methodsFor!
 
+_executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
+	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
+	This method is for Testing and Development purpose. 
+	The authentic method is: #executeSequenceNodeReturningAll:forReceiver:in: (if the original method is change then this method should be updated with the same code)"
+	| fakeImplementation sequenceNode result excutionSnapshot |
+
+	sequenceNode := aStProgramNode isSequence 
+				ifTrue: [aStProgramNode] 
+				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
+	fakeImplementation := self createFakeImplementationFromSequenceNode: sequenceNode.
+
+	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
+	excutionSnapshot := anUMLObject isBlock 
+	ifFalse: [ | newSnapshot |
+		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
+		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
+	ifTrue: [anUMLExecutionSnapshot registerInStack].
+
+	result := self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
+
+	^Array with: result with: excutionSnapshot parentStack!
+
+_executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
+	This method is for Testing and Development purpose. 
+	The authentic method is: #executeSequenceNodeReturningAll:in:"
+
+	^self _executeSequenceNodeReturningAll: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
+
 addNumber: aNumber
 	"The environment has request a number that not exist in the receiver, so we proceed to create it"
 	| newNumberInstance |
@@ -2437,6 +2466,8 @@ virtualMachineMetaclassNamed: aString
 	^systemDictionary at: aString ifAbsent: [^self nilObject].
 
 	^(packages detect: [:each | (each getClassNamed: aString ifNone: [nil]) notNil] ifNone: [^self nilObject]) getMetaclass! !
+!UMLVirtualMachine categoriesFor: #_executeSequenceNodeReturningAll:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #_executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #addNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #addPackage:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #addPrimitiveObject:named:!primitive objects!private! !
