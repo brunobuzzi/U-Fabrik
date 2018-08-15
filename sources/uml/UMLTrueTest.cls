@@ -85,10 +85,20 @@ testNot
 	| result |
 
 	result := virtualMachine send: #not to: boolean withAll: Array new.
-	self assert: (virtualMachine falseObject == result)! !
+	self assert: (virtualMachine falseObject == result)!
+
+testTrueObject
+
+	self assert: (virtualMachine trueObject smalltalkObject == true)!
+
+testTrueObjectClass
+
+	self assert: (virtualMachine trueObject className = 'True')! !
 !UMLTrueTest categoriesFor: #setUp!public! !
 !UMLTrueTest categoriesFor: #testIfFalse!public! !
 !UMLTrueTest categoriesFor: #testIfTrue!public! !
 !UMLTrueTest categoriesFor: #testIfTrueIfFalse!public! !
 !UMLTrueTest categoriesFor: #testNot!public! !
+!UMLTrueTest categoriesFor: #testTrueObject!public! !
+!UMLTrueTest categoriesFor: #testTrueObjectClass!public! !
 

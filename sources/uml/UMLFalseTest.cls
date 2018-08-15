@@ -16,11 +16,21 @@ setUp
 
 	boolean := virtualMachine falseObject.!
 
+testFalseObject
+
+	self assert: (virtualMachine falseObject smalltalkObject == false)!
+
+testFalseObjectClass
+
+	self assert: (virtualMachine falseObject className = 'False')!
+
 testNot
 	| result |
 
 	result := virtualMachine send: #not to: boolean withAll: Array new.
 	self assert: (virtualMachine trueObject == result)! !
 !UMLFalseTest categoriesFor: #setUp!public! !
+!UMLFalseTest categoriesFor: #testFalseObject!public! !
+!UMLFalseTest categoriesFor: #testFalseObjectClass!public! !
 !UMLFalseTest categoriesFor: #testNot!public! !
 
