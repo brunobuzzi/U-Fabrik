@@ -42,6 +42,22 @@ tearDown
 	uninstall ifTrue: [virtualMachine uninstallUMLModel: umlModel].
 !
 
+testIssue105
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. "type mismatch to get an error"
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last umlClass name = 'Error').
+
+	parsedCode := self umlCompiler parseExpression: '[8] value: 3'. "type mismatch to get an error"
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last umlClass name = 'Error').
+
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'. "type mismatch to get an error"
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last umlClass name = 'Error').
+!
+
 testIssue51
 	| source implementation umlObject result |
 
@@ -142,7 +158,7 @@ testIssue66
 
 	!
 
-testIssue69
+testIssue69and97
 	| source implementation umlObject snapshot |
 
 	source := 'testIssue69
@@ -165,7 +181,7 @@ testIssue69
 
 	self externaFileClass removeImplementationNamed: implementation methodName.!
 
-testIssue69_b
+testIssue69and97_b
 	| source implementation umlObject snapshot result |
 
 	source := 'testIssue69
@@ -228,6 +244,7 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #msWordClass!public! !
 !UMLVirtualMachineTest categoriesFor: #setUp!public! !
 !UMLVirtualMachineTest categoriesFor: #tearDown!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue105!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue51!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue53!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue54!public! !
@@ -235,8 +252,8 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #testIssue56_b!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue56_c!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue66!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue69!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue69_b!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue69and97!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue69and97_b!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue72!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue92!public! !
 
