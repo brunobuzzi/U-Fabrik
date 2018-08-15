@@ -8,6 +8,7 @@ package basicPackageVersion: '1.00'.
 
 package classNames
 	add: #UMLArrayTest;
+	add: #UMLBlockTest;
 	add: #UMLBooleanTest;
 	add: #UMLCollectionTest;
 	add: #UMLDateClassTest;
@@ -15,7 +16,9 @@ package classNames
 	add: #UMLFalseTest;
 	add: #UMLNumberTest;
 	add: #UMLObjectsReferencesTest;
+	add: #UMLObjectTest;
 	add: #UMLOrderedCollectionTest;
+	add: #UMLStringTest;
 	add: #UMLTestCase;
 	add: #UMLTimeTest;
 	add: #UMLTraitTest;
@@ -56,6 +59,11 @@ UMLTestCase subclass: #UMLVirtualMachineTestClass
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLBlockTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLBooleanTest
 	instanceVariableNames: 'boolean'
 	classVariableNames: ''
@@ -77,6 +85,16 @@ UMLVirtualMachineTestClass subclass: #UMLNumberTest
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLObjectsReferencesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLObjectTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLVirtualMachineTestClass subclass: #UMLStringTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

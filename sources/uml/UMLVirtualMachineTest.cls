@@ -45,15 +45,15 @@ tearDown
 testIssue105
 	| parsedCode result |
 
-	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. 
 	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 	self assert: (result last umlClass name = 'Error').
 
-	parsedCode := self umlCompiler parseExpression: '[8] value: 3'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[8] value: 3'.
 	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 	self assert: (result last umlClass name = 'Error').
 
-	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'.
 	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 	self assert: (result last umlClass name = 'Error').
 !
