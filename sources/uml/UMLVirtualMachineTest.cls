@@ -27,8 +27,6 @@ setUp
 
 	super setUp.
 
-	executionSnapshot :=  UMLScriptExecutionSnapshot virtualMachine: virtualMachine.
-
 	uninstall := false.
 	(virtualMachine includesUMLModelNamed: 'bank.xmi')
 	ifFalse: [reader := XmiVisualParadigm fromFile: (SessionManager current imageBase, 'xmi-examples\bank.xmi').
@@ -204,6 +202,26 @@ testIssue72
 	uninstall := true.
 
 	self assert: true.
+!
+
+testIssue92
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '[] value'. 
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result last).
+
+	parsedCode := self umlCompiler parseExpression: '[:arg | ] value: 4'. 
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result last).
+
+	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 | ] value: 4 value: 5'. 
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result last).
+
+	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 :arg3 | ] valueWithArguments: #(4 5 6)'. 
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result last).
 ! !
 !UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !
 !UMLVirtualMachineTest categoriesFor: #msOfficeClass!public! !
@@ -220,4 +238,5 @@ testIssue72
 !UMLVirtualMachineTest categoriesFor: #testIssue69!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue69_b!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue72!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue92!public! !
 
