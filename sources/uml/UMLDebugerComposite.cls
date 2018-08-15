@@ -209,12 +209,11 @@ specialStepInto: aStMessageNode
 stepInto
 	| newSnapshot selectedSnapshop receiverObject |
 	selectedSnapshop := stackPresenter selection.
-	selectedSnapshop nextNode isReturn 
-		ifTrue: [^MessageBox notify: 'Return node can not be debuged' caption: self applicationName].
-	selectedSnapshop isPrimitiveImplementation 
-		ifTrue: [^MessageBox notify: 'Primitives call can not be debuged' caption: self applicationName].
-	(selectedSnapshop nextNode isAssignment and: [selectedSnapshop nextNode value isMessage not]) 
-		ifTrue: [^MessageBox notify: 'Simple assigments can not be debuged' caption: self applicationName].
+
+	selectedSnapshop nextNode isReturn ifTrue: [^MessageBox notify: 'Return node can not be debugged' caption: self applicationName].
+	selectedSnapshop isPrimitiveImplementation ifTrue: [^MessageBox notify: 'Primitives call can not be debugged' caption: self applicationName].
+	(selectedSnapshop nextNode isAssignment and: [selectedSnapshop nextNode value isMessage not])  ifTrue: [^MessageBox notify: 'Simple assigments can not be debugged' caption: self applicationName].
+	selectedSnapshop nextNode receiver isBlock ifTrue: [^MessageBox notify: 'Block messages can not be debugged' caption: self applicationName].
 	receiverObject := selectedSnapshop getReceiverObjectFrom: selectedSnapshop nextNode receiver.
 	"here we check if is a simple message with the same name as one of its instances variables, in this case the node can only be debuged if he had a specific implementation for that instance variable"
 	((selectedSnapshop nextNode isMessage and: [selectedSnapshop nextNode receiver isMessage not]) 
@@ -222,14 +221,14 @@ stepInto
 			ifTrue: 
 				[(receiverObject canUnderstand: selectedSnapshop nextNode selector) 
 					ifFalse: 
-						[^MessageBox notify: 'Instance variable node without an implementation can not be debuged'
+						[^MessageBox notify: 'Instance variable node without an implementation can not be debugged'
 							caption: self applicationName]].
 	(selectedSnapshop isSpecialNodeMessage: selectedSnapshop nextNode) 
 		ifTrue: [^self specialStepInto: selectedSnapshop nextNode].
 	newSnapshot := [selectedSnapshop stepInto: selectedSnapshop nextNode] on: Error
 				do: [:ex | ^self implementationNotFound: ex].
 	newSnapshot 
-		ifNil: [^MessageBox notify: 'Empty methods can not be debuged' caption: self applicationName].
+		ifNil: [^MessageBox notify: 'Empty methods can not be debugged' caption: self applicationName].
 	self addSnapshot: newSnapshot.
 	stackPresenter selection: newSnapshot ifAbsent: []!
 
