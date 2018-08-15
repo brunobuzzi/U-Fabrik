@@ -170,9 +170,9 @@ setLastAnnotatedResult
 		ifTrue: [snapshot executeNode: nextNode variable ]] 
 	ifFalse: [(nextNode isMessage or: [nextNode isVariable]) ifTrue: [snapshot executeNode: nextNode] ]!
 
-setScriptSnapshot: anUMLScriptExecutionSnapshot
+setScriptSnapshot: anUMLExecutionSnapshot
 
-	sourcePresenter setScriptSnapshot: anUMLScriptExecutionSnapshot!
+	sourcePresenter setScriptSnapshot: anUMLExecutionSnapshot!
 
 showAllObjectsForExecutionSnapshot: anUMLExecutionSnapshot
 

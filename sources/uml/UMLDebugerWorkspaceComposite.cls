@@ -10,8 +10,8 @@ UMLDebugerWorkspaceComposite comment: ''!
 !UMLDebugerWorkspaceComposite categoriesForClass!Unclassified! !
 !UMLDebugerWorkspaceComposite methodsFor!
 
-setScriptSnapshot: anUMLScriptExecutionSnapshot
+setScriptSnapshot: anUMLExecutionSnapshot
 
-	executionSnapshot := anUMLScriptExecutionSnapshot! !
+	executionSnapshot := anUMLExecutionSnapshot! !
 !UMLDebugerWorkspaceComposite categoriesFor: #setScriptSnapshot:!public! !
 

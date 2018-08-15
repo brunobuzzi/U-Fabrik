@@ -52,9 +52,9 @@ setLastAnnotatedResult
 
 	debugerComposite setLastAnnotatedResult!
 
-setScriptSnapshot: anUMLScriptExecutionSnapshot
+setScriptSnapshot: anUMLExecutionSnapshot
 
-	debugerComposite setScriptSnapshot: anUMLScriptExecutionSnapshot! !
+	debugerComposite setScriptSnapshot: anUMLExecutionSnapshot! !
 !UMLDebugerDialog categoriesFor: #createComponents!public! !
 !UMLDebugerDialog categoriesFor: #hasSelectedClass!public! !
 !UMLDebugerDialog categoriesFor: #isCategoryBrowser!public! !

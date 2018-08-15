@@ -54,7 +54,6 @@ package classNames
 	add: #UMLModel;
 	add: #UMLPrimitiveNotFound;
 	add: #UMLScriptDebugerSnapshot;
-	add: #UMLScriptExecutionSnapshot;
 	add: #UMLSnapshotNotFoundError;
 	add: #UMLStackNotFoundError;
 	add: #UMLState;
@@ -508,11 +507,6 @@ UMLDebugSpecialIteration subclass: #UMLDebugIterationBlock
 	classInstanceVariableNames: ''!
 UMLExecutionSnapshot subclass: #UMLImplementationExecutionSnapshot
 	instanceVariableNames: 'sequenceReceiver receiverInstanceVariables sequenceArguments'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLExecutionSnapshot subclass: #UMLScriptExecutionSnapshot
-	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -102,6 +102,10 @@ registerExecutedStackItem: anUMLExecutionSnapshot
 
 	^anUMLExecutionSnapshot!
 
+resetCreatorSnapshot
+
+	creatorSnapshot := nil!
+
 virtualMachine
 	^virtualMachine!
 
@@ -128,6 +132,7 @@ virtualMachine: anObject
 !UMLExecutionStack categoriesFor: #onErrorDoSnapshot:!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #registerCurrentStackItem:!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #registerExecutedStackItem:!public!snapshot handler! !
+!UMLExecutionStack categoriesFor: #resetCreatorSnapshot!accessing!public!snapshot handler! !
 !UMLExecutionStack categoriesFor: #virtualMachine!accessing!private! !
 !UMLExecutionStack categoriesFor: #virtualMachine:!accessing!private! !
 
