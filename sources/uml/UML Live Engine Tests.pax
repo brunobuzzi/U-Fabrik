@@ -12,9 +12,7 @@ package classNames
 	add: #UMLCollectionTest;
 	add: #UMLDateClassTest;
 	add: #UMLDictionaryTest;
-	add: #UMLExpressionEvaluationTest;
 	add: #UMLFalseTest;
-	add: #UMLGUIEnvironmentTest;
 	add: #UMLNumberTest;
 	add: #UMLObjectsReferencesTest;
 	add: #UMLOrderedCollectionTest;
@@ -70,16 +68,6 @@ UMLVirtualMachineTestClass subclass: #UMLCollectionTest
 	classInstanceVariableNames: ''!
 UMLVirtualMachineTestClass subclass: #UMLDateClassTest
 	instanceVariableNames: 'umlDate'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLVirtualMachineTestClass subclass: #UMLExpressionEvaluationTest
-	instanceVariableNames: 'compiler'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLVirtualMachineTestClass subclass: #UMLGUIEnvironmentTest
-	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
