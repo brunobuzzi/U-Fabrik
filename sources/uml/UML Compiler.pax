@@ -175,13 +175,13 @@ UMLSanityCheck subclass: #UMLCompilationError
 
 !StAssignmentNode methodsFor!
 
-getUMLObjectFrom: anUMLScriptExecutionSnapshot 
+getUMLObjectFrom: anUMLExecutionSnapshot 
 
-	value isLiteralNode ifTrue: [^value asUMLObject: anUMLScriptExecutionSnapshot virtualMachine].
+	value isLiteralNode ifTrue: [^value asUMLObject: anUMLExecutionSnapshot  virtualMachine].
 
-	value isCascade ifFalse: [^anUMLScriptExecutionSnapshot getObjectNamed: value receiverName].
+	value isCascade ifFalse: [^anUMLExecutionSnapshot  getObjectNamed: value receiverName].
 
-	^anUMLScriptExecutionSnapshot cascadeTemporaries at: value!
+	^anUMLExecutionSnapshot  cascadeTemporaries at: value!
 
 hasSelector
 
@@ -352,13 +352,13 @@ argumentsName
 
 	^(self arguments collect: [:each | each receiverName]) asArray!
 
-getUMLObjectFrom: anUMLScriptExecutionSnapshot 
+getUMLObjectFrom: anUMLExecutionSnapshot  
 
-	(receiver isBlock) ifTrue: [^anUMLScriptExecutionSnapshot createBlockFrom: receiver].
+	(receiver isBlock) ifTrue: [^anUMLExecutionSnapshot  createBlockFrom: receiver].
 
-	self receiver isLiteralNode ifTrue: [^self receiver value asUMLObject: anUMLScriptExecutionSnapshot virtualMachine].
+	self receiver isLiteralNode ifTrue: [^self receiver value asUMLObject: anUMLExecutionSnapshot  virtualMachine].
 
-	^anUMLScriptExecutionSnapshot getObjectNamed: self receiverName!
+	^anUMLExecutionSnapshot getObjectNamed: self receiverName!
 
 isSuperSend
 

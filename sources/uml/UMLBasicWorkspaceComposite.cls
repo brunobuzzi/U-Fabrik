@@ -50,6 +50,15 @@ createComponents
 
 	workspacePresenter := self add: TextPresenter new name: 'workspace'.!
 
+createMethodNodeFromText: aString
+	| sequenceNode methNode |
+
+	sequenceNode := self createSequenceNodeFromText: aString.
+
+	methNode := StMethodNode selector: #fakeScript body: sequenceNode.
+
+	^self umlCompiler parseMethod: methNode printMessage "is parsed again to recalculate <start> and <end> after adding 'fakeScript' string "!
+
 createSchematicWiring
 
 	super createSchematicWiring.
@@ -60,6 +69,15 @@ createSchematicWiring
 		when: #dragOver: send: #onDragOverArena: to: self;
 		when: #drop: send: #onDropUMLObjectOverArena: to: self.
 	"self editorView when: #autoComplete:startingAt:accept: send: #onAutoComplete:startingAt:accept:  to: self."!
+
+createSequenceNodeFromText: aString
+	| node |
+
+	node := self umlCompiler parseExpression: aString.
+
+	node isSequence ifFalse: [node := StSequenceNode statements: (node isBlock ifTrue: [node body nodes] ifFalse: [Array with: node])].
+
+	^node!
 
 currentWord
 	| caretPosition word |
@@ -73,14 +91,17 @@ currentWord
 
 debugIt
 	"The receiver open a debugger with the selected text"
-	| formattedCode debuggerSnapshot |
+	| fakeImplementation debuggerSnapshot |
 
 	self getSelectedText isEmpty ifTrue: [^self].
-	formattedCode := self umlCompiler formatExpression: self getSelectedText.
 
-	executionSnapshot sequence: formattedCode.
+	executionSnapshot := nil.
+	fakeImplementation := self defaultVirtualMachine createFakeImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
+	executionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: self defaultVirtualMachine nilObject arguments: #() virtualMachine: self defaultVirtualMachine.
+	executionSnapshot parentSnapshot: nil.
 
-	debuggerSnapshot := UMLScriptDebugerSnapshot snapshot: executionSnapshot sequence: formattedCode.	"debugger := UMLExecutionSnapshotThreadShell showOn: executionSnapshot sequence: sequence."
+	debuggerSnapshot := UMLImplementationDebugerSnapshot snapshot: executionSnapshot.
+
 	(UMLDebuggerShell showOn: debuggerSnapshot) setScriptSnapshot: executionSnapshot!
 
 deleteToStartOfWord
@@ -575,7 +596,9 @@ zoomLevel: anInteger
 !UMLBasicWorkspaceComposite categoriesFor: #copyLine!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #copySelection!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #createComponents!public! !
+!UMLBasicWorkspaceComposite categoriesFor: #createMethodNodeFromText:!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #createSchematicWiring!autocompletion!public! !
+!UMLBasicWorkspaceComposite categoriesFor: #createSequenceNodeFromText:!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #currentWord!autocompletion!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #debugIt!evaluations!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #deleteToStartOfWord!public! !

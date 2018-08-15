@@ -214,6 +214,21 @@ createBooleanObjects
 	self addPrimitiveObject: ((self virtualMachineClassNamed: 'True') newInstanceWith: true) named: 'true'.
 	self addPrimitiveObject: ((self virtualMachineClassNamed: 'False') newInstanceWith: false) named: 'false'.!
 
+createFakeImplementationFromMethodNode: aStMethodNode
+	"The receiver create a fake implementation in order to execute a piece of code that do not belong to any class"
+	| fakedImplementation |
+
+	fakedImplementation := UMLParsedImplementation new.
+	fakedImplementation parsedCode: aStMethodNode;
+		methodClass: self objectClass.
+
+	^fakedImplementation!
+
+createFakeImplementationFromSequenceNode: aStSequenceNode
+	"The receiver create a fake implementation in order to execute a piece of code that do not belong to any class"
+
+	^self createFakeImplementationFromMethodNode: (StMethodNode selector: #fakeScript body: aStSequenceNode)!
+
 createNilObject
 	"The receiver creates the <nil> object"
 
@@ -335,23 +350,21 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
-	| fakedImplementation sequenceNode result excutionSnapshot |
+	| fakeImplementation sequenceNode result excutionSnapshot |
 
 	sequenceNode := aStProgramNode isSequence 
 				ifTrue: [aStProgramNode] 
 				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
-	fakedImplementation := UMLParsedImplementation new.
-	fakedImplementation parsedCode: (StMethodNode selector: #fakeScript body: sequenceNode);
-		methodClass: self objectClass.
+	fakeImplementation := self createFakeImplementationFromSequenceNode: sequenceNode.
 
 	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
 	excutionSnapshot := anUMLObject isBlock 
 	ifFalse: [ | newSnapshot |
-		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakedImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
+		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
 		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
 	ifTrue: [anUMLExecutionSnapshot registerInStack].
 
-	result := self apply: fakedImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
+	result := self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
 
 	^result!
 
@@ -2448,6 +2461,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #classNamed:!public!searching! !
 !UMLVirtualMachine categoriesFor: #classNamed:ifNone:!public!searching! !
 !UMLVirtualMachine categoriesFor: #createBooleanObjects!initializing!public! !
+!UMLVirtualMachine categoriesFor: #createFakeImplementationFromMethodNode:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #createFakeImplementationFromSequenceNode:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #createNilObject!initializing!public! !
 !UMLVirtualMachine categoriesFor: #cretateGettersAndSettersImplementationsFor:inClass:!public! !
 !UMLVirtualMachine categoriesFor: #dateClass!primitive objects!private! !

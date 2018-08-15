@@ -562,6 +562,7 @@ virtualMachine
 	^virtualMachine!
 
 virtualMachine: anObject
+
 	virtualMachine := anObject! !
 !UMLExecutionSnapshot categoriesFor: #addBlock:!public! !
 !UMLExecutionSnapshot categoriesFor: #addCascadeTemporary:node:!public! !

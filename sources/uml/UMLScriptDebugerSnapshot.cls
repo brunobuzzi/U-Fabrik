@@ -56,7 +56,9 @@ sequenceArguments
 
 sequenceSource
 
-	^sequence printMessage! !
+	"^sequence printMessage "
+
+	^mainSnapshot sequence printMessage! !
 !UMLScriptDebugerSnapshot categoriesFor: #allNodes!public! !
 !UMLScriptDebugerSnapshot categoriesFor: #createBlockDebugIterationForMessage:!public! !
 !UMLScriptDebugerSnapshot categoriesFor: #executeNode:!debug process!public!snapshot debug! !
