@@ -1335,6 +1335,8 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockNode := anUMLInstance smalltalkObject.
 
+	(blockNode arguments size = 0) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
+
 	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	blockResult isEmpty ifTrue: [^self nilObject].
