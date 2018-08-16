@@ -33,6 +33,28 @@ testOnValueDo
 	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
 	self assert: (result last smalltalkObject = 4).!
 
+testOuterContextVariable
+	| parsedCode result code |
+
+	code := '
+| a |
+a := 4.
+[:int | a * int] value: 5'. 
+	parsedCode := self umlCompiler parseExpression: code.
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last smalltalkObject = 20).
+
+	code := '
+| a |
+a := 4.
+[:int | | b |
+b := a * int.
+b negated] value: 5
+'. 
+	parsedCode := self umlCompiler parseExpression: code.
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last smalltalkObject = -20).!
+
 testValue
 	| parsedCode result |
 
@@ -64,6 +86,7 @@ testValueWithArguments
 	self assert: (result last smalltalkObject = 'cba').! !
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
 !UMLBlockTest categoriesFor: #testOnValueDo!public! !
+!UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
 !UMLBlockTest categoriesFor: #testValue!public! !
 !UMLBlockTest categoriesFor: #testValueWithArguments!public! !
 

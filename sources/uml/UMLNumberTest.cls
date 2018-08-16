@@ -25,6 +25,13 @@ testAbs
 
 	self assert: (result smalltalkObject = 9)!
 
+testAsString
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '10 asString'. 
+	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	self assert: (result last smalltalkObject = '10').!
+
 testDivide
 	| result |
 
@@ -100,6 +107,7 @@ testPlus
 	self assert: (result smalltalkObject = 17)! !
 !UMLNumberTest categoriesFor: #setUp!public! !
 !UMLNumberTest categoriesFor: #testAbs!public! !
+!UMLNumberTest categoriesFor: #testAsString!public! !
 !UMLNumberTest categoriesFor: #testDivide!public! !
 !UMLNumberTest categoriesFor: #testEqualTo!public! !
 !UMLNumberTest categoriesFor: #testEqualTo2!public! !
