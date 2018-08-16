@@ -479,7 +479,7 @@ showAllNamesFor: aString
 		ifTrue: [self defaultVirtualMachine getAllClassesNames select: [:each | (aString, '*') match: each asString] ] "if is uppercase then is an incomplete class name"
 "if not then is: 1. incomplete instVar, 2. incomplete temp variable"
 		ifFalse: [ | instVar |
-			instVar := executionSnapshot sequenceTemporaries keys asSortedCollection select: [:each | (aString, '*') match: each].
+			instVar := executionSnapshot ifNil: [#()] ifNotNil: [executionSnapshot sequenceTemporaries keys asSortedCollection select: [:each | (aString, '*') match: each]].
 			instVar isEmpty 
 			ifTrue: [(self defaultVirtualMachine hasClassNamed: aString capitalized) 
 				ifTrue: [^self showImplementationsOfClassNamed: aString capitalized] ifFalse: [OrderedCollection new] ] 
@@ -558,7 +558,10 @@ showVariables
 
 	temporaries := self umlCompiler getAllTemporariesIn: self getAllText.
 
-	^self showAutocompletationList: temporaries, (executionSnapshot sequenceTemporaries keys asSortedCollection) , self defaultVirtualMachine getAllClassesNames!
+	^self showAutocompletationList: 
+		temporaries, 
+		(executionSnapshot ifNil: [#()] ifNotNil: [executionSnapshot sequenceTemporaries keys asSortedCollection]) , 
+		self defaultVirtualMachine getAllClassesNames!
 
 startSentenceCollection
 
