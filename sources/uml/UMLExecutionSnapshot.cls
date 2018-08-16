@@ -164,9 +164,9 @@ getArgumentsFrom: aStMessageNode
 getBasicObjectNamed: aName
 	"<Name> can be anInteger, aFloat, anString, ..."
 
-	(aName = 'true') ifTrue: [^virtualMachine trueObject].
-	(aName = 'false') ifTrue: [^virtualMachine falseObject].
-	(aName = 'nil') ifTrue: [^virtualMachine nilObject].
+	((aName = 'true') or: [aName = true]) ifTrue: [^virtualMachine trueObject].
+	((aName = 'false') or: [aName = false]) ifTrue: [^virtualMachine falseObject].
+	((aName = 'nil') or: [aName = nil]) ifTrue: [^virtualMachine nilObject].
 	(aName isString) ifTrue: [^aName asUMLObject: virtualMachine].
 	(aName isKindOf: Number) ifTrue: [^virtualMachine getNumber: aName ifAbsent: [virtualMachine addNumber: aName]].
 	^virtualMachine nilObject!
