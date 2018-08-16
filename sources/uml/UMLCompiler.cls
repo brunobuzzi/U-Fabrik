@@ -69,7 +69,7 @@ getUnimplementedMethodsIn: aStMethodNode for: anUMLClass
 
 	^(aStMethodNode allNodes select:[:e | e isMessage]) reject: [:each | | selectorAsVariableName |
 		selectorAsVariableName := (each selector includes: $:) ifTrue: [each selector allButLast] ifFalse: [each selector].
-		(self defaultVirtualMachine hasMetaDefinitionNamed: each selector) or: [(self defaultVirtualMachine hasDefinitionNamed: each selector) or: [self defaultVirtualMachine hasAnyVariableNamed: selectorAsVariableName]]
+		(self defaultVirtualMachine hasMetaDefinitionNamed: each selector) or: [(self defaultVirtualMachine hasDefinitionNamed: each selector) or: [self defaultVirtualMachine hasAnyVariableNamed: selectorAsVariableName asString]]
 	].!
 
 hasCompilationFailure: aStMethodNode for: anUMLClass
