@@ -890,6 +890,10 @@ getVirtualMachineImplementations
 
 	^vmImplementations!
 
+hasAnyVariableNamed: aString
+
+	^self getAllClasses anySatisfy: [:umlClass | umlClass hasVariableNamed: aString]!
+
 hasClassNamed: aString
 	"The receiver answer whether or not has a class named <aString >"
 
@@ -2557,6 +2561,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #getUMLModelOf:ifNone:!public!searching! !
 !UMLVirtualMachine categoriesFor: #getUserCategories!public! !
 !UMLVirtualMachine categoriesFor: #getVirtualMachineImplementations!public! !
+!UMLVirtualMachine categoriesFor: #hasAnyVariableNamed:!public! !
 !UMLVirtualMachine categoriesFor: #hasClassNamed:!public! !
 !UMLVirtualMachine categoriesFor: #hasDefinitionNamed:!public!uml msg tracking! !
 !UMLVirtualMachine categoriesFor: #hasLooseDefinitionNamed:for:!public!uml msg tracking! !
