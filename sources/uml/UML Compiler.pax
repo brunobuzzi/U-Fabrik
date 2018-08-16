@@ -740,7 +740,7 @@ createUMLCreationSourceFor: anUMLInstance using: varName
 	| source instanceValue smalltalkObject |
 
 	smalltalkObject := (anUMLInstance vmPerform: varName) smalltalkObject. 
-	instanceValue :=  (smalltalkObject class == String) ifTrue: [smalltalkObject trimBlanks] ifFalse: [smalltalkObject printString].
+	instanceValue :=  smalltalkObject isString ifTrue: [smalltalkObject trimBlanks] ifFalse: [smalltalkObject printString].
 	source  := '_create', instanceValue capitalized, String lineDelimiter, String tab, 
 		'| newInstance | ', String lineDelimiter, String tab, 
 		'newInstance := ', self getMetaclass name, ' new.', String lineDelimiter, String tab.
