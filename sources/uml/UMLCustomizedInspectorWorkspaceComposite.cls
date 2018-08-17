@@ -15,7 +15,7 @@ evaluate: aString
 
 	parsedCode := self umlCompiler parseExpression: aString.
 
-	^self defaultVirtualMachine executeSequenceNodeReturningAll: parsedCode in: nil
+	^self defaultVirtualMachine executeSequenceNode: parsedCode in: nil
 !
 
 evaluateIt

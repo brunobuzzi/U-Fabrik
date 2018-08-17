@@ -20,7 +20,7 @@ packages			- aDictionary to group virtual machine core classes.'!
 !UMLVirtualMachine categoriesForClass!Unclassified! !
 !UMLVirtualMachine methodsFor!
 
-_executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
+_executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
 	This method is for Testing and Development purpose. 
 	The authentic method is: #executeSequenceNodeReturningAll:forReceiver:in: (if the original method is change then this method should be updated with the same code)"
@@ -42,12 +42,12 @@ _executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: an
 
 	^Array with: result with: excutionSnapshot parentStack!
 
-_executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+_executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
 	This method is for Testing and Development purpose. 
 	The authentic method is: #executeSequenceNodeReturningAll:in:"
 
-	^self _executeSequenceNodeReturningAll: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
+	^self _executeSequenceNode: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
 
 addNumber: aNumber
 	"The environment has request a number that not exist in the receiver, so we proceed to create it"
@@ -376,7 +376,7 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 
 	^exception!
 
-executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
+executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
 	| fakeImplementation sequenceNode result excutionSnapshot |
@@ -397,11 +397,11 @@ executeSequenceNodeReturningAll: aStProgramNode forReceiver: anUMLObject in: anU
 
 	^result!
 
-executeSequenceNodeReturningAll: aStProgramNode in: anUMLExecutionSnapshot
+executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
 
-	^self executeSequenceNodeReturningAll: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
+	^self executeSequence: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
 
 falseObject
 
@@ -1370,7 +1370,7 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	(blockNode arguments size = 0) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	blockResult isEmpty ifTrue: [^self nilObject].
 
@@ -1388,7 +1388,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anArray keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	^blockResult isEmpty 
 	ifFalse: [blockResult last] 
@@ -1406,7 +1406,7 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	arguments keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
 	^blockResult isEmpty 
 	ifFalse: [blockResult last] 
@@ -1460,7 +1460,7 @@ processPrimitiveCall_209: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	exceptionBlock := anArray second. "exception block if <blockNode> Fails"
 
 	blockNode catchException.
-	blockResult := self executeSequenceNodeReturningAll: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
+	blockResult := self executeSequenceNode: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
 
 	(#('Error' 'Exception' 'Warning') includes: blockResult last umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
 	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult last)]. 
@@ -2470,8 +2470,8 @@ virtualMachineMetaclassNamed: aString
 	^systemDictionary at: aString ifAbsent: [^self nilObject].
 
 	^(packages detect: [:each | (each getClassNamed: aString ifNone: [nil]) notNil] ifNone: [^self nilObject]) getMetaclass! !
-!UMLVirtualMachine categoriesFor: #_executeSequenceNodeReturningAll:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #_executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #_executeSequenceNode:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #_executeSequenceNode:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #addNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #addPackage:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #addPrimitiveObject:named:!primitive objects!private! !
@@ -2514,8 +2514,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #errorSelfReference:receiver:setObject:snapshot:!error handling!public! !
 !UMLVirtualMachine categoriesFor: #errorVariableMismatch:varType:receiver:setObject:snapshot:!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #errorVaribleNotExist:receiver:setObject:snapshot:!error handling!public!vm core! !
-!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #executeSequenceNodeReturningAll:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #executeSequenceNode:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #executeSequenceNode:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #fetchClassMethodNamed:for:ifNone:!message dispatching core!public! !
 !UMLVirtualMachine categoriesFor: #fetchImplementationNamed:for:ifNone:!double dispatch!message dispatching!message dispatching core!public!vm core! !
