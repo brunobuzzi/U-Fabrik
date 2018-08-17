@@ -22,6 +22,10 @@ isMethodImplementation
 
 	^false!
 
+isUMLClass
+
+	^false!
+
 isUMLObject
 
 	^true!
@@ -32,6 +36,7 @@ umlUndefinedObject
 !UMLObject categoriesFor: #asUMLObject!public!xmi!xmi-others! !
 !UMLObject categoriesFor: #asUMLObject:!public! !
 !UMLObject categoriesFor: #isMethodImplementation!public! !
+!UMLObject categoriesFor: #isUMLClass!public! !
 !UMLObject categoriesFor: #isUMLObject!public! !
 !UMLObject categoriesFor: #umlUndefinedObject!public! !
 

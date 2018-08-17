@@ -129,13 +129,18 @@ enable: aBoolean
 	workspacePresenter view isEnabled: aBoolean !
 
 evaluate: aString 
-	| parsedCode |
+	| parsedCode fakeImplementation |
 
 	parsedCode := self umlCompiler parseExpression: aString.
 
 	parsedCode isBlock ifFalse: [^self defaultVirtualMachine executeSequenceNode: parsedCode in: nil].
 
-	^executionSnapshot createBlockFrom: parsedCode 
+	executionSnapshot := nil.
+	fakeImplementation := self defaultVirtualMachine createFakeImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
+	executionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: self defaultVirtualMachine nilObject arguments: #() virtualMachine: self defaultVirtualMachine.
+	executionSnapshot parentSnapshot: nil.
+
+	 ^executionSnapshot createBlockFrom: parsedCode 
 !
 
 evaluateIt
@@ -173,7 +178,7 @@ helpWithThisTool
 	^Error notYetImplemented!
 
 inspectIt
-	| result objectToInspect |
+	| result |
 
 	self getSelectedText isEmpty ifTrue: [^self].
 	result := [self evaluate: self getSelectedText] on: Error
@@ -181,13 +186,11 @@ inspectIt
 	result ifNil: [^self].
 	result == self defaultVirtualMachine nilObject ifTrue: [^UMLBasicInspectorShell showOn: result].
 
-	result isUMLInstance ifTrue: [^UMLBasicInspectorShell showOn: result].
+	(result isUMLInstance or:[result isUMLClass]) ifTrue: [^UMLBasicInspectorShell showOn: result].
 
-	(result notBlock and: [result isEmpty]) ifTrue: [^self].
+	result notBlock ifTrue: [^self].
 
-	objectToInspect := result isBlock ifTrue: [result ] ifFalse: [result last].
-
-	^UMLBasicInspectorShell showOn: objectToInspect!
+	^UMLBasicInspectorShell showOn: result!
 
 isStartOfTheWord
 

@@ -212,6 +212,10 @@ instancesVariablesAsSortedCollection
 
 	^instancesVariables asSortedCollection: [:a :b | a name <= b name]!
 
+isUMLClass
+
+	^true!
+
 name
 	^name!
 
@@ -343,6 +347,7 @@ umlSuperclass: anUMLClass
 !UMLClassDescription categoriesFor: #implementationNamed:!public! !
 !UMLClassDescription categoriesFor: #initialize!public! !
 !UMLClassDescription categoriesFor: #instancesVariablesAsSortedCollection!public! !
+!UMLClassDescription categoriesFor: #isUMLClass!public! !
 !UMLClassDescription categoriesFor: #name!accessing!private! !
 !UMLClassDescription categoriesFor: #name:!accessing!private! !
 !UMLClassDescription categoriesFor: #printAllAttributesNames!attributes!public! !

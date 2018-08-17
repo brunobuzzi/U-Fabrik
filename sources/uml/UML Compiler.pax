@@ -529,8 +529,7 @@ nodes
 
 processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
 
-	anUMLObject isNil
-	ifTrue: [^anUMLExecutionSnapshot getVariableNamed: self name].
+	(self defaultVirtualMachine getAnyClassNamed: self name) ifNotNil: [:vmOrUmlClass | ^vmOrUmlClass].
 
 	^(anUMLObject hasVariableNamed: self name) 
 	ifTrue: [anUMLObject atVariableName: self name]
