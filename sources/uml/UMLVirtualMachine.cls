@@ -796,7 +796,7 @@ getAnyClassNamed: aString ifAbsent: aBlock
 	" Answer anUMLClass with the name <aString>, the receiver look inside UMLModels and the SystemDictionary "
 	| selectedClass |
 
-	selectedClass := (self virtualMachineClassNamedLowercase: aString).
+	selectedClass := (self virtualMachineClassNamed: aString).
 	selectedClass ~~ self nilObject ifTrue: [^selectedClass].
 	selectedClass := (self classNamed: aString).
 	selectedClass ~~ self nilObject ifTrue: [^selectedClass].
