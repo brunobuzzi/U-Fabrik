@@ -41,6 +41,14 @@ onViewOpened
 
 	view menuBar: virtualMachineBrowser menuBar!
 
+selectClass: virtualMachineClass
+
+	^virtualMachineBrowser selectClass: virtualMachineClass!
+
+selectClass: virtualMachineClass ifAbsent: aBlock
+
+	^virtualMachineBrowser selectClass: virtualMachineClass ifAbsent: aBlock!
+
 selectedClass
 	^virtualMachineBrowser selectedClass!
 
@@ -49,7 +57,11 @@ selectedClassIsMetaclass
 
 selectImplementation: anUMLImplementation 
 
-	^virtualMachineBrowser selectImplementation: anUMLImplementation! !
+	^virtualMachineBrowser selectImplementation: anUMLImplementation!
+
+showClassSide
+
+	^virtualMachineBrowser showClassSide! !
 !UMLVirtualMachineShell categoriesFor: #createComponents!public! !
 !UMLVirtualMachineShell categoriesFor: #hasSelectedClass!public! !
 !UMLVirtualMachineShell categoriesFor: #hasSelectedImplementation!public! !
@@ -58,9 +70,12 @@ selectImplementation: anUMLImplementation
 !UMLVirtualMachineShell categoriesFor: #onClassListChanged!public! !
 !UMLVirtualMachineShell categoriesFor: #onUMLModelClassChanged!public! !
 !UMLVirtualMachineShell categoriesFor: #onViewOpened!public! !
+!UMLVirtualMachineShell categoriesFor: #selectClass:!public! !
+!UMLVirtualMachineShell categoriesFor: #selectClass:ifAbsent:!public! !
 !UMLVirtualMachineShell categoriesFor: #selectedClass!public! !
 !UMLVirtualMachineShell categoriesFor: #selectedClassIsMetaclass!public! !
 !UMLVirtualMachineShell categoriesFor: #selectImplementation:!public! !
+!UMLVirtualMachineShell categoriesFor: #showClassSide!public! !
 
 !UMLVirtualMachineShell class methodsFor!
 

@@ -17,12 +17,13 @@ aspectPresenter: anObject
 	aspectPresenter := anObject!
 
 browseClass
-	| shellBrowser |
+	| shellBrowser objectToBrowse |
 
-	shellBrowser := UMLModelShell show.
-	self topShell isCustomizedInspector ifTrue: [^shellBrowser selectUMLClass: self topShell model umlClass ifAbsent: [].].
+	objectToBrowse := self selectedObject.
+	shellBrowser := objectToBrowse belongToVirtualMachine ifTrue: [UMLVirtualMachineShell show] ifFalse: [UMLModelShell show].
+	self topShell isCustomizedInspector ifTrue: [^shellBrowser selectClass: self topShell model umlClass ifAbsent: [].].
 	self selectedObject ifNil: [^self].
-	shellBrowser selectUMLClass: self selectedObject umlClass ifAbsent: [].!
+	shellBrowser selectClass: self selectedObject umlClass ifAbsent: [].!
 
 changeObjectClass
 	"The receiver removes the selected instance variable and prompt a list of classes to be instantiated and put the new object as the new value for the selected instance variable "
