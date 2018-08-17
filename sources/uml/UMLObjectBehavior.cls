@@ -33,10 +33,9 @@ addImplementation: anUMLImplementation
 	(implementations includesKey: anUMLImplementation name) 
 	ifTrue: [ | oldImplementation |
 		oldImplementation := implementations at: anUMLImplementation name.
-		anUMLImplementation comments: oldImplementation comments.
-		oldImplementation hasShowHideMessage 
-		ifTrue: [anUMLImplementation hideShowMessage: oldImplementation  hideShowMessage;
-				hideShowMessageClass: oldImplementation hideShowMessageClass] ].
+		anUMLImplementation comments isEmpty ifTrue: [anUMLImplementation comments: oldImplementation comments].
+		(oldImplementation hasShowHideMessage and: [anUMLImplementation hasShowHideMessage not])
+		ifTrue: [anUMLImplementation hideShowMessage: oldImplementation hideShowMessage] ].
 
 	^implementations at: anUMLImplementation name put: anUMLImplementation!
 

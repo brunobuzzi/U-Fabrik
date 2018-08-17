@@ -26,8 +26,7 @@ setShowHideMethod
 
 	showHideComposite selectedMethod ifNil: [^self exit].
 
-	self subject hideShowMessage: showHideComposite selectedMethod methodName;
-		hideShowMessageClass: showHideComposite selectedClass className.
+	self subject hideShowMessage: showHideComposite selectedMethod methodName.
 
 	self exit.! !
 !UMLShowHideAspectShell categoriesFor: #createComponents!public! !

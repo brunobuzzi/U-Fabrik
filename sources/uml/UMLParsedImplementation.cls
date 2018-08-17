@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLImplementation subclass: #UMLParsedImplementation
-	instanceVariableNames: 'parsedCode hideShowMessage hideShowMessageClass hasCompilationFailure'
+	instanceVariableNames: 'parsedCode hideShowMessage hasCompilationFailure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -151,12 +151,6 @@ hideShowMessage
 hideShowMessage: anObject
 	hideShowMessage := anObject!
 
-hideShowMessageClass
-	^hideShowMessageClass!
-
-hideShowMessageClass: anObject
-	hideShowMessageClass := anObject!
-
 icon
 
 	hasCompilationFailure ifFalse: [^self class icon].
@@ -273,8 +267,6 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #hasShowHideMessage!public! !
 !UMLParsedImplementation categoriesFor: #hideShowMessage!accessing!private! !
 !UMLParsedImplementation categoriesFor: #hideShowMessage:!accessing!private! !
-!UMLParsedImplementation categoriesFor: #hideShowMessageClass!accessing!private! !
-!UMLParsedImplementation categoriesFor: #hideShowMessageClass:!accessing!private! !
 !UMLParsedImplementation categoriesFor: #icon!public! !
 !UMLParsedImplementation categoriesFor: #initialize!public! !
 !UMLParsedImplementation categoriesFor: #isPrimitiveCall!public! !

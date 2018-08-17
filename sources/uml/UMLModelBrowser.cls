@@ -361,8 +361,7 @@ removeShowHideMethod
 
 	self hasSelectedImplementation ifFalse: [^self].
 
-	self selectedImplementation hideShowMessage: nil.
-	self selectedImplementation hideShowMessageClass: nil.	!
+	self selectedImplementation hideShowMessage: nil.!
 
 removeUMLModel
 	modelsPresenter hasSelection ifFalse: [^self].
