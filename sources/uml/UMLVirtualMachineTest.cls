@@ -46,16 +46,16 @@ testIssue105
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Error').
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Error').
 
 	parsedCode := self umlCompiler parseExpression: '[8] value: 3'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Error').
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Error').
 
 	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Error').
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Error').
 !
 
 testIssue51
@@ -84,9 +84,9 @@ testIssue53
 
 	parsedCode := self umlCompiler parseExpression: 'Card new account: 9'. "type mismatch to get an error"
 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
-	self assert: (result last umlClass name = 'Error').!
+	self assert: (result umlClass name = 'Error').!
 
 testIssue54
 	| isActive parsedCode |
@@ -95,12 +95,12 @@ testIssue54
 	virtualMachine transLog cleanAll; logIsActive: true.
 
 	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate: Date new'. 
-	virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	virtualMachine executeSequenceNode: parsedCode in: nil.
 
 	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate:)] ifNone: [self assert: false]) notNil.
 
 	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate'. 
-	virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	virtualMachine executeSequenceNode: parsedCode in: nil.
 
 	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate)] ifNone: [self assert: false]) notNil.
 
@@ -112,9 +112,9 @@ testIssue56
 
 	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex |]'. 
 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
-	self assert: (virtualMachine nilObject == result last).
+	self assert: (virtualMachine nilObject == result).
 
 !
 
@@ -123,9 +123,9 @@ testIssue56_b
 
 	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex | 97]'. 
 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
-	self assert: (result last smalltalkObject = 97).
+	self assert: (result smalltalkObject = 97).
 
 !
 
@@ -134,9 +134,9 @@ testIssue56_c
 
 	parsedCode := self umlCompiler parseExpression: '[Array new. String new. Card foo. Array new] on: Error do: [:ex | 97]'. 
 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
-	self assert: (result last smalltalkObject = 97).
+	self assert: (result smalltalkObject = 97).
 
 !
 
@@ -224,20 +224,20 @@ testIssue92
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '[] value'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result last).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg | ] value: 4'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result last).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 | ] value: 4 value: 5'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result last).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 :arg3 | ] valueWithArguments: #(4 5 6)'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result last).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (virtualMachine nilObject == result).
 ! !
 !UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !
 !UMLVirtualMachineTest categoriesFor: #msOfficeClass!public! !

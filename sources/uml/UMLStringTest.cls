@@ -14,85 +14,85 @@ testAppend
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''a'' , ''b'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 'ab').!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 'ab').!
 
 testAsLowercase
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''A'' asLowercase'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 'a').
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 'a').
 
 	parsedCode := self umlCompiler parseExpression: '''A'' asLowercase'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self deny: (result last smalltalkObject = 'A').!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self deny: (result smalltalkObject = 'A').!
 
 testAsNumber
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''10'' asNumber'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 10).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 10).!
 
 testAsUppercase
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''a'' asUppercase'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 'A').
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 'A').
 
 	parsedCode := self umlCompiler parseExpression: '''a'' asUppercase'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self deny: (result last smalltalkObject = 'a').!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self deny: (result smalltalkObject = 'a').!
 
 testEqual
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''a'' = ''b'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = false).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = false).
 
 	parsedCode := self umlCompiler parseExpression: '''a'' = ''a'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = true).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = true).
 
 	parsedCode := self umlCompiler parseExpression: '''a'' = ''A'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = false).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = false).!
 
 testGreaterThan
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''a'' > ''b'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = false).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = false).!
 
 testSize
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''A'' size'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 1).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 1).
 
 	parsedCode := self umlCompiler parseExpression: '''Ab'' size'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 2).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 2).
 
 	parsedCode := self umlCompiler parseExpression: '''AbC'' size'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 3).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 3).
 
 	parsedCode := self umlCompiler parseExpression: '''AbCd'' size'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = 4).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 4).!
 
 testSmallerThan
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '''a'' < ''b'''. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = true).! !
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = true).! !
 !UMLStringTest categoriesFor: #testAppend!public! !
 !UMLStringTest categoriesFor: #testAsLowercase!public! !
 !UMLStringTest categoriesFor: #testAsNumber!public! !

@@ -20,46 +20,46 @@ testIfFalse
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '(2=3) ifFalse: [| a | a := 2]'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Number').
-	self assert: (result last smalltalkObject = 2).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Number').
+	self assert: (result smalltalkObject = 2).
 
 	parsedCode := self umlCompiler parseExpression: '(2=3) ifFalse: []'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'UndefinedObject').
-	self assert: (result last smalltalkObject = nil).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'UndefinedObject').
+	self assert: (result smalltalkObject = nil).!
 
 testIfTrue
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '(2=2) ifTrue: [| a | a := 2]'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Number').
-	self assert: (result last smalltalkObject = 2).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Number').
+	self assert: (result smalltalkObject = 2).
 
 	parsedCode := self umlCompiler parseExpression: '(2=2) ifTrue: []'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'UndefinedObject').
-	self assert: (result last smalltalkObject = nil).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'UndefinedObject').
+	self assert: (result smalltalkObject = nil).!
 
 testIfTrueIfFalse
 	| parsedCode result stack |
 
 	parsedCode := self umlCompiler parseExpression: '(2=2) ifTrue: [| a | a := 2] ifFalse: [| b | b := 3]'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Number').
-	self assert: (result last smalltalkObject = 2).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Number').
+	self assert: (result smalltalkObject = 2).
 
 	parsedCode := self umlCompiler parseExpression: '(2=3) ifTrue: [| a | a := 2] ifFalse: [| b | b := 3]'.
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last umlClass name = 'Number').
-	self assert: (result last smalltalkObject = 3).
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result umlClass name = 'Number').
+	self assert: (result smalltalkObject = 3).
 
 	parsedCode := self umlCompiler parseExpression: '(2=2) 
 		ifTrue: [| a b c d e | 
 			a := 1. b := 2. c := 3. d := 4. e := 5.] 
 		ifFalse: []'.
-	result := virtualMachine _executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine _executeSequenceNode: parsedCode in: nil.
 	stack := result at: 2.
 	self assert: (stack hasSequenceTemporaryNamed: 'a' withStValue: 1).
 	self assert: (stack hasSequenceTemporaryNamed: 'b' withStValue: 2).
@@ -71,7 +71,7 @@ testIfTrueIfFalse
 		ifFalse: [| a b c d e | 
 			a := 1. b := 2. c := 3. d := 4. e := 5.] 
 		ifTrue: []'.
-	result := virtualMachine _executeSequenceNodeReturningAll: parsedCode in: nil.
+	result := virtualMachine _executeSequenceNode: parsedCode in: nil.
 	stack := result at: 2.
 	self assert: (stack hasSequenceTemporaryNamed: 'a' withStValue: 1).
 	self assert: (stack hasSequenceTemporaryNamed: 'b' withStValue: 2).

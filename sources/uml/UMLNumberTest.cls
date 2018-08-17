@@ -29,8 +29,8 @@ testAsString
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '10 asString'. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject = '10').!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = '10').!
 
 testDivide
 	| result |

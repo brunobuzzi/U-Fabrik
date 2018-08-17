@@ -21,10 +21,10 @@ dict at: true put: true.
 dict'.
 
 	parsedCode := self umlCompiler parseExpression: code. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: ((result last smalltalkObject at: 1) smalltalkObject = 1).
-	self assert: ((result last smalltalkObject at: '1') smalltalkObject = 'string').
-	self assert: ((result last smalltalkObject at: true) smalltalkObject = true).!
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: ((result smalltalkObject at: 1) smalltalkObject = 1).
+	self assert: ((result smalltalkObject at: '1') smalltalkObject = 'string').
+	self assert: ((result smalltalkObject at: true) smalltalkObject = true).!
 
 testIncludesKey
 	| parsedCode result code |
@@ -37,10 +37,10 @@ dict at: true put: true.
 dict'.
 
 	parsedCode := self umlCompiler parseExpression: code. 
-	result := virtualMachine executeSequenceNodeReturningAll: parsedCode in: nil.
-	self assert: (result last smalltalkObject includesKey: 1).
-	self assert: (result last smalltalkObject includesKey: '1').
-	self assert: (result last smalltalkObject includesKey: true).! !
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject includesKey: 1).
+	self assert: (result smalltalkObject includesKey: '1').
+	self assert: (result smalltalkObject includesKey: true).! !
 !UMLDictionaryTest categoriesFor: #testAtPut!public! !
 !UMLDictionaryTest categoriesFor: #testIncludesKey!public! !
 
