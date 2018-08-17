@@ -193,11 +193,13 @@ fileInXmlToFrom: aStream
 		className := (classImplementationsNode selectSingleNode: 'Name') innerXML.
 		(self getClassNamed: className ifNone: [nil])
 		ifNotNil: [:umlClass | 
-			(classImplementationsNode selectNodes: 'Implementations/Implementation') do: [:implementationNode | | source categories comments |
+			(classImplementationsNode selectNodes: 'Implementations/Implementation') do: [:implementationNode | | source categories comments implementation showHideMethod |
 				source := ((implementationNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
 				comments :=  (((implementationNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				categories := (implementationNode selectNodes: 'Categories/CategoryName') collect: [:catNameNode | catNameNode innerXML].
-				umlClass addSourceImplementation: source withCategories: categories withComments: comments.
+				implementation := umlClass addSourceImplementation: source withCategories: categories withComments: comments.
+				showHideMethod := (implementationNode selectSingleNode: 'HideShowMessage') innerXML.
+				showHideMethod notEmpty ifTrue: [implementation hideShowMessage: showHideMethod].
 			]
 		]
 	].!

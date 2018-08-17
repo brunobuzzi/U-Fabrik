@@ -72,6 +72,8 @@ fileOutWithAsXmlTo: aStream withCategories: anOrderedCollection
 	].
 	aStream nextPutAll: '</Categories>'.
 
+	aStream nextPutAll: '<HideShowMessage>', (hideShowMessage ifNil: [''] ifNotNil: [:value | value]) ,'</HideShowMessage>'.
+	
 	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.!
 
 getAllCategoriesButVirtual
