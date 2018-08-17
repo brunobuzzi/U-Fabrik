@@ -1368,6 +1368,7 @@ viewMain
 !
 
 viewTabComponent
+	"The receiver render the Tabs of the <observee> <amUMLInstance>"
 	| webTab |
 
 	webTab := ViewTabs newClass: #tabs1.
@@ -1379,8 +1380,10 @@ viewTabComponent
 	(self observeeCollectionVariables, self observeeCategoriesCollections)
  		do: [:eachKey | | showHideResult implementation |
 			implementation := self defaultVirtualMachine fetchMethodNamed: eachKey for: self observee umlClass. 
+			"if a condition method exist <hasShowHideMessage> to render the component then the condition is evaluated"	
 			((implementation == self defaultVirtualMachine nilObjectClass) not and: [implementation hasShowHideMessage])
-			ifTrue: [showHideResult := self observee vmPerform: implementation hideShowMessage withArguments: (Array with: umlApplicationUser). "we execute the condition"		(showHideResult belongToVirtualMachine and: [showHideResult smalltalkObject isBoolean and: [showHideResult smalltalkObject] ])
+			ifTrue: [showHideResult := [self observee vmPerform: implementation hideShowMessage withArguments: (Array with: umlApplicationUser)] on: Error do: [:ex | self defaultVirtualMachine falseObject] .
+				(showHideResult belongToVirtualMachine and: [showHideResult smalltalkObject isBoolean and: [showHideResult smalltalkObject] ])
 				ifTrue: [webTab addView: eachKey description: eachKey capitalized]]
 			ifFalse: [webTab addView: eachKey description: eachKey capitalized].
 ].

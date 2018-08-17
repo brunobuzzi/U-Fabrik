@@ -1018,8 +1018,8 @@ navBarCurrentUserLinkFor: anObject
 	| e currentUser userName |
 
 	e := WebElement newClass: #navdiv.
-	currentUser := self app getUserFromUMLApplication.
-	userName := (currentUser vmPerform: #printObjectName) smalltalkObject.
+	[currentUser := self app getUserFromUMLApplication.
+	userName := (currentUser vmPerform: #printObjectName) smalltalkObject] on: Error do: [:ex | userName := 'Error getting current user'] .
 
 	e add: (self navHeader: ' User' bullet: #bulletSquareDownTranspWhiteGif).
 	e add: (self navLinkTo: currentUser header: userName bullet: #bulletStarTranspWhiteGif).
