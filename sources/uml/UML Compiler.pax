@@ -108,7 +108,6 @@ package methodNames
 	add: #UMLClass -> #createUMLDBSourceForCreateAllInstancesWith:;
 	add: #UMLClass -> #createUMLSourceForCreateAllInstancesWith:;
 	add: #UMLObject -> #umlCompiler;
-	add: #UMLObjectBehavior -> #defaultImplementationClass;
 	add: 'StProgramNode class' -> #icon;
 	add: 'UMLObject class' -> #umlCompiler;
 	yourself.
@@ -827,12 +826,6 @@ umlCompiler
 
 	^UMLCompiler! !
 !UMLObject class categoriesFor: #umlCompiler!public! !
-
-!UMLObjectBehavior methodsFor!
-
-defaultImplementationClass
-	^UMLParsedImplementation! !
-!UMLObjectBehavior categoriesFor: #defaultImplementationClass!public! !
 
 "End of package definition"!
 

@@ -568,42 +568,6 @@ fileInMethodsFrom: pathFile
 	fileStream := nil.
 	xmlSource := nil!
 
-fileInUMLModelImplementationsFrom: pathFile 
-	"The receiver create a file with path file <pathFile> and store all elements of <aListModel> in an XML file"
-	| fileStream xmlDocument xmlSource |
-
-	fileStream := FileStream read: pathFile text: true.
-	xmlSource := fileStream contents.
-	fileStream close.
-	xmlDocument := IXMLDOMDocument new.
-	xmlDocument loadText: xmlSource.
-	self defaultVirtualMachine 
-		getUMLModelNamed: (xmlDocument selectSingleNode: '/modelImplementationsFileOut/modelName') innerXML
-		ifNone: [^MessageBox notify: 'UML Model is not installed' caption: self applicationName].
-	(xmlDocument selectNodes: '//implementation') do: [:each | | source parsedImplementation categories |
-			source := ((each selectSingleNode: 'source') innerXML subStrings: 'CDATA[') second allButLast: 3.
-			(self getAnyClassNamed: (each selectSingleNode: 'className') innerXML) 
-				ifNil: 
-					[xmlDocument free.
-					xmlDocument := nil.
-					MessageBox 
-						notify: 'Can not import methods, of UML Class ' , (each selectSingleNode: 'className') innerXML 
-								, ' does not exist'
-						caption: self applicationName]
-				ifNotNil: 
-					[:umlClass | 
-					categories := (each selectNodes: 'categories/categoryName') collect: [:each | each innerXML].
-					(each selectSingleNode: 'isMeta') innerXML = 'true' 
-						ifTrue: [umlClass metaclass addSourceImplementation: source withCategories: categories withComments: '']
-						ifFalse: [umlClass addSourceImplementation: source withCategories: categories withComments: ''].
-
-				]
-			].
-	xmlDocument free.
-	xmlDocument := nil.
-	fileStream := nil.
-	xmlSource := nil!
-
 fileOutAsXmlTo: aStream
 
 	aStream nextPutAll: '<VM>'.
@@ -665,23 +629,6 @@ fileOutMethods: aListModel to: pathFile
 			nextPutAll: '</implementation>';
 			cr.].
 	fileStream nextPutAll: '</methods></methodsFileOut>'.
-	fileStream flush.
-	fileStream close.!
-
-fileOutUMLModelImplementations: anUMLModel to: pathFile
-	"The receiver create a file with path file <pathFile> and store all elements of <aListModel> in an XML file"
-	| fileStream |
-
-	fileStream := FileStream write: pathFile text: true.
-	fileStream nextPutAll: '<modelImplementationsFileOut><modelName>', anUMLModel name,'</modelName>'.
-	fileStream nextPutAll: '<methods>'.
-	anUMLModel allImplementations do: [:each | 
-		fileStream nextPutAll: '<implementation>'; cr. 
-		each printSourceOn: fileStream.
-		fileStream cr;
-			nextPutAll: '</implementation>';
-			cr.].
-	fileStream nextPutAll: '</methods></modelImplementationsFileOut>'.
 	fileStream flush.
 	fileStream close.!
 
@@ -2520,12 +2467,10 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #fileInCategoryMethodsFrom:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileInFromXml:!public!vm file in! !
 !UMLVirtualMachine categoriesFor: #fileInMethodsFrom:!binary filing!public! !
-!UMLVirtualMachine categoriesFor: #fileInUMLModelImplementationsFrom:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutCategory:to:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutCleanVirtualMachineTo:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutMethods:to:!binary filing!public! !
-!UMLVirtualMachine categoriesFor: #fileOutUMLModelImplementations:to:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #fileOutVirtualMachineTo:!binary filing!public! !
 !UMLVirtualMachine categoriesFor: #generateMethodsReportFor:!public! !
 !UMLVirtualMachine categoriesFor: #getAllCategories!public! !

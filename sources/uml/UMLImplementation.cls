@@ -26,16 +26,6 @@ allMessageNodes
 arguments
 	^#()!
 
-asParsedImplementation
-
-	^UMLParsedImplementation new
-		methodName: methodName; 
-		comments: comments;
-		"temporaries: temporaries;"
-		"arguments: arguments; "
-		"byteCodes: byteCodes;"
-		yourself.!
-
 className
 
 	^methodClass name!
@@ -107,7 +97,6 @@ uninstall
 	methodClass := nil.! !
 !UMLImplementation categoriesFor: #allMessageNodes!public! !
 !UMLImplementation categoriesFor: #arguments!accessing!public! !
-!UMLImplementation categoriesFor: #asParsedImplementation!public! !
 !UMLImplementation categoriesFor: #className!public! !
 !UMLImplementation categoriesFor: #getInitialClassObjectNames!public! !
 !UMLImplementation categoriesFor: #hasState!public! !

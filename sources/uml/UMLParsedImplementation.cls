@@ -56,15 +56,31 @@ classNameForImplementationList
 
 fileOutAsXmlTo: aStream
 
+	self fileOutWithAsXmlTo: aStream withCategories: self getCategories !
+
+fileOutWithAllCategoriesAsXmlTo: aStream
+
+	self fileOutWithAsXmlTo: aStream withCategories: self getAllCategoriesButVirtual !
+
+fileOutWithAsXmlTo: aStream withCategories: anOrderedCollection
+
 	aStream nextPutAll: '<Source><!![CDATA[', parsedCode source, ']]></Source>'.
 
 	aStream nextPutAll: '<Categories>'.
-	self getCategories do: [:eachImpCat | 
+	anOrderedCollection do: [:eachImpCat | 
 		aStream nextPutAll: '<CategoryName>', eachImpCat name, '</CategoryName>'.
 	].
 	aStream nextPutAll: '</Categories>'.
 
 	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.!
+
+getAllCategoriesButVirtual
+
+	^(methodClass getAllCategories reject: [:each | each isVirtual]) 
+		select: [:each | each implementationsAsSortedCollection includes: self]
+
+
+!
 
 getCategories
 
@@ -241,6 +257,9 @@ temporaryVariables
 !UMLParsedImplementation categoriesFor: #asTreeModelUpto:count:!public!uml msg tracking! !
 !UMLParsedImplementation categoriesFor: #classNameForImplementationList!public! !
 !UMLParsedImplementation categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
+!UMLParsedImplementation categoriesFor: #fileOutWithAllCategoriesAsXmlTo:!binary filing!public! !
+!UMLParsedImplementation categoriesFor: #fileOutWithAsXmlTo:withCategories:!binary filing!public! !
+!UMLParsedImplementation categoriesFor: #getAllCategoriesButVirtual!public! !
 !UMLParsedImplementation categoriesFor: #getCategories!public! !
 !UMLParsedImplementation categoriesFor: #getImplementationAndGUICategories!public! !
 !UMLParsedImplementation categoriesFor: #getNodeAt:!public! !

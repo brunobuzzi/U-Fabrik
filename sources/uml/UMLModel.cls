@@ -134,14 +134,6 @@ createGlobalKey: aString
 
 	^systemRoot at: aString put: OrderedCollection new!
 
-createLinkTipoAsunto_CategoriaTipoAsunto
-
-	^self relateMultiplicity1aNWith: (self getClassNamed: 'TipoAsunto') and: (self getClassNamed: 'CategoriaTipoAsunto') keys: #('categoriaTipoAsunto' 'codigo')!
-
-createLinkTipoAsunto_MetaEstructuraProcesal
-
-	^self relateMultiplicity1aNWith: (self getClassNamed: 'TipoAsunto') and: (self getClassNamed: 'MetaEstructuraProcesal') keys: #('mostrarSoloEnORDA' 'codigo')!
-
 createSetupKey: aString
 
 	^setupObjects at: aString put: OrderedCollection new!
@@ -181,6 +173,55 @@ duplicatedAttributesAsOrderedCollection
 	attributesCollection := OrderedCollection new.
 	self duplicatedAttributes do: [:each | attributesCollection add: each last].
 	^attributesCollection!
+
+fileInXml: pathFile
+	| fileStream |
+
+	fileStream := FileStream read: pathFile text: true.
+
+	self fileInXmlToFrom: fileStream.
+!
+
+fileInXmlToFrom: aStream
+	| xmlDocument |
+
+	xmlDocument := IXMLDOMDocument new.
+	xmlDocument loadText: aStream contents.
+	aStream close.
+
+	(xmlDocument selectNodes: 'Implementations/UMLClass') do: [:classImplementationsNode |  | className |
+		className := (classImplementationsNode selectSingleNode: 'Name') innerXML.
+		(self getClassNamed: className ifNone: [nil])
+		ifNotNil: [:umlClass | 
+			(classImplementationsNode selectNodes: 'Implementations/Implementation') do: [:implementationNode | | source categories comments |
+				source := ((implementationNode selectSingleNode: 'Source') innerXML allButFirst: 9) allButLast: 3. "to remove <!![CDATA[ and ]]>"
+				comments :=  (((implementationNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
+				categories := (implementationNode selectNodes: 'Categories/CategoryName') collect: [:catNameNode | catNameNode innerXML].
+				umlClass addSourceImplementation: source withCategories: categories withComments: comments.
+			]
+		]
+	].!
+
+fileOutAsXml: pathFile
+	| fileStream |
+
+	fileStream := FileStream write: pathFile text: true.
+
+	self fileOutAsXmlTo: fileStream.
+
+	fileStream flush; close.!
+
+fileOutAsXmlTo: aStream
+
+	aStream nextPutAll: '<Implementations><UMLModelNamed>', name, '</UMLModelNamed>'.
+
+	umlClasses do: [:each | 
+		aStream nextPutAll: '<UMLClass>'.
+		aStream nextPutAll: '<Name>', each name, '</Name>'.
+		each fileOutImplementationsWithCategoriesAsXmlTo: aStream.
+		aStream nextPutAll: '</UMLClass>'.].
+
+	aStream nextPutAll: '</Implementations>'!
 
 generateAttributesForRelations
 
@@ -817,8 +858,6 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #classesNamesAsSortedCollection!public! !
 !UMLModel categoriesFor: #classesWithoutSuperclass!public! !
 !UMLModel categoriesFor: #createGlobalKey:!public! !
-!UMLModel categoriesFor: #createLinkTipoAsunto_CategoriaTipoAsunto!public!uml import! !
-!UMLModel categoriesFor: #createLinkTipoAsunto_MetaEstructuraProcesal!public!uml import! !
 !UMLModel categoriesFor: #createSetupKey:!public! !
 !UMLModel categoriesFor: #currentStateMessage!public!state machine spec! !
 !UMLModel categoriesFor: #customizedGUI!accessing!private! !
@@ -827,6 +866,10 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #destroySetupKey:!public! !
 !UMLModel categoriesFor: #duplicatedAttributes!public! !
 !UMLModel categoriesFor: #duplicatedAttributesAsOrderedCollection!public! !
+!UMLModel categoriesFor: #fileInXml:!binary filing!public! !
+!UMLModel categoriesFor: #fileInXmlToFrom:!binary filing!public! !
+!UMLModel categoriesFor: #fileOutAsXml:!binary filing!public! !
+!UMLModel categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !

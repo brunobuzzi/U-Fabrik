@@ -285,17 +285,6 @@ stbSaveOn: anSTBOutFiler
 	anSTBOutFiler override: virtualMachine with: nil.
 	super stbSaveOn: anSTBOutFiler.!
 
-transformToSpecificImplementation
-	"Transform the instances of UMLImplementation of the receiver to one of it's subclasses (VirtualMachineImplementation, ParsedImplementation)"
-	| newImplementations |
-
-	newImplementations := implementations collect: [:each | each asParsedImplementation].
-	implementations := LookupTable new.
-	newImplementations do: [:each | self addImplementation: each].
-	^implementations
-
-	!
-
 umlClass
 	^self subclassResponsibility!
 
@@ -381,7 +370,6 @@ vmPerform: aSymbol withArguments: anArray  parentSnapshot: anUMLExecutionSnapsho
 !UMLObjectBehavior categoriesFor: #setInstancesVariablesForLicence!public! !
 !UMLObjectBehavior categoriesFor: #setVariableNamed:with:!behavior!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #stbSaveOn:!binary filing!public! !
-!UMLObjectBehavior categoriesFor: #transformToSpecificImplementation!public!transform-collection elem type change! !
 !UMLObjectBehavior categoriesFor: #umlClass!public! !
 !UMLObjectBehavior categoriesFor: #unorderedMethodsFor:!public! !
 !UMLObjectBehavior categoriesFor: #virtualMachine:!accessing!private! !

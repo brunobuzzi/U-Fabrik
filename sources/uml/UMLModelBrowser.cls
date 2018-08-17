@@ -152,13 +152,16 @@ fileInUMLModel
 
 fileInUMLModelImplementations
 	| file |
+
 	modelsPresenter hasSelection ifFalse: [^self].
 	file := (FileOpenDialog new)
 				caption: 'UML Model Implementations...';
-				fileTypes: #(#('UML Model Implementations (*.umi)' '*.umi'));
+				fileTypes: #(#('UML Model Implementations (*.xml)' '*.xml'));
 				showModal.
 	file ifNil: [^self].
-	self defaultVirtualMachine fileInUMLModelImplementationsFrom: file.
+
+	modelsPresenter selection fileInXml: file.
+
 	^MessageBox notify: 'UML Model implementations installation succeeded' caption: self applicationName!
 
 fileOutMethodsOfCategory
@@ -181,11 +184,11 @@ fileOutUMLModelImplementations
 	modelsPresenter hasSelection ifFalse: [^self].
 	file := (FileSaveDialog new)
 				caption: 'Save UML Implementations...';
-				fileTypes: #(#('UML Implementations (*.umi)' '*.umi'));
+				fileTypes: #(#('UML Implementations (*.xml)' '*.xml'));
 				showModal.
 	file ifNil: [^self].
 
-	self defaultVirtualMachine fileOutUMLModelImplementations: modelsPresenter selection to: file!
+	modelsPresenter selection fileOutAsXml: file!
 
 hasSelectedCategory
 	^classBrowser hasSelectedCategory!

@@ -148,12 +148,7 @@ fileOutAsXmlTo: aStream
 	aStream nextPutAll: '<SuperclassName>', self getSuperclass name, '</SuperclassName>'.
 	aStream nextPutAll: '<Comments><!![CDATA[', comments , ']]></Comments>'.
 
-	aStream nextPutAll: '<Implementations>'.
-		implementations do: [:eachImp | 
-			aStream nextPutAll: '<Implementation>'.
-			eachImp fileOutAsXmlTo: aStream.
-			aStream nextPutAll: '</Implementation>'.].
-	aStream nextPutAll: '</Implementations>'.
+	self fileOutImplementationsAsXmlTo: aStream.
 
 	aStream nextPutAll: '<Subclasses>'.
 		subclasses do: [:each | aStream nextPutAll: each name].
@@ -162,6 +157,24 @@ fileOutAsXmlTo: aStream
 	aStream nextPutAll: '<Traits>'.
 		traits do: [:each | aStream nextPutAll: '<TraitName>', each name, '</TraitName>'].
 	aStream nextPutAll: '</Traits>'.!
+
+fileOutImplementationsAsXmlTo: aStream
+
+	aStream nextPutAll: '<Implementations>'.
+		implementations do: [:eachImp | 
+			aStream nextPutAll: '<Implementation>'.
+			eachImp fileOutAsXmlTo: aStream.
+			aStream nextPutAll: '</Implementation>'.].
+	aStream nextPutAll: '</Implementations>'.!
+
+fileOutImplementationsWithCategoriesAsXmlTo: aStream
+
+	aStream nextPutAll: '<Implementations>'.
+		implementations do: [:eachImp | 
+			aStream nextPutAll: '<Implementation>'.
+			eachImp fileOutWithAllCategoriesAsXmlTo: aStream.
+			aStream nextPutAll: '</Implementation>'.].
+	aStream nextPutAll: '</Implementations>'.!
 
 getAllAttributesNames
 	^(self allAttributes collect: [:each | each getName]) asSortedCollection!
@@ -334,6 +347,8 @@ umlSuperclass: anUMLClass
 !UMLClassDescription categoriesFor: #defaultTopObjectClass!public! !
 !UMLClassDescription categoriesFor: #displayDescriptorString!public! !
 !UMLClassDescription categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
+!UMLClassDescription categoriesFor: #fileOutImplementationsAsXmlTo:!binary filing!public! !
+!UMLClassDescription categoriesFor: #fileOutImplementationsWithCategoriesAsXmlTo:!binary filing!public! !
 !UMLClassDescription categoriesFor: #getAllAttributesNames!attributes!get elements!public! !
 !UMLClassDescription categoriesFor: #getAllNames!attributes!get elements!public!relations! !
 !UMLClassDescription categoriesFor: #getAttributesNames!attributes!get elements!public! !
