@@ -11,8 +11,20 @@ UMLDoesNotUnderstadoDialog comment: ''!
 !UMLDoesNotUnderstadoDialog methodsFor!
 
 answer
+	| snapshot error umlObject symbol |
 
-	^self defaultVirtualMachine nilObject!
+	symbol := self subject at: 1.
+	umlObject := self subject at: 2.
+	snapshot := self subject at: 3.
+
+	error := self defaultVirtualMachine errorClass 
+				vmPerform: #message: 
+				withArguments: (Array with: (('Not found implementation named <', symbol, '> for class named <', umlObject className, '>') asUMLObject: self defaultVirtualMachine)).
+
+	snapshot exception: error.
+
+	^error
+		!
 
 createComponents
 	super createComponents.

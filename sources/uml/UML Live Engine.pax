@@ -68,6 +68,7 @@ package classNames
 	add: #UMLVirtualMachine;
 	add: #UMLVirtualMachineBootstrap;
 	add: #UMLVirtualMachineClass;
+	add: #UMLVirtualMachineExecutionError;
 	add: #UMLVirtualMachineInstance;
 	add: #UMLVirtualMachineMetaclass;
 	add: #UMLVirtualMachinePackage;
@@ -140,6 +141,8 @@ package methodNames
 	add: #UMLClass -> #defaultInstanceClass;
 	add: #UMLClass -> #newInstance;
 	add: #UMLClass -> #uninstall;
+	add: #UMLClassDescription -> #vmPerform:withArguments:;
+	add: #UMLClassDescription -> #vmPerform:withArguments:parentSnapshot:;
 	add: #UMLObject -> #defaultVirtualMachine;
 	add: #UMLObjectBehavior -> #addSourceImplementation:;
 	add: #UMLObjectBehavior -> #addSourceImplementation:comments:;
@@ -257,6 +260,11 @@ UMLLiveEngineError subclass: #UMLSnapshotNotFoundError
 	classInstanceVariableNames: ''!
 UMLLiveEngineError subclass: #UMLStackNotFoundError
 	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLLiveEngineError subclass: #UMLVirtualMachineExecutionError
+	instanceVariableNames: 'realException'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -1005,6 +1013,20 @@ uninstall
 !UMLClass categoriesFor: #defaultInstanceClass!public! !
 !UMLClass categoriesFor: #newInstance!instance creation!public! !
 !UMLClass categoriesFor: #uninstall!public! !
+
+!UMLClassDescription methodsFor!
+
+vmPerform: aSymbol withArguments: anArray 
+	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
+
+	^[virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: nil] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code']!
+
+vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
+	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
+
+	^[virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: anUMLExecutionSnapshot] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code']! !
+!UMLClassDescription categoriesFor: #vmPerform:withArguments:!behaviors!public!umlvm evaluation! !
+!UMLClassDescription categoriesFor: #vmPerform:withArguments:parentSnapshot:!behaviors!public!umlvm evaluation! !
 
 !UMLObject methodsFor!
 

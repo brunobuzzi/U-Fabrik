@@ -460,6 +460,7 @@ processMessageNode: aStMessageNode messageReceiver: anUMLObject arguments: anArr
 
 "in this case the receiver is not immediate, is like: <anObject foo .... isEmpty lastMessageNode>"
 	result := aStMessageNode receiver processInsideSnapshot: self context: anUMLObject parameters: anArray. "process the first receiver of the message receiver"
+	hasDNU ifTrue: [^result].
 	umlArguments := self getArgumentsFrom: aStMessageNode. "get the arguments for the last receiver"
 
 	^result vmPerform: aStMessageNode selector withArguments: umlArguments parentSnapshot: self "send the last message"!

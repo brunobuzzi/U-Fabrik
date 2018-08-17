@@ -306,17 +306,7 @@ umlSuperclass: anUMLClass
 
 	anUMLClass ifNil: [^self].
 	umlSuperclass := anUMLClass.
-	anUMLClass addSubclass: self.!
-
-vmPerform: aSymbol withArguments: anArray 
-	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
-
-	^virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: nil!
-
-vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
-	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
-
-	^virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: anUMLExecutionSnapshot! !
+	anUMLClass addSubclass: self.! !
 !UMLClassDescription categoriesFor: #addAttribute:!attributes!public! !
 !UMLClassDescription categoriesFor: #addSubclass:!public!relations! !
 !UMLClassDescription categoriesFor: #addTrait:!public! !
@@ -376,6 +366,4 @@ vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 !UMLClassDescription categoriesFor: #umlModelName!gui!public! !
 !UMLClassDescription categoriesFor: #umlSuperclass!accessing!private! !
 !UMLClassDescription categoriesFor: #umlSuperclass:!accessing!public!relations! !
-!UMLClassDescription categoriesFor: #vmPerform:withArguments:!behaviors!public!umlvm evaluation! !
-!UMLClassDescription categoriesFor: #vmPerform:withArguments:parentSnapshot:!behaviors!public!umlvm evaluation! !
 
