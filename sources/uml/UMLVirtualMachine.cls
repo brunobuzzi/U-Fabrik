@@ -159,11 +159,11 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
 							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot].
-							 ^collectionResult]]
+							 ^nodeExecutionResult]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] 
 	].
 	anUMLExecutionSnapshot finalizeSnapshot. "move the snapshot from current to executed in the Stack"
-	aBoolean ifTrue: [^collectionResult].
+	aBoolean ifTrue: [^collectionResult isEmpty ifTrue: [self nilObject] ifFalse: [collectionResult last]].
 	collectionResult isEmpty ifTrue: [^anUMLObject].
 
 	"see issue #51" "#isCurtailed indicate a (^) return node --> answer the last result" "primitive call answer the result of the primitive call --> answer the last result"
@@ -401,7 +401,7 @@ executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
 
-	^self executeSequence: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
+	^self executeSequenceNode: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
 
 falseObject
 
@@ -1372,10 +1372,7 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
-	blockResult isEmpty ifTrue: [^self nilObject].
-
-	^blockResult last
-!
+	^blockResult!
 
 processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
@@ -1390,9 +1387,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
-	^blockResult isEmpty 
-	ifFalse: [blockResult last] 
-	ifTrue: [self nilObject]!
+	^blockResult!
 
 processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
@@ -1408,9 +1403,7 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
 
-	^blockResult isEmpty 
-	ifFalse: [blockResult last] 
-	ifTrue: [self nilObject]!
+	^blockResult!
 
 processPrimitiveCall_205: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
@@ -1462,10 +1455,10 @@ processPrimitiveCall_209: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	blockNode catchException.
 	blockResult := self executeSequenceNode: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
 
-	(#('Error' 'Exception' 'Warning') includes: blockResult last umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
-	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult last)]. 
+	(#('Error' 'Exception' 'Warning') includes: blockResult umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
+	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult)]. 
 	
-	^blockResult last
+	^blockResult
 !
 
 processPrimitiveCall_301: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
