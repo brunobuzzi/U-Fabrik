@@ -204,7 +204,7 @@ getSuperclass
 
 hasAnyVariableNamed: aSymbol
 
-	^self allAttributes anySatisfy: [:each | (each attributeName = aSymbol asSymbol) or: [each attributeName = aSymbol asString]]!
+	^self allAttributes anySatisfy: [:each | each getName asSymbol = aSymbol asSymbol]!
 
 hasSubclasses
 	^subclasses notEmpty!
