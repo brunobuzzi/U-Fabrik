@@ -29,27 +29,68 @@ createComponents
 	classNamePresenter := self add: TextPresenter new name: 'classNamePresenter'.
 	messageNamePresenter := self add: TextPresenter new name: 'messageNamePresenter'.!
 
+createSnapshot
+	| snapshot methodName object arguments argumentsLookup implementation |
+
+	methodName := self model first.
+	object := self model second.
+	arguments := self model at: 5.
+	argumentsLookup := LookupTable new.
+	arguments do: [:each | argumentsLookup at: each printString put: each].
+	
+	implementation := UMLParsedImplementation newWithCode: self getEmptyMethodCode.
+	implementation methodName: methodName;
+		methodClass: object umlClass.
+
+	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: object arguments: argumentsLookup virtualMachine: self. 
+
+	snapshot parentSnapshot: nil.
+
+	^snapshot!
+
 debug
 	| methodName object executionSnapshot node targetNodes |
+
 	methodName := self model first.
 	object := self model second.
 	executionSnapshot := self model third.
-	targetNodes := executionSnapshot sequence nodes 
-				select: [:each | each isMessage and: [each selector = methodName]].
+	executionSnapshot ifNil: [executionSnapshot := self createSnapshot].
+	targetNodes := executionSnapshot sequence nodes select: [:each | each isMessage and: [each selector = methodName]].
+
 	node := targetNodes isEmpty 
 				ifFalse: [targetNodes first]
-				ifTrue: 
-					[executionSnapshot sequence nodes isEmpty 
+				ifTrue: [executionSnapshot sequence nodes isEmpty 
 						ifFalse: [executionSnapshot sequence nodes first]
 						ifTrue: [^MessageBox notify: 'Empty method' caption: self applicationName]].
 	self topShell exit.
-	
+
 	[self defaultVirtualMachine 
 		processPrimitiveCall_501: object
 		withArguments: (Array with: node)
 		snapshot: executionSnapshot
 		isScript: executionSnapshot isScript] 
 			forkAt: 4!
+
+getEmptyMethodCode
+	| methodName arguments methodCode |
+
+	methodCode := WriteStream on: String new.
+	methodName := self model first.
+	arguments := self model at: 5.
+
+	arguments isEmpty ifTrue: [^'vmScript ', String lineDelimiter , String tab,methodName].
+
+	methodCode nextPutAll: 'vmScript', String lineDelimiter , String tab;
+		nextPutAll: '"Configuration Error: This Method does NOT exist <', methodName ,'>"';
+		cr;
+		nextPutAll:  'self '.
+
+	(methodName subStrings: ':') keysAndValuesDo: [:eachKey :eachValue | 
+		methodCode nextPutAll: eachValue, ': ', (arguments at: eachKey) printString.
+		methodCode nextPutAll:  ' '.
+	].
+
+	^methodCode contents!
 
 model: anOrderedCollection
 	"The object <anOrderedCollection> is composed as follow at: 
@@ -77,7 +118,9 @@ terminateUMLProcess
 !UMLDoesNotUnderstadComposite categoriesFor: #caption:!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #className!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #createComponents!public! !
+!UMLDoesNotUnderstadComposite categoriesFor: #createSnapshot!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #debug!public! !
+!UMLDoesNotUnderstadComposite categoriesFor: #getEmptyMethodCode!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #model:!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #onViewOpened!public! !
 !UMLDoesNotUnderstadComposite categoriesFor: #terminateUMLProcess!public! !

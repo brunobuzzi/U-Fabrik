@@ -132,7 +132,7 @@ package methodNames
 	add: #UMLShell -> #startDesktopLogin;
 	add: #UMLTrait -> #show;
 	add: #UMLVirtualMachine -> #defaultDebuggerShell;
-	add: #UMLVirtualMachine -> #errorImplementation:notFoundFor:in:isSuperSend:;
+	add: #UMLVirtualMachine -> #errorImplementation:notFoundFor:with:in:isSuperSend:;
 	add: #UMLVirtualMachine -> #processPrimitiveCall_500:withArguments:snapshot:;
 	add: #UMLVirtualMachine -> #processPrimitiveCall_501:withArguments:snapshot:isScript:;
 	add: #UMLVirtualMachine -> #resourceIdentifierFor:;
@@ -1034,7 +1034,7 @@ defaultDebuggerShell
 
 	^UMLDebuggerShell!
 
-errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapshot isSuperSend: aBoolean
+errorImplementation: aSymbol notFoundFor: anUMLInstance with: parameters in: anUMLExecutionSnapshot isSuperSend: aBoolean
 
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLInstance methodName: aSymbol arguments: nil snapshot: anUMLExecutionSnapshot]. "Here we register the error in the UMLVMTransLog"
 
@@ -1049,7 +1049,7 @@ errorImplementation: aSymbol notFoundFor: anUMLInstance in: anUMLExecutionSnapsh
 		].
 	].
 
-	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean)!
+	^UMLDoesNotUnderstadoDialog showModalOn: (OrderedCollection with: aSymbol with: anUMLInstance with: anUMLExecutionSnapshot with: aBoolean with: parameters)!
 
 processPrimitiveCall_500: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	"The receiver answer <anUMLInstance> that represent a Collection for collect (and relate) instance of <anArray>"
@@ -1120,7 +1120,7 @@ show
 	"^UMLVirtualMachineSystemBrowserShell showOn: self"
 	^UMLVirtualMachineShell showOn: self! !
 !UMLVirtualMachine categoriesFor: #defaultDebuggerShell!infinite loop!public! !
-!UMLVirtualMachine categoriesFor: #errorImplementation:notFoundFor:in:isSuperSend:!debug!error handling!public!vm core! !
+!UMLVirtualMachine categoriesFor: #errorImplementation:notFoundFor:with:in:isSuperSend:!debug!error handling!public!vm core! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_500:withArguments:snapshot:!debug!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_501:withArguments:snapshot:isScript:!debug!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #resourceIdentifierFor:!public! !
