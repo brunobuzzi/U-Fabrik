@@ -1093,7 +1093,7 @@ basicInstancesVariables
 	^instancesVariables select: [:each | (virtualMachine send: #isBasic to: each withAll: Array new) == virtualMachine trueObject]!
 
 getAllCategories
-	"The receiver answer a collection of <UMLImplementationCategory>. <anUMLImplementationCategory> can NOT have the same name as a <UMLGUICategory>"
+	"The receiver answer a collection of <UMLImplementationCategory>. <anUMLImplementationCategory> can NOT have the same name as <anUMLGUICategory>"
 	| allCategories |
 
 	allCategories := (categoriesCatalogue keys 
