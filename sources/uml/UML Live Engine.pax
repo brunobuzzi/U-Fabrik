@@ -1062,7 +1062,7 @@ addSourceImplementation: sourceCode comments: implementationComments
 		withComments: implementationComments !
 
 addSourceImplementation: sourceCode withCategories: categoriesNames withComments: implementationComments 
-	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode>"
+	"The receiver add a new implementation <anUMLParsedImplementation> with source code <sourceCode> and attach the new implementation to categories contained in <categoriesNames>"
 	| newImplementation |
 
 	newImplementation := UMLParsedImplementation newWithCode: sourceCode.
@@ -1071,7 +1071,8 @@ addSourceImplementation: sourceCode withCategories: categoriesNames withComments
 	self addImplementation: newImplementation.
 
 	categoriesNames do: [:catName | 
-		self addCategory: (UMLImplementationCategory newNamed: catName).
+		"if <catName> is NOT a GUI category then a new user category is created "
+		(UMLImplementationCategory getGUICategoryNamed: catName) ifNil: [self addCategory: (UMLImplementationCategory newNamed: catName)].
 		self add: newImplementation toCategoryNamed: catName].
 
 	newImplementation hasCompilationFailure: (self umlCompiler hasCompilationFailure: newImplementation parsedCode for: self).
@@ -1092,10 +1093,15 @@ basicInstancesVariables
 	^instancesVariables select: [:each | (virtualMachine send: #isBasic to: each withAll: Array new) == virtualMachine trueObject]!
 
 getAllCategories
+	"The receiver answer a collection of <UMLImplementationCategory>. <anUMLImplementationCategory> can NOT have the same name as a <UMLGUICategory>"
 	| allCategories |
 
-	allCategories := (categoriesCatalogue keys collect: [:each | UMLImplementationCategory getCategoryNamed: each]) asOrderedCollection.
+	allCategories := (categoriesCatalogue keys 
+					select: [:each | (UMLImplementationCategory getGUICategoryNamed: each) isNil] 
+					thenCollect: [:each | UMLImplementationCategory getCategoryNamed: each]) asOrderedCollection.
+
 	UMLVirtualImplementationCategory allVirtualCategories do: [:each | allCategories addFirst: each].
+
 	^allCategories copyWithoutDuplicates!
 
 getAllCategoriesButGUICategories

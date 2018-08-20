@@ -127,10 +127,10 @@ defaultName
 
 getCategoryNamed: aString
 
-	^self categoryTable at: aString ifAbsent: [self getGUICategotyNamed: aString]
+	^self categoryTable at: aString ifAbsent: [self getGUICategoryNamed: aString]
 !
 
-getGUICategotyNamed: aString 
+getGUICategoryNamed: aString 
 
 	^(UMLGUICategory allSubclasses detect: [:each | each current name = aString] ifNone: [^nil]) current
 
@@ -139,7 +139,7 @@ getGUICategotyNamed: aString
 getOrNewNamed: aString
 	| newCategory |
 
-	(self getGUICategotyNamed: aString) ifNotNil: [:guiCategory | ^guiCategory].
+	(self getGUICategoryNamed: aString) ifNotNil: [:guiCategory | ^guiCategory].
 	(self categoryTable includesKey: aString) ifTrue: [^self categoryTable at: aString].
 
 	newCategory := super new initialize name: aString.
@@ -161,7 +161,7 @@ newNamed: aString
 !UMLImplementationCategory class categoriesFor: #categoryTable!public! !
 !UMLImplementationCategory class categoriesFor: #defaultName!public! !
 !UMLImplementationCategory class categoriesFor: #getCategoryNamed:!public! !
-!UMLImplementationCategory class categoriesFor: #getGUICategotyNamed:!public! !
+!UMLImplementationCategory class categoriesFor: #getGUICategoryNamed:!public! !
 !UMLImplementationCategory class categoriesFor: #getOrNewNamed:!public! !
 !UMLImplementationCategory class categoriesFor: #icon!public! !
 !UMLImplementationCategory class categoriesFor: #newNamed:!public! !
