@@ -40,6 +40,16 @@ assignObject: anUMLObject toInstanceVariable: aSymbol
 
 	^sequenceReceiver atVariableName: aSymbol put: anUMLObject snapshot: self!
 
+getArgumentOrTemporaryNamed: aName
+
+	^temporaries at: aName ifAbsent: [
+			sequenceArguments at: aName ifAbsent: [
+				sequenceTemporaries at: aName ifAbsent: [
+					 virtualMachine nilObject
+				] 
+			]
+	]!
+
 getObjectNamed: aName
 	"Answer anObject for the name <aString>.1- receiver's variables 2- implementation arguments 3- implementation temporaries 4- globals"
 
@@ -161,6 +171,7 @@ sequenceReceiver: anUMLObject
 !UMLImplementationExecutionSnapshot categoriesFor: #addObject:named:!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #asDebuggerSnapshot!debug process!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #assignObject:toInstanceVariable:!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #getArgumentOrTemporaryNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #hasReceiver!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #initialize!public! !
