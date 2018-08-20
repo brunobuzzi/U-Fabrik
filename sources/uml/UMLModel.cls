@@ -198,7 +198,7 @@ fileInXmlToFrom: aStream
 				comments :=  (((implementationNode selectSingleNode: 'Comments') innerXML allButFirst: 9) allButLast: 3). "to remove <!![CDATA[ and ]]>"
 				categories := (implementationNode selectNodes: 'Categories/CategoryName') collect: [:catNameNode | catNameNode innerXML].
 				implementation := umlClass addSourceImplementation: source withCategories: categories withComments: comments.
-				showHideMethod := (implementationNode selectSingleNode: 'HideShowMessage') innerXML.
+				showHideMethod := (implementationNode selectSingleNode: 'HideShowMessage') innerXML asSymbol.
 				showHideMethod notEmpty ifTrue: [implementation hideShowMessage: showHideMethod].
 			]
 		]
