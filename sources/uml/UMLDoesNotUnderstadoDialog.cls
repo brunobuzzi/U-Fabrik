@@ -21,7 +21,7 @@ answer
 				vmPerform: #message: 
 				withArguments: (Array with: (('Not found implementation named <', symbol, '> for class named <', umlObject className, '>') asUMLObject: self defaultVirtualMachine)).
 
-	snapshot exception: error.
+	snapshot ifNotNil: [:value | snapshot exception: error].
 
 	^error
 		!
