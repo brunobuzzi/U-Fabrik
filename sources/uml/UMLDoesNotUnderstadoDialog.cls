@@ -19,7 +19,7 @@ answer
 
 	error := self defaultVirtualMachine errorClass 
 				vmPerform: #message: 
-				withArguments: (Array with: (('Not found implementation named <', symbol, '> for class named <', umlObject className, '>') asUMLObject: self defaultVirtualMachine)).
+				withArguments: (Array with: (('Not found implementation named [', symbol, '] for class named [', umlObject className, ']') asUMLObject: self defaultVirtualMachine)).
 
 	snapshot ifNotNil: [:value | snapshot exception: error].
 

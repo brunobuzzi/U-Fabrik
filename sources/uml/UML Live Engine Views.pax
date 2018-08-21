@@ -1043,7 +1043,7 @@ errorImplementation: aSymbol notFoundFor: anUMLInstance with: parameters in: anU
 		(executionSnapshot allSnapshots anySatisfy: [:each | each hasOnErrorDo]) 
 		ifTrue: [exception := self errorClass 
 							vmPerform: #message: 
-							withArguments: (Array with: (('Not found implementation named <', aSymbol, '> for class named <', anUMLInstance className, '>') asUMLObject: self)).
+							withArguments: (Array with: (('Not found implementation named [', aSymbol, '] for class named [', anUMLInstance className, ']') asUMLObject: self)).
 			anUMLExecutionSnapshot exception: exception.
 			^exception
 		].

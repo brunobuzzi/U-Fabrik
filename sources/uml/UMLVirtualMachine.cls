@@ -308,7 +308,7 @@ errorAssociationMismatch: anUMLAssociationClassAttribute receiver: anUMLObject s
 	ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLAssociationClassAttribute name arguments: anUMLInstance snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
-		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLAssociationClassAttribute name ,'(', anUMLAssociationClassAttribute getType name,')> with <', anUMLInstance printString, '(', anUMLInstance umlClass name, ')>');
+		smalltalkObject: (Error new messageText: 'Mismatch error [', anUMLAssociationClassAttribute name ,'(', anUMLAssociationClassAttribute getType name,')] with [', anUMLInstance printString, '(', anUMLInstance umlClass name, ')]');
 				yourself.!
 
 errorClass
@@ -322,7 +322,7 @@ errorCollectionMismatch: varibleName receiver: anUMLObject setObject: setObject 
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	exception := (self errorClass newInstance) smalltalkObject: 
-				(Error new messageText: 'Mismatch error <', varibleName ,'> (a Collection)> with <', setObject printString, '(', setObject umlClass name, ')>'); yourself.
+				(Error new messageText: 'Mismatch error [', varibleName ,'] (a Collection)> with [', setObject printString, '(', setObject umlClass name, ')]'); yourself.
 
 	anUMLExecutionSnapshot exception: exception.
 
@@ -337,7 +337,7 @@ errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject:
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLRelationClassAttribute name  arguments: setObject snapshot: nil]. "Here we register the error in the UMLVMTransLog"
 
 	^(self errorClass newInstance) 
-		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLRelationClassAttribute name,'> (', anUMLRelationClassAttribute getType name,') with <', setObject printString, '(', setObject umlClass name, ')>'); yourself!
+		smalltalkObject: (Error new messageText: 'Mismatch error [', anUMLRelationClassAttribute name,'] (', anUMLRelationClassAttribute getType name,') with [', setObject printString, '(', setObject umlClass name, ')]'); yourself!
 
 errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 
@@ -345,7 +345,7 @@ errorSelfReference: anUMLRelationClassAttribute receiver: anUMLObject setObject:
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLRelationClassAttribute name  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	^(self errorClass newInstance) 
-		smalltalkObject: (Error new messageText: 'Mismatch error <', anUMLRelationClassAttribute name,'> (', anUMLRelationClassAttribute getType name,') with <', setObject printString, '(', setObject umlClass name, ')>'); yourself!
+		smalltalkObject: (Error new messageText: 'Mismatch error [', anUMLRelationClassAttribute name,'] (', anUMLRelationClassAttribute getType name,') with [', setObject printString, '(', setObject umlClass name, ')]'); yourself!
 
 errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObject: setObject snapshot: anUMLExecutionSnapshot
 	"The instance variable is a Basic Object (belongs to VM) and the Set Object is NOT --> anError "
@@ -355,7 +355,7 @@ errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObj
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	exception := (self errorClass newInstance) 
-				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
+				smalltalkObject: (Error new messageText: 'Mismatch error [', varibleName ,'(', varType getType name,')] with [', setObject printString, '(', setObject umlClass name, ')]');
 				yourself.
 
 	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot exception: exception].
@@ -369,7 +369,7 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 	self errorLogIsActive ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: varibleName  arguments: setObject snapshot: anUMLExecutionSnapshot]. 
 
 	exception := (self errorClass newInstance) 
-		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
+		smalltalkObject: (Error new messageText: 'Instance variable [', varibleName ,'] does not exist'); 
 		yourself.
 
 	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot exception: exception].
