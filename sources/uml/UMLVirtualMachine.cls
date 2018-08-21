@@ -358,7 +358,7 @@ errorVariableMismatch: varibleName varType: varType receiver: anUMLObject setObj
 				smalltalkObject: (Error new messageText: 'Mismatch error <', varibleName ,'(', varType getType name,')> with <', setObject printString, '(', setObject umlClass name, ')>');
 				yourself.
 
-	anUMLExecutionSnapshot exception: exception.
+	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot exception: exception].
 
 	^exception!
 
@@ -372,7 +372,7 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 		smalltalkObject: (Error new messageText: 'Instance variable <', varibleName ,'> does not exist'); 
 		yourself.
 
-	anUMLExecutionSnapshot exception: exception.
+	anUMLExecutionSnapshot ifNotNil: [anUMLExecutionSnapshot exception: exception].
 
 	^exception!
 
