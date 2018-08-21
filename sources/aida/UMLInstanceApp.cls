@@ -485,7 +485,7 @@ createSelectionGridForAll: anOrderedCollection
 createSelectionGridForClass: anUMLClass
 	| objectInsideCollection mainTitles aspects |
 
-	objectInsideCollection := (OrderedCollection with: anUMLClass) addAll: anUMLClass allSubclasses; yourself.
+	objectInsideCollection := anUMLClass allSubclasses.
 	mainTitles := OrderedCollection with: nil with: 'UML Class'.
 	aspects := OrderedCollection with: nil with: #name.
 
