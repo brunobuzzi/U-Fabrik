@@ -85,7 +85,9 @@ actionMainRemoveFromParametricObject
 
 actionMainResetWebServer
 
-	(AIDASite named: self applicationName, ' Web Server') releaseApplicationState
+	(AIDASite named: self applicationName, ' Web Server') releaseApplicationState.
+
+	self redirectToView: #main.	
 !
 
 actionMainSaveAsGlobalObject
@@ -1439,7 +1441,7 @@ viewTabComponent
 !UMLInstanceApp categoriesFor: #createSelectionGridForClass:!collection operations!public! !
 !UMLInstanceApp categoriesFor: #createSimpleComponentTo:aspect:columnIndex:width:!css code!public! !
 !UMLInstanceApp categoriesFor: #createSimpleComponentTo2:aspect:columnIndex:width:!css code!public! !
-!UMLInstanceApp categoriesFor: #createSimpleWebComponentsForEditIn:!css code!public! !
+!UMLInstanceApp categoriesFor: #createSimpleWebComponentsForEditIn:!css code!public!views! !
 !UMLInstanceApp categoriesFor: #createSimpleWebControlsIn:!gui-link object!public!views! !
 !UMLInstanceApp categoriesFor: #createValueComponentTo:aspect:width:!css code!gui-values!public! !
 !UMLInstanceApp categoriesFor: #createValueComponentTo2:aspect:width:!css code!css style!gui-values!public! !
