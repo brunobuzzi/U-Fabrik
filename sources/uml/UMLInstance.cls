@@ -148,6 +148,12 @@ getVariableOrImplementationNamed: aSymbol
 	ifTrue: [self atVariableName: aSymbol] 
 	ifFalse: [self vmPerform: aSymbol]!
 
+hasVariableNamed: stringName
+
+	"(stringName isKindOf: Magnitude) ifTrue: [^false]."
+
+	^(instancesVariables includesKey: stringName) or: [instancesVariables includesKey: stringName asSymbol]!
+
 implementationNamed: aSymbol
 
 	^implementations at: aSymbol ifAbsent: [umlClass implementationNamed: aSymbol]!
@@ -346,6 +352,7 @@ vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 !UMLInstance categoriesFor: #getRelatedClassForInstVarNamed:ifAbsent:!public! !
 !UMLInstance categoriesFor: #getSmalltalkClass!public! !
 !UMLInstance categoriesFor: #getVariableOrImplementationNamed:!behavior!instance variables!public! !
+!UMLInstance categoriesFor: #hasVariableNamed:!instance variables!public! !
 !UMLInstance categoriesFor: #implementationNamed:!public! !
 !UMLInstance categoriesFor: #initialize!public! !
 !UMLInstance categoriesFor: #instVarEnabled:!public! !

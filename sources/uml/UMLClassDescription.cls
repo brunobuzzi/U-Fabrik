@@ -209,6 +209,14 @@ hasAnyVariableNamed: aSymbol
 hasSubclasses
 	^subclasses notEmpty!
 
+hasVariableNamed: stringName
+
+	"(stringName isKindOf: Magnitude) ifTrue: [^false]."
+
+	(umlSuperclass = virtualMachine objectClass) ifTrue: [^(instancesVariables includesKey: stringName) or: [instancesVariables includesKey: stringName asSymbol]].
+
+	^((instancesVariables includesKey: stringName) or: [instancesVariables includesKey: stringName asSymbol]) or: [umlSuperclass hasVariableNamed: stringName]!
+
 implementationNamed: aSymbol
 
 	^virtualMachine fetchMethodNamed: aSymbol for: self!
@@ -359,6 +367,7 @@ umlSuperclass: anUMLClass
 !UMLClassDescription categoriesFor: #getSuperclass!get elements!public!relations! !
 !UMLClassDescription categoriesFor: #hasAnyVariableNamed:!public! !
 !UMLClassDescription categoriesFor: #hasSubclasses!public! !
+!UMLClassDescription categoriesFor: #hasVariableNamed:!instance variables!public! !
 !UMLClassDescription categoriesFor: #implementationNamed:!public! !
 !UMLClassDescription categoriesFor: #initialize!public! !
 !UMLClassDescription categoriesFor: #instancesVariablesAsSortedCollection!public! !

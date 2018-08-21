@@ -1,7 +1,4 @@
-﻿<Implementations><UMLModelNamed>bank.xmi</UMLModelNamed><UMLClass><Name>Person</Name><Implementations><Implementation><Source><![CDATA[banks
-
-	^Bank allGlobalObjects]]></Source><Categories><CategoryName>GUI - Collection Tabs</CategoryName></Categories><HideShowMessage>isAdmin:</HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
-	^name]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+﻿<Implementations><UMLModelNamed>bank.xmi</UMLModelNamed><UMLClass><Name>Person</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
 password := ''.
@@ -10,12 +7,11 @@ email := ''.
 phone := ''.
 name := ''.
 account := OrderedCollection new.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[name
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransactionTax</Name><Implementations><Implementation><Source><![CDATA[initialize
 
-	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[isAdmin: loggedUser
-	^loggedUser name = 'admin']]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransactionTax</Name><Implementations><Implementation><Source><![CDATA[initialize
-	super initialize.
-	taxPercentage := 0.
+super initialize.
+taxPercentage := 0.
+transaction := Transaction newFromTransactionTax: self.
 ]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>DebitCard</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
@@ -27,6 +23,7 @@ card := Card new.
 
 super initialize.
 id := ''.
+type := ''.
 amount := 0.
 executed := false.
 executionStamp := TimeStamp new.
@@ -66,96 +63,46 @@ account := Account new.
 super initialize.
 code := ''.
 name := ''.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
-
-	^code]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>ForeignTransaction</Name><Implementations><Implementation><Source><![CDATA[currentState
-	"Answer the receiver is the final transition" 
-
-	^stateDefinition]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>ForeignTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
 stateDefinition := StateDefinition newFromForeignTransaction: self.
 stateMachineDefinition := StateMachineDefinition newFromForeignTransaction: self.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[startStateMachineNamed: aString
-	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
-	| stateMachine |
-
-	stateMachine := (StateMachineDefinition getGlobalObjectSatisfying: [:each | each name = aString]) last.
-	stateDefinition := stateMachine getInitialState.]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[possibleNextTransitions
-	"The receiver answer the next possible transitions based on the current state" 
-
-	^stateMachineDefinition possibleNextTransitionsFrom: self currentState.]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[goToNextState
-	"The receiver go to the next state based on its own rules"]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[setStateMachineNamed: aString
-	"The receiver start to aStateMachine named <aString> by setting the current state with the initial state" 
-
-	stateMachineDefinition := (StateMachineDefinition getGlobalObjectSatisfying: [:each | each name = aString]) last.]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>SavingAccount</Name><Implementations><Implementation><Source><![CDATA[number
-	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[currencyCode
-	^currency code]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[bankName
-
-	^bank name]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[name
-	^name]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>SavingAccount</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[code
-	^code]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>StateMachineDefinition</Name><Implementations><Implementation><Source><![CDATA[getStartTransition
-	"The receiver answer the start transition of the State Machine"
-
-	^self in: TransitionDefinition detect: [:each | each isInitial]]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[getFinalTransitions
-	"The receiver answer a collection of final transitions of the State Machine"
-
-	^self in: TransitionDefinition select: [:each | each isFinal]]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[possibleNextTransitionsFrom: aState
-	"The receiver answer a collection of possibles next transitions from <aState>"
-
-	^self in: TransitionDefinition detect: [:each | each start == aState]]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[getAllStates
-	"The receiver answer a collection of all states of the State Machine"
-	| states |
-
-	states := OrderedCollection new.
-	self in: TransitionDefinition do: [:each | states add: each start.
-		states add: each end].
-	^states copyWithoutDuplicates]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>StateMachineDefinition</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
 name := ''.
 transitionDefinition := OrderedCollection new.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[getInitialState
-	"The receiver answer the initial state of the State Machine"
-
-	^self getStartTransition end]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>AccountTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>AccountTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
-account := Account newFromAccountTransaction: self.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Bank</Name><Implementations><Implementation><Source><![CDATA[name
-
-	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+destinationAccount := Account newFromAccountTransaction: self.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Bank</Name><Implementations><Implementation><Source><![CDATA[initialize
 
 super initialize.
 name := ''.
 account := OrderedCollection new.
-]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Account</Name><Implementations><Implementation><Source><![CDATA[initialize
 
-	^name]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Account</Name><Implementations><Implementation><Source><![CDATA[initialize
-	super initialize.
-	code := ''.
-	name := ''.
-	number := 0.
-	currency := Currency usd.
-	transaction := OrderedCollection new.
-	transactionRule := OrderedCollection new.
-	person := OrderedCollection new.
-	card := OrderedCollection new]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[currencyCode
-	^currency code]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[number
+super initialize.
+code := ''.
+name := ''.
+number := 0.
+currency := Currency newFromAccount: self.
+transactionTax := TransactionTax newFromAccount: self.
+bank := Bank new.
+transaction := OrderedCollection new.
+transactionRule := OrderedCollection new.
+person := OrderedCollection new.
+card := OrderedCollection new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransitionDefinition</Name><Implementations><Implementation><Source><![CDATA[initialize
 
-	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransitionDefinition</Name><Implementations><Implementation><Source><![CDATA[start
-	^stateDefinition]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[end: anObject
-	next := anObject]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[start: anObject
-	stateDefinition := anObject]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
-	super initialize.
-	name := ''.
-	stateDefinition := StateDefinition newFromTransitionDefinition: self.
-	next := StateDefinition newFromTransitionDefinition: self.
-	stateMachineDefinition := OrderedCollection new]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[end
-	^next]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[isInitial
-	"Answer the receiver is the initial transition"
-
-	^stateDefinition isInitial or: [next isInitial]]]></Source><Categories><CategoryName>state machine</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass></Implementations>
+super initialize.
+name := ''.
+stateDefinition := StateDefinition newFromTransitionDefinition: self.
+next := StateDefinition newFromTransitionDefinition: self.
+stateMachineDefinition := StateMachineDefinition new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass></Implementations>

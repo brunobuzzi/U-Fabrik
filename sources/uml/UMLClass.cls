@@ -113,10 +113,11 @@ generateAttributeForRelation: anUMLRelation
 	newAttribute name: (relatedClass nameForRelation) asSymbol; "we set the attibute name based on the <relatedClass>"
 			umlClass: self;
 			type: relatedClass.
+
 	((self hasVariableNamed: newAttribute name) "and: [anUMLRelation hasDoubleRelation]")
-	ifTrue: [self promptNewNameFor: newAttribute relation: anUMLRelation.
-		anUMLRelation hasDoubleRelation: true.
-		anUMLRelation alias: newAttribute alias].
+	ifTrue: [(self promptNewNameFor: newAttribute relation: anUMLRelation)
+		ifNotNil: [anUMLRelation hasDoubleRelation: true.
+			anUMLRelation alias: newAttribute alias]].
 	self addAttribute: newAttribute. "we add the attribute to the class"
 	anUMLRelation isSelfReferenceClass ifFalse: [^newAttribute]. "if it is a self reference relation for a class then anther attribute must be added"
 	((anUMLRelation isSourceNavigable) and: [anUMLRelation isTargetNavigable]) ifFalse: [^newAttribute]. "if it has non navigable side then only one attribute is needed"
@@ -313,13 +314,17 @@ promptNewNameFor: anUMLClassAttribute
 
 promptNewNameFor: anUMLClassAttribute relation: anUMLRelation 
 	"The receiver prompt a new name <alias> for the receiver's attribute <anUMLClassAttribute>"
+	| prompter newName |
 
-	^self 
-		newName: (Prompter 
-				prompt: 'Enter Alias name the attribute for relation <' , anUMLRelation printName , ' - ' 
-						, anUMLRelation printRelationMultiplicity , '>'
-				caption: self applicationName) asSymbol
-		for: anUMLClassAttribute!
+	prompter := Prompter createOn: String new prompt: ('Enter Alias name for attribute derived from relation <' , anUMLRelation printName , ' - ', anUMLRelation printRelationMultiplicity , '>') caption: self applicationName.
+
+	prompter extent: (400@220).
+	(prompter view viewNamed: 'prompt') extent: 300@90.
+	newName := prompter showModal.
+
+	(newName isNil or: [newName isEmpty]) ifTrue: [^nil] .
+
+	^self newName: newName asSymbol for: anUMLClassAttribute!
 
 promptSecondNameForSelfReference: anUMLClassAttribute relation: anUMLRelation 
 	"The receiver prompt a new name <alias> for the receiver's attribute <anUMLClassAttribute>"

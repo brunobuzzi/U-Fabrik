@@ -169,9 +169,7 @@ hasInstVarWithOriginalType: aString
 
 hasVariableNamed: stringName
 
-	(stringName isKindOf: Magnitude) ifTrue: [^false].
-
-	^(instancesVariables includesKey: stringName) or: [instancesVariables includesKey: stringName asSymbol]!
+	self subclassResponsibility!
 
 implementationNamed: aSymbol
 
