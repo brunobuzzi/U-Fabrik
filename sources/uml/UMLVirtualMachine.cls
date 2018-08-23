@@ -761,6 +761,13 @@ getBasicObjectFrom: aString
 
 	^(aString asNumberOnError: [:err | aString asUMLObject: self]) asUMLObject: self!
 
+getCachedNumber: aNumber
+	" The receiver answer anUMLInstance of class UMLClass('Number') where the Smalltalk Object is <aNumber>
+	All numbers are created on demand, after aNumber -anUMLInstance of class UMLClass('Number')- is created this instance is answered in all ocassion.
+	If <aNumber> is not present --> is added to Number cache"
+
+	^numbers at: aNumber printString ifAbsent: [self addNumber: aNumber]!
+
 getClassNamedLike: aString 
 	"The receiver answer a collection with classes with it's name match with <aString>"
 	| classes |
@@ -2495,6 +2502,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #getAnyClassNamed:!public! !
 !UMLVirtualMachine categoriesFor: #getAnyClassNamed:ifAbsent:!public! !
 !UMLVirtualMachine categoriesFor: #getBasicObjectFrom:!public! !
+!UMLVirtualMachine categoriesFor: #getCachedNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #getClassNamedLike:!public!searching! !
 !UMLVirtualMachine categoriesFor: #getNumber:!numbers!public! !
 !UMLVirtualMachine categoriesFor: #getNumber:ifAbsent:!numbers!private! !

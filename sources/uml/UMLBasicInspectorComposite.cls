@@ -156,8 +156,15 @@ nameForSelectedAspect
 	^selectedObject instVarName!
 
 onAspectPresenterValueChanged
+	| numberInstance parentObject |
 
-	self selectedObject smalltalkObject: aspectPresenter value
+	(self selectedObject umlClass == self defaultVirtualMachine numberClass) ifFalse: [^self selectedObject smalltalkObject: aspectPresenter value].
+
+	"in Number the <smalltalkObject> can NOT be set directly because are chached"
+	numberInstance := self defaultVirtualMachine getCachedNumber: aspectPresenter value.
+	parentObject := instVarTreePresenter model parentOf: instVarTreePresenter selection.
+	parentObject  atVariableName: instVarTreePresenter selection instVarName put: numberInstance snapshot: nil.
+	self selectedInstVar value: numberInstance.
 !
 
 onBooleanPresenterChanged
