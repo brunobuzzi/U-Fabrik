@@ -93,27 +93,33 @@ onCategoriaAdded
 	^self!
 
 onViewClosed
+	| progressDialog |
 
 	super onViewClosed.
 
-	self saveImage.!
+	progressDialog := ProgressDialog create: 'No cancel view'.
+	progressDialog view caption: 'Saving ', self applicationName, ' Virtual Machine...'.
+	progressDialog operation: [:progress | 
+		1 to: 50 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%'].
+		self defaultVirtualMachine fileOutVirtualMachineTo: (SessionManager current imageBase, 'lastVM.uvm').
+		51 to: 100 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%']. 'completed'].
+	progressDialog showModal.!
 
 onViewOpened
+	| progressDialog |
+
 	super onViewOpened.
 
-	"(Date today >= (Date newDay: 21 monthIndex: 5 year: 2009)) ifTrue: [view destroy. ^MessageBox notify: 'support@uml-almighty.com - Virtual Machine Expired !!' ]."
-	"self iniciarSitioWeb."
 	self createToolsIcons.
 	self createLoginIcons.
-	UMLVirtualMachine fileInVirtualMachineFrom: SessionManager current imageBase , 'lastVM.uvm'.
-	"LicenciaSoftware setLicence: (LicenciaSoftware fileInEncriptedLicenceFrom: (SessionManager current imageBase, 'licenceDefault.uli'))."
-"	LicenciaSoftware setLicence: LicenciaPermanteSoftware new.
-	self setLicenceCaption.
-	LicenciaSoftware current expiro 
-		ifTrue: 
-			[self viewLicence.
-			MessageBox notify: 'Licence expired !!' caption: self applicationName.
-			^self exit]"!
+
+	progressDialog := ProgressDialog create: 'No cancel view'.
+	progressDialog view caption: 'Loading ', self applicationName, ' Virtual Machine...'.
+	progressDialog operation: [:progress | 
+		1 to: 50 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%'].
+		UMLVirtualMachine fileInVirtualMachineFrom: SessionManager current imageBase , 'lastVM.uvm'.
+		51 to: 100 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%']. 'completed'].
+	progressDialog showModal.!
 
 releaseWebStateIcon
 
