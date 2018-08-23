@@ -155,12 +155,17 @@ nameForSelectedAspect
 	"(selectedObject vmPerform: #isCollection) smalltalkObject ifTrue: [instVarTreePresenter selection: (instVarTreePresenter model parentOf: selectedObject) ]."
 	^selectedObject instVarName!
 
+onAspectPresenterValueChanged
+
+	self selectedObject smalltalkObject: aspectPresenter value
+!
+
 onBooleanPresenterChanged
 	| parentObject |
 
 	parentObject := instVarTreePresenter model parentOf: instVarTreePresenter selection.
-	(parentObject vmPerform: #isDomainObject) smalltalkObject
 
+	(parentObject vmPerform: #isDomainObject) smalltalkObject
 	ifTrue: [parentObject value atVariableName: instVarTreePresenter selection instVarName 
 						put: ((parentObject value atVariableName: instVarTreePresenter selection instVarName) vmPerform: #not)
 						snapshot: nil].
@@ -196,9 +201,9 @@ onInstVarChanged
 		ifTrue: [aspectPresenter view name: 'virtualCollection']].
 	"self site urlResolver defaultURL: '/umlinstance.html' forObject: instVarTreePresenter selection value.
 	urlPresenter model: 'http://localhost:8888/umlinstance.html' asValue."
-	((aspectPresenter class == TextPresenter) or: [aspectPresenter class == NumberPresenter])
+	((aspectPresenter class == TextPresenter) or: [(aspectPresenter class == NumberPresenter) or: [(aspectPresenter class == DatePresenter)]])
 	ifTrue: [aspectPresenter view updatePerChar: true.
-		aspectPresenter when: #valueChanged send: #onTextPresenterChanged to: self.].
+		aspectPresenter when: #valueChanged send: #onAspectPresenterValueChanged to: self.].
 
 	(aspectPresenter class == BooleanPresenter) ifTrue: [aspectPresenter when: #valueChanged send: #onBooleanPresenterChanged to: self].
 	(view viewNamed: 'container') "arrangement: (354/343);" invalidate.
@@ -210,11 +215,6 @@ onInstVarChanged
 onMethodRemoved!
 
 onNewMethodAdded: anUMLParsedImplementation 
-!
-
-onTextPresenterChanged
-
-	self selectedObject smalltalkObject: aspectPresenter value
 !
 
 onViewOpened
@@ -319,12 +319,12 @@ updateList
 !UMLBasicInspectorComposite categoriesFor: #inspectUMLWithCustomizedView!public! !
 !UMLBasicInspectorComposite categoriesFor: #model:!public! !
 !UMLBasicInspectorComposite categoriesFor: #nameForSelectedAspect!public! !
+!UMLBasicInspectorComposite categoriesFor: #onAspectPresenterValueChanged!public! !
 !UMLBasicInspectorComposite categoriesFor: #onBooleanPresenterChanged!public! !
 !UMLBasicInspectorComposite categoriesFor: #onCategoriaAdded!public! !
 !UMLBasicInspectorComposite categoriesFor: #onInstVarChanged!public! !
 !UMLBasicInspectorComposite categoriesFor: #onMethodRemoved!public! !
 !UMLBasicInspectorComposite categoriesFor: #onNewMethodAdded:!public! !
-!UMLBasicInspectorComposite categoriesFor: #onTextPresenterChanged!public! !
 !UMLBasicInspectorComposite categoriesFor: #onViewOpened!public! !
 !UMLBasicInspectorComposite categoriesFor: #openUMLBrowser!public! !
 !UMLBasicInspectorComposite categoriesFor: #parentOfSelectedObject!public! !
