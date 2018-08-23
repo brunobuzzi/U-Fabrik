@@ -28,6 +28,7 @@ To install U-Fabrik in Dolphin 7, follow these steps:
 4. Run Documents\Dolphin\U-Fabrik\BootUFabrik.cmd to build the UFabrik image.
 5. Evaluate: UFabrikManagerShell show
 
-**By Default a Bank example is installed in the Virtual Machine**(diagram imported from Visual Paradigm 15.1):
+**By Default a Bank example is installed in the Virtual Machine** <br>
+(diagram imported from **Visual Paradigm 15.1**):
 
 ![Bank Class Diagram](https://raw.githubusercontent.com/brunobuzzi/U-Fabrik/master/wiki/bank-example-vp.png)
