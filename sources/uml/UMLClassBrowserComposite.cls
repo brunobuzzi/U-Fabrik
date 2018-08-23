@@ -29,8 +29,6 @@ addMessageToImplementation
 				^self]
 	].
 
-	(implementation hasInstanceVariableSendingAddRemoveIn: selectedClass) ifTrue: [^MessageBox notify: self canNotSendAddRemoveToInstanceVariable caption: self applicationName].
-
 	self topShell onUMLModelClassChanged.
 	self topShell selectImplementation: implementation.
 	self topShell mainComposite trigger: #newMethod:toClass:in:
