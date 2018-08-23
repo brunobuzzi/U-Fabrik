@@ -32,3 +32,11 @@ To install U-Fabrik in Dolphin 7, follow these steps:
 (diagram imported from **Visual Paradigm 15.1**):
 
 ![Bank Class Diagram](https://raw.githubusercontent.com/brunobuzzi/U-Fabrik/master/wiki/bank-example-vp.png)
+
+**Automatically Generated Web Application after XMI file installation** <br>
+URL: http://localhost:7070/admin.html?view=login<br>
+User: admin<br>
+Password: password<br>
+![Automatically Generated Web Application](https://raw.githubusercontent.com/brunobuzzi/U-Fabrik/master/wiki/web-01.png)
+![Automatically Generated Web Application](https://raw.githubusercontent.com/brunobuzzi/U-Fabrik/master/wiki/web-02.png)
+
