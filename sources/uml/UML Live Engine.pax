@@ -44,7 +44,6 @@ package classNames
 	add: #UMLGUIValueCategory;
 	add: #UMLImplementationCategory;
 	add: #UMLImplementationDebugerSnapshot;
-	add: #UMLImplementationEmptyError;
 	add: #UMLImplementationExecutionSnapshot;
 	add: #UMLImplementationNotFoundError;
 	add: #UMLInfiniteLoopError;
@@ -229,11 +228,6 @@ Error subclass: #UMLLiveEngineError
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLLiveEngineError subclass: #UMLClassNotFoundError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLLiveEngineError subclass: #UMLImplementationEmptyError
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
