@@ -18,6 +18,12 @@ testBasicObjectsVirtualmachine
 
 	self assert: (virtualMachine primitiveObjects allSatisfy: [:each | each virtualMachine == virtualMachine])!
 
+testCacheNumbersCorrection
+
+	virtualMachine numbers keysAndValuesDo: [:stringNumber :vmNumber | 
+		self assert: ((Number fromString: stringNumber) = vmNumber smalltalkObject).
+	]!
+
 testSuiteBasicVirtualMachine
 	| result suite |
 
@@ -69,6 +75,7 @@ testUMLModelVirtualmachine
 	self assert: (virtualMachine umlModels allSatisfy: [:each | each virtualMachine == virtualMachine])! !
 !UMLObjectsReferencesTest categoriesFor: #testBasicClassesVirtualmachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testBasicObjectsVirtualmachine!public! !
+!UMLObjectsReferencesTest categoriesFor: #testCacheNumbersCorrection!public! !
 !UMLObjectsReferencesTest categoriesFor: #testSuiteBasicVirtualMachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testUMLModelClassesVirtualmachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testUMLModelVirtualmachine!public! !
