@@ -407,6 +407,10 @@ falseObject
 
 	^primitiveObjects at: 'false'!
 
+falseObjectClass
+
+	^self virtualMachineClassNamed: 'False'!
+
 fetchClassMethodNamed: aSymbol for: anUMLClass ifNone: aBlock
 	"The receiver fetch a method named <aSymbol> for the UML class <anUMLClass> , if not exist then evaluates <aBlock>"
 	| umlClass |
@@ -2325,6 +2329,10 @@ trueObject
 
 	^primitiveObjects at: 'true'!
 
+trueObjectClass
+
+	^self virtualMachineClassNamed: 'True'!
+
 typeMapping
 	^typeMapping!
 
@@ -2457,6 +2465,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #executeSequenceNode:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #executeSequenceNode:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #falseObject!primitive objects!private! !
+!UMLVirtualMachine categoriesFor: #falseObjectClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #fetchClassMethodNamed:for:ifNone:!message dispatching core!public! !
 !UMLVirtualMachine categoriesFor: #fetchImplementationNamed:for:ifNone:!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #fetchInstanceMethodNamed:for:ifNone:!message dispatching core!public! !
@@ -2669,6 +2678,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #transLog:!accessing!private! !
 !UMLVirtualMachine categoriesFor: #treeModelClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #trueObject!primitive objects!private! !
+!UMLVirtualMachine categoriesFor: #trueObjectClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #typeMapping!accessing!private! !
 !UMLVirtualMachine categoriesFor: #typeMapping:!accessing!private! !
 !UMLVirtualMachine categoriesFor: #umlModelNamed:!public!searching! !

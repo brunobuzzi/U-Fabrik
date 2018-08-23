@@ -18,11 +18,37 @@ testBasicObjectsVirtualmachine
 
 	self assert: (virtualMachine primitiveObjects allSatisfy: [:each | each virtualMachine == virtualMachine])!
 
+testBooleanObjectsCorrection
+
+	self assert: (virtualMachine trueObject smalltalkObject == true).
+	self assert: (virtualMachine trueObjectClass class == UMLVirtualMachineClass).
+	self assert: (virtualMachine trueObjectClass smalltalkClass == True).
+	self assert: (virtualMachine trueObjectClass name = 'True').
+
+	self assert: (virtualMachine falseObject smalltalkObject == false).
+	self assert: (virtualMachine falseObjectClass class == UMLVirtualMachineClass).
+	self assert: (virtualMachine falseObjectClass smalltalkClass == False).
+	self assert: (virtualMachine falseObjectClass name = 'False').
+!
+
 testCacheNumbersCorrection
 
 	virtualMachine numbers keysAndValuesDo: [:stringNumber :vmNumber | 
 		self assert: ((Number fromString: stringNumber) = vmNumber smalltalkObject).
+		self assert: (vmNumber umlClass == virtualMachine numberClass).
+		self assert: (vmNumber umlClass smalltalkClass == Number).
+		self assert: (vmNumber umlClass name = 'Number').
 	]!
+
+testNilObjectCorrection
+
+	self assert: (virtualMachine nilObject smalltalkObject == nil).
+
+	self assert: (virtualMachine nilObjectClass class == UMLVirtualMachineClass).
+
+	self assert: (virtualMachine nilObjectClass smalltalkClass == UndefinedObject).
+
+	self assert: (virtualMachine nilObjectClass name = 'UndefinedObject').!
 
 testSuiteBasicVirtualMachine
 	| result suite |
@@ -75,7 +101,9 @@ testUMLModelVirtualmachine
 	self assert: (virtualMachine umlModels allSatisfy: [:each | each virtualMachine == virtualMachine])! !
 !UMLObjectsReferencesTest categoriesFor: #testBasicClassesVirtualmachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testBasicObjectsVirtualmachine!public! !
+!UMLObjectsReferencesTest categoriesFor: #testBooleanObjectsCorrection!public! !
 !UMLObjectsReferencesTest categoriesFor: #testCacheNumbersCorrection!public! !
+!UMLObjectsReferencesTest categoriesFor: #testNilObjectCorrection!public! !
 !UMLObjectsReferencesTest categoriesFor: #testSuiteBasicVirtualMachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testUMLModelClassesVirtualmachine!public! !
 !UMLObjectsReferencesTest categoriesFor: #testUMLModelVirtualmachine!public! !
