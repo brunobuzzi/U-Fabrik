@@ -72,6 +72,8 @@ package classNames
 	add: #UMLOneElementListComposite;
 	add: #UMLParametricListComposite;
 	add: #UMLParametricObjectsShell;
+	add: #UMLParsedCodeComposite;
+	add: #UMLParsedCodeShell;
 	add: #UMLRelationShell;
 	add: #UMLShowHideAspectComposite;
 	add: #UMLShowHideAspectShell;
@@ -188,6 +190,7 @@ package setPrerequisites: (IdentitySet new
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Progress\Dolphin Progress Dialog';
@@ -375,6 +378,11 @@ UMLToolShell subclass: #UMLModelShell
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLParsedCodeShell
+	instanceVariableNames: 'parsedCodePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 UMLToolShell subclass: #UMLTraitBrowserShell
 	instanceVariableNames: 'traitBrowserComposite'
 	classVariableNames: ''
@@ -477,6 +485,11 @@ UMLEnvironmentTool subclass: #UMLModelBrowser
 	classInstanceVariableNames: ''!
 UMLEnvironmentTool subclass: #UMLModelParametricObjectBrowserComposite
 	instanceVariableNames: 'parametricNamePresenter parametricsContainer parametricsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLParsedCodeComposite
+	instanceVariableNames: 'treePresenter codePresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
