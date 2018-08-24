@@ -65,17 +65,14 @@ fileOutVirtualMachineAsXml
 
 importStateMachineFromXMI
 	| shell xmiReaderClass |
-
 	xmiReaderClass := (DetalleDeOpciones
-					listaCon: XmiReader subclasses asOrderedCollection
-					para: 'UMLTools view'
-					titulo: 'Select the UML Tool that genereted the XMI file')
-						ifNil: [nil]
-						ifNotNil: [:value | value last].
-
+				listaCon: XmiReader concreteClasses asOrderedCollection
+				para: 'UMLTools view'
+				titulo: 'Select the UML Tool that genereted the XMI file')
+					ifNil: [nil]
+					ifNotNil: [:value | value last].
 	shell := UMLStateMachineImportShell show.
-
-	shell setXmiReaderClass: xmiReaderClass.!
+	shell setXmiReaderClass: xmiReaderClass!
 
 isCustomizedInspector
 	^false!

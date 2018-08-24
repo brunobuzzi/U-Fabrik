@@ -324,6 +324,10 @@ setNamespaceProperties
 
 !XmiReader class methodsFor!
 
+concreteClasses
+
+	^self allSubclasses!
+
 fromFile: pathFile
 
 	^super new initialize
@@ -335,6 +339,7 @@ fromString: xmiString
 	^super new initialize
 		loadFromString: xmiString;
 		yourself.! !
+!XmiReader class categoriesFor: #concreteClasses!public! !
 !XmiReader class categoriesFor: #fromFile:!public! !
 !XmiReader class categoriesFor: #fromString:!public! !
 

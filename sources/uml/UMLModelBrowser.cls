@@ -61,7 +61,7 @@ checkSelectedMethod
 
 chooseUMLTool
 	^(DetalleDeOpciones
-		listaCon: XmiReader subclasses asOrderedCollection
+		listaCon: XmiReader concreteClasses asOrderedCollection
 		para: 'UMLTools view'
 		titulo: 'Select the UML Tool that genereted the XMI file')
 			ifNil: [nil]
