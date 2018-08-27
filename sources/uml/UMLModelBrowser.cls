@@ -117,6 +117,8 @@ deployClassesToDolphin
 
 	self hasSelectedModel ifFalse: [^self].
 
+	SessionManager current isRuntime ifTrue: [^MessageBox notify: 'Deploy to Dolphin only works in Development mode !!!!!!'].
+
 	progressDialog := ProgressDialog create: 'No cancel view'.
 	progressDialog view caption: 'Creating Dolphin Classes...'.
 	progressDialog operation: [:progress | 
