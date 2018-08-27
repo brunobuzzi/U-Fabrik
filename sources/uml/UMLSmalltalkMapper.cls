@@ -268,14 +268,22 @@ compileWebViewTabs
 			do: [:aspectSymbol | self compileViewTabFor: appClass aspect: aspectSymbol].].!
 
 createBaseClasses
+	| package |
 
 	newClasses := OrderedCollection new.
 	self baseClassesWithoutDuplicates do: [:each |
 		newClasses addAll: each createSmalltalkClassCascade. "createSmalltalkClass"].
 
-	self compileUMLClassesAndMetaclassMethodsOf: self baseClassesWithoutDuplicates.
+	"self compileUMLClassesAndMetaclassMethodsOf: self baseClassesWithoutDuplicates."
 
-	self compileAccessorsOf: self baseClassesWithoutDuplicates.!
+	self compileAccessorsOf: self baseClassesWithoutDuplicates.
+
+	package := PackageManager current newPackage: (SessionManager current imagePath, '\sources\compiled\', umlModel name, '.pac').
+
+	newClasses do: [:eachStClass | PackageManager current addClass: eachStClass to: package].
+
+	
+ !
 
 createDataBaseStructureMethodFor: anUMLClass
 	| source |
