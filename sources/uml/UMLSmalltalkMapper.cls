@@ -278,7 +278,7 @@ createBaseClasses
 
 	self compileAccessorsOf: self baseClassesWithoutDuplicates.
 
-	package := PackageManager current newPackage: (SessionManager current imagePath, '\sources\compiled\', umlModel name, '.pac').
+	package := PackageManager current newPackage: (SessionManager current imageBase, 'sources\compiled\', umlModel name, '.pac').
 
 	newClasses do: [:eachStClass | PackageManager current addClass: eachStClass to: package].
 
@@ -432,6 +432,12 @@ printSimpleType: anUMLClassAttribute
 
 	^anUMLClassAttribute type name!
 
+umlModel
+	^umlModel!
+
+umlModel: anObject
+	umlModel := anObject!
+
 virtualMachine
 	^virtualMachine!
 
@@ -474,6 +480,8 @@ virtualMachine: anObject
 !UMLSmalltalkMapper categoriesFor: #newClasses:!accessing!private! !
 !UMLSmalltalkMapper categoriesFor: #printDBDefinitionFor:!public! !
 !UMLSmalltalkMapper categoriesFor: #printSimpleType:!public! !
+!UMLSmalltalkMapper categoriesFor: #umlModel!accessing!private! !
+!UMLSmalltalkMapper categoriesFor: #umlModel:!accessing!private! !
 !UMLSmalltalkMapper categoriesFor: #virtualMachine!accessing!private! !
 !UMLSmalltalkMapper categoriesFor: #virtualMachine:!accessing!private! !
 
@@ -489,7 +497,7 @@ on: anUMLVirtualMachine model: anUMLModel
 
 	^super new initialize
 		virtualMachine: anUMLVirtualMachine;
-		model: anUMLModel;
+		umlModel: anUMLModel;
 		yourself.! !
 !UMLSmalltalkMapper class categoriesFor: #on:!public! !
 !UMLSmalltalkMapper class categoriesFor: #on:model:!public! !

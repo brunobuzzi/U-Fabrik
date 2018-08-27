@@ -113,8 +113,20 @@ defineLoginManagerClass
 		in: nil.!
 
 deployClassesToDolphin
+	| mapper progressDialog |
 
-	MessageBox notify: 'Not Implemented Yet'!
+	self hasSelectedModel ifFalse: [^self].
+
+	progressDialog := ProgressDialog create: 'No cancel view'.
+	progressDialog view caption: 'Creating Dolphin Classes...'.
+	progressDialog operation: [:progress | 
+		1 to: 50 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%'].
+		mapper := UMLSmalltalkMapper on: self defaultVirtualMachine model: self selectedModel.
+		mapper createBaseClasses.
+		51 to: 100 do: [:i | Processor sleep: 30. progress value: i; text: i displayString, '%']. 'completed'].
+	progressDialog showModal.
+
+	MessageBox notify: 'Classes have been compiled in Package <', self selectedModel name, '>'!
 
 deployDatabase
 	| dsn smalltalkMapper |
