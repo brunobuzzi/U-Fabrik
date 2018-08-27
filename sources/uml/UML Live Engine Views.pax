@@ -198,6 +198,7 @@ package setPrerequisites: (IdentitySet new
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Radio\Dolphin Radio Buttons';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Scintilla\Dolphin Scintilla View';
+	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Sliding Tray\Dolphin Slidey-Inney-Outey Thing';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
 	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';

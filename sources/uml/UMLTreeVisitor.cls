@@ -78,7 +78,7 @@ visitSequenceNode: aSequenceNode
 
 	treeModel add: aSequenceNode asChildOf: aSequenceNode parent.
 
-	aSequenceNode nodes do: [:each | self visitNode: each ].
+	aSequenceNode statements do: [:each | self visitNode: each ].
 !
 
 visitTempDeclNode: anStTempDeclNode!
