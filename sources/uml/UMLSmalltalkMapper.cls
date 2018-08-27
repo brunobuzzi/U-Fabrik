@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #UMLSmalltalkMapper
-	instanceVariableNames: 'virtualMachine newClasses dbServer'
+	instanceVariableNames: 'virtualMachine umlModel newClasses dbServer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -12,15 +12,15 @@ UMLSmalltalkMapper comment: ''!
 
 baseClasses
 
-	^virtualMachine getUMLClasses select: [:each | each umlSuperclass == virtualMachine objectClass]!
+	^umlModel umlClasses select: [:each | each umlSuperclass == virtualMachine objectClass]!
 
 baseClassesWithoutDuplicates
 
 	^self baseClasses reject: [:each | Smalltalk keys includes: each name asSymbol]!
 
-compileAccessors
+compileAccessorsOf: collectionOfUMLClasses
 
-	newClasses do: [:each | | source umlClass |
+	collectionOfUMLClasses do: [:each | | source umlClass |
 		umlClass := virtualMachine getAnyClassNamed: each name asString.
 		umlClass instancesVariables do: [:eachAttr | 
 			source := self createGetSourceForInstVar: eachAttr.
@@ -128,11 +128,11 @@ compileLoginClass
 	source := 'loginClass
 	^', (self getUMLClassFrom: newClasses first) umlModel loginManager name.
 
-	UMLSmalltalkObjectApp compile: source!
+	"UMLSmalltalkObjectApp compile: source"!
 
-compileUMLClassesAndMetaclassMethods
+compileUMLClassesAndMetaclassMethodsOf: collectionOfUMLClasses
 
-	newClasses do: [:each | | source umlClass |
+	collectionOfUMLClasses do: [:each | | source umlClass |
 		umlClass := virtualMachine getAnyClassNamed: each name asString.
 		(umlClass implementations reject: [:eachImplementation | eachImplementation getCategories anySatisfy: [:eachCat | eachCat isUserCategory and: [eachCat name = 'Not Deploy'] ] ]) "-Not Deploy- category avoid an UML method to be deployed as Smalltalk methods"
 		do: [:eachImplementation | 
@@ -273,17 +273,9 @@ createBaseClasses
 	self baseClassesWithoutDuplicates do: [:each |
 		newClasses addAll: each createSmalltalkClassCascade. "createSmalltalkClass"].
 
-	self compileUMLClassesAndMetaclassMethods.
+	self compileUMLClassesAndMetaclassMethodsOf: self baseClassesWithoutDuplicates.
 
-	self compileAccessors.
-
-	self compileCollectionAspects.
-
-	self compileWebViewTabs.
-
-	self compileWebButtons.
-
-	self compileLoginClass.!
+	self compileAccessorsOf: self baseClassesWithoutDuplicates.!
 
 createDataBaseStructureMethodFor: anUMLClass
 	| source |
@@ -299,6 +291,16 @@ createDataBaseStructureMethods
 	newClasses do: [:each | |  umlClass |
 		umlClass := virtualMachine getAnyClassNamed: each name asString.
 		self createDataBaseStructureMethodFor: umlClass].!
+
+createDolphinMethods
+
+	self compileCollectionAspects.
+
+	self compileWebViewTabs.
+
+	self compileWebButtons.
+
+	self compileLoginClass.!
 
 createGetSourceForInstVar: anUMLClassAttribute
 
@@ -427,35 +429,36 @@ virtualMachine
 
 virtualMachine: anObject
 	virtualMachine := anObject! !
-!UMLSmalltalkMapper categoriesFor: #baseClasses!public! !
-!UMLSmalltalkMapper categoriesFor: #baseClassesWithoutDuplicates!public! !
-!UMLSmalltalkMapper categoriesFor: #compileAccessors!compile to st classes!public! !
-!UMLSmalltalkMapper categoriesFor: #compileButtonFor:aspect:!compile buttons actions!compile to st classes!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #baseClasses!compile to st classes!public! !
+!UMLSmalltalkMapper categoriesFor: #baseClassesWithoutDuplicates!compile to st classes!public! !
+!UMLSmalltalkMapper categoriesFor: #compileAccessorsOf:!compile to st classes!public! !
+!UMLSmalltalkMapper categoriesFor: #compileButtonFor:aspect:!compile buttons actions!compile web buttons!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #compileButtonForObserveeWith:aspect:!compile buttons actions!public! !
-!UMLSmalltalkMapper categoriesFor: #compileCollectionAspects!compile to st classes!compile web buttons!public! !
-!UMLSmalltalkMapper categoriesFor: #compileCollectionButtonFor:aspect:!compile buttons actions!compile to st classes!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileCollectionAspects!compile web buttons!public! !
+!UMLSmalltalkMapper categoriesFor: #compileCollectionButtonFor:aspect:!compile buttons actions!compile web buttons!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #compileCollectionButtonForObserveeWith:aspect:!compile buttons actions!public! !
-!UMLSmalltalkMapper categoriesFor: #compileExternalButtonFor:aspect:!compile to st classes!compile web buttons!compile web methods!public! !
-!UMLSmalltalkMapper categoriesFor: #compileLoginClass!compile to st classes!public! !
-!UMLSmalltalkMapper categoriesFor: #compileUMLClassesAndMetaclassMethods!compile to st classes!public! !
-!UMLSmalltalkMapper categoriesFor: #compileUserButtonFor:aspect:!compile buttons actions!compile to st classes!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileExternalButtonFor:aspect:!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileLoginClass!public! !
+!UMLSmalltalkMapper categoriesFor: #compileUMLClassesAndMetaclassMethodsOf:!compile to st classes!public! !
+!UMLSmalltalkMapper categoriesFor: #compileUserButtonFor:aspect:!compile buttons actions!compile web buttons!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #compileUserButtonForObserveeWith:aspect:!compile buttons actions!public! !
-!UMLSmalltalkMapper categoriesFor: #compileUserCollectionButtonFor:aspect:!compile buttons actions!compile to st classes!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileUserCollectionButtonFor:aspect:!compile buttons actions!compile web buttons!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #compileUserCollectionButtonForObserveeWith:aspect:!compile buttons actions!public! !
-!UMLSmalltalkMapper categoriesFor: #compileViewTabFor:aspect:!compile to st classes!compile web methods!public! !
-!UMLSmalltalkMapper categoriesFor: #compileWebButtons!compile buttons actions!compile to st classes!compile web buttons!compile web methods!public! !
-!UMLSmalltalkMapper categoriesFor: #compileWebGridIn:aspect:!compile to st classes!compile web methods!public! !
-!UMLSmalltalkMapper categoriesFor: #compileWebViewTabs!compile to st classes!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileViewTabFor:aspect:!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileWebButtons!compile buttons actions!compile web buttons!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileWebGridIn:aspect:!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #compileWebViewTabs!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #createBaseClasses!compile to st classes!public! !
 !UMLSmalltalkMapper categoriesFor: #createDataBaseStructureMethodFor:!public! !
 !UMLSmalltalkMapper categoriesFor: #createDataBaseStructureMethods!public! !
+!UMLSmalltalkMapper categoriesFor: #createDolphinMethods!compile to st classes!public! !
 !UMLSmalltalkMapper categoriesFor: #createGetSourceForInstVar:!public! !
 !UMLSmalltalkMapper categoriesFor: #createInitialObjects!public! !
 !UMLSmalltalkMapper categoriesFor: #createSetSourceForInstVar:!public! !
 !UMLSmalltalkMapper categoriesFor: #createStateMachineObject:smalltalkClasses:!public! !
 !UMLSmalltalkMapper categoriesFor: #createSubClasses!public! !
 !UMLSmalltalkMapper categoriesFor: #deployApplication:!public! !
-!UMLSmalltalkMapper categoriesFor: #getAspectsForStClass:aspect:!compile to st classes!compile web methods!public! !
+!UMLSmalltalkMapper categoriesFor: #getAspectsForStClass:aspect:!compile web methods!public! !
 !UMLSmalltalkMapper categoriesFor: #getGlobalClasses!public! !
 !UMLSmalltalkMapper categoriesFor: #getUMLClassFrom:!public! !
 !UMLSmalltalkMapper categoriesFor: #importStateMachineFromXmi:!public! !
@@ -472,6 +475,14 @@ on: anUMLVirtualMachine
 
 	^super new initialize
 		virtualMachine: anUMLVirtualMachine;
+		yourself.!
+
+on: anUMLVirtualMachine model: anUMLModel
+
+	^super new initialize
+		virtualMachine: anUMLVirtualMachine;
+		model: anUMLModel;
 		yourself.! !
 !UMLSmalltalkMapper class categoriesFor: #on:!public! !
+!UMLSmalltalkMapper class categoriesFor: #on:model:!public! !
 
