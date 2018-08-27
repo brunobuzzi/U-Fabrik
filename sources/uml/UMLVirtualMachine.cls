@@ -20,35 +20,6 @@ packages			- aDictionary to group virtual machine core classes.'!
 !UMLVirtualMachine categoriesForClass!Unclassified! !
 !UMLVirtualMachine methodsFor!
 
-_executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
-	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
-	This method is for Testing and Development purpose. 
-	The authentic method is: #executeSequenceNodeReturningAll:forReceiver:in: (if the original method is change then this method should be updated with the same code)"
-	| fakeImplementation sequenceNode result excutionSnapshot |
-
-	sequenceNode := aStProgramNode isSequence 
-				ifTrue: [aStProgramNode] 
-				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
-	fakeImplementation := self createFakeImplementationFromSequenceNode: sequenceNode.
-
-	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
-	excutionSnapshot := anUMLObject isBlock 
-	ifFalse: [ | newSnapshot |
-		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
-		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
-	ifTrue: [anUMLExecutionSnapshot registerInStack].
-
-	result := self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
-
-	^Array with: result with: excutionSnapshot parentStack!
-
-_executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
-	"The receiver answer <anArray> with the evaluation result and <anUMLExecutionStack> instance.
-	This method is for Testing and Development purpose. 
-	The authentic method is: #executeSequenceNodeReturningAll:in:"
-
-	^self _executeSequenceNode: aStProgramNode forReceiver: self objectClass newInstance in: anUMLExecutionSnapshot!
-
 addNumber: aNumber
 	"The environment has request a number that not exist in the receiver, so we proceed to create it"
 	| newNumberInstance |
@@ -118,14 +89,9 @@ allUMLImplementations
 	umlModels asOrderedCollection do: [:each | allImplementations addAll: each allImplementationsAsSortedCollection].
 	^allImplementations asSortedCollection: [:a :b | a name <= b name].!
 
-apply: anUMLImplementation to: anUMLObject with: arguments
-	"The Virtual Machine (the receiver) apply <anUMLImplementation to <anObject> with arguments <arguments>"
-
-	^self apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: nil!
-
 apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: anUMLExecutionSnapshot
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
-	| snapshot | 
+	| snapshot executionResult | 
 
 	(anUMLExecutionSnapshot notNil and:[anUMLExecutionSnapshot hasInfiniteLoop]) ifTrue: [^anUMLObject].
 
@@ -134,42 +100,34 @@ apply: anUMLImplementation to: anUMLObject with: arguments parentSnapshot: anUML
 
 	snapshot parentSnapshot: anUMLExecutionSnapshot.
 
-	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapshot isFakeImplementation: false!
+	executionResult := self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: snapshot.
 
-apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot 
+	^executionResult answerResult!
+
+apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot
 	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
-
-	^self apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot isFakeImplementation: false!
-
-apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecutionSnapshot isFakeImplementation: aBoolean
-	"The Virtual Machine (the receiver) apply <anUMLImplementation> to <anObject> with arguments <arguments> which parent execution snapshot is <anUMLExecutionSnapshot>"
-	| collectionResult | 
+	| executionResult | 
 
 	"register the message in the UMLVMTransLog"
 	self logIsActive ifTrue: [self registerTransLogFor: anUMLObject methodName: anUMLImplementation methodName arguments: arguments snapshot: anUMLExecutionSnapshot ].
 
-	collectionResult := OrderedCollection new.
+	executionResult := UMLExecutionResult newFor: anUMLObject arguments: arguments implementation: anUMLImplementation snapshot: anUMLExecutionSnapshot.
 	anUMLImplementation nodes do: [:each |
 		(anUMLExecutionSnapshot isCurtailed not and: [anUMLExecutionSnapshot hasInfiniteLoop not])"if a program node has a _^_ then the message stack is not executed any more"
 		ifTrue: [(each isMessage and: [each selector = #halt"debug"]) 
 					ifFalse: [ | nodeExecutionResult |
 						" process the message node in a regular way"
 						nodeExecutionResult := [each processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: arguments] on: UMLLiveEngineError do: [:ex | ex].
-						collectionResult add: nodeExecutionResult. 
+						executionResult addResult: nodeExecutionResult. 
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
 							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot].
-							 ^nodeExecutionResult]]
+							 ^executionResult]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] 
 	].
 	anUMLExecutionSnapshot finalizeSnapshot. "move the snapshot from current to executed in the Stack"
-	aBoolean ifTrue: [^collectionResult isEmpty ifTrue: [self nilObject] ifFalse: [collectionResult last]].
-	collectionResult isEmpty ifTrue: [^anUMLObject].
 
-	"see issue #51" "#isCurtailed indicate a (^) return node --> answer the last result" "primitive call answer the result of the primitive call --> answer the last result"
-	^(anUMLExecutionSnapshot isCurtailed or: [anUMLImplementation isPrimitiveCall or:[anUMLExecutionSnapshot hasInfiniteLoop]])  
-		ifTrue: [collectionResult last] 
-		ifFalse: [anUMLObject] "no return (^) node present and not a primitive call --> answer the receiver"!
+	^executionResult!
 
 arrayClass
 
@@ -379,7 +337,7 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
-	| fakeImplementation sequenceNode result excutionSnapshot |
+	| fakeImplementation sequenceNode excutionSnapshot |
 
 	sequenceNode := aStProgramNode isSequence 
 				ifTrue: [aStProgramNode] 
@@ -393,9 +351,7 @@ executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionS
 		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
 	ifTrue: [anUMLExecutionSnapshot registerInStack].
 
-	result := self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot isFakeImplementation: true.
-
-	^result!
+	^self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot!
 
 executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
@@ -1328,7 +1284,7 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	(blockNode arguments size = 0) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
 
 	^blockResult!
 
@@ -1343,7 +1299,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anArray keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
 
 	^blockResult!
 
@@ -1359,7 +1315,7 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	arguments keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
 
-	blockResult := self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot.
+	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
 
 	^blockResult!
 
@@ -1411,7 +1367,7 @@ processPrimitiveCall_209: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	exceptionBlock := anArray second. "exception block if <blockNode> Fails"
 
 	blockNode catchException.
-	blockResult := self executeSequenceNode: blockNode sequenceNode in: blockNode smalltalkObject snapshot.
+	blockResult := (self executeSequenceNode: blockNode sequenceNode in: blockNode smalltalkObject snapshot) answerResultForBlock.
 
 	(#('Error' 'Exception' 'Warning') includes: blockResult umlClassName) "The previous Block answer anException --> we execute <exceptionBlock>"
 	ifTrue: [^exceptionBlock vmPerform: #value: withArguments: (Array with: blockResult)]. 
@@ -2179,7 +2135,7 @@ send: symbolMessage to: anUMLObject withAll: parameters parentSnapshot: anUMLExe
 			ifFalse: [anUMLObject getVariableNamed: symbolMessage snapshot: anUMLExecutionSnapshot]] " is a getting message of an instance variable "
 		ifFalse:[self errorImplementation: symbolMessage notFoundFor: anUMLObject with: parameters in: anUMLExecutionSnapshot isSuperSend: superBoolean]].
 
-	^self apply: implementation to: anUMLObject with: parameters parentSnapshot: anUMLExecutionSnapshot"process each message of the implementation. (each processInside: self context: anUMLObject parameters: arguments)"!
+	^self apply: implementation to: anUMLObject with: parameters parentSnapshot: anUMLExecutionSnapshot!
 
 setAssociationVariable: anUMLAssociationClassAttribute with: anUMLInstance to: anUMLObject snapshot: anUMLExecutionSnapshot
 
@@ -2425,8 +2381,6 @@ virtualMachineMetaclassNamed: aString
 	^systemDictionary at: aString ifAbsent: [^self nilObject].
 
 	^(packages detect: [:each | (each getClassNamed: aString ifNone: [nil]) notNil] ifNone: [^self nilObject]) getMetaclass! !
-!UMLVirtualMachine categoriesFor: #_executeSequenceNode:forReceiver:in:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #_executeSequenceNode:in:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #addNumber:!numbers!private! !
 !UMLVirtualMachine categoriesFor: #addPackage:!public!vm packages! !
 !UMLVirtualMachine categoriesFor: #addPrimitiveObject:named:!primitive objects!private! !
@@ -2439,10 +2393,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #allPrimitiveObjects!public! !
 !UMLVirtualMachine categoriesFor: #allTraits!public! !
 !UMLVirtualMachine categoriesFor: #allUMLImplementations!public!uml msg tracking! !
-!UMLVirtualMachine categoriesFor: #apply:to:with:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:parentSnapshot:!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #apply:to:with:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
-!UMLVirtualMachine categoriesFor: #apply:to:with:snapshot:isFakeImplementation:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #arrayClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #avoidClassNameClashingFor:!public!uml models install!xmi-model!xmi-others! !
 !UMLVirtualMachine categoriesFor: #basicClasses!public! !

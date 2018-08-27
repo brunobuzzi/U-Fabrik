@@ -28,6 +28,7 @@ package classNames
 	add: #UMLDebugIterationBlock;
 	add: #UMLDebugSpecialIteration;
 	add: #UMLEditWebObject;
+	add: #UMLExecutionResult;
 	add: #UMLExecutionSnapshot;
 	add: #UMLExecutionStack;
 	add: #UMLGUIButtomArgCategory;
@@ -284,6 +285,11 @@ UMLObject subclass: #UMLDebugSpecialIteration
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLEditWebObject
 	instanceVariableNames: 'umlObject'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLObject subclass: #UMLExecutionResult
+	instanceVariableNames: 'receiver arguments snapshot implementation nodeResults'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
