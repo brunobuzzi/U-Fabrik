@@ -133,7 +133,7 @@ evaluate: aString
 
 	parsedCode := self umlCompiler parseExpression: aString.
 
-	parsedCode isBlock ifFalse: [^self defaultVirtualMachine executeSequenceNode: parsedCode in: nil].
+	parsedCode isBlock ifFalse: [^(self defaultVirtualMachine executeSequenceNode: parsedCode in: nil) answerResult].
 
 	executionSnapshot := nil.
 	fakeImplementation := self defaultVirtualMachine createFakeImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
