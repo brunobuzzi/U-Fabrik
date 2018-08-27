@@ -66,7 +66,7 @@ testIssue51
 	a := 24.'.
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass  newInstance.
-	result := virtualMachine apply: implementation to: umlObject with: #().
+	result := virtualMachine apply: implementation to: umlObject with: #() parentSnapshot: nil.
 	self assert: (result umlClass == self externaFileClass). "answer the receiver instead of the last result --> OK"
 	self externaFileClass removeImplementationNamed: implementation methodName.
 
@@ -75,7 +75,7 @@ testIssue51
 	^a := 24.'.
 	implementation := self externaFileClass addSourceImplementation: source.
 	umlObject := self externaFileClass  newInstance.
-	result := virtualMachine apply: implementation to: umlObject with: #().
+	result := virtualMachine apply: implementation to: umlObject with: #() parentSnapshot: nil.
 	self assert: (result umlClass name = 'Number'). "answer the receiver instead of the last result --> OK"
 	self externaFileClass removeImplementationNamed: implementation methodName.!
 
@@ -114,7 +114,7 @@ testIssue56
 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
-	self assert: (virtualMachine nilObject == result).
+	self assert: (virtualMachine nilObject == result last).
 
 !
 
@@ -171,7 +171,7 @@ testIssue69and97
 	umlObject := self externaFileClass newInstance.
 	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine.
 	snapshot parentSnapshot: nil.
-	virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
+	virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot.
 
 	UMLDebuggerShell allInstances do: [:each | each view destroy].
 
@@ -191,7 +191,7 @@ testIssue69and97_b
 	umlObject := self externaFileClass newInstance.
 	snapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: implementation receiver: umlObject arguments: #() virtualMachine: virtualMachine.
 	snapshot parentSnapshot: nil.
-	result := virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot isFakeImplementation: false.
+	result := virtualMachine apply: implementation to: umlObject with: #() snapshot: snapshot.
 
 	UMLDebuggerShell allInstances do: [:each | each view destroy].
 
@@ -225,19 +225,19 @@ testIssue92
 
 	parsedCode := self umlCompiler parseExpression: '[] value'. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result).
+	self assert: (virtualMachine nilObject == result last).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg | ] value: 4'. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result).
+	self assert: (virtualMachine nilObject == result last).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 | ] value: 4 value: 5'. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result).
+	self assert: (virtualMachine nilObject == result last).
 
 	parsedCode := self umlCompiler parseExpression: '[:arg1 :arg2 :arg3 | ] valueWithArguments: #(4 5 6)'. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
-	self assert: (virtualMachine nilObject == result).
+	self assert: (virtualMachine nilObject == result last).
 ! !
 !UMLVirtualMachineTest categoriesFor: #externaFileClass!public! !
 !UMLVirtualMachineTest categoriesFor: #msOfficeClass!public! !

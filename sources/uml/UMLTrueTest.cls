@@ -59,8 +59,8 @@ testIfTrueIfFalse
 		ifTrue: [| a b c d e | 
 			a := 1. b := 2. c := 3. d := 4. e := 5.] 
 		ifFalse: []'.
-	result := virtualMachine _executeSequenceNode: parsedCode in: nil.
-	stack := result at: 2.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	stack := result stack.
 	self assert: (stack hasSequenceTemporaryNamed: 'a' withStValue: 1).
 	self assert: (stack hasSequenceTemporaryNamed: 'b' withStValue: 2).
 	self assert: (stack hasSequenceTemporaryNamed: 'c' withStValue: 3).
@@ -71,8 +71,8 @@ testIfTrueIfFalse
 		ifFalse: [| a b c d e | 
 			a := 1. b := 2. c := 3. d := 4. e := 5.] 
 		ifTrue: []'.
-	result := virtualMachine _executeSequenceNode: parsedCode in: nil.
-	stack := result at: 2.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	stack := result stack.
 	self assert: (stack hasSequenceTemporaryNamed: 'a' withStValue: 1).
 	self assert: (stack hasSequenceTemporaryNamed: 'b' withStValue: 2).
 	self assert: (stack hasSequenceTemporaryNamed: 'c' withStValue: 3).
