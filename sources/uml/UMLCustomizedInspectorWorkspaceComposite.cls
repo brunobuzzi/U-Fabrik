@@ -15,7 +15,7 @@ evaluate: aString
 
 	parsedCode := self umlCompiler parseExpression: aString.
 
-	^(self defaultVirtualMachine executeSequenceNode: parsedCode in: nil) answerResult
+	^(self defaultVirtualMachine executeSequenceNode: parsedCode in: nil) answerResultForBlock
 !
 
 evaluateIt

@@ -26,7 +26,7 @@ evaluate: aString
 
 	parsedCode := self umlCompiler parseExpression: aString.
 
-	^(self defaultVirtualMachine executeSequenceNode: parsedCode forReceiver: (self topShell selectedObject ifNil: [^nil]) in: nil) answerResult
+	^(self defaultVirtualMachine executeSequenceNode: parsedCode forReceiver: (self topShell selectedObject ifNil: [^nil]) in: nil) answerResultForBlock
 !
 
 onAutoComplete: aString startingAt: start accept: valueHolder
