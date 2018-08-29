@@ -3,7 +3,13 @@
 
 **U-Fabrik** is a **UML Simulation Environment** inspired in [Dolphin](https://github.com/dolphinsmalltalk/Dolphin).
 
-Import a **XMI File** from **Enterprise Architect**, **Magic Draw**, **U Model** or **Visual Paradigm** and automatically create a Web Application for the imported **UML model**.
+What is **U-Fabrik**?
+**U-Fabrik** is a tool that significantly extends the capabilities of the regular UML modeling tool such as Visual Paradigm®.
+**UML** modeling tool build **UML models** and capture a static view (diagrams) of a system in order to understand the domain and define a solution.
+To understand big systems from a static view is very difficult and make the design proper to misunderstanding and errors.
+**U-Fabrik** provides a dynamic view of an **UML Model**, simulating an entire UML model with desktop and web prototyping.
+The use of **U-Fabrik** simulation and prototyping capabilities in any stage of software development it makes the domain model much reliable, enhance communication capabilities between project’s actors, provide ways to detect early design mistakes, the documentation generation is much more accurate and has others benefit derived from systems simulation.
+Usually a XMI 2.1 file version is exported from your preferred UML case tool (such as Enterprise Architect®, Visual Paradigm®, and so on) and imported into U-Fabrik where the simulation and prototyping begins.
 
 New functionalities can be added on the fly using **U-Fabrik Simulation** tools:
 * Idea Space
