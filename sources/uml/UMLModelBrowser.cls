@@ -246,10 +246,6 @@ isClassSideSelected
 
 	^classBrowser isClassSideSelected!
 
-licenciaPorDefecto
-
-	^LicenciaSoftware current!
-
 menuBar
 	| menu |
 	menu := MenuBar new.
@@ -530,7 +526,6 @@ viewParsedTree
 !UMLModelBrowser categoriesFor: #helpWithThisTool!public! !
 !UMLModelBrowser categoriesFor: #importXMIFile!public!xmi-file! !
 !UMLModelBrowser categoriesFor: #isClassSideSelected!public! !
-!UMLModelBrowser categoriesFor: #licenciaPorDefecto!public!xmi-file! !
 !UMLModelBrowser categoriesFor: #menuBar!public! !
 !UMLModelBrowser categoriesFor: #model:!public! !
 !UMLModelBrowser categoriesFor: #onCategoriaAdded!public! !

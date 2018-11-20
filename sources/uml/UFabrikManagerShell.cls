@@ -75,17 +75,6 @@ hasSelectedClass
 hasSelectedModel
 	^false!
 
-importLicence
-	| file |
-
-	file := FileOpenDialog showModal ifNil: [^self].
-
-	LicenciaSoftware fileInEncriptedLicenceFrom: file.
-
-	File copy: file to: (SessionManager current imageBase, 'licenceDefault.uli').
-
-	self setLicenceCaption.!
-
 isCategoryBrowser
 	^false!
 
@@ -133,12 +122,6 @@ saveImage
 	self defaultVirtualMachine fileOutVirtualMachineTo: (SessionManager current imageBase, 'lastVM.uvm')
 !
 
-setLicenceCaption
-
-	LicenciaSoftware current esValida 
-	ifFalse: [view caption: self applicationName, ' MSG - WARNING: INVALID LICENCE']
-	ifTrue: [view caption: self applicationName, ' Manager for ', LicenciaSoftware current nombreEmpresa].!
-
 switchFolderLayout
 	| layout |
 
@@ -167,10 +150,6 @@ umlModelBrowserIcon
 		icon: UMLModel icon
 		description: 'UML Model Browser'
 		openBlock: (MessageSend receiver: self selector: #openUMLBrowser)!
-
-viewLicence
-
-	LicenciaSoftwareDialog showModal!
 
 virtualMachineBrowserIcon
 
@@ -208,19 +187,16 @@ workspaceBrowserIcon
 !UFabrikManagerShell categoriesFor: #hasSelectedCategory!public! !
 !UFabrikManagerShell categoriesFor: #hasSelectedClass!public! !
 !UFabrikManagerShell categoriesFor: #hasSelectedModel!public! !
-!UFabrikManagerShell categoriesFor: #importLicence!licence!public! !
 !UFabrikManagerShell categoriesFor: #isCategoryBrowser!public! !
 !UFabrikManagerShell categoriesFor: #onCategoriaAdded!public! !
 !UFabrikManagerShell categoriesFor: #onViewClosed!binary filing!licence!public! !
 !UFabrikManagerShell categoriesFor: #onViewOpened!binary filing!licence!public! !
 !UFabrikManagerShell categoriesFor: #releaseWebStateIcon!icons!public! !
 !UFabrikManagerShell categoriesFor: #saveImage!binary filing!licence!public! !
-!UFabrikManagerShell categoriesFor: #setLicenceCaption!binary filing!licence!public! !
 !UFabrikManagerShell categoriesFor: #switchFolderLayout!public! !
 !UFabrikManagerShell categoriesFor: #traitBrowserIcon!icons!public! !
 !UFabrikManagerShell categoriesFor: #umlIdeaSpaceIcon!icons!public! !
 !UFabrikManagerShell categoriesFor: #umlModelBrowserIcon!icons!public! !
-!UFabrikManagerShell categoriesFor: #viewLicence!licence!public! !
 !UFabrikManagerShell categoriesFor: #virtualMachineBrowserIcon!icons!public! !
 !UFabrikManagerShell categoriesFor: #webConfigurationBrowserIcon!icons!public! !
 !UFabrikManagerShell categoriesFor: #webLoginIcon!icons!public! !

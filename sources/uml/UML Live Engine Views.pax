@@ -23,7 +23,6 @@ package classNames
 	add: #BBSGTExcelImportComposite;
 	add: #IconWrapper;
 	add: #LicenciaSoftwareComposite;
-	add: #LicenciaSoftwareDialog;
 	add: #UFabrikManagerShell;
 	add: #UFabrikSessionManager;
 	add: #UMLAttributeMappDialog;
@@ -217,7 +216,6 @@ package setPrerequisites: (IdentitySet new
 	add: 'UML Basic Views';
 	add: 'UML Compiler';
 	add: 'UML Database Mapper';
-	add: 'UML Licence Manager';
 	add: 'UML Live Engine';
 	add: 'UML Paint';
 	add: 'UML Smalltalk Bridge';
@@ -246,11 +244,6 @@ Presenter subclass: #BBSGTExcelImportComposite
 	classInstanceVariableNames: ''!
 BBDialog subclass: #UMLSimpleValueDialog
 	instanceVariableNames: 'atomicContainer answer simplePresenter'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLDialog subclass: #LicenciaSoftwareDialog
-	instanceVariableNames: 'licenciaComposite'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
