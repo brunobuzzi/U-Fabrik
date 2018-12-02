@@ -63,7 +63,7 @@ factorial := [:n | (n = 1) ifTrue: [1] ifFalse: [(factorial value: n -1) * n]].
 factorial value: 5.'.
 	parsedCode := self umlCompiler parseExpression: stringBlock. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
-	self assert: (result smalltalkObject = 120).!
+	self assert: (result answerResult smalltalkObject  class == Error).!
 
 testValue
 	| parsedCode result |
