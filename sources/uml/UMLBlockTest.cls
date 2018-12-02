@@ -55,6 +55,16 @@ b negated] value: 5
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result smalltalkObject = -20).!
 
+testReEntrantDetection
+	| stringBlock parsedCode result |
+	
+	stringBlock := '| factorial |
+factorial := [:n | (n = 1) ifTrue: [1] ifFalse: [(factorial value: n -1) * n]].
+factorial value: 5.'.
+	parsedCode := self umlCompiler parseExpression: stringBlock. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 120).!
+
 testValue
 	| parsedCode result |
 
@@ -87,6 +97,7 @@ testValueWithArguments
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
 !UMLBlockTest categoriesFor: #testOnValueDo!public! !
 !UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
+!UMLBlockTest categoriesFor: #testReEntrantDetection!public! !
 !UMLBlockTest categoriesFor: #testValue!public! !
 !UMLBlockTest categoriesFor: #testValueWithArguments!public! !
 

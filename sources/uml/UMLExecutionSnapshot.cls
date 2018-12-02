@@ -86,6 +86,20 @@ createBlockFrom: aStBlockNode
 	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode)
 !
 
+createBlockFromAssignment: aStAssignmentNode
+	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>.	
+	Here is detected re-entrant Blocks (issue #142)"
+	
+	(aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name])
+	ifTrue: [ | reEntrantException |
+		reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: 
+				(Error new messageText: 'Re Entrant Blocks are not supported yet [', aStAssignmentNode variable name, ']'); yourself.
+		self isCurtailed: true.
+		self exception: reEntrantException.
+		^exception].
+
+	^self createBlockFrom: aStAssignmentNode value!
+
 createSmalltalkBlockFrom: aStBlockNode
 	| block |
 
@@ -579,9 +593,10 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #catchException!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #className!public! !
 !UMLExecutionSnapshot categoriesFor: #clearExecutedImplementations!public! !
-!UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public! !
-!UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public! !
-!UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public! !
+!UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createBlockFromAssignment:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #exception!accessing!private! !
