@@ -25,11 +25,13 @@ evaluateIt
 	!
 
 inspectIt
-	| result |
+"	| result |
 
 	result := self evaluate: self getSelectedText.
 
-	^UMLBasicInspectorShell showOn: result last!
+	^UMLBasicInspectorShell showOn: result last
+"
+	^super inspectIt!
 
 registerUMLObjectAspect: name
 
