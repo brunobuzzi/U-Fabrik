@@ -116,7 +116,7 @@ displayIt
 
 	(result == self defaultVirtualMachine nilObject) ifTrue: [^self appendText: String lineDelimiter, 'nil'].
 
-	(result isUMLInstance) ifTrue: [^self appendText: String lineDelimiter, result printString].
+	(result isUMLInstance or:[result isUMLClass]) ifTrue: [^self appendText: String lineDelimiter, result printString].
 
 	(result notBlock and: [result isEmpty]) ifTrue: [^self].
 
