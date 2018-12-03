@@ -209,10 +209,13 @@ fileOutUMLModelImplementations
 	modelsPresenter selection fileOutAsXml: file!
 
 generateGemStoneScript
+	| workspace |
 
 	self selectedModel ifNil: [^self].
 
-	UMLWorkspaceShell show setText: self selectedModel generateGemStoneScriptForClasses.!
+	workspace := UMLWorkspaceShell show.
+	workspace setText: self selectedModel generateGemStoneScriptForClasses.
+	workspace view caption: 'Script to create UML Classes in GemStone/S'.!
 
 hasSelectedCategory
 	^classBrowser hasSelectedCategory!
