@@ -230,14 +230,18 @@ generateAttributesForRelations
 	umlClasses do: [:each | each generateAttributesForRelations]!
 
 generateGemStoneScriptForClasses
+	"Generate <aString> script to execute inside GemStone/S (3.4.1) to create all uml classes of the receiver"
 	| topClasses script |
 
 	script := WriteStream on: String new.
-
+	script nextPutAll: '"Script to execute inside GemStone/S (3.4.1) to create all uml classes of model [', name, '] "'.
+	script cr.
+	script nextPutAll: '"Remember to create a Package with name [', name, '] "'.
+	script cr.	
 	topClasses := umlClasses select: [:each | each umlSuperclass == (virtualMachine virtualMachineClassNamed: 'Object')].
 
 	topClasses do: [:topClass | topClass asTreeModel asOrderedCollection 
-		do: [:eachClass | eachClass printDefinitionOn: script. 
+		do: [:eachClass | eachClass printGemstoneDefinitionOn: script. 
 					script cr ] ].
 
 	^script contents!

@@ -296,7 +296,8 @@ newName: aSymbol for: anUMLClassAttribute
 
 	anUMLClassAttribute alias: aSymbol!
 
-printDefinitionOn: aWriteStream 
+printGemstoneDefinitionOn: aWriteStream
+	"The receiver print it's definition in GemStone/S format on <aWriteStream>"
 
 	aWriteStream nextPutAll: umlSuperclass name, ' subclass: ''', name, ''''; cr.
 	aWriteStream nextPutAll: 'instVarNames: #( '.
@@ -305,7 +306,7 @@ printDefinitionOn: aWriteStream
 	aWriteStream nextPutAll: 'classVars: #()'; cr.
 	aWriteStream nextPutAll: 'classInstVars: #()'; cr.
 	aWriteStream nextPutAll: 'poolDictionaries: #()'; cr.
-	aWriteStream nextPutAll: 'inDictionary: ''''.'; cr.
+	aWriteStream nextPutAll: 'inDictionary: '''''; cr.
 	aWriteStream nextPutAll: ('category:  ''', self umlModel name, '''.') ; cr.
 !
 
@@ -486,7 +487,7 @@ uninstallClass
 !UMLClass categoriesFor: #nameFor:!public!relations! !
 !UMLClass categoriesFor: #nameForRelation!public! !
 !UMLClass categoriesFor: #newName:for:!attributes!public!relations!transforming! !
-!UMLClass categoriesFor: #printDefinitionOn:!public! !
+!UMLClass categoriesFor: #printGemstoneDefinitionOn:!public! !
 !UMLClass categoriesFor: #printOn:!public! !
 !UMLClass categoriesFor: #promptNewNameFor:!attributes!public!relations!transforming! !
 !UMLClass categoriesFor: #promptNewNameFor:relation:!attributes!public!relations!transforming! !

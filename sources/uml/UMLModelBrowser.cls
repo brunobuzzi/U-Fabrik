@@ -209,6 +209,7 @@ fileOutUMLModelImplementations
 	modelsPresenter selection fileOutAsXml: file!
 
 generateGemStoneScript
+	"The receiver open a Workspace with a GemStone/S (3.4.1) script to create all uml classes of the selected model"
 	| workspace |
 
 	self selectedModel ifNil: [^self].
