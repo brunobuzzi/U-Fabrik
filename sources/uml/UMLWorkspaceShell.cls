@@ -36,13 +36,18 @@ onViewOpened
 	view menuBar: workspaceComposite menuBar!
 
 selectedObject
-	^self defaultVirtualMachine nilObject! !
+	^self defaultVirtualMachine nilObject!
+
+setText: aString
+
+	^workspaceComposite setText: aString! !
 !UMLWorkspaceShell categoriesFor: #createComponents!public! !
 !UMLWorkspaceShell categoriesFor: #hasSelectedClass!public! !
 !UMLWorkspaceShell categoriesFor: #mainComposite!public! !
 !UMLWorkspaceShell categoriesFor: #model:!public! !
 !UMLWorkspaceShell categoriesFor: #onViewOpened!public! !
 !UMLWorkspaceShell categoriesFor: #selectedObject!public! !
+!UMLWorkspaceShell categoriesFor: #setText:!public! !
 
 !UMLWorkspaceShell class methodsFor!
 

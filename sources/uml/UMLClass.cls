@@ -296,6 +296,19 @@ newName: aSymbol for: anUMLClassAttribute
 
 	anUMLClassAttribute alias: aSymbol!
 
+printDefinitionOn: aWriteStream 
+
+	aWriteStream nextPutAll: umlSuperclass name, ' subclass: ''', name, ''''; cr.
+	aWriteStream nextPutAll: 'instVarNames: #( '.
+	instancesVariables do: [:each | aWriteStream nextPutAll: '''', each name , '''' ].
+	aWriteStream nextPutAll: ')'; cr.
+	aWriteStream nextPutAll: 'classVars: #()'; cr.
+	aWriteStream nextPutAll: 'classInstVars: #()'; cr.
+	aWriteStream nextPutAll: 'poolDictionaries: #()'; cr.
+	aWriteStream nextPutAll: 'inDictionary: ''''.'; cr.
+
+!
+
 printOn: aStream
 
 	super printOn: aStream.
@@ -473,6 +486,7 @@ uninstallClass
 !UMLClass categoriesFor: #nameFor:!public!relations! !
 !UMLClass categoriesFor: #nameForRelation!public! !
 !UMLClass categoriesFor: #newName:for:!attributes!public!relations!transforming! !
+!UMLClass categoriesFor: #printDefinitionOn:!public! !
 !UMLClass categoriesFor: #printOn:!public! !
 !UMLClass categoriesFor: #promptNewNameFor:!attributes!public!relations!transforming! !
 !UMLClass categoriesFor: #promptNewNameFor:relation:!attributes!public!relations!transforming! !

@@ -229,6 +229,19 @@ generateAttributesForRelations
 
 	umlClasses do: [:each | each generateAttributesForRelations]!
 
+generateGemStoneScriptForClasses
+	| topClasses script |
+
+	script := WriteStream on: String new.
+
+	topClasses := umlClasses select: [:each | each umlSuperclass == (virtualMachine virtualMachineClassNamed: 'Object')].
+
+	topClasses do: [:topClass | topClass asTreeModel asOrderedCollection 
+		do: [:eachClass | eachClass printDefinitionOn: script. 
+					script cr ] ].
+
+	^script contents!
+
 generateInitializeMethodToAllClasses
 
 	umlClasses do: [:each | 
@@ -873,6 +886,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #fileOutAsXml:!binary filing!public! !
 !UMLModel categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
+!UMLModel categoriesFor: #generateGemStoneScriptForClasses!public! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
 !UMLModel categoriesFor: #generateMethod_currentState!public!state machine! !
