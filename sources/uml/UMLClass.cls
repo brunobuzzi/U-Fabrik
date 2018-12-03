@@ -300,8 +300,8 @@ printGemstoneDefinitionOn: aWriteStream
 	"The receiver print it's definition in GemStone/S format on <aWriteStream>"
 
 	aWriteStream nextPutAll: umlSuperclass name, ' subclass: ''', name, ''''; cr.
-	aWriteStream nextPutAll: 'instVarNames: #( '.
-	instancesVariables do: [:each | aWriteStream nextPutAll: ' ', each name ].
+	aWriteStream nextPutAll: 'instVarNames: #('.
+	instancesVariables do: [:each | aWriteStream nextPutAll: (each name , ' ')].
 	aWriteStream nextPutAll: ')'; cr.
 	aWriteStream nextPutAll: 'classVars: #()'; cr.
 	aWriteStream nextPutAll: 'classInstVars: #()'; cr.
