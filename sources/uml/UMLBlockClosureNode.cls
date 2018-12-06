@@ -116,7 +116,7 @@ snapshot: anObject
 
 source
 
-	^sequenceNode source
+	^sequenceNode formattedCode
 !
 
 temporaryVariables
