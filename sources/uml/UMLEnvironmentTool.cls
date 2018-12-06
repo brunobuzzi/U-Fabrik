@@ -12,8 +12,8 @@ UMLEnvironmentTool comment: ''!
 
 aboutUMLAlmighty
 	^MessageBox 
-		notify: self applicationName, ' version 4.003  
-Copyright: Bruno Buzzi Brassesco
+		notify: self applicationName, ' version 4.5  (Open Source)
+Created by: Software Engineer Bruno Buzzi Brassesco
 bruno.brasesco@gmail.com'
 		caption: self applicationName!
 

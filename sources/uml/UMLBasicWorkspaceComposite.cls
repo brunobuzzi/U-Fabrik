@@ -232,8 +232,6 @@ menuBar
 			description: 'Online Videos - Spanish';
 		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyBlog) description: 'Blog'.
 	(menu addSubmenu: 'About')
-		addCommand: (MessageSend receiver: self selector: #openDefaultExamples)
-			description: 'Examples with Default UML Model';
 		addCommand: (MessageSend receiver: self selector: #aboutThisTool) description: 'About this tool';
 		addCommand: (MessageSend receiver: self selector: #helpWithThisTool)
 			description: 'Help with this tool';
@@ -365,32 +363,6 @@ onViewOpened
 
 	lastCharacterCollection := OrderedCollection new.
 	lastAutocompletation := UMLAutocompletation new.!
-
-openDefaultExamples
-
-	self setText: '
-factory1 := SoftwareFactory createInstance. "We create a new instance of SoftwareFactory"
-factory1 initialize.
-factory1 name: ''UML Software Company''. "We set the name"
-
-factory2 := SoftwareFactory createInstance."We create a new instance of SoftwareFactory"
-factory2 initialize.
-factory2 name: ''The Object Company''. "We set the name"
-
-simulationProject := Project createInstance."We create a new instance of Project"
-simulationProject initialize.
-simulationProject name: ''Environment Simulation Tool''."We set the name"
-
-vmProject := Project createInstance."We create a new instance of Project"
-vmProject initialize.
-vmProject name: ''UML Virtual Machine''."We set the name"
-
-factory1 add: simulationProject. "We link <factory1> with <simulationProject>"
-factory2 add: vmProject. "We link <factory2> with <vmProject>"
-
-factory1 storeAsGlobalObject. "We store <factory1> UML object into the Persistent Cache"
-factory2 storeAsGlobalObject. "We store <factory2> UML object into the Persistent Cache"
-'!
 
 openUMLScript
 	| fileStream pathFile |
@@ -632,7 +604,6 @@ zoomLevel: anInteger
 !UMLBasicWorkspaceComposite categoriesFor: #onDropUMLObjectOverArena:!autocompletion!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #onKeyPressed:!autocompletion!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #onViewOpened!public! !
-!UMLBasicWorkspaceComposite categoriesFor: #openDefaultExamples!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #openUMLScript!binary filing!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #removeAllInnerTemporaries!public! !
 !UMLBasicWorkspaceComposite categoriesFor: #removeAllTemporaries!public! !
