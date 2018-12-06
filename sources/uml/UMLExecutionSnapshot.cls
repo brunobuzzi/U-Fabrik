@@ -87,16 +87,11 @@ createBlockFrom: aStBlockNode
 !
 
 createBlockFromAssignment: aStAssignmentNode
-	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>.	
-	Here is detected re-entrant Blocks (issue #142)"
-	
-	(aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name])
-	ifTrue: [ | reEntrantException |
-		reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: 
-				(Error new messageText: 'Re Entrant Blocks are not supported yet [', aStAssignmentNode variable name, ']'); yourself.
-		self isCurtailed: true.
-		self exception: reEntrantException.
-		^exception].
+	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>."
+	| reEntrantException |
+
+	reEntrantException := self detectReEntrantBlockIn: aStAssignmentNode.
+	reEntrantException ifNotNil: [^reEntrantException].
 
 	^self createBlockFrom: aStAssignmentNode value!
 
@@ -122,6 +117,19 @@ currentUser
 
 currentUser: anObject
 	currentUser := anObject!
+
+detectReEntrantBlockIn: aStAssignmentNode
+	"Here is detected re-entrant Blocks (issue #142)"
+
+	(aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name])
+	ifTrue: [ | reEntrantException |
+		reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: 
+				(Error new messageText: 'Re Entrant Blocks are not supported yet [', aStAssignmentNode variable name, ']'); yourself.
+		self isCurtailed: true.
+		self exception: reEntrantException.
+		^exception].
+
+	^nil!
 
 exception
 	^exception!
@@ -599,6 +607,7 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
+!UMLExecutionSnapshot categoriesFor: #detectReEntrantBlockIn:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #exception!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #exception:!accessing!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations!accessing!private! !
