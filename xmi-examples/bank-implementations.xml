@@ -1,0 +1,193 @@
+﻿<Implementations><UMLModelNamed>bank.xmi</UMLModelNamed><UMLClass><Name>Person</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+password := ''.
+surname := ''.
+email := ''.
+phone := ''.
+name := ''.
+account := OrderedCollection new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[surname
+	^surname]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[newAccount: anAccount in: aBank
+	self mutualAdd: anAccount.
+	aBank add: anAccount.
+	^anAccount]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[myCards
+	| allCards |
+
+	allCards := OrderedCollection new.
+	self in: Account do: [:each | allCards addAll: each card].
+
+	^allCards]]></Source><Categories><CategoryName>GUI - Collection Tabs</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[newSavingAccount: aBank
+		^self newAccount: SavingAccount new in: aBank]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[newCheckingAccount: aBank
+	^self newAccount: CheckingAccount new in: aBank ]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[name
+
+	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[newCheckingAccount
+"Automatically generated method for Buttons with Arguments"
+| array args |
+	array := OrderedCollection newInstance.
+	array add: 'newCheckingAccount:'. "this is the name method to be executed when the button is pressed"
+	args := OrderedCollection newInstance. "here is the collection of arguments" 
+	args add: self myBanks. "method to be executed to obtain all arguments in this case <myBanks>"
+	array add: args.
+^array asArray]]></Source><Categories><CategoryName>GUI - Commad Collection</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[myBanks
+
+	^Bank allGlobalObjects]]></Source><Categories><CategoryName>GUI - Collection Tabs</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[newSavingAccount
+	"Automatically generated method for Buttons with Arguments"
+
+	| array args |
+	array := OrderedCollection newInstance.
+	array add: 'newSavingAccount:'.	"this is the name method to be executed when the button is pressed"
+	args := OrderedCollection newInstance.	"here is the collection of arguments"
+	args add: self myBanks.	"method to be executed to obtain all arguments in this case <myBanks>"
+	array add: args.
+	^array asArray]]></Source><Categories><CategoryName>GUI - Commad Collection</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
+
+	^name, ' ', surname ]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransactionTax</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+taxPercentage := 0.
+transaction := Transaction newFromTransactionTax: self.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>DebitCard</Name><Implementations><Implementation><Source><![CDATA[number
+	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[expirationDate
+
+	^expirationDate]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[issuerCompany
+	^issuerCompany]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+
+super initialize.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>CardTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+card := Card new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Transaction</Name><Implementations><Implementation><Source><![CDATA[initialize
+	super initialize.
+	id := ''.
+	type := 'debit'.
+	amount := 0.
+	executed := false.
+	executionStamp := TimeStamp new.
+	scheduledExecution := TimeStamp new]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[beDebit
+	type := 'debit']]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[isDebit
+
+	^type = 'debit']]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[beCredit
+	type := 'credit']]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[isCredit
+	^type = 'credit']]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>CheckingAccount</Name><Implementations><Implementation><Source><![CDATA[number
+	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+
+super initialize.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[currencyName
+	^currency name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[name
+	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[balance
+	^super balance]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[type
+
+	^self className]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[code
+
+	^code]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[bankName
+	^bank name]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>StateDefinition</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+name := ''.
+isInitial := false.
+isFinal := false.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>CreditCard</Name><Implementations><Implementation><Source><![CDATA[number
+	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[makePurchase
+	| transaction |
+	transaction := CardTransaction new.
+	transaction beDebit.
+	self add: transaction.
+	account add: transaction.
+	^transaction]]></Source><Categories><CategoryName>GUI - Command</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[expirationDate
+	^expirationDate]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[issuerCompany
+	^issuerCompany]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+
+super initialize.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Card</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+issuerCompany := ''.
+holderSurname := ''.
+number := ''.
+holderName := ''.
+backCode := 0.
+expirationDate := Date new.
+account := Account new.
+cardTransaction := OrderedCollection new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[issuerCompany
+
+	^issuerCompany]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[number
+
+	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransactionRule</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+grantedAmount := 0.
+person := Person newFromTransactionRule: self.
+account := Account new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Currency</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+code := ''.
+name := ''.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
+
+	^name]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>ForeignTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+stateDefinition := StateDefinition newFromForeignTransaction: self.
+stateMachineDefinition := StateMachineDefinition newFromForeignTransaction: self.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>SavingAccount</Name><Implementations><Implementation><Source><![CDATA[number
+	^number]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+
+super initialize.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[currencyName
+
+	^currency name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[name
+	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[balance
+
+	^super balance]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[type
+	^self className]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[code
+	^code]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[bankName
+	^bank name]]></Source><Categories><CategoryName>GUI - Collection Aspects</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>StateMachineDefinition</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+name := ''.
+transitionDefinition := OrderedCollection new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>AccountTransaction</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+destinationAccount := Account newFromAccountTransaction: self.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Bank</Name><Implementations><Implementation><Source><![CDATA[name
+
+	^name]]></Source><Categories><CategoryName>GUI - Object Header</CategoryName></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[initialize
+
+super initialize.
+name := ''.
+account := OrderedCollection new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
+	^name]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>Account</Name><Implementations><Implementation><Source><![CDATA[initialize
+	super initialize.
+	code := ''.
+	name := ''.
+	number := 0.
+	currency := Currency usd.
+	transactionTax := TransactionTax newFromAccount: self.
+	bank := Bank new.
+	transaction := OrderedCollection new.
+	transactionRule := OrderedCollection new.
+	person := OrderedCollection new.
+	card := OrderedCollection new]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[balance
+	| balance validTransactions |
+	balance := 0.
+	validTransactions := self in: Transaction select: [:each | each executed].
+	validTransactions do: 
+			[:each |
+			each isCredit ifTrue: [balance := balance + each amount].
+			each isDebit ifTrue: [balance := balance - each amount]].
+	^balance]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation><Implementation><Source><![CDATA[printObjectName
+
+	^number]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass><UMLClass><Name>TransitionDefinition</Name><Implementations><Implementation><Source><![CDATA[initialize
+
+super initialize.
+name := ''.
+stateDefinition := StateDefinition newFromTransitionDefinition: self.
+next := StateDefinition newFromTransitionDefinition: self.
+stateMachineDefinition := StateMachineDefinition new.
+]]></Source><Categories></Categories><HideShowMessage></HideShowMessage><Comments><![CDATA[]]></Comments></Implementation></Implementations></UMLClass></Implementations>

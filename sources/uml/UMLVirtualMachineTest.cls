@@ -58,6 +58,25 @@ testIssue105
 	self assert: (result umlClass name = 'Error').
 !
 
+testIssue146
+	| parsedCode result code currentOption |
+
+	currentOption := virtualMachine reEntrantBlocksIsEnabled.
+	virtualMachine reEntrantBlocksIsEnabled: false.
+	code := '| factorial |
+factorial := [:n | (n = 1) ifTrue: [1] ifFalse: [(factorial value: n - 1) * n]].
+factorial value: 5.'.
+
+	parsedCode := self umlCompiler parseExpression: code. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject class == Error).
+
+	virtualMachine reEntrantBlocksIsEnabled: true.
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self deny: (result smalltalkObject class == Error).
+
+	virtualMachine reEntrantBlocksIsEnabled: currentOption.!
+
 testIssue51
 	| source implementation umlObject result |
 
@@ -245,6 +264,7 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #setUp!public! !
 !UMLVirtualMachineTest categoriesFor: #tearDown!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue105!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue146!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue51!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue53!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue54!public! !

@@ -334,7 +334,7 @@ UMLObject subclass: #UMLUndefinedObject
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLVirtualMachine
-	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable infiniteLoopThreshold'
+	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable infiniteLoopThreshold reEntrantBlocksIsEnabled'
 	classVariableNames: 'Default'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

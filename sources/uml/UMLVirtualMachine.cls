@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLVirtualMachine
-	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable infiniteLoopThreshold'
+	instanceVariableNames: 'systemDictionary primitiveObjects umlModels numbers userGlobals traits packages typeMapping isDeployment transLog isInstanceBehaviorAvailable infiniteLoopThreshold reEntrantBlocksIsEnabled'
 	classVariableNames: 'Default'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -882,6 +882,7 @@ initialize
 	packages := LookupTable new.
 	typeMapping := UMLClassAttribute initializeTypeMapping.
 	isDeployment := false.
+	reEntrantBlocksIsEnabled := true.
 
 	self addUMLMetaclass: (UMLMetaclass newNamed: 'Object').!
 
@@ -1984,6 +1985,12 @@ processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: aStPrimitiveNode object
 
 	^self processPrimitiveCall_500: anUMLObject withArguments: (Array with: aStPrimitiveNode) snapshot: anUMLExecutionSnapshot!
 
+reEntrantBlocksIsEnabled
+	^reEntrantBlocksIsEnabled!
+
+reEntrantBlocksIsEnabled: anObject
+	reEntrantBlocksIsEnabled := anObject!
+
 registerTransErrorLogFor: anUMLObject methodName: methodName arguments: arguments snapshot: anUMLExecutionSnapshot
 	| log |
 
@@ -2599,6 +2606,8 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_826:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_827:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCallHaltIn:node:object:!debug!public! !
+!UMLVirtualMachine categoriesFor: #reEntrantBlocksIsEnabled!accessing!private! !
+!UMLVirtualMachine categoriesFor: #reEntrantBlocksIsEnabled:!accessing!private! !
 !UMLVirtualMachine categoriesFor: #registerTransErrorLogFor:methodName:arguments:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #registerTransLogFor:methodName:arguments:snapshot:!debug!double dispatch!message dispatching!message dispatching core!public!vm core! !
 !UMLVirtualMachine categoriesFor: #removeNumber:!numbers!private! !

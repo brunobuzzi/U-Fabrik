@@ -130,8 +130,9 @@ source
 	^sequenceNode source
 !
 
-temporaries
-	^sequenceNode temporaries!
+temporaryVariables
+
+	^sequenceNode temporaryVariables!
 
 umlInstance
 	^umlInstance!
@@ -147,10 +148,7 @@ value: firstElement value: secondElement
 " this method ALWAYS return Smallalk Native aBoolean because is used by the Native Dolphin Sort algorithm.
 Check for more details:
 UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
-"!
-
-variableName
-	^Error notYetImplemented! !
+"! !
 !UMLBlockClosureNode categoriesFor: #allNames!public! !
 !UMLBlockClosureNode categoriesFor: #arguments!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #arguments:!accessing!private! !
@@ -179,11 +177,10 @@ variableName
 !UMLBlockClosureNode categoriesFor: #snapshot!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #source!public! !
-!UMLBlockClosureNode categoriesFor: #temporaries!context!public! !
+!UMLBlockClosureNode categoriesFor: #temporaryVariables!public! !
 !UMLBlockClosureNode categoriesFor: #umlInstance!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #umlInstance:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #value:value:!public! !
-!UMLBlockClosureNode categoriesFor: #variableName!public! !
 
 !UMLBlockClosureNode class methodsFor!
 

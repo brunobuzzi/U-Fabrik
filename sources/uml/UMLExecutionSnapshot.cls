@@ -88,10 +88,12 @@ createBlockFrom: aStBlockNode
 
 createBlockFromAssignment: aStAssignmentNode
 	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>."
-	| reEntrantException |
 
-	reEntrantException := self detectReEntrantBlockIn: aStAssignmentNode.
-	reEntrantException ifNotNil: [^reEntrantException].
+	virtualMachine reEntrantBlocksIsEnabled 
+	ifFalse: [ | reEntrantException |
+		reEntrantException := self detectReEntrantBlockIn: aStAssignmentNode.
+		reEntrantException ifNotNil: [^reEntrantException].
+	].
 
 	^self createBlockFrom: aStAssignmentNode value!
 

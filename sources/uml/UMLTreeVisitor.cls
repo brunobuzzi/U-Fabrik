@@ -56,11 +56,10 @@ visitMessageNode: aMessageNode
 	aMessageNode arguments do: [:each | self visitNode: each]!
 
 visitMethodNode: aMethodNode
-	| arguments |
 
 	treeModel := TreeModel withRoots: (OrderedCollection with: aMethodNode).
 
-	arguments := self visitArgumentNodes: aMethodNode arguments.
+	self visitArgumentNodes: aMethodNode arguments.
 
 	self visitNode: aMethodNode body!
 
