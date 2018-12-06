@@ -48,17 +48,6 @@ formattedCode
 	^sequenceNode formattedCode
 !
 
-getAllBlocksDefinitions
-	| blocks |
-
-	blocks := OrderedCollection with: self.
-	sequenceNode getBlocks do: [:each | blocks add: each].
-	^blocks!
-
-getBlocks
-
-	^sequenceNode getBlocks!
-
 getNodeAt: index
 
 	^sequenceNode getNodeAt: index!
@@ -158,8 +147,6 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #catchException!public! !
 !UMLBlockClosureNode categoriesFor: #externalObjectNames!public! !
 !UMLBlockClosureNode categoriesFor: #formattedCode!public! !
-!UMLBlockClosureNode categoriesFor: #getAllBlocksDefinitions!public! !
-!UMLBlockClosureNode categoriesFor: #getBlocks!public! !
 !UMLBlockClosureNode categoriesFor: #getNodeAt:!public! !
 !UMLBlockClosureNode categoriesFor: #globalIdentifierNames!public! !
 !UMLBlockClosureNode categoriesFor: #hasReferencesTo:!public! !
