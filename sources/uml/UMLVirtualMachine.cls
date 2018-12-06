@@ -1874,6 +1874,12 @@ processPrimitiveCall_729: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	^infiniteLoopThreshold asUMLObject: self!
 
+processPrimitiveCall_735: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
+	"The receiver switch the valued of <reEntrantBlocksIsEnabled>"
+	
+	self reEntrantBlocksIsEnabled: reEntrantBlocksIsEnabled not.
+	^reEntrantBlocksIsEnabled asUMLObject: self!
+
 processPrimitiveCall_800: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	"Answer if the <anUMLInstance> can understand a message " 
 	| methodName |
@@ -2588,6 +2594,7 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_724:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_728:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_729:withArguments:snapshot:!primitive processing!public! !
+!UMLVirtualMachine categoriesFor: #processPrimitiveCall_735:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_800:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_801:withArguments:snapshot:!primitive processing!public! !
 !UMLVirtualMachine categoriesFor: #processPrimitiveCall_802:withArguments:snapshot:!primitive processing!public! !
