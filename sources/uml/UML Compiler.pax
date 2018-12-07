@@ -138,7 +138,7 @@ StParseNodeVisitor subclass: #UMLTreeVisitor
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -1292,31 +1292,31 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
 	"Block>>value:"
-	| blockNode blockResult |
+	| anUMLBlockClosureNode blockResult |
 
-	blockNode := anUMLInstance smalltalkObject.
+	anUMLBlockClosureNode := anUMLInstance smalltalkObject.
 
-	(blockNode arguments size = 1) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
+	(anUMLBlockClosureNode arguments size = 1) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	anArray keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
+	anArray keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)] .
 
-	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
+	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 
 	^blockResult!
 
 processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLExecutionSnapshot
 	" The receiver process the Block contained in <aUMLBlockMessage_valueWithArguments> in the context of <anUMLInstance> with arguments <anArray>"
 	"Block>>valueWithArguments:"
-	| blockNode blockResult arguments |
+	| anUMLBlockClosureNode blockResult arguments |
 
-	blockNode := anUMLInstance smalltalkObject.
+	anUMLBlockClosureNode := anUMLInstance smalltalkObject.
 
 	arguments := anArray first smalltalkObject.
-	(blockNode arguments size = arguments size) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
+	(anUMLBlockClosureNode arguments size = arguments size) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	arguments keysAndValuesDo: [:eachKey :eachValue | blockNode snapshot addTemporary: eachValue named: (blockNode arguments at: eachKey)] .
+	arguments keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)] .
 
-	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
+	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 
 	^blockResult!
 

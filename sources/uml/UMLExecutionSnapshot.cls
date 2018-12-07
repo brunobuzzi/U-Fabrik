@@ -98,22 +98,18 @@ createBlockFromAssignment: aStAssignmentNode
 
 	isReEntrantBlock := self detectReEntrantBlockIn: aStAssignmentNode.
 	(virtualMachine reEntrantBlocksIsEnabled not and: [isReEntrantBlock])
-	ifFalse: [^self exceptionForReEntrantBlock: aStAssignmentNode variable name].
+	ifTrue: [^self exceptionForReEntrantBlock: aStAssignmentNode variable name].
 
 	^self createBlockFrom: aStAssignmentNode value isReEntrantBlock: isReEntrantBlock!
 
 createSmalltalkBlockFrom: aStBlockNode
-	| block |
 
-	block := UMLBlockClosureNode new sequenceNode: aStBlockNode; yourself.
-	block arguments: aStBlockNode argumentNames asArray.
-	block snapshot: self. "here we attach the father snapshot of the block"
-	^block!
+	^self createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: false!
 
 createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean
 	| block |
 
-	block := UMLBlockClosureNode new sequenceNode: aStBlockNode; yourself.
+	block := UMLBlockClosureNode new sequenceNode: aStBlockNode; isReEntrant: aBoolean ;yourself.
 	block arguments: aStBlockNode argumentNames asArray.
 	block snapshot: self. "here we attach the father snapshot of the block"
 	^block!

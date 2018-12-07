@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -48,6 +48,10 @@ formattedCode
 	^sequenceNode formattedCode
 !
 
+getArgumentAt: index
+
+	^arguments at: index!
+
 getNodeAt: index
 
 	^sequenceNode getNodeAt: index!
@@ -65,7 +69,14 @@ hasUMLBlock
 
 initialize
 	super initialize.
-	arguments := #().!
+	arguments := #().
+	isReEntrant := false.!
+
+isReEntrant
+	^isReEntrant!
+
+isReEntrant: anObject
+	isReEntrant := anObject!
 
 isUMLBlock
 
@@ -147,11 +158,14 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #catchException!public! !
 !UMLBlockClosureNode categoriesFor: #externalObjectNames!public! !
 !UMLBlockClosureNode categoriesFor: #formattedCode!public! !
+!UMLBlockClosureNode categoriesFor: #getArgumentAt:!public! !
 !UMLBlockClosureNode categoriesFor: #getNodeAt:!public! !
 !UMLBlockClosureNode categoriesFor: #globalIdentifierNames!public! !
 !UMLBlockClosureNode categoriesFor: #hasReferencesTo:!public! !
 !UMLBlockClosureNode categoriesFor: #hasUMLBlock!public! !
 !UMLBlockClosureNode categoriesFor: #initialize!public! !
+!UMLBlockClosureNode categoriesFor: #isReEntrant!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #isReEntrant:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #isUMLBlock!public! !
 !UMLBlockClosureNode categoriesFor: #messagesCollect:!public! !
 !UMLBlockClosureNode categoriesFor: #nodes!public! !
