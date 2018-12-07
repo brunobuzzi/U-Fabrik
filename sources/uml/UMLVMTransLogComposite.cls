@@ -61,11 +61,11 @@ deleteLogEntry
 
 	logsPresenter hasSelection ifFalse: [^self].
 
-	index := logsPresenter list indexOf: logsPresenter selection.
-	logsPresenter list remove: logsPresenter selection ifAbsent: [].
-	(index <= logsPresenter list size)
-	ifTrue: [logsPresenter selection: (logsPresenter list at: index) ifAbsent: []]
-	ifFalse: [logsPresenter selection: (logsPresenter list at: index - 1) ifAbsent: []]!
+	index := logsPresenter model indexOf: logsPresenter selection.
+	logsPresenter model remove: logsPresenter selection ifAbsent: [].
+	(index <= logsPresenter model size)
+	ifTrue: [logsPresenter selection: (logsPresenter model at: index) ifAbsent: []]
+	ifFalse: [logsPresenter selection: (logsPresenter model at: index - 1) ifAbsent: []]!
 
 inspectParameters
 
