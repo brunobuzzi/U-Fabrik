@@ -58,7 +58,7 @@ testIssue105
 	self assert: (result umlClass name = 'Error').
 !
 
-testIssue141
+testIssue141_factorial
 	| parsedCode result code currentOption |
 
 	currentOption := virtualMachine reEntrantBlocksIsEnabled.
@@ -71,6 +71,22 @@ factorial value: 5.'.
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
 	self assert: (result smalltalkObject == 120).
+
+	virtualMachine reEntrantBlocksIsEnabled: currentOption.!
+
+testIssue141_fibonacci
+	| parsedCode result code currentOption |
+
+	currentOption := virtualMachine reEntrantBlocksIsEnabled.
+	virtualMachine reEntrantBlocksIsEnabled: true.
+	code := '| fibonacci |
+fibonacci := [:n | (n = 0) ifTrue: [0] ifFalse: [(n = 1) ifTrue: [1] ifFalse: [(fibonacci value: n-1) + (fibonacci value: n-2)]]].
+fibonacci value: 8.'.
+
+	parsedCode := self umlCompiler parseExpression: code. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+
+	self assert: (result smalltalkObject == 21).
 
 	virtualMachine reEntrantBlocksIsEnabled: currentOption.!
 
@@ -280,7 +296,8 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #setUp!public! !
 !UMLVirtualMachineTest categoriesFor: #tearDown!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue105!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue141!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue141_factorial!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue141_fibonacci!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue146!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue51!public! !
 !UMLVirtualMachineTest categoriesFor: #testIssue53!public! !
