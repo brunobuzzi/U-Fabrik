@@ -86,16 +86,21 @@ createBlockFrom: aStBlockNode
 	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode)
 !
 
+createBlockFrom: aStBlockNode isReEntrantBlock: aBoolean
+	"The receiver create an uml instance of <Block> class"
+
+	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean) isReEntrantBlock: aBoolean
+!
+
 createBlockFromAssignment: aStAssignmentNode
 	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>."
+	| isReEntrantBlock |
 
-	virtualMachine reEntrantBlocksIsEnabled 
-	ifFalse: [ | reEntrantException |
-		reEntrantException := self detectReEntrantBlockIn: aStAssignmentNode.
-		reEntrantException ifNotNil: [^reEntrantException].
-	].
+	isReEntrantBlock := self detectReEntrantBlockIn: aStAssignmentNode.
+	(virtualMachine reEntrantBlocksIsEnabled not and: [isReEntrantBlock])
+	ifFalse: [^self exceptionForReEntrantBlock: aStAssignmentNode variable name].
 
-	^self createBlockFrom: aStAssignmentNode value!
+	^self createBlockFrom: aStAssignmentNode value isReEntrantBlock: isReEntrantBlock!
 
 createSmalltalkBlockFrom: aStBlockNode
 	| block |
@@ -105,7 +110,24 @@ createSmalltalkBlockFrom: aStBlockNode
 	block snapshot: self. "here we attach the father snapshot of the block"
 	^block!
 
+createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean
+	| block |
+
+	block := UMLBlockClosureNode new sequenceNode: aStBlockNode; yourself.
+	block arguments: aStBlockNode argumentNames asArray.
+	block snapshot: self. "here we attach the father snapshot of the block"
+	^block!
+
 createUMLBlockFrom: anUMLBlockClosureNode
+	"The receiver create an instances of UML class <Block> from <anUMLBlockClosureNode>"
+	| umlBlock |
+
+	umlBlock := (virtualMachine virtualMachineClassNamed: 'Block') vmPerform: #newInstance parentSnapshot: self. "we create the Block"
+	umlBlock smalltalkObject: anUMLBlockClosureNode.
+	anUMLBlockClosureNode umlInstance: umlBlock.
+	^umlBlock!
+
+createUMLBlockFrom: anUMLBlockClosureNode isReEntrantBlock: aBoolean
 	"The receiver create an instances of UML class <Block> from <anUMLBlockClosureNode>"
 	| umlBlock |
 
@@ -123,15 +145,7 @@ currentUser: anObject
 detectReEntrantBlockIn: aStAssignmentNode
 	"Here is detected re-entrant Blocks (issue #142)"
 
-	(aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name])
-	ifTrue: [ | reEntrantException |
-		reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: 
-				(Error new messageText: 'Re Entrant Blocks are not supported yet [', aStAssignmentNode variable name, ']'); yourself.
-		self isCurtailed: true.
-		self exception: reEntrantException.
-		^exception].
-
-	^nil!
+	^aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name]!
 
 exception
 	^exception!
@@ -141,6 +155,18 @@ exception: exceptionObject
 	exception := exceptionObject.
 
 	parentStack exceptionSnapshot: exceptionObject.!
+
+exceptionForReEntrantBlock: variableName
+	| stObject reEntrantException |
+
+	stObject := (Error new messageText: 'Re Entrant Blocks are not supported yet [', variableName, ']'); yourself.
+
+	reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: stObject.
+
+	self isCurtailed: true.
+	self exception: reEntrantException.
+
+	^reEntrantException!
 
 executedImplementations
 	^executedImplementations!
@@ -605,14 +631,18 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #className!public! !
 !UMLExecutionSnapshot categoriesFor: #clearExecutedImplementations!public! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFromAssignment:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public!uml blocks! !
+!UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #detectReEntrantBlockIn:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #exception!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #exception:!accessing!public!vm stack! !
+!UMLExecutionSnapshot categoriesFor: #exceptionForReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedImplementations:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #executedNodes!accessing!private! !
