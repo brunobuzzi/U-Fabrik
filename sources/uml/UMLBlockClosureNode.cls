@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant snapshots reEntrantVarName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -70,7 +70,8 @@ hasUMLBlock
 initialize
 	super initialize.
 	arguments := #().
-	isReEntrant := false.!
+	isReEntrant := false.
+	snapshots := Set new.!
 
 isReEntrant
 	^isReEntrant!
@@ -109,21 +110,36 @@ printSource
 
 	^self source ifNil: ['']!
 
+reEntrantVarName
+	^reEntrantVarName!
+
+reEntrantVarName: anObject
+	reEntrantVarName := anObject!
+
+restoreExecutionContext: anUMLExecutionSnapshot
+
+	"the receiver is removed from temporaries in snapshot <anUMLExecutionSnapshot>"
+	reEntrantVarName ifNotNil: [anUMLExecutionSnapshot removeTemporaryNamed: reEntrantVarName].
+
+	snapshot := anUMLExecutionSnapshot.!
+
 sequenceNode
 	^sequenceNode!
 
 sequenceNode: anObject
 	sequenceNode := anObject!
 
-setExecutionSnapshot: anUMLExecutionSnapshot 
-
-	snapshot := anUMLExecutionSnapshot!
-
 snapshot
 	^snapshot!
 
 snapshot: anObject
 	snapshot := anObject!
+
+snapshots
+	^snapshots!
+
+snapshots: anObject
+	snapshots := anObject!
 
 source
 
@@ -139,6 +155,17 @@ umlInstance
 
 umlInstance: anObject
 	umlInstance := anObject!
+
+updateExecutionContext: anUMLExecutionSnapshot
+	"The receiver update its execution context with snapshot <anUMLExecutionSnapshot>.
+	Used with re-entrant Blocks. 
+	The new execution context <anUMLExecutionSnapshot> does not have the Block instance defined in its scope"
+
+	"the receiver now accessible to the snapshot <anUMLExecutionSnapshot>"
+	reEntrantVarName ifNotNil: [anUMLExecutionSnapshot assignObject: umlInstance toTemporary: reEntrantVarName].
+
+	snapshot := anUMLExecutionSnapshot.
+	^snapshots add: anUMLExecutionSnapshot!
 
 value: firstElement value: secondElement
 	"This method is ONLY used to support <asSortedCollection: aBlock> using native Dolphin Sort algorithm so, can NOT be used for any other funcionality "
@@ -172,15 +199,20 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #printMessage!public! !
 !UMLBlockClosureNode categoriesFor: #printOn:!public! !
 !UMLBlockClosureNode categoriesFor: #printSource!public! !
+!UMLBlockClosureNode categoriesFor: #reEntrantVarName!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #reEntrantVarName:!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #restoreExecutionContext:!public!re entrant processing! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode:!accessing!private! !
-!UMLBlockClosureNode categoriesFor: #setExecutionSnapshot:!public! !
 !UMLBlockClosureNode categoriesFor: #snapshot!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot:!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #snapshots!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #snapshots:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #source!public! !
 !UMLBlockClosureNode categoriesFor: #temporaryVariables!public! !
 !UMLBlockClosureNode categoriesFor: #umlInstance!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #umlInstance:!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #updateExecutionContext:!public!re entrant processing! !
 !UMLBlockClosureNode categoriesFor: #value:value:!public! !
 
 !UMLBlockClosureNode class methodsFor!

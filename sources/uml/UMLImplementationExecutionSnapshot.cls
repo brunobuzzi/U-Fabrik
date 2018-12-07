@@ -124,7 +124,7 @@ processBlockAssignment: aStAssignmentNode messageReceiver: anUMLInstance argumen
 	If <anUMLInstance> has a varible named <variableName> then store the result on <anUMLInstance>, if NOT store the result in the temporary stack of the receiver"
 	| umlBlock |
 
-	umlBlock := self createBlockFromAssignment: aStAssignmentNode. "we create the instance og UML class <Block>"
+	umlBlock := self createBlockFromAssignment: aStAssignmentNode. "we create the instance of UML class <Block>"
 	(sequenceReceiver hasVariableNamed: aStAssignmentNode variableName)  
 	ifTrue: [sequenceReceiver atVariableName: aStAssignmentNode variableName put: umlBlock snapshot: self] "we store the Block in the instance variable of <anUMLInstance>" 
 	ifFalse: [self assignObject: umlBlock toTemporary: aStAssignmentNode variableName.]. "we store the Block in the temporaries of the receiver "

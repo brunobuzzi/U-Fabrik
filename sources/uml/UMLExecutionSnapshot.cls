@@ -89,41 +89,46 @@ createBlockFrom: aStBlockNode
 createBlockFrom: aStBlockNode isReEntrantBlock: aBoolean
 	"The receiver create an uml instance of <Block> class"
 
-	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean) isReEntrantBlock: aBoolean
+	^self createUMLBlockFrom: (self createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean)
 !
 
 createBlockFromAssignment: aStAssignmentNode
 	"The receiver create <anUMLBlock> from assignment <aStAssignmentNode>."
-	| isReEntrantBlock |
+	| isReEntrantBlock umlBlock |
 
 	isReEntrantBlock := self detectReEntrantBlockIn: aStAssignmentNode.
 	(virtualMachine reEntrantBlocksIsEnabled not and: [isReEntrantBlock])
 	ifTrue: [^self exceptionForReEntrantBlock: aStAssignmentNode variable name].
 
-	^self createBlockFrom: aStAssignmentNode value isReEntrantBlock: isReEntrantBlock!
+	umlBlock := self createBlockFrom: aStAssignmentNode value isReEntrantBlock: isReEntrantBlock.
+
+	"the name of the variable used to do re entrant is stored in the Smalltalk object <anUMLBlockClosureNode>.
+	the <reEntrantVarName> is going to be used to define the block in new execution context (used only with re entrant Blocks)"
+	isReEntrantBlock ifTrue: [umlBlock smalltalkObject reEntrantVarName: aStAssignmentNode variable name].
+
+	^umlBlock!
 
 createSmalltalkBlockFrom: aStBlockNode
+	"The receiver create an instance of <UMLBlockClosureNode> to be attached to the UML Block"
 
 	^self createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: false!
 
 createSmalltalkBlockFrom: aStBlockNode isReEntrantBlock: aBoolean
+	"The receiver create an instance of <UMLBlockClosureNode> to be attached to the UML Block"
 	| block |
 
-	block := UMLBlockClosureNode new sequenceNode: aStBlockNode; isReEntrant: aBoolean ;yourself.
-	block arguments: aStBlockNode argumentNames asArray.
-	block snapshot: self. "here we attach the father snapshot of the block"
+	block := UMLBlockClosureNode new 
+				sequenceNode: aStBlockNode; 
+				isReEntrant: aBoolean;
+				arguments: aStBlockNode argumentNames asArray;
+				yourself.
+
+	"here we attach the parent snapshot of the block"
+	block updateExecutionContext: self.
+
 	^block!
 
 createUMLBlockFrom: anUMLBlockClosureNode
-	"The receiver create an instances of UML class <Block> from <anUMLBlockClosureNode>"
-	| umlBlock |
-
-	umlBlock := (virtualMachine virtualMachineClassNamed: 'Block') vmPerform: #newInstance parentSnapshot: self. "we create the Block"
-	umlBlock smalltalkObject: anUMLBlockClosureNode.
-	anUMLBlockClosureNode umlInstance: umlBlock.
-	^umlBlock!
-
-createUMLBlockFrom: anUMLBlockClosureNode isReEntrantBlock: aBoolean
 	"The receiver create an instances of UML class <Block> from <anUMLBlockClosureNode>"
 	| umlBlock |
 
@@ -139,7 +144,7 @@ currentUser: anObject
 	currentUser := anObject!
 
 detectReEntrantBlockIn: aStAssignmentNode
-	"Here is detected re-entrant Blocks (issue #142)"
+	"The receiver detected if the Block is a re-entrant Block (issue #142)"
 
 	^aStAssignmentNode value temporaryVariables anySatisfy: [:each | each = aStAssignmentNode variable name]!
 
@@ -153,9 +158,11 @@ exception: exceptionObject
 	parentStack exceptionSnapshot: exceptionObject.!
 
 exceptionForReEntrantBlock: variableName
+	"The receiver answer <anException> because re-entrant Blocks are disable at Virtual Machine level.
+	To enable it: Object switchReEntrantBlockSupport"
 	| stObject reEntrantException |
 
-	stObject := (Error new messageText: 'Re Entrant Blocks are not supported yet [', variableName, ']'); yourself.
+	stObject := (Error new messageText: 'Re-entrant Blocks are not enabled at VM level [var name: ', variableName, ']. ', String lineDelimiter ,'Enable re-entrant Blocks with message [Object switchReEntrantBlockSupport]'); yourself.
 
 	reEntrantException := (virtualMachine errorClass newInstance) smalltalkObject: stObject.
 
@@ -561,7 +568,7 @@ registerInStack
 
 removeTemporaryNamed: aName
 
-	^temporaries removeKey: aName!
+	^temporaries removeKey: aName ifAbsent: []!
 
 send: aSymbol to: anUMLInstance withAll: anArray parentSnapshot: anUMLExecutionSnapshot
 
@@ -632,7 +639,6 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createSmalltalkBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:!public!uml blocks! !
-!UMLExecutionSnapshot categoriesFor: #createUMLBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #currentUser!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #currentUser:!accessing!private! !
 !UMLExecutionSnapshot categoriesFor: #detectReEntrantBlockIn:!public!uml blocks! !
