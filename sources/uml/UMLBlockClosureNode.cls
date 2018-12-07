@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant snapshots reEntrantVarName'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant reEntrantVarName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -71,7 +71,7 @@ initialize
 	super initialize.
 	arguments := #().
 	isReEntrant := false.
-	snapshots := Set new.!
+!
 
 isReEntrant
 	^isReEntrant!
@@ -135,12 +135,6 @@ snapshot
 snapshot: anObject
 	snapshot := anObject!
 
-snapshots
-	^snapshots!
-
-snapshots: anObject
-	snapshots := anObject!
-
 source
 
 	^sequenceNode formattedCode
@@ -164,8 +158,7 @@ updateExecutionContext: anUMLExecutionSnapshot
 	"the receiver now accessible to the snapshot <anUMLExecutionSnapshot>"
 	reEntrantVarName ifNotNil: [anUMLExecutionSnapshot assignObject: umlInstance toTemporary: reEntrantVarName].
 
-	snapshot := anUMLExecutionSnapshot.
-	^snapshots add: anUMLExecutionSnapshot!
+	^snapshot := anUMLExecutionSnapshot!
 
 value: firstElement value: secondElement
 	"This method is ONLY used to support <asSortedCollection: aBlock> using native Dolphin Sort algorithm so, can NOT be used for any other funcionality "
@@ -206,8 +199,6 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #sequenceNode:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot:!accessing!private! !
-!UMLBlockClosureNode categoriesFor: #snapshots!accessing!private! !
-!UMLBlockClosureNode categoriesFor: #snapshots:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #source!public! !
 !UMLBlockClosureNode categoriesFor: #temporaryVariables!public! !
 !UMLBlockClosureNode categoriesFor: #umlInstance!accessing!private! !
