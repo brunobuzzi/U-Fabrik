@@ -344,7 +344,7 @@ UMLObject subclass: #UMLVirtualMachinePackage
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLVMLog
-	instanceVariableNames: 'stamp methodName umlReceiver umlParameters snapshot'
+	instanceVariableNames: 'stamp methodName umlReceiver umlParameters snapshot annotation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

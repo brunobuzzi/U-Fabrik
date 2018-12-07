@@ -483,6 +483,7 @@ processMessageNode: aStMessageNode messageReceiver: anUMLObject arguments: anArr
 	(aStMessageNode receiver class == StMessageNode) ifFalse: [^(self processMessageNode: aStMessageNode context: anUMLObject parameters: anArray) asUMLObject: virtualMachine]. "a simple message"
 
 "in this case the receiver is not immediate, is like: <anObject foo .... isEmpty lastMessageNode>"
+
 	result := aStMessageNode receiver processInsideSnapshot: self context: anUMLObject parameters: anArray. "process the first receiver of the message receiver"
 	hasDNU ifTrue: [^result].
 	umlArguments := self getArgumentsFrom: aStMessageNode. "get the arguments for the last receiver"

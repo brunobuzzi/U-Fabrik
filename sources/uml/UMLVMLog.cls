@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLVMLog
-	instanceVariableNames: 'stamp methodName umlReceiver umlParameters snapshot'
+	instanceVariableNames: 'stamp methodName umlReceiver umlParameters snapshot annotation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -9,6 +9,12 @@ UMLVMLog guid: (GUID fromString: '{9d5fec68-2088-48f5-87b7-804753ede75c}')!
 UMLVMLog comment: ''!
 !UMLVMLog categoriesForClass!Unclassified! !
 !UMLVMLog methodsFor!
+
+annotation
+	^annotation!
+
+annotation: anObject
+	annotation := anObject!
 
 hasDNU
 
@@ -26,7 +32,8 @@ initialize
 
 	super initialize.
 
-	stamp := TimeStamp now.!
+	stamp := TimeStamp now.
+	annotation := ''.!
 
 isCurtailed
 
@@ -95,6 +102,8 @@ umlReceiver
 
 umlReceiver: anObject
 	umlReceiver := anObject! !
+!UMLVMLog categoriesFor: #annotation!accessing!private! !
+!UMLVMLog categoriesFor: #annotation:!accessing!private! !
 !UMLVMLog categoriesFor: #hasDNU!public! !
 !UMLVMLog categoriesFor: #hasInfiniteLoop!public! !
 !UMLVMLog categoriesFor: #hasOnErrorDo!public! !
