@@ -116,7 +116,7 @@ menuBar
 		addCommand: (MessageSend receiver: self selector: #helpWithThisTool)
 			description: 'Help with this tool';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #aboutUMLAlmighty)
+		addCommand: (MessageSend receiver: self selector: #aboutUFabrik)
 			description: 'About ' , self applicationName.
 	^menu!
 

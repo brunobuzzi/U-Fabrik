@@ -10,9 +10,9 @@ UMLEnvironmentTool comment: ''!
 !UMLEnvironmentTool categoriesForClass!Unclassified! !
 !UMLEnvironmentTool methodsFor!
 
-aboutUMLAlmighty
-	^MessageBox 
-		notify: self applicationName, ' version 4.5  (Open Source)
+aboutUFabrik
+	^MessageBox notify: self applicationName
+				, ' version 4.5  (Open Source)
 Created by: Software Engineer Bruno Buzzi Brassesco
 bruno.brasesco@gmail.com'
 		caption: self applicationName!
@@ -80,7 +80,7 @@ setCompilationErrorsWith: anArray
 setSanityCheckWith: treeModel
 
 	self subclassResponsibility! !
-!UMLEnvironmentTool categoriesFor: #aboutUMLAlmighty!public! !
+!UMLEnvironmentTool categoriesFor: #aboutUFabrik!public! !
 !UMLEnvironmentTool categoriesFor: #checkCompilationErrorsFor:inClass:!compiling!public! !
 !UMLEnvironmentTool categoriesFor: #developmentEnvironment!public! !
 !UMLEnvironmentTool categoriesFor: #hasSelectedCategory!public! !

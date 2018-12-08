@@ -260,74 +260,105 @@ menuBar
 	| menu |
 	menu := MenuBar new.
 	(menu addSubmenu: 'File')
-		addCommand: (MessageSend receiver: self selector: #browseSetupObjects) description: 'Browse Setup Objects';
+		addCommand: (MessageSend receiver: self selector: #browseSetupObjects)
+			description: 'Browse Setup Objects';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #importXMIFile) description: 'Import XMI File';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #fileOutUMLModel) description: 'Store UML Model';
-		addCommand: (MessageSend receiver: self selector: #fileInUMLModel) description: 'Restore UML Model from File';
+		addCommand: (MessageSend receiver: self selector: #fileInUMLModel)
+			description: 'Restore UML Model from File';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #exit) description: 'Exit'.
 	(menu addSubmenu: 'UML Model')
-		addCommand: (MessageSend receiver: self selector: #browseGlobals) description: 'Browse Global Objects';
-		addCommand: (MessageSend receiver: self selector: #browseSetupObjects) description: 'Browse Setup Objects';
+		addCommand: (MessageSend receiver: self selector: #browseGlobals)
+			description: 'Browse Global Objects';
+		addCommand: (MessageSend receiver: self selector: #browseSetupObjects)
+			description: 'Browse Setup Objects';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #importXMIFile) description: 'Import XMI File';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #exportMethodsReportToExcel) description: 'Export Methods Report to Excel';
+		addCommand: (MessageSend receiver: self selector: #exportMethodsReportToExcel)
+			description: 'Export Methods Report to Excel';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #fileOutUMLModelImplementations) description: 'File out UML Model Implementations';
-		addCommand: (MessageSend receiver: self selector: #fileInUMLModelImplementations) description: 'File in UML Model Implementations';
+		addCommand: (MessageSend receiver: self selector: #fileOutUMLModelImplementations)
+			description: 'File out UML Model Implementations';
+		addCommand: (MessageSend receiver: self selector: #fileInUMLModelImplementations)
+			description: 'File in UML Model Implementations';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #fileOutUMLModel) description: 'Store UML Model';
-		addCommand: (MessageSend receiver: self selector: #fileInUMLModel) description: 'Restore UML Model from File';
+		addCommand: (MessageSend receiver: self selector: #fileInUMLModel)
+			description: 'Restore UML Model from File';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #removeUMLModel) description: 'Remove UML Model'.
 	(menu addSubmenu: 'UML Class')
-		addCommand: (MessageSend receiver: self selector: #addTraitToSelectedClass) description: 'Add Trait to Selected Class';
+		addCommand: (MessageSend receiver: self selector: #addTraitToSelectedClass)
+			description: 'Add Trait to Selected Class';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #autogenerateInitializeMethod) description: 'Generate #initialize Method';
+		addCommand: (MessageSend receiver: self selector: #autogenerateInitializeMethod)
+			description: 'Generate #initialize Method';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #designCustomizedView) description: 'Design Customize View';
-		addCommand: (MessageSend receiver: self selector: #inspectCustomizedNewInstance) description: 'Inspect New Instance in Customized View';
+		addCommand: (MessageSend receiver: self selector: #designCustomizedView)
+			description: 'Design Customize View';
+		addCommand: (MessageSend receiver: self selector: #inspectCustomizedNewInstance)
+			description: 'Inspect New Instance in Customized View';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #inspectNewInstance) description: 'Inspect New Instance';
+		addCommand: (MessageSend receiver: self selector: #inspectNewInstance)
+			description: 'Inspect New Instance';
 		addSeparator;
 		addCommand: (MessageSend receiver: self selector: #addNewClass) description: 'Add New Class';
 		addCommand: (MessageSend receiver: self selector: #removeClass) description: 'Remove Class'.
 	(menu addSubmenu: 'Method Implementation')
-		addCommand: (MessageSend receiver: self selector: #browserImplementationDefenitions) description: 'Browse Definitions';
-		addCommand: (MessageSend receiver: self selector: #browserImplementationReferences) description: 'Browse References';
+		addCommand: (MessageSend receiver: self selector: #browserImplementationDefenitions)
+			description: 'Browse Definitions';
+		addCommand: (MessageSend receiver: self selector: #browserImplementationReferences)
+			description: 'Browse References';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #removeImplementation) description: 'Remove Implementation'.
+		addCommand: (MessageSend receiver: self selector: #removeImplementation)
+			description: 'Remove Implementation'.
 	(menu addSubmenu: 'User Categories')
 		addCommand: (MessageSend receiver: self selector: #addCategory) description: 'Add Category';
 		addCommand: (MessageSend receiver: self selector: #removeCategory) description: 'Remove Category';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #browserImplementationOfCategory) description: 'Browser Implementations of Category';
+		addCommand: (MessageSend receiver: self selector: #browserImplementationOfCategory)
+			description: 'Browser Implementations of Category';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #fileOutMethodsOfCategory) description: 'File out Category';
-		addCommand: (MessageSend receiver: self selector: #fileInMethodsOfCategory) description: 'File in Category'.
+		addCommand: (MessageSend receiver: self selector: #fileOutMethodsOfCategory)
+			description: 'File out Category';
+		addCommand: (MessageSend receiver: self selector: #fileInMethodsOfCategory)
+			description: 'File in Category'.
 	(menu addSubmenu: 'Search')
-		addCommand: (MessageSend receiver: self selector: #searchCompilationFailures) description: 'Compilation Failures';
+		addCommand: (MessageSend receiver: self selector: #searchCompilationFailures)
+			description: 'Compilation Failures';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #searchAttributeNamed) description: 'Attributes Named';
-		addCommand: (MessageSend receiver: self selector: #searchAttributesOfType) description: 'Attributes of Type';
+		addCommand: (MessageSend receiver: self selector: #searchAttributeNamed)
+			description: 'Attributes Named';
+		addCommand: (MessageSend receiver: self selector: #searchAttributesOfType)
+			description: 'Attributes of Type';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #searchUndefinedAttributes) description: 'Undefined Attributes';
-		addCommand: (MessageSend receiver: self selector: #searchUndefinedRelations) description: 'Undefined Relations'.
+		addCommand: (MessageSend receiver: self selector: #searchUndefinedAttributes)
+			description: 'Undefined Attributes';
+		addCommand: (MessageSend receiver: self selector: #searchUndefinedRelations)
+			description: 'Undefined Relations'.
 	(menu addSubmenu: 'Support')
-		addCommand: (MessageSend receiver: self selector: #gotoUFabrikWebSite) description: self applicationName , ' Web site';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyNewsGroup) description: 'News Group';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyDocumentation) description: 'Online Documents';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyEnglishVideos) description: 'Online Videos - English';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyVideos) description: 'Online Videos - Spanish';
+		addCommand: (MessageSend receiver: self selector: #gotoUFabrikWebSite)
+			description: self applicationName , ' Web site';
+		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyNewsGroup)
+			description: 'News Group';
+		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyDocumentation)
+			description: 'Online Documents';
+		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyEnglishVideos)
+			description: 'Online Videos - English';
+		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyVideos)
+			description: 'Online Videos - Spanish';
 		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyBlog) description: 'Blog'.
 	(menu addSubmenu: 'About')
 		addCommand: (MessageSend receiver: self selector: #aboutThisTool) description: 'About this tool';
-		addCommand: (MessageSend receiver: self selector: #helpWithThisTool) description: 'Help with this tool';
+		addCommand: (MessageSend receiver: self selector: #helpWithThisTool)
+			description: 'Help with this tool';
 		addSeparator;
-		addCommand: (MessageSend receiver: self selector: #aboutUMLAlmighty) description: 'About ' , self applicationName.
+		addCommand: (MessageSend receiver: self selector: #aboutUFabrik)
+			description: 'About ' , self applicationName.
 	^menu!
 
 model: anOrderedCollection
