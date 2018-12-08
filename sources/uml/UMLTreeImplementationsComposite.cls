@@ -39,12 +39,19 @@ onViewOpened
 
 	super onViewOpened.
 
-	treePresenter view expandAll! !
+	treePresenter view expandAll!
+
+viewParsedTree
+
+	treePresenter hasSelection ifFalse: [^self].
+
+	^UMLParsedCodeShell showOn: treePresenter selection parsedCode! !
 !UMLTreeImplementationsComposite categoriesFor: #createComponents!public! !
 !UMLTreeImplementationsComposite categoriesFor: #createSchematicWiring!public! !
 !UMLTreeImplementationsComposite categoriesFor: #model:!public! !
 !UMLTreeImplementationsComposite categoriesFor: #onMethodChanged!public! !
 !UMLTreeImplementationsComposite categoriesFor: #onViewOpened!public! !
+!UMLTreeImplementationsComposite categoriesFor: #viewParsedTree!public! !
 
 !UMLTreeImplementationsComposite class methodsFor!
 
@@ -56,6 +63,6 @@ resource_Default_view
 	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_Default_view)
 	"
 
-	^#(#'!!STL' 3 788558 10 ##(Smalltalk.STBViewProxy)  8 ##(Smalltalk.ContainerView)  98 15 0 0 98 2 8 1409286144 131073 416 0 0 0 5 0 0 0 416 1180166 ##(Smalltalk.ProportionalLayout)  234 240 98 0 16 234 256 98 4 410 8 ##(Smalltalk.TreeView)  98 27 0 416 98 2 8 1409352231 1025 592 590918 3 ##(Smalltalk.TreeModel)  0 1310726 ##(Smalltalk.IdentitySearchPolicy)  525062 ##(Smalltalk.TreeNode)  0 0 0 234 256 544 524550 ##(Smalltalk.ColorRef)  8 4278190080 0 5 0 0 0 592 0 8 4294903123 459270 ##(Smalltalk.Message)  8 #printTreeName 98 0 8 ##(Smalltalk.IconicListAbstract)  1049670 1 ##(Smalltalk.IconImageManager)  0 0 0 0 0 234 240 544 17 8 #smallIcons 1 0 983302 ##(Smalltalk.MessageSequence)  202 208 98 1 721670 ##(Smalltalk.MessageSend)  8 #createAt:extent: 98 2 328198 ##(Smalltalk.Point)  1 1 1122 1251 367 592 983302 ##(Smalltalk.WINDOWPLACEMENT)  8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 0 0 0 0 113 2 0 0 183 0 0 0] 98 0 1122 193 193 0 27 8 'methods' 410 8 ##(Smalltalk.ReferenceView)  98 14 0 416 98 2 8 1140850688 131073 1264 0 786 8 4278190080 0 5 0 0 0 1264 1180166 ##(Smalltalk.ResourceIdentifier)  8 ##(Smalltalk.UMLImplementationComposite)  8 #resource_Default_view 0 994 202 208 98 1 1058 1088 98 2 1122 1 385 1122 1251 367 1264 1170 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 192 0 0 0 113 2 0 0 119 1 0 0] 544 1232 0 27 8 'implementation' 0 994 202 208 98 1 1058 1088 98 2 1122 2731 21 1122 1251 751 416 1170 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 85 5 0 0 10 0 0 0 198 7 0 0 129 1 0 0] 98 3 592 410 8 ##(Smalltalk.Splitter)  98 12 0 416 98 2 8 1140850688 1 1760 0 786 8 4278190080 0 517 0 0 0 1760 994 202 208 98 1 1058 1088 98 2 1122 1 367 1122 1251 19 1760 1170 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 183 0 0 0 113 2 0 0 192 0 0 0] 98 0 1232 0 27 1264 1232 0 27 )! !
+	^#(#'!!STL' 4 788558 10 ##(Smalltalk.STBViewProxy) ##(Smalltalk.ContainerView) 34 15 nil nil 34 2 8 1409286144 131073 416 nil nil nil 5 nil nil nil 416 1180166 ##(Smalltalk.ProportionalLayout) 170 176 8 #() true 170 192 34 4 410 ##(Smalltalk.TreeView) 34 27 nil 416 34 2 8 1409352231 1025 576 590918 3 ##(Smalltalk.TreeModel) nil 1310726 ##(Smalltalk.IdentitySearchPolicy) 525062 ##(Smalltalk.TreeNode) nil nil nil 170 192 528 524550 ##(Smalltalk.ColorRef) 8 4278190080 nil 5 265030 4 ##(Smalltalk.Menu) nil true 34 1 984134 2 ##(Smalltalk.CommandMenuItem) 1 1180998 4 ##(Smalltalk.CommandDescription) #viewParsedTree 8 'View Parsed Tree' 1 1 nil nil nil 8 '' nil 134217729 nil nil nil nil nil nil nil 576 nil 8 1911163534 459270 ##(Smalltalk.Message) #printTreeName 8 #() ##(Smalltalk.IconicListAbstract) 1049926 1 ##(Smalltalk.IconImageManager) nil nil nil nil nil 170 176 528 17 #smallIcons 1 170 ##(Smalltalk.PluggableLookupTable) 528 983302 ##(Smalltalk.MessageSequence) 138 144 34 2 721670 ##(Smalltalk.MessageSend) #createAt:extent: 34 2 328198 ##(Smalltalk.Point) 1 1 1186 1251 371 576 1138 #contextMenu: 34 1 816 576 983302 ##(Smalltalk.WINDOWPLACEMENT) 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 0 0 0 0 113 2 0 0 185 0 0 0] 8 #() 1186 193 193 nil 27 8 'methods' 410 ##(Smalltalk.ReferenceView) 34 14 nil 416 34 2 8 1140850688 131073 1360 nil 754 8 4278190080 nil 5 nil nil nil 1360 1180166 ##(Smalltalk.ResourceIdentifier) ##(Smalltalk.UMLImplementationComposite) #resource_Default_view nil 1074 138 144 34 1 1138 #createAt:extent: 34 2 1186 1 381 1186 1251 371 1360 1266 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 190 0 0 0 113 2 0 0 119 1 0 0] 528 1328 nil 27 8 'implementation' nil 1074 138 144 34 1 1138 #createAt:extent: 34 2 1186 2719 21 1186 1251 751 416 1266 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 79 5 0 0 10 0 0 0 192 7 0 0 129 1 0 0] 34 3 576 410 ##(Smalltalk.Splitter) 34 12 nil 416 34 2 8 1140850688 1 1808 nil 754 8 4278190080 nil 517 nil nil nil 1510470 1 ##(Smalltalk.DraggableViewInteractor) 1808 nil 1 #left nil nil nil 1186 1 1 1186 9 9 nil 1936 nil 1074 138 144 34 1 1138 #createAt:extent: 34 2 1186 1 371 1186 1251 11 1808 1266 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 0 0 0 0 185 0 0 0 113 2 0 0 190 0 0 0] 8 #() 1328 nil 27 1360 1328 nil 27 )! !
 !UMLTreeImplementationsComposite class categoriesFor: #resource_Default_view!public!resources-views! !
 
