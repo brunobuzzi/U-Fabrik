@@ -22,7 +22,6 @@ AAAABAAAAAkEsAQDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 package classNames
 	add: #BBSGTExcelImportComposite;
 	add: #IconWrapper;
-	add: #LicenciaSoftwareComposite;
 	add: #UFabrikManagerShell;
 	add: #UFabrikSessionManager;
 	add: #UMLAttributeMappDialog;
@@ -394,11 +393,6 @@ UMLToolShell subclass: #UMLWorkspaceShell
 	classInstanceVariableNames: ''!
 UMLToolShell subclass: #WebServerConfigurationShell
 	instanceVariableNames: 'ipAddressPresenter portPresenter hostPresenter isServingPresenter sitePresenter stylesPresenter'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLComposite subclass: #LicenciaSoftwareComposite
-	instanceVariableNames: 'namePresenter numberPresenter lockedPresenter startDatePresenter expirationDatePresenter typePresenter cantidadClasesPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
