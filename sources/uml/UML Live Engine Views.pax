@@ -88,6 +88,7 @@ package classNames
 	add: #UMLTypeMappingShell;
 	add: #UMLVirtualMachineBrowser;
 	add: #UMLVirtualMachineOptionsComposite;
+	add: #UMLVirtualMachineOptionsShell;
 	add: #UMLVirtualMachineShell;
 	add: #UMLVMTransLogComposite;
 	add: #UMLVMTransLogShell;
@@ -379,6 +380,11 @@ UMLToolShell subclass: #UMLParsedCodeShell
 	classInstanceVariableNames: ''!
 UMLToolShell subclass: #UMLTraitBrowserShell
 	instanceVariableNames: 'traitBrowserComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLToolShell subclass: #UMLVirtualMachineOptionsShell
+	instanceVariableNames: 'vmOptionsPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
