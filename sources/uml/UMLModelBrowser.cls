@@ -43,7 +43,7 @@ browseSetupObjects
 browseTree
 	| level |
 
-	level := (Prompter prompt: 'Enter recursive level (default 5): ') asNumberOnError: [:e | 5 ].
+	level := (Prompter prompt: 'Enter recursive level (default 5): ') ifNil: [^self] ifNotNil: [:value | value asNumberOnError: [:e | 5 ]].
 
 	[UMLTreeImplementationsShell showOn: (self selectedImplementation asTreeModelUpto: level count: 0)] forkAt: 4!
 
