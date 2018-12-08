@@ -87,6 +87,7 @@ package classNames
 	add: #UMLTypeMappingComposite;
 	add: #UMLTypeMappingShell;
 	add: #UMLVirtualMachineBrowser;
+	add: #UMLVirtualMachineOptionsComposite;
 	add: #UMLVirtualMachineShell;
 	add: #UMLVMTransLogComposite;
 	add: #UMLVMTransLogShell;
@@ -503,6 +504,11 @@ UMLEnvironmentTool subclass: #UMLTreeImplementationsComposite
 	classInstanceVariableNames: ''!
 UMLEnvironmentTool subclass: #UMLVirtualMachineBrowser
 	instanceVariableNames: 'hierarchyPresenter classListPresenter implementationsPresenter implementationComposite classSidePresenter metaclassSidePresenter radioButtonsPresenter categoriesPresenter packagesPresenter traitsPresenter classCommentsPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLEnvironmentTool subclass: #UMLVirtualMachineOptionsComposite
+	instanceVariableNames: 'isDeploymentPresenter isInstanceBehaviorEnabledPresenter isReEntrantBlockEnabledPresenter infiniteLoopThresholdPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
