@@ -10,6 +10,10 @@ UMLToolShell comment: ''!
 !UMLToolShell categoriesForClass!Unclassified! !
 !UMLToolShell methodsFor!
 
+defineAttributeTypeMapping
+
+	UMLTypeMappingShell showModalOn: UMLClassAttribute typeMappingAsOrderedCollection!
+
 developmentEnvironment
 
 	^UMLDevelopmentEnvironment default!
@@ -104,6 +108,7 @@ onViewOpened
 releaseWebState
 
 	(AIDASite named: self applicationName, ' Web Server') releaseApplicationState! !
+!UMLToolShell categoriesFor: #defineAttributeTypeMapping!public! !
 !UMLToolShell categoriesFor: #developmentEnvironment!public! !
 !UMLToolShell categoriesFor: #fileInVirtualMachine!public! !
 !UMLToolShell categoriesFor: #fileInVirtualMachineFromXml!public! !

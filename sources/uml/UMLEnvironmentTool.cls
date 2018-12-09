@@ -40,6 +40,10 @@ checkCompilationErrorsFor: aStMethodNode inClass: anUMLClass
 
 	!
 
+defineAttributeTypeMapping
+
+	UMLTypeMappingShell showModalOn: UMLClassAttribute typeMappingAsOrderedCollection!
+
 developmentEnvironment
 
 	^UMLDevelopmentEnvironment default!
@@ -82,6 +86,7 @@ setSanityCheckWith: treeModel
 	self subclassResponsibility! !
 !UMLEnvironmentTool categoriesFor: #aboutUFabrik!public! !
 !UMLEnvironmentTool categoriesFor: #checkCompilationErrorsFor:inClass:!compiling!public! !
+!UMLEnvironmentTool categoriesFor: #defineAttributeTypeMapping!public! !
 !UMLEnvironmentTool categoriesFor: #developmentEnvironment!public! !
 !UMLEnvironmentTool categoriesFor: #hasSelectedCategory!public! !
 !UMLEnvironmentTool categoriesFor: #isCategoryBrowser!public! !
