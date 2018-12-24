@@ -119,7 +119,9 @@ reEntrantVarName: anObject
 restoreExecutionContext: anUMLExecutionSnapshot
 
 	"the receiver is removed from temporaries in snapshot <anUMLExecutionSnapshot>"
-	reEntrantVarName ifNotNil: [anUMLExecutionSnapshot removeTemporaryNamed: reEntrantVarName].
+	reEntrantVarName ifNotNil: [
+		snapshot copySequenceTemporariesTo: anUMLExecutionSnapshot.
+		anUMLExecutionSnapshot removeTemporaryNamed: reEntrantVarName].
 
 	snapshot := anUMLExecutionSnapshot.!
 
@@ -156,7 +158,10 @@ updateExecutionContext: anUMLExecutionSnapshot
 	The new execution context <anUMLExecutionSnapshot> does not have the Block instance defined in its scope"
 
 	"the receiver now accessible to the snapshot <anUMLExecutionSnapshot>"
-	reEntrantVarName ifNotNil: [anUMLExecutionSnapshot assignObject: umlInstance toTemporary: reEntrantVarName].
+
+	reEntrantVarName ifNotNil: [
+		snapshot copySequenceTemporariesTo: anUMLExecutionSnapshot.
+		anUMLExecutionSnapshot assignObject: umlInstance toTemporary: reEntrantVarName].
 
 	^snapshot := anUMLExecutionSnapshot!
 

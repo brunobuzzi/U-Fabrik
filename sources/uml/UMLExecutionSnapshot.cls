@@ -80,6 +80,16 @@ clearExecutedImplementations
 	executedImplementations := OrderedCollection new.
 	hasInfiniteLoop := false!
 
+copySequenceTemporariesTo: anUMLExecutionSnapshot
+	"The receiver copy its temporaries variables to snapshot <anUMLExecutionSnapshot>"
+
+	sequenceTemporaries keysAndValuesDo: [:eachKey :eachValue | anUMLExecutionSnapshot assignObject: eachValue toTemporary: eachKey ]!
+
+copyTemporariesTo: anUMLExecutionSnapshot
+	"The receiver copy its temporaries variables to snapshot <anUMLExecutionSnapshot>"
+
+	temporaries keysAndValuesDo: [:eachKey :eachValue | anUMLExecutionSnapshot addTemporary: eachValue named: eachKey]!
+
 createBlockFrom: aStBlockNode
 	"The receiver create an uml instance of <Block> class"
 
@@ -633,6 +643,8 @@ virtualMachine: anObject
 !UMLExecutionSnapshot categoriesFor: #catchException!public!vm stack! !
 !UMLExecutionSnapshot categoriesFor: #className!public! !
 !UMLExecutionSnapshot categoriesFor: #clearExecutedImplementations!public! !
+!UMLExecutionSnapshot categoriesFor: #copySequenceTemporariesTo:!public! !
+!UMLExecutionSnapshot categoriesFor: #copyTemporariesTo:!public! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFrom:isReEntrantBlock:!public!uml blocks! !
 !UMLExecutionSnapshot categoriesFor: #createBlockFromAssignment:!public!uml blocks! !
