@@ -490,6 +490,7 @@ processMessageNode: aStMessageNode context: anUMLObject parameters: anArray
 	| symbolMessage receiver arguments result |
 
 	symbolMessage := aStMessageNode selector.
+
 	receiver := self getObjectFromProgramNode: aStMessageNode.
 	arguments := (aStMessageNode arguments collect: [:each | 
 		each isBlock 

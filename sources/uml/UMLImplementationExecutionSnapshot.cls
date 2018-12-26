@@ -64,6 +64,20 @@ getObjectNamed: aName
 				sequenceTemporaries at: aName ifAbsent: [
 					self defaultVirtualMachine getAnyClassNamed: aName ifAbsent: [self getBasicObjectNamed: aName]] ] ] ]!
 
+getVariableNamed: aName
+	"Answer anObject for the name <aString>.1- receiver's variables 2- implementation arguments 3- implementation temporaries 4- globals"
+
+	aName ifNil: [^virtualMachine nilObject].
+	aName isUMLInstance ifTrue: [^aName].
+
+	((aName = 'self') or:[aName = 'super']) ifTrue: [^self receiverObject].
+	aName first isUppercase ifTrue: [(virtualMachine getAnyClassNamed: aName) ifNotNil: [:systemClass | ^systemClass] ].
+	^temporaries at: aName ifAbsent: [
+		receiverInstanceVariables at: aName asSymbol ifAbsent: [
+			sequenceArguments at: aName ifAbsent: [
+				sequenceTemporaries at: aName ifAbsent: [
+					self defaultVirtualMachine getAnyClassNamed: aName ifAbsent: [^virtualMachine nilObject]] ] ] ]!
+
 hasReceiver
 
 	^true!
@@ -173,6 +187,7 @@ sequenceReceiver: anUMLObject
 !UMLImplementationExecutionSnapshot categoriesFor: #assignObject:toInstanceVariable:!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #getArgumentOrTemporaryNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #getObjectNamed:!processesing!public! !
+!UMLImplementationExecutionSnapshot categoriesFor: #getVariableNamed:!processesing!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #hasReceiver!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #initialize!public! !
 !UMLImplementationExecutionSnapshot categoriesFor: #printName!public! !

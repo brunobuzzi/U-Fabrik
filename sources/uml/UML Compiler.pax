@@ -63,6 +63,7 @@ package methodNames
 	add: #StNumberLiteralToken -> #asUMLObject:;
 	add: #StPrimitiveNode -> #isPrimitive;
 	add: #StPrimitiveNode -> #processInsideSnapshot:context:parameters:;
+	add: #StPrimitiveNode -> #selector;
 	add: #StProgramNode -> #isPrimitive;
 	add: #StProgramNode -> #isTrait;
 	add: #StProgramNode -> #isVirtualMachineImplementation;
@@ -359,9 +360,11 @@ argumentsName
 
 getUMLObjectFrom: anUMLExecutionSnapshot  
 
-	(receiver isBlock) ifTrue: [^anUMLExecutionSnapshot  createBlockFrom: receiver].
+	receiver isBlock ifTrue: [^anUMLExecutionSnapshot  createBlockFrom: receiver].
 
-	self receiver isLiteralNode ifTrue: [^self receiver value asUMLObject: anUMLExecutionSnapshot  virtualMachine].
+	receiver isLiteralNode ifTrue: [^self receiver value asUMLObject: anUMLExecutionSnapshot  virtualMachine].
+
+	receiver isVariable ifTrue: [^anUMLExecutionSnapshot getVariableNamed: self receiverName].
 
 	^anUMLExecutionSnapshot getObjectNamed: self receiverName!
 
@@ -436,9 +439,14 @@ isPrimitive
 
 processInsideSnapshot: anUMLExecutionSnapshot context: anUMLInstance parameters: anArray 
 
-	^anUMLExecutionSnapshot processPrimitiveCall: primitiveIndex receiver: anUMLInstance withArguments: anArray! !
+	^anUMLExecutionSnapshot processPrimitiveCall: primitiveIndex receiver: anUMLInstance withArguments: anArray!
+
+selector
+
+	^'<primitive: ', self primitiveIndex printString, '>'! !
 !StPrimitiveNode categoriesFor: #isPrimitive!public! !
 !StPrimitiveNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StPrimitiveNode categoriesFor: #selector!public! !
 
 !StProgramNode methodsFor!
 
@@ -523,7 +531,9 @@ asUMLObject: anUMLVirtualMachine
 
 getUMLObjectFrom: anUMLExecutionSnapshot 
 
-	^anUMLExecutionSnapshot getObjectNamed: self name!
+	^anUMLExecutionSnapshot getVariableNamed: self name
+
+	"^anUMLExecutionSnapshot getObjectNamed: self name"!
 
 isSuperSend
 	^false!
