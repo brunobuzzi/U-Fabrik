@@ -337,21 +337,21 @@ errorVaribleNotExist: varibleName receiver: anUMLObject setObject: setObject sna
 executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionSnapshot 
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
 	This method is invocated from UMLWorkspace or UMLScritps"
-	| fakeImplementation sequenceNode excutionSnapshot |
+	| unattachedImplementation sequenceNode excutionSnapshot |
 
 	sequenceNode := aStProgramNode isSequence 
 				ifTrue: [aStProgramNode] 
 				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
-	fakeImplementation := self createUnattachedImplementationFromSequenceNode: sequenceNode.
+	unattachedImplementation := self createUnattachedImplementationFromSequenceNode: sequenceNode.
 
 	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
 	excutionSnapshot := anUMLObject isBlock 
 	ifFalse: [ | newSnapshot |
-		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
+		newSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: unattachedImplementation receiver: anUMLObject arguments: #() virtualMachine: self.
 		newSnapshot parentSnapshot: anUMLExecutionSnapshot] 
 	ifTrue: [anUMLExecutionSnapshot registerInStack].
 
-	^self apply: fakeImplementation to: anUMLObject with: #() snapshot: excutionSnapshot!
+	^self apply: unattachedImplementation to: anUMLObject with: #() snapshot: excutionSnapshot!
 
 executeSequenceNode: aStProgramNode in: anUMLExecutionSnapshot
 	"The receiver execute <aStProgramNode> created by the compiler. In this case the -ExecutionSnapshot- does not have -receiver- or -arguments-. 
