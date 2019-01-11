@@ -64,9 +64,6 @@ hasReferencesTo: implementationName
 
 	^sequenceNode hasReferenceTo: implementationName!
 
-hasUMLBlock
-	^true!
-
 initialize
 	super initialize.
 	arguments := #().
@@ -78,10 +75,6 @@ isReEntrant
 
 isReEntrant: anObject
 	isReEntrant := anObject!
-
-isUMLBlock
-
-	^true!
 
 messagesCollect: aMonadicValuable 
 	"The receiver iterate over it's messages nodes and apply the Block <aMonadicValuable> with each node as parameter"
@@ -187,11 +180,9 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #getNodeAt:!public! !
 !UMLBlockClosureNode categoriesFor: #globalIdentifierNames!public! !
 !UMLBlockClosureNode categoriesFor: #hasReferencesTo:!public! !
-!UMLBlockClosureNode categoriesFor: #hasUMLBlock!public! !
 !UMLBlockClosureNode categoriesFor: #initialize!public! !
 !UMLBlockClosureNode categoriesFor: #isReEntrant!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #isReEntrant:!accessing!private! !
-!UMLBlockClosureNode categoriesFor: #isUMLBlock!public! !
 !UMLBlockClosureNode categoriesFor: #messagesCollect:!public! !
 !UMLBlockClosureNode categoriesFor: #nodes!public! !
 !UMLBlockClosureNode categoriesFor: #printMessage!public! !
