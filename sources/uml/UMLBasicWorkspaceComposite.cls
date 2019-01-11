@@ -55,9 +55,9 @@ createMethodNodeFromText: aString
 
 	sequenceNode := self createSequenceNodeFromText: aString.
 
-	methNode := StMethodNode selector: #fakeScript body: sequenceNode.
+	methNode := StMethodNode selector: #unattachedMethod body: sequenceNode.
 
-	^self umlCompiler parseMethod: methNode printMessage "is parsed again to recalculate <start> and <end> after adding 'fakeScript' string "!
+	^self umlCompiler parseMethod: methNode printMessage "is parsed again to recalculate <start> and <end> after adding 'unattachedMethod' string "!
 
 createSchematicWiring
 
@@ -96,7 +96,7 @@ debugIt
 	self getSelectedText isEmpty ifTrue: [^self].
 
 	executionSnapshot := nil.
-	fakeImplementation := self defaultVirtualMachine createFakeImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
+	fakeImplementation := self defaultVirtualMachine createUnattachedImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
 	executionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: self defaultVirtualMachine nilObject arguments: #() virtualMachine: self defaultVirtualMachine.
 	executionSnapshot parentSnapshot: nil.
 
@@ -136,7 +136,7 @@ evaluate: aString
 	parsedCode isBlock ifFalse: [^(self defaultVirtualMachine executeSequenceNode: parsedCode in: nil) answerResultForBlock].
 
 	executionSnapshot := nil.
-	fakeImplementation := self defaultVirtualMachine createFakeImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
+	fakeImplementation := self defaultVirtualMachine createUnattachedImplementationFromMethodNode: (self createMethodNodeFromText: self getSelectedText).
 	executionSnapshot := UMLImplementationExecutionSnapshot activateSnapshotWith: fakeImplementation receiver: self defaultVirtualMachine nilObject arguments: #() virtualMachine: self defaultVirtualMachine.
 	executionSnapshot parentSnapshot: nil.
 

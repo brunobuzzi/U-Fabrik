@@ -201,25 +201,25 @@ createBooleanObjects
 	self addPrimitiveObject: ((self virtualMachineClassNamed: 'True') newInstanceWith: true) named: 'true'.
 	self addPrimitiveObject: ((self virtualMachineClassNamed: 'False') newInstanceWith: false) named: 'false'.!
 
-createFakeImplementationFromMethodNode: aStMethodNode
-	"The receiver create a fake implementation in order to execute a piece of code that do not belong to any class"
-	| fakedImplementation |
-
-	fakedImplementation := UMLParsedImplementation new.
-	fakedImplementation parsedCode: aStMethodNode;
-		methodClass: self objectClass.
-
-	^fakedImplementation!
-
-createFakeImplementationFromSequenceNode: aStSequenceNode
-	"The receiver create a fake implementation in order to execute a piece of code that do not belong to any class"
-
-	^self createFakeImplementationFromMethodNode: (StMethodNode selector: #fakeScript body: aStSequenceNode)!
-
 createNilObject
 	"The receiver creates the <nil> object"
 
 	self addPrimitiveObject: ((self virtualMachineClassNamed: 'UndefinedObject') newInstanceWith: nil) named: 'nil'.!
+
+createUnattachedImplementationFromMethodNode: aStMethodNode
+	"The receiver create an unattached implementation in order to execute a piece of code that do not belong to any class"
+	| unattachedImplementation |
+
+	unattachedImplementation := UMLParsedImplementation new.
+	unattachedImplementation parsedCode: aStMethodNode;
+		methodClass: self objectClass.
+
+	^unattachedImplementation!
+
+createUnattachedImplementationFromSequenceNode: aStSequenceNode
+	"The receiver create an unattached implementation in order to execute a piece of code that do not belong to any class"
+
+	^self createUnattachedImplementationFromMethodNode: (StMethodNode selector: #unattachedMethod body: aStSequenceNode)!
 
 cretateGettersAndSettersImplementationsFor: anUMLClassAttribute inClass: anUMLClass 
 	^Error notYetImplemented!
@@ -342,7 +342,7 @@ executeSequenceNode: aStProgramNode forReceiver: anUMLObject in: anUMLExecutionS
 	sequenceNode := aStProgramNode isSequence 
 				ifTrue: [aStProgramNode] 
 				ifFalse: [StSequenceNode statements: (aStProgramNode isBlock ifTrue: [aStProgramNode body nodes] ifFalse: [Array with: aStProgramNode])].
-	fakeImplementation := self createFakeImplementationFromSequenceNode: sequenceNode.
+	fakeImplementation := self createUnattachedImplementationFromSequenceNode: sequenceNode.
 
 	"in the case of a Block the internal variables of the Block must be preserved --> NO new ExecutionSnapshot is created, the ExecutionSnapshot of the block is used"
 	excutionSnapshot := anUMLObject isBlock 
@@ -2427,9 +2427,9 @@ virtualMachineMetaclassNamed: aString
 !UMLVirtualMachine categoriesFor: #classNamed:!public!searching! !
 !UMLVirtualMachine categoriesFor: #classNamed:ifNone:!public!searching! !
 !UMLVirtualMachine categoriesFor: #createBooleanObjects!initializing!public! !
-!UMLVirtualMachine categoriesFor: #createFakeImplementationFromMethodNode:!double dispatch!message dispatching!public!vm core! !
-!UMLVirtualMachine categoriesFor: #createFakeImplementationFromSequenceNode:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #createNilObject!initializing!public! !
+!UMLVirtualMachine categoriesFor: #createUnattachedImplementationFromMethodNode:!double dispatch!message dispatching!public!vm core! !
+!UMLVirtualMachine categoriesFor: #createUnattachedImplementationFromSequenceNode:!double dispatch!message dispatching!public!vm core! !
 !UMLVirtualMachine categoriesFor: #cretateGettersAndSettersImplementationsFor:inClass:!public! !
 !UMLVirtualMachine categoriesFor: #dateClass!primitive objects!private! !
 !UMLVirtualMachine categoriesFor: #depurateObjectClass!initializing!public! !
