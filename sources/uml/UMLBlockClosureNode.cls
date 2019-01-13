@@ -60,6 +60,11 @@ globalIdentifierNames
 
 	 ^sequenceNode globalIdentifierNames!
 
+hasParentBlock
+	"The receiver answer whether or not has a parent block (it has been defined inside another block)"
+
+	^snapshot allSnapshots anySatisfy: [:each | each receiverObject isBlock]!
+
 hasReferencesTo: implementationName
 
 	^sequenceNode hasReferenceTo: implementationName!
@@ -179,6 +184,7 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #getArgumentAt:!public! !
 !UMLBlockClosureNode categoriesFor: #getNodeAt:!public! !
 !UMLBlockClosureNode categoriesFor: #globalIdentifierNames!public! !
+!UMLBlockClosureNode categoriesFor: #hasParentBlock!complex block!public! !
 !UMLBlockClosureNode categoriesFor: #hasReferencesTo:!public! !
 !UMLBlockClosureNode categoriesFor: #initialize!public! !
 !UMLBlockClosureNode categoriesFor: #isReEntrant!accessing!private! !

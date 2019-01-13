@@ -1285,6 +1285,8 @@ processPrimitiveCall_202: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	(blockNode arguments size = 0) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
+	blockNode snapshot sequenceTemporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
+
 	blockResult := (self executeSequenceNode: blockNode sequenceNode forReceiver: anUMLInstance in: blockNode snapshot) answerResultForBlock.
 
 	^blockResult!
@@ -1297,11 +1299,13 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anUMLBlockClosureNode := anUMLInstance smalltalkObject.
 	currentBlockContext := anUMLBlockClosureNode snapshot.
+	anUMLBlockClosureNode hasParentBlock ifTrue: [currentBlockContext temporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot addTemporary: value named: key]].
 	anUMLBlockClosureNode updateExecutionContext: anUMLExecutionSnapshot. "this is to support re entrant Blocks issue #141"
 
 	(anUMLBlockClosureNode arguments size = 1) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	anArray keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)] .
+	anArray keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)].
+	currentBlockContext sequenceTemporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
 
 	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 
@@ -1317,11 +1321,13 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 	arguments := anArray first smalltalkObject.
 	anUMLBlockClosureNode := anUMLInstance smalltalkObject.
 	currentBlockContext := anUMLBlockClosureNode snapshot.
+	anUMLBlockClosureNode hasParentBlock ifTrue: [currentBlockContext temporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot addTemporary: value named: key]].
 	anUMLBlockClosureNode updateExecutionContext: anUMLExecutionSnapshot. "this is to support re entrant Blocks issue #141"
 
 	(anUMLBlockClosureNode arguments size = arguments size) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].
 
-	arguments keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)] .
+	arguments keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)].
+	currentBlockContext sequenceTemporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
 
 	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 

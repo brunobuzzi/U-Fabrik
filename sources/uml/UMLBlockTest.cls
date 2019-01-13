@@ -10,18 +10,37 @@ UMLBlockTest comment: ''!
 !UMLBlockTest categoriesForClass!Unclassified! !
 !UMLBlockTest methodsFor!
 
+testComplexBlock
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: 'g := [:y :z |
+|f|
+f := [:x | y * x].
+f].
+(g value:3 value:2) value:4. "12"'. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 12).
+
+	parsedCode := self umlCompiler parseExpression: 'g := [:y :z |
+|f|
+f := [:x | y * x].
+f].
+(g value:2 value:3) value:4. "8"'. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 8).!
+
 testIncorrentNumberOfArguments
 	| parsedCode result |
 
-	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value'. "incorrect number of arguments"
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result umlClass name = 'Error').
 
-	parsedCode := self umlCompiler parseExpression: '[8] value: 3'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[8] value: 3'. "incorrect number of arguments"
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result umlClass name = 'Error').
 
-	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'. "type mismatch to get an error"
+	parsedCode := self umlCompiler parseExpression: '[:int | int + 8 ] value: 3 value: 5'. "incorrect number of arguments"
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result umlClass name = 'Error').
 !
@@ -55,9 +74,22 @@ b negated] value: 5
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result smalltalkObject = -20).!
 
+testReEntrantBlock
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: '| factorial |
+factorial := [:n | (n = 1) ifTrue: [1] ifFalse: [(factorial value: n - 1) * n]].
+factorial value: 5.'. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	self assert: (result smalltalkObject = 120).
+!
+
 testReEntrantDetection
 	| stringBlock parsedCode result |
-	
+
+	"if re-entrant blocks are enabled --> there is no need to test the re-entrant block detection"
+	virtualMachine reEntrantBlocksIsEnabled ifTrue: [^self assert: true].
+
 	stringBlock := '| factorial |
 factorial := [:n | (n = 1) ifTrue: [1] ifFalse: [(factorial value: n -1) * n]].
 factorial value: 5.'.
@@ -94,9 +126,11 @@ testValueWithArguments
 	parsedCode := self umlCompiler parseExpression: '[:str | str reverse ] value: ''abc'''. 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result smalltalkObject = 'cba').! !
+!UMLBlockTest categoriesFor: #testComplexBlock!public! !
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
 !UMLBlockTest categoriesFor: #testOnValueDo!public! !
 !UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
+!UMLBlockTest categoriesFor: #testReEntrantBlock!public! !
 !UMLBlockTest categoriesFor: #testReEntrantDetection!public! !
 !UMLBlockTest categoriesFor: #testValue!public! !
 !UMLBlockTest categoriesFor: #testValueWithArguments!public! !
