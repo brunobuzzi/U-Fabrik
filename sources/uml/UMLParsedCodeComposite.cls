@@ -10,6 +10,10 @@ UMLParsedCodeComposite comment: ''!
 !UMLParsedCodeComposite categoriesForClass!Unclassified! !
 !UMLParsedCodeComposite methodsFor!
 
+cleanTree
+
+	treePresenter model: TreeModel new!
+
 createComponents
 
 	super createComponents.
@@ -34,6 +38,7 @@ onNodeSelectionChanged
 	treePresenter hasSelection ifFalse: [^self].
 
 	codePresenter model: treePresenter selection printString asValue! !
+!UMLParsedCodeComposite categoriesFor: #cleanTree!public! !
 !UMLParsedCodeComposite categoriesFor: #createComponents!public! !
 !UMLParsedCodeComposite categoriesFor: #createSchematicWiring!public! !
 !UMLParsedCodeComposite categoriesFor: #model:!public! !

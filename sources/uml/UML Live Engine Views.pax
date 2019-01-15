@@ -429,7 +429,7 @@ UMLComposite subclass: #UMLTypeMappingComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLComposite subclass: #UMLVMTransLogComposite
-	instanceVariableNames: 'logIsActivePresenter errorLogIsActivePresenter logSizePresenter errorLogSizePresenter totalSizePresenter logsPresenter errorLogsPresenter workspacePresenter annotationsPresenter'
+	instanceVariableNames: 'logIsActivePresenter errorLogIsActivePresenter logSizePresenter errorLogSizePresenter totalSizePresenter logsPresenter errorLogsPresenter workspacePresenter annotationsPresenter astPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
