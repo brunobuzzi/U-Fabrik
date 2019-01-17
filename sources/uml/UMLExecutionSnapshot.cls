@@ -531,6 +531,8 @@ processMessageNode: aStMessageNode messageReceiver: anUMLObject arguments: anArr
 	^result vmPerform: aStMessageNode selector withArguments: umlArguments parentSnapshot: self "send the last message"!
 
 processPrimitiveCall: primitiveNumber receiver: anUMLObject withArguments: anArray
+	"The receiver call to a primitive number <primitiveNumber> in U-Fabrik environment with receiver <anUMLObject> and primitive arguments <anArray>.
+	The result is converted to U-Fabrik obejcts"
 
 	^(virtualMachine processPrimitiveCall: primitiveNumber receiver: anUMLObject  withArguments: anArray snapshot: self) asUMLObject: virtualMachine!
 

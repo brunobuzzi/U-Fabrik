@@ -79,7 +79,6 @@ package methodNames
 	add: #StSequenceNode -> #printMessage;
 	add: #StTagNode -> #isSuperSend;
 	add: #StVariableNode -> #arguments;
-	add: #StVariableNode -> #asUMLObject:;
 	add: #StVariableNode -> #getUMLObjectFrom:;
 	add: #StVariableNode -> #isSuperSend;
 	add: #StVariableNode -> #nodes;
@@ -302,7 +301,8 @@ processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: a
 !StLiteralNode methodsFor!
 
 asUMLObject: anUMLVirtualMachine 
-!
+
+	self subclassResponsibility!
 
 nodes
 
@@ -526,9 +526,6 @@ isSuperSend
 arguments
 	^OrderedCollection new!
 
-asUMLObject: anUMLVirtualMachine 
-	^Error notYetImplemented!
-
 getUMLObjectFrom: anUMLExecutionSnapshot 
 
 	^anUMLExecutionSnapshot getVariableNamed: self name
@@ -554,7 +551,6 @@ receiverName
 
 	^self name! !
 !StVariableNode categoriesFor: #arguments!public! !
-!StVariableNode categoriesFor: #asUMLObject:!public! !
 !StVariableNode categoriesFor: #getUMLObjectFrom:!public! !
 !StVariableNode categoriesFor: #isSuperSend!public! !
 !StVariableNode categoriesFor: #nodes!public! !
