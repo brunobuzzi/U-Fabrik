@@ -1306,6 +1306,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anArray keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)].
 	currentBlockContext sequenceTemporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
+	currentBlockContext sequenceArguments keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
 
 	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 
@@ -1328,6 +1329,7 @@ processPrimitiveCall_204: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	arguments keysAndValuesDo: [:index :eachValue | anUMLBlockClosureNode snapshot addTemporary: eachValue named: (anUMLBlockClosureNode getArgumentAt: index)].
 	currentBlockContext sequenceTemporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
+	currentBlockContext sequenceArguments keysAndValuesDo: [:key :value | anUMLExecutionSnapshot assignObject: value toTemporary: key]. 
 
 	blockResult := (self executeSequenceNode: anUMLBlockClosureNode sequenceNode forReceiver: anUMLInstance in: anUMLBlockClosureNode snapshot) answerResultForBlock.
 
