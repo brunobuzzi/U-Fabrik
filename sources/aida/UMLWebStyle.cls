@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
-DefaultWebStyle subclass: #UMLWebStyle
+UMLAbstractWebStyle subclass: #UMLWebStyle
 	instanceVariableNames: 'tabsPadding'
 	classVariableNames: ''
 	poolDictionaries: ''

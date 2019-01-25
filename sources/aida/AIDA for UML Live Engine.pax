@@ -22,6 +22,7 @@ package classNames
 	add: #AIDAUMLObjectWebPageDescription;
 	add: #AIDAUMLSelectableItemsTable;
 	add: #UMLAbsoluteRedirectWebButton;
+	add: #UMLAbstractWebStyle;
 	add: #UMLActionWebButton;
 	add: #UMLInstanceApp;
 	add: #UMLRedirectWebButton;
@@ -195,12 +196,17 @@ WebGridColumn subclass: #UMLWebGridColumn
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-DefaultWebStyle subclass: #UMLVerticalWebStyle
+DefaultWebStyle subclass: #UMLAbstractWebStyle
+	instanceVariableNames: 'loginErrorText'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLAbstractWebStyle subclass: #UMLVerticalWebStyle
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-DefaultWebStyle subclass: #UMLWebStyle
+UMLAbstractWebStyle subclass: #UMLWebStyle
 	instanceVariableNames: 'tabsPadding'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -252,6 +258,7 @@ actionLogin
 
 	webUser := self findLoggingUser.
 
+	self style loginErrorText: nil.
 	self password: ''.
 	webUser notNil 
 		ifTrue: [self session user: webUser. self reportLogin] 	
@@ -263,7 +270,13 @@ actionLogin
 	umlModel selected isEmpty ifTrue: [self error: 'error message from WebStyle!!'. self session logout. ^self].
 
 	umlUser := self getUserRootObjectsFor: webUser model: umlModel selected last.
-	(umlUser class == UMLInstance) ifFalse: [self error: 'Login Error'. self session logout. ^self].
+	(umlUser class == UMLInstance) 
+	ifFalse: [| loginError |
+		loginError := 'Login Error: [it should answer an UML object instead of: ', umlUser smalltalkObject class printString, ']'.
+		self style loginErrorText: loginError. 
+		self error: loginError.
+		self session logout. 
+		^self].
 	^self redirectTo: umlUser.!
 
 getUserRootObjectsFor: aWebUser model: anUMLModel
@@ -292,6 +305,7 @@ viewLogin
 	e addText: self style loginWelcomeMessage. 
 	l := (WebFieldSet newId: #login) legend: self style loginText.
 	l style: 'margin-left:auto; margin-right:auto; width:40%;'.
+
 	self inError ifTrue: 
 		[l cell colspan: 2; addText: self style loginErrorText. self error: nil.
 		l newRow. l cell addNbSp. l newRow].

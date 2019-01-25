@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
-DefaultWebStyle subclass: #UMLVerticalWebStyle
+UMLAbstractWebStyle subclass: #UMLVerticalWebStyle
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
