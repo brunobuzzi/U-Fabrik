@@ -169,60 +169,61 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\aida\AIDA Add Inn';
-	add: '..\aida\AIDA Dolphin';
-	add: '..\aida\AIDAWeb';
-	add: '..\others\BB Interfase Goodies';
-	add: '..\others\BB MVP Basic Support';
-	add: '..\others\BBInteraccionOffice';
-	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Choice Prompter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Folder\Dolphin Folder Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Progress\Dolphin Progress Dialog';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Radio\Dolphin Radio Buttons';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Scintilla\Dolphin Scintilla View';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Views\Sliding Tray\Dolphin Slidey-Inney-Outey Thing';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus ImageView';
-	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\SHDocVw\Internet Explorer';
-	add: '..\..\Core\Contributions\Refactory\Refactoring Browser\Formatters\RBFormatters';
-	add: '..\..\Core\Object Arts\Samples\ActiveX\Web Browser\Simple Web Browser';
-	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
-	add: '..\swazoo\Swazoo';
-	add: 'UML Basic Support';
-	add: 'UML Basic Views';
-	add: 'UML Compiler';
-	add: 'UML Database Mapper';
-	add: 'UML Live Engine';
-	add: 'UML Paint';
-	add: 'UML Smalltalk Bridge';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
-	add: 'XMI Import-Export Interfase II';
-	yourself).
+package setPrerequisites: #(
+	'..\aida\AIDA Add Inn'
+	'..\aida\AIDA Dolphin'
+	'..\aida\AIDAWeb'
+	'..\others\BB Interfase Goodies'
+	'..\others\BB MVP Basic Support'
+	'..\others\BBInteraccionOffice'
+	'..\..\Core\Object Arts\Dolphin\IDE\Base\Development System'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Choice Prompter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls'
+	'..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Date Time\Dolphin Date Time Controls'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Date Time\Dolphin Date Time Presenters'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Folder\Dolphin Folder Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\MoenTree\Dolphin MoenTree View'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Progress\Dolphin Progress Dialog'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Radio\Dolphin Radio Buttons'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Scintilla\Dolphin Scintilla View'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Scrollbars\Dolphin Scrollbars'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Sliding Tray\Dolphin Slidey-Inney-Outey Thing'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Tree\Dolphin Tree Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus'
+	'..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus ImageView'
+	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Internal Bitmaps and Icons'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\SHDocVw\Internet Explorer'
+	'..\..\Core\Contributions\Refactory\Refactoring Browser\Formatters\RBFormatters'
+	'..\..\Core\Object Arts\Samples\ActiveX\Web Browser\Simple Web Browser'
+	'..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser'
+	'..\swazoo\Swazoo'
+	'UML Basic Support'
+	'UML Basic Views'
+	'UML Compiler'
+	'UML Database Mapper'
+	'UML Live Engine'
+	'UML Paint'
+	'UML Smalltalk Bridge'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell'
+	'XMI Import-Export Interfase II').
 
 package setManualPrerequisites: #(
 	'AIDA Add Inn'

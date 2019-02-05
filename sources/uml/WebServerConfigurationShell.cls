@@ -52,18 +52,6 @@ onStyleChanged
 
 	model styleClass: stylesPresenter selection name asString.!
 
-onViewOpened
-
-	super onViewOpened.
-
-	sitePresenter value: self model name.
-
-	stylesPresenter model: (ListModel on: DefaultWebStyle subclasses).
-
-	stylesPresenter selection: (Smalltalk at: self model styleClass) ifAbsent: [].
-
-	!
-
 releaseApplicationState
 
 	model releaseApplicationState.!
@@ -108,7 +96,6 @@ stopSite
 !WebServerConfigurationShell categoriesFor: #mainComposite!public! !
 !WebServerConfigurationShell categoriesFor: #model:!public! !
 !WebServerConfigurationShell categoriesFor: #onStyleChanged!public! !
-!WebServerConfigurationShell categoriesFor: #onViewOpened!public! !
 !WebServerConfigurationShell categoriesFor: #releaseApplicationState!public! !
 !WebServerConfigurationShell categoriesFor: #restartAll!public! !
 !WebServerConfigurationShell categoriesFor: #startSite!public! !

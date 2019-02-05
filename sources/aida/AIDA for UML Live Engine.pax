@@ -74,6 +74,7 @@ package methodNames
 	add: #WebGridColumn -> #defaultUMLViewBlock;
 	add: #WebGridColumn -> #vmPerform:;
 	add: #WebSecurityManager -> #initDefaultAccessRights;
+	add: #WebServerConfigurationShell -> #onViewOpened;
 	add: #WebServerConfigurationShell -> #setStylePreferences;
 	add: #WebStyle -> #defaultVirtualMachine;
 	add: #WebUser -> #hasVariableNamed:;
@@ -86,16 +87,16 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: 'AIDA Add Inn';
-	add: 'AIDAWeb';
-	add: '..\others\BBInteraccionOffice';
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\uml\UML Basic Views';
-	add: '..\uml\UML Compiler';
-	add: '..\uml\UML Live Engine';
-	add: '..\uml\UML Live Engine Views';
-	yourself).
+package setPrerequisites: #(
+	'AIDA Add Inn'
+	'AIDAWeb'
+	'..\others\BBInteraccionOffice'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
+	'..\uml\UML Basic Views'
+	'..\uml\UML Compiler'
+	'..\uml\UML Live Engine'
+	'..\uml\UML Live Engine Views').
 
 package!
 
@@ -470,9 +471,22 @@ initDefaultAccessRights
 
 !WebServerConfigurationShell methodsFor!
 
+onViewOpened
+
+	super onViewOpened.
+
+	sitePresenter value: self model name.
+
+	stylesPresenter model: (ListModel on: UMLAbstractWebStyle subclasses).
+
+	stylesPresenter selection: (Smalltalk at: self model styleClass) ifAbsent: [].
+
+	!
+
 setStylePreferences
 
 	UMLUserWebPreferenceShell showOn: WebUserPreference templates! !
+!WebServerConfigurationShell categoriesFor: #onViewOpened!public! !
 !WebServerConfigurationShell categoriesFor: #setStylePreferences!public! !
 
 !WebStyle methodsFor!
