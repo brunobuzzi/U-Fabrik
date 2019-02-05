@@ -188,26 +188,26 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation';
-	add: '..\aida\AIDAWeb';
-	add: '..\others\BBInteraccionOffice';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO';
-	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Internal Bitmaps and Icons';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM';
-	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
-	add: 'UML Basic Support';
-	add: 'UML Compiler';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell';
-	add: 'XMI Import-Export Interfase II';
-	add: '..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM';
-	yourself).
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Automation\ActiveX Automation'
+	'..\aida\AIDAWeb'
+	'..\others\BBInteraccionOffice'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\CDO\CDO'
+	'..\..\Core\Object Arts\Dolphin\IDE\Base\Development System'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Internal Bitmaps and Icons'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\COM\OLE COM'
+	'..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser'
+	'UML Basic Support'
+	'UML Compiler'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Shell\Windows Shell'
+	'XMI Import-Export Interfase II'
+	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM').
 
 package!
 

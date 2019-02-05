@@ -121,7 +121,7 @@ apply: anUMLImplementation to: anUMLObject with: arguments snapshot: anUMLExecut
 						executionResult addResult: nodeExecutionResult. 
 						anUMLExecutionSnapshot hasDNU 
 						ifTrue: [ self errorLogIsActive "Here we register the error in the UMLVMTransLog"
-							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: arguments arguments: arguments snapshot: anUMLExecutionSnapshot].
+							ifTrue: [self registerTransErrorLogFor: anUMLObject methodName: anUMLExecutionSnapshot printName arguments: arguments snapshot: anUMLExecutionSnapshot].
 							 ^executionResult]]
 					ifTrue: [^self processPrimitiveCallHaltIn: anUMLExecutionSnapshot node: each object: anUMLObject]. "debug interruption"] 
 	].
