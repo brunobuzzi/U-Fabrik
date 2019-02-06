@@ -29,6 +29,6 @@ initialize
 
 icon
 
-	^Icon fromId: 'BouncingBallView.ico'! !
+	^Icon fromId: 'Behavior.ico'! !
 !UMLBehavior class categoriesFor: #icon!public! !
 

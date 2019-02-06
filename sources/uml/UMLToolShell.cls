@@ -30,19 +30,16 @@ fileInVirtualMachine
 	UMLVirtualMachine setDefault: (UMLVirtualMachine binaryReadFrom: fileStream).!
 
 fileInVirtualMachineFromXml
-	| fileStream pathFile bootstrap |
+	| pathFile bootstrap |
 
 	pathFile := (FileOpenDialog new)
 				caption: 'Virtual Machine...';
 				fileTypes: #(#('Virtual Machine (*.xml)' '*.xml'));
 				showModal.
 	pathFile ifNil: [^self].
-	fileStream := FileStream read: pathFile text: true.
 
 	bootstrap := UMLVirtualMachineBootstrap new.
-	UMLVirtualMachine setDefault: (bootstrap createVirtualMachineFrom: fileStream contents).
-	fileStream close.
-	!
+	UMLVirtualMachine setDefault: (bootstrap fileInFromXml: pathFile).!
 
 fileOutVirtualMachine
 	| fileStream pathFile |
