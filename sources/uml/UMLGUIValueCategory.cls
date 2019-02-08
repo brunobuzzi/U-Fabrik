@@ -23,7 +23,7 @@ defaultName
 
 icon
 
-	^Icon fromId: 'Number.ico'! !
+	^((TextTileIcon text: '|x|' fontName: 'Cambria') textcolor: (Color darkBlue); yourself)! !
 !UMLGUIValueCategory class categoriesFor: #defaultName!public! !
 !UMLGUIValueCategory class categoriesFor: #icon!public! !
 
