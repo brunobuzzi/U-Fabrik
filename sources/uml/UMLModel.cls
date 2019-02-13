@@ -229,7 +229,7 @@ generateAttributesForRelations
 
 	umlClasses do: [:each | each generateAttributesForRelations]!
 
-generateGemStoneScriptForClasses
+generateGemStoneScriptForClasses: gemstonePackageName
 	"Generate <aString> script to execute inside GemStone/S (3.4.1) to create all uml classes of the receiver"
 	| topClasses script |
 
@@ -241,7 +241,7 @@ generateGemStoneScriptForClasses
 	topClasses := umlClasses select: [:each | each umlSuperclass == (virtualMachine virtualMachineClassNamed: 'Object')].
 
 	topClasses do: [:topClass | topClass asTreeModel asOrderedCollection 
-		do: [:eachClass | eachClass printGemstoneDefinitionOn: script. 
+		do: [:eachClass | eachClass printGemstoneDefinitionOn: script forGsPackageNamed: gemstonePackageName. 
 					script cr ] ].
 
 	^script contents!
@@ -890,7 +890,7 @@ virtualMachine: anUMLVirtualMachine
 !UMLModel categoriesFor: #fileOutAsXml:!binary filing!public! !
 !UMLModel categoriesFor: #fileOutAsXmlTo:!binary filing!public! !
 !UMLModel categoriesFor: #generateAttributesForRelations!public!xmi-relations! !
-!UMLModel categoriesFor: #generateGemStoneScriptForClasses!public! !
+!UMLModel categoriesFor: #generateGemStoneScriptForClasses:!public! !
 !UMLModel categoriesFor: #generateInitializeMethodToAllClasses!initializing!public!xmi-classes!xmi-relations! !
 !UMLModel categoriesFor: #generateKeysAtGlobalCache!public! !
 !UMLModel categoriesFor: #generateMethod_currentState!public!state machine! !

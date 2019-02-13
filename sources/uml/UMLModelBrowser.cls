@@ -210,12 +210,15 @@ fileOutUMLModelImplementations
 
 generateGemStoneScript
 	"The receiver open a Workspace with a GemStone/S (3.4.1) script to create all uml classes of the selected model"
-	| workspace |
+	| workspace gsPackageName |
 
 	self selectedModel ifNil: [^self].
 
+	gsPackageName := (Prompter on: self selectedModel name prompt: 'GemStone/S Package Name' caption: 'Enter GemStone/S Package name') ifNil: [^self].
+	gsPackageName isEmpty ifTrue: [^self].
+
 	workspace := UMLWorkspaceShell show.
-	workspace setText: self selectedModel generateGemStoneScriptForClasses.
+	workspace setText: (self selectedModel generateGemStoneScriptForClasses: gsPackageName).
 	workspace view caption: 'Script to create UML Classes in GemStone/S'.!
 
 hasSelectedCategory

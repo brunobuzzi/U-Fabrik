@@ -299,6 +299,11 @@ newName: aSymbol for: anUMLClassAttribute
 printGemstoneDefinitionOn: aWriteStream
 	"The receiver print it's definition in GemStone/S format on <aWriteStream>"
 
+	self printGemstoneDefinitionOn: aWriteStream forGsPackageNamed: self umlModel name!
+
+printGemstoneDefinitionOn: aWriteStream forGsPackageNamed: gemstonePackageName
+	"The receiver print it's definition in GemStone/S format on <aWriteStream>"
+
 	aWriteStream nextPutAll: umlSuperclass name, ' subclass: ''', name, ''''; cr.
 	aWriteStream nextPutAll: 'instVarNames: #('.
 	instancesVariables do: [:each | aWriteStream nextPutAll: (each name , ' ')].
@@ -307,7 +312,7 @@ printGemstoneDefinitionOn: aWriteStream
 	aWriteStream nextPutAll: 'classInstVars: #()'; cr.
 	aWriteStream nextPutAll: 'poolDictionaries: #()'; cr.
 	aWriteStream nextPutAll: 'inDictionary: '''''; cr.
-	aWriteStream nextPutAll: ('category:  ''', self umlModel name, '''.') ; cr.
+	aWriteStream nextPutAll: ('category:  ''', gemstonePackageName, '''.') ; cr.
 !
 
 printOn: aStream
@@ -488,6 +493,7 @@ uninstallClass
 !UMLClass categoriesFor: #nameForRelation!public! !
 !UMLClass categoriesFor: #newName:for:!attributes!public!relations!transforming! !
 !UMLClass categoriesFor: #printGemstoneDefinitionOn:!public! !
+!UMLClass categoriesFor: #printGemstoneDefinitionOn:forGsPackageNamed:!public! !
 !UMLClass categoriesFor: #printOn:!public! !
 !UMLClass categoriesFor: #promptNewNameFor:!attributes!public!relations!transforming! !
 !UMLClass categoriesFor: #promptNewNameFor:relation:!attributes!public!relations!transforming! !
