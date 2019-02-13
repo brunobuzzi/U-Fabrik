@@ -304,9 +304,7 @@ printGemstoneDefinitionOn: aWriteStream
 printGemstoneDefinitionOn: aWriteStream forGsPackageNamed: gemstonePackageName
 	"The receiver print it's definition in GemStone/S format on <aWriteStream>"
 
-	(umlSuperclass name = 'Object') ifFalse: [aWriteStream nextPutAll: 'System commit.'; cr]. "issue #161"
-
-	aWriteStream nextPutAll: umlSuperclass name, ' subclass: ''', name, ''''; cr.
+	aWriteStream nextPutAll: ('(Smalltalk at: #', umlSuperclass name, ') subclass: ''', name, ''''); cr.
 	aWriteStream nextPutAll: 'instVarNames: #('.
 	instancesVariables do: [:each | aWriteStream nextPutAll: (each name , ' ')].
 	aWriteStream nextPutAll: ')'; cr.
