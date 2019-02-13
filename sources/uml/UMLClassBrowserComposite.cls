@@ -328,7 +328,9 @@ model: anUMLModel
 
 	classesPresenter model: (ListModel on: anUMLModel umlClasses).
 
-	hierarchyPresenter model: anUMLModel classesAsTreeModel.!
+	hierarchyPresenter model: anUMLModel classesAsTreeModel.
+
+	hierarchyPresenter model asOrderedCollection do: [:each | (each belongToVirtualMachine or: [anUMLModel umlClasses includes: each]) ifFalse: [hierarchyPresenter model remove: each ifAbsent: []]]!
 
 onAttributeDoubleClicked: aMouseEvent
 	| selectedType |
