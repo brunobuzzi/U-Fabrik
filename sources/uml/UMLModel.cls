@@ -234,9 +234,9 @@ generateGemStoneScriptForClasses: gemstonePackageName
 	| topClasses script |
 
 	script := WriteStream on: String new.
-	script nextPutAll: '"Script to execute inside GemStone/S (3.4.1) to create all uml classes of model [', name, '] "'.
+	script nextPutAll: '"Script to execute inside GemStone/S (3.4.1 or superior) to create all uml classes of model [', name, '] "'.
 	script cr.
-	script nextPutAll: '"Remember to create a Package with name [', name, '] "'.
+	script nextPutAll: '"Remember to create a Package with name [', gemstonePackageName, '] "'.
 	script cr.	
 	topClasses := umlClasses select: [:each | each umlSuperclass == (virtualMachine virtualMachineClassNamed: 'Object')].
 
