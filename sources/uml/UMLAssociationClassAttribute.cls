@@ -64,6 +64,6 @@ type
 
 icon
 
-	^Icon fromId: 'Rectangle.ico'! !
+	^Rectangle icon! !
 !UMLAssociationClassAttribute class categoriesFor: #icon!public! !
 

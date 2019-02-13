@@ -91,6 +91,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
 	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'

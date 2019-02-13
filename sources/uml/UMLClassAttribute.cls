@@ -265,7 +265,7 @@ defaultTypeMapping
 
 icon
 
-	^Icon fromId: 'String.ico'!
+	^String icon!
 
 identityStringMapUMLOriginalType: aString
 

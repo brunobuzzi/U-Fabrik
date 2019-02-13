@@ -13247,6 +13247,7 @@
 						</qualifier>
 						<qualityScore value="-1"/>
 					</xmi:Extension>
+					<lowerValue value="1" xmi:id="VqL2z2aGAqA6AQpG_multiplicity_lowerValue" xmi:type="uml:LiteralString"/>
 				</ownedEnd>
 				<memberEnd xmi:idref="VqL2z2aGAqA6AQpI"/>
 				<ownedEnd aggregation="none" association="VqL2z2aGAqA6AQpF" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="false" isReadOnly="false" isStatic="false" type="945vOWaGAqA6ARJH" xmi:id="VqL2z2aGAqA6AQpI" xmi:type="uml:Property">
@@ -13534,6 +13535,7 @@
 						</qualifier>
 						<qualityScore value="-1"/>
 					</xmi:Extension>
+					<lowerValue value="1" xmi:id="rDKRn2aGAqA6AQzX_multiplicity_lowerValue" xmi:type="uml:LiteralString"/>
 				</ownedEnd>
 				<xmi:Extension extender="Visual Paradigm">
 					<qualityScore value="-1"/>
@@ -13563,6 +13565,7 @@
 						</qualifier>
 						<qualityScore value="-1"/>
 					</xmi:Extension>
+					<lowerValue value="1" xmi:id="sRqRn2aGAqA6AQzq_multiplicity_lowerValue" xmi:type="uml:LiteralString"/>
 				</ownedEnd>
 				<xmi:Extension extender="Visual Paradigm">
 					<qualityScore value="-1"/>
@@ -13859,7 +13862,7 @@
 						<qualityScore value="-1"/>
 					</xmi:Extension>
 				</ownedAttribute>
-				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="ciiu" visibility="private" xmi:id="x2cnOWaGAqA6ARCT" xmi:type="uml:Property">
+				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="ciiu" type="char_id" visibility="private" xmi:id="x2cnOWaGAqA6ARCT" xmi:type="uml:Property">
 					<xmi:Extension extender="Visual Paradigm">
 						<attribute/>
 						<isVisble xmi:value="true"/>
@@ -14187,7 +14190,7 @@
 					<businessModel xmi:value="false"/>
 					<qualityScore value="-1"/>
 				</xmi:Extension>
-				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="nombre" visibility="private" xmi:id="oWJbOWaGAqA6AQ9I" xmi:type="uml:Property">
+				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="nombre" type="char_id" visibility="private" xmi:id="oWJbOWaGAqA6AQ9I" xmi:type="uml:Property">
 					<xmi:Extension extender="Visual Paradigm">
 						<attribute/>
 						<isVisble xmi:value="true"/>
@@ -14675,7 +14678,7 @@
 					<businessModel xmi:value="false"/>
 					<qualityScore value="-1"/>
 				</xmi:Extension>
-				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="nombre" visibility="private" xmi:id="b0URn2aGAqA6AQyF" xmi:type="uml:Property">
+				<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="nombre" type="char_id" visibility="private" xmi:id="b0URn2aGAqA6AQyF" xmi:type="uml:Property">
 					<xmi:Extension extender="Visual Paradigm">
 						<attribute/>
 						<isVisble xmi:value="true"/>
@@ -14762,7 +14765,7 @@
 				<ashowAllocatedTo value="true"/>
 				<apmAuthor value="Usuario"/>
 				<apmCreateDateTime value="1540228585608"/>
-				<apmLastModified value="1543927069985"/>
+				<apmLastModified value="1550070902158"/>
 				<ateamworkCreateDateTime value="0"/>
 				<ashowShapeLegend value="false"/>
 				<ashowColorLegend value="false"/>
@@ -19040,6 +19043,7 @@
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
+					<roleA multiplicity="586,618,27,15"/>
 					<properties>
 						<azOrder value="116"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -19071,7 +19075,8 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
-						<ahasMultiplicityAShape value="false"/>
+						<amultiplicityARectangle value="Re:586.0,618.0,27.0,15.0"/>
+						<ahasMultiplicityAShape value="true"/>
 						<ahasMultiplicityBShape value="false"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
 						<ashowUniqueMultiplicityConstraint value="true"/>
@@ -19260,6 +19265,7 @@
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
+					<roleB multiplicity="865,676,27,15"/>
 					<properties>
 						<azOrder value="122"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -19291,8 +19297,9 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
+						<amultiplicityBRectangle value="Re:865.0,676.0,27.0,15.0"/>
 						<ahasMultiplicityAShape value="false"/>
-						<ahasMultiplicityBShape value="false"/>
+						<ahasMultiplicityBShape value="true"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
 						<ashowUniqueMultiplicityConstraint value="true"/>
 						<a0SwDr value="false"/>
@@ -19332,6 +19339,7 @@
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
+					<roleB multiplicity="918,642,27,15"/>
 					<properties>
 						<azOrder value="124"/>
 						<abackground value="Cr:122,207,245,255"/>
@@ -19363,8 +19371,9 @@
 						<ahasRoleAShape value="false"/>
 						<ahasRoleBShape value="false"/>
 						<ashowMultiplicityConstraints value="false"/>
+						<amultiplicityBRectangle value="Re:918.0,642.0,27.0,15.0"/>
 						<ahasMultiplicityAShape value="false"/>
-						<ahasMultiplicityBShape value="false"/>
+						<ahasMultiplicityBShape value="true"/>
 						<ashowOrderedMultiplicityConstraint value="true"/>
 						<ashowUniqueMultiplicityConstraint value="true"/>
 						<a0SwDr value="false"/>
