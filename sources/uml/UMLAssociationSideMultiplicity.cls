@@ -114,7 +114,7 @@ association: anUMLRelation
 
 icon
 
-	^Icon fromFile: 'icons/Side Multiplicity.ico'!
+	^Icon fromFile: 'icons/Custom-Icon-Design-Flatastic-9-Question-type-multiple-correct.ico'!
 
 multiplicityCharacters
 

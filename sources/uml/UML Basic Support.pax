@@ -95,6 +95,7 @@ package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
 	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
 	'..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models'
 	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Internal Bitmaps and Icons'
 	'XMI Import-Export Interfase II').

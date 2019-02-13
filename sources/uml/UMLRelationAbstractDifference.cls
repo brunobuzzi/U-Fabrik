@@ -19,7 +19,7 @@ typeString
 
 icon
 
-	^Exception icon!
+	^Icon fromFile: 'icons/Fatcow-Farm-Fresh-Select-by-difference.ico'!
 
 relation: anUMLRelation
 

@@ -40,7 +40,7 @@ default
 
 icon
 
-	^Icon fromId: 'UndefinedObject.ico'! !
+	^UndefinedObject icon! !
 !UMLUndefinedObject class categoriesFor: #default!public! !
 !UMLUndefinedObject class categoriesFor: #icon!public! !
 

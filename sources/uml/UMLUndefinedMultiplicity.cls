@@ -39,7 +39,7 @@ printMultiplicity
 
 icon
 
-	^Icon fromId: 'Exception.ico'!
+	^(TextTileIcon text: $\x2622 fontName: 'Segoe UI Emoji')!
 
 printName
 
