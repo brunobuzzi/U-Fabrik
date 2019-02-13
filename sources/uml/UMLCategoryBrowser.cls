@@ -208,15 +208,14 @@ menuBar
 	(menu addSubmenu: 'Support')
 		addCommand: (MessageSend receiver: self selector: #gotoUFabrikWebSite)
 			description: self applicationName , ' Web site';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyNewsGroup)
-			description: 'News Group';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyDocumentation)
+		addCommand: (MessageSend receiver: self selector: #goToUFabrikNewsGroup) description: 'News Group';
+		addCommand: (MessageSend receiver: self selector: #goToUFabrikDocumentation)
 			description: 'Online Documents';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyEnglishVideos)
+		addCommand: (MessageSend receiver: self selector: #goToUFabrikEnglishVideos)
 			description: 'Online Videos - English';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyVideos)
+		addCommand: (MessageSend receiver: self selector: #goToUFabrikVideos)
 			description: 'Online Videos - Spanish';
-		addCommand: (MessageSend receiver: self selector: #goToUMLAlmightyBlog) description: 'Blog'.
+		addCommand: (MessageSend receiver: self selector: #goToUFabrikBlog) description: 'Blog'.
 	(menu addSubmenu: 'About')
 		addCommand: (MessageSend receiver: self selector: #aboutThisTool) description: 'About this tool';
 		addCommand: (MessageSend receiver: self selector: #helpWithThisTool)

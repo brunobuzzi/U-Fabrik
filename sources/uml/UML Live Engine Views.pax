@@ -102,13 +102,13 @@ package methodNames
 	add: #DateTimeCommonControl -> #updatePerChar:;
 	add: #DetalleDeOpciones -> #crearListPresenter;
 	add: #DetalleDeOpciones -> #inspectUMLInstance:;
+	add: #Presenter -> #goToUFabrikBlog;
+	add: #Presenter -> #goToUFabrikDocumentation;
+	add: #Presenter -> #goToUFabrikEnglishVideos;
+	add: #Presenter -> #goToUFabrikNewsGroup;
+	add: #Presenter -> #goToUFabrikSpanishVideos;
+	add: #Presenter -> #goToUFabrikVideos;
 	add: #Presenter -> #gotoUFabrikWebSite;
-	add: #Presenter -> #goToUMLAlmightyBlog;
-	add: #Presenter -> #goToUMLAlmightyDocumentation;
-	add: #Presenter -> #goToUMLAlmightyEnglishVideos;
-	add: #Presenter -> #goToUMLAlmightyNewsGroup;
-	add: #Presenter -> #goToUMLAlmightySpanishVideos;
-	add: #Presenter -> #goToUMLAlmightyVideos;
 	add: #Presenter -> #registerUMLObjectAspect:;
 	add: #SWLinkButton -> #commandDescription:;
 	add: #UMLClass -> #inspectUMLInstance;
@@ -770,41 +770,36 @@ resource_UMLTools_view
 
 !Presenter methodsFor!
 
-gotoUFabrikWebSite
+goToUFabrikBlog
 	^ShellLibrary default shellOpen: 'http://umlalmighty.wordpress.com/'!
 
-goToUMLAlmightyBlog
-
-	^ShellLibrary default shellOpen: 'http://umlalmighty.wordpress.com/'!
-
-goToUMLAlmightyDocumentation
-
+goToUFabrikDocumentation
 	^ShellLibrary default shellOpen: 'https://github.com/brunobuzzi/U-Fabrik/tree/master/manuals'!
 
-goToUMLAlmightyEnglishVideos
+goToUFabrikEnglishVideos
+	^ShellLibrary default shellOpen: 'https://www.youtube.com/user/umlalmightyenglish'!
 
-	^ShellLibrary default shellOpen: 'http://www.umlalmightyenglish.blip.tv/'!
+goToUFabrikNewsGroup
 
-goToUMLAlmightyNewsGroup
+	^ShellLibrary default shellOpen: 'https://groups.google.com/forum/#!!forum/u-fabrik'!
 
-	^ShellLibrary default shellOpen: 'http://groups.google.com/group/uml-almighty/topics'!
+goToUFabrikSpanishVideos
+	^ShellLibrary default shellOpen: 'https://www.youtube.com/user/umlalmighty'!
 
-goToUMLAlmightySpanishVideos
+goToUFabrikVideos
+	^ShellLibrary default shellOpen: 'https://www.youtube.com/user/umlalmightyenglish'!
 
-	^ShellLibrary default shellOpen: 'http://www.umlalmighty.blip.tv/'!
-
-goToUMLAlmightyVideos
-
-	^ShellLibrary default shellOpen: 'http://www.umlalmightyenglish.blip.tv/'!
+gotoUFabrikWebSite
+	^ShellLibrary default shellOpen: 'https://github.com/brunobuzzi/U-Fabrik'!
 
 registerUMLObjectAspect: aspectName! !
+!Presenter categoriesFor: #goToUFabrikBlog!public! !
+!Presenter categoriesFor: #goToUFabrikDocumentation!public! !
+!Presenter categoriesFor: #goToUFabrikEnglishVideos!public! !
+!Presenter categoriesFor: #goToUFabrikNewsGroup!public! !
+!Presenter categoriesFor: #goToUFabrikSpanishVideos!public! !
+!Presenter categoriesFor: #goToUFabrikVideos!public! !
 !Presenter categoriesFor: #gotoUFabrikWebSite!public! !
-!Presenter categoriesFor: #goToUMLAlmightyBlog!public! !
-!Presenter categoriesFor: #goToUMLAlmightyDocumentation!public! !
-!Presenter categoriesFor: #goToUMLAlmightyEnglishVideos!public! !
-!Presenter categoriesFor: #goToUMLAlmightyNewsGroup!public! !
-!Presenter categoriesFor: #goToUMLAlmightySpanishVideos!public! !
-!Presenter categoriesFor: #goToUMLAlmightyVideos!public! !
 !Presenter categoriesFor: #registerUMLObjectAspect:!public! !
 
 !RichTextPresenter class methodsFor!
