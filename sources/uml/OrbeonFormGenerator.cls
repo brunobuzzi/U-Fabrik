@@ -10,6 +10,14 @@ OrbeonFormGenerator comment: ''!
 !OrbeonFormGenerator categoriesForClass!Unclassified! !
 !OrbeonFormGenerator methodsFor!
 
+closeBodyTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '</xh:body>'!
+
+closeHtmlTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '</xh:html>'!
+
 formDefinitionStream
 	^formDefinitionStream!
 
@@ -18,16 +26,9 @@ formDefinitionStream: anObject
 
 generateOrbeonFormFor: anUMLClass
 
-	formDefinitionStream 
-		nextPutAll: '<xh:html ', self xmlnsNamespacesString, '>';
-		nextPutAll: '<xh:head>';
-		nextPutAll: '<xh:meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
-		nextPutAll: '<xh:title> Form for UML Class ', anUMLClass name,'</xh:title>';
-		nextPutAll: '<xf:model id="fr-form-model" xxf:expose-xpath-types="true">';
-		nextPutAll: '<xf:instance id="fr-form-instance" xxf:exclude-result-prefixes="#all" xxf:index="id">'.
+	self openHtmlTagFor: anUMLClass.
 
-	self writeFrFormInstanceFor: anUMLClass.
-!
+	self closeHtmlTagFor: anUMLClass!
 
 initialize
 
@@ -35,8 +36,63 @@ initialize
 
 	formDefinitionStream := WriteStream on: String new.!
 
+openBodyTagFor: anUMLClass!
+
+openHtmlTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<xh:html ' , self xmlnsNamespacesString , '>'.
+
+	formDefinitionStream 
+		nextPutAll: '<xh:head>';
+		nextPutAll: '<xh:meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
+		nextPutAll: '<xh:title> Form for UML Class ' , anUMLClass name , '</xh:title>'.
+
+	self openXfModelTagFor: anUMLClass.
+
+	formDefinitionStream nextPutAll: '</xh:head>'.
+
+	self openBodyTagFor: anUMLClass.
+	self closeBodyTagFor: anUMLClass.!
+
+openXfModelTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<xf:model id="fr-form-model" xxf:expose-xpath-types="true">'.
+
+	self writeXfInstanceFor: anUMLClass.
+
+	self writeXfBindingsFor: anUMLClass.
+
+	self writeMetadataFor: anUMLClass.
+
+	self writeAttachmentFor: anUMLClass.
+
+	self writeResourcesFor: anUMLClass.
+
+	self writeServicesFor: anUMLClass.
+
+	formDefinitionStream nextPutAll: '</xf:model>'.!
+
+writeAttachmentFor: anUMLClass!
+
 writeFrFormInstanceFor: anUMLClass
 
+	formDefinitionStream nextPutAll: '<form-variables-section>'.
+
+	anUMLClass basicTypesVariables do: [:classAttribute | formDefinitionStream nextPutAll: '<', classAttribute name, '/>'].
+
+	formDefinitionStream nextPutAll: '</form-variables-section>'.!
+
+writeMetadataFor: anUMLClass!
+
+writeResourcesFor: anUMLClass!
+
+writeServicesFor: anUMLClass!
+
+writeXfBindingsFor: anUMLClass!
+
+writeXfInstanceFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<xf:instance id="fr-form-instance" xxf:exclude-result-prefixes="#all" xxf:index="id">'.
 	formDefinitionStream nextPutAll: '
 <form>
 	<internal-section-seaside>
@@ -51,17 +107,9 @@ writeFrFormInstanceFor: anUMLClass
 		<rol/>
 		<processId/>
 	</internal-section-user>'.
-
-	self writeFrFormInstanceUMLClassBasicVariablesFor: anUMLClass.
-	formDefinitionStream nextPutAll: '</form>'.!
-
-writeFrFormInstanceUMLClassBasicVariablesFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<form-variables>'.
-
-
-	formDefinitionStream nextPutAll: '</form-variables>'.
-!
+	self writeFrFormInstanceFor: anUMLClass.
+	formDefinitionStream nextPutAll: '</form>'.
+	formDefinitionStream nextPutAll: '</xf:instance>'!
 
 xmlnsNamespacesString
 
@@ -80,11 +128,21 @@ xmlnsNamespacesString
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
+!OrbeonFormGenerator categoriesFor: #closeBodyTagFor:!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #closeHtmlTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #generateOrbeonFormFor:!public! !
+!OrbeonFormGenerator categoriesFor: #generateOrbeonFormFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
-!OrbeonFormGenerator categoriesFor: #writeFrFormInstanceFor:!public! !
-!OrbeonFormGenerator categoriesFor: #writeFrFormInstanceUMLClassBasicVariablesFor:!public! !
+!OrbeonFormGenerator categoriesFor: #openBodyTagFor:!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #openHtmlTagFor:!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #openXfModelTagFor:!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #writeAttachmentFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeFrFormInstanceFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeMetadataFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeResourcesFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeServicesFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeXfBindingsFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeXfInstanceFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #xmlnsNamespacesString!public! !
 
