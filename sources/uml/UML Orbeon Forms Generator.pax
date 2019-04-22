@@ -1,0 +1,42 @@
+﻿| package |
+package := Package name: 'UML Orbeon Forms Generator'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #OrbeonFormNamespaceChunk;
+	add: #OrbeonFormXmlChunk;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #OrbeonFormXmlChunk
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrbeonFormXmlChunk subclass: #OrbeonFormNamespaceChunk
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+
