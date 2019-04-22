@@ -5,6 +5,7 @@ package paxVersion: 1;
 
 
 package classNames
+	add: #OrbeonFormGenerator;
 	add: #OrbeonFormNamespaceChunk;
 	add: #OrbeonFormXmlChunk;
 	yourself.
@@ -22,6 +23,11 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #OrbeonFormGenerator
+	instanceVariableNames: 'formDefinitionStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 Object subclass: #OrbeonFormXmlChunk
 	instanceVariableNames: ''
 	classVariableNames: ''
