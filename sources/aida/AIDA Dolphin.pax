@@ -45,7 +45,6 @@ package methodNames
 	add: #AIDASite -> #urlsWithSessionId;
 	add: #AIDASite -> #watchdogOther;
 	add: #Character -> #isAlphabetic;
-	add: #Date -> #dayOfYear;
 	add: #Date -> #daysInMonth;
 	add: #DefaultWebStyle -> #navHeader:;
 	add: #Exception -> #printMessageText;
@@ -162,13 +161,14 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: 'AIDAWeb';
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream';
-	add: '..\others\Sport';
-	add: '..\swazoo\Swazoo';
-	yourself).
+package setPrerequisites: #(
+	'AIDAWeb'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Deprecated\Dolphin Base (Deprecated)'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
+	'..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream'
+	'..\others\Sport'
+	'..\swazoo\Swazoo').
 
 package!
 
@@ -824,14 +824,9 @@ isAlphabetic
 
 !Date methodsFor!
 
-dayOfYear
-
-	^self day!
-
 daysInMonth
 
 	^self class daysInMonthIndex: self monthIndex forYear: self year! !
-!Date categoriesFor: #dayOfYear!aida port error!public! !
 !Date categoriesFor: #daysInMonth!accessing!aida port error!public! !
 
 !DefaultWebStyle methodsFor!
