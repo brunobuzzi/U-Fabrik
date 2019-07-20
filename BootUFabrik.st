@@ -5,11 +5,10 @@ SmalltalkSystemShell allInstances first position: 20@50.
 (TranscriptShell allInstances , #(nil)) first ifNotNil: [:shell | shell view position: 20@600; extent: 800@300; setFocus].
 !
 | umllist aidalist dblist |
+"'UML Live Engine Views' is loaded as prerequisite of 'UML Live Engine Tests' "
 umllist := #(
 	'UML Live Engine Tests'
-	'UML Live Engine Views'
 	'XMI Import-Export Interfase II Tests'
-	'UML Paint'
 	'UML Development Add In'
 	'UML Model Comparision Views'
 	'UML Live Engine View Composer II'
