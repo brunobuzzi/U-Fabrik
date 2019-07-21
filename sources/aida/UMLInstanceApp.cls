@@ -1518,7 +1518,7 @@ initializeWebComponentsDirectMap
 		at: True put: UMLWebCheckBox;
 		at: False put: UMLWebCheckBox;
 		at: Time put: UMLWebTimeInputField;
-		at: TimeStamp put: WebDateInputFieldForTimeStamp;
+		at: DateAndTime put: WebDateInputFieldForTimeStamp;
 		at: String put: UMLWebInputField;
 		at: Utf8String put: UMLWebInputField;
 		at: Number put: UMLWebInputField;
