@@ -12,6 +12,7 @@ umllist := #(
 	'UML Development Add In'
 	'UML Model Comparision Views'
 	'UML Live Engine View Composer II'
+	'UML Orbeon Forms Generator'
 ).
 (Delay forMilliseconds: 200) wait.
 ProgressDialog showModalWhile: [:progress |
