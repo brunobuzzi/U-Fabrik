@@ -35,7 +35,7 @@ asNowUTC
 	"^self
 Cheat for now and assumen that Timestamp>>now is UTC."
 
-	underlyingTimestamp := TimeStamp current.
+	underlyingTimestamp := DateAndTime now.
 	^self!
 
 asRFC1123String
@@ -64,7 +64,7 @@ asTime
 fromDate: aDate andTime: aTime
 	"^self
 	Initialize myself on the basis of aDate and aTime."
-	underlyingTimestamp := TimeStamp date: aDate time: aTime.
+	underlyingTimestamp := DateAndTime fromDate: aDate time: aTime.
 	^self!
 
 fromSeconds: anInteger 
@@ -72,7 +72,7 @@ fromSeconds: anInteger
 	I return an instance of myself that represents anInteger number of seconds 
 	since January 1, 1901 0:00:00.000.  BTW, negative values of anInteger are fine."
 	
-	underlyingTimestamp := TimeStamp fromSeconds: anInteger.
+	underlyingTimestamp := DateAndTime fromSeconds: anInteger.
 	^self!
 
 hash

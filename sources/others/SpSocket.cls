@@ -246,8 +246,8 @@ waitForReadDataUpToMs: millisecondCount
 	"Sean M. said: this is dodgy. Esteban says: I don't know how to make it better."
 
 	| deadline |
-	deadline := TimeStamp current asMilliseconds + millisecondCount.
-	[ TimeStamp current asMilliseconds > deadline ifTrue: [ ^false ]. self underlyingSocket hasInput ] whileFalse.
+	deadline := DateAndTime now asMilliseconds + millisecondCount.
+	[ DateAndTime now asMilliseconds > deadline ifTrue: [ ^false ]. self underlyingSocket hasInput ] whileFalse.
 	^self underlyingSocket hasInput 
 !
 

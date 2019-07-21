@@ -59,10 +59,12 @@ package classNames
 
 package methodNames
 	add: #Compiler -> #evaluate:in:to:;
+	add: #DateAndTime -> #asMilliseconds;
 	add: #SequencedStream -> #throughAll:;
 	add: #TimeStamp -> #asSpTimestamp;
 	add: #TimeStamp -> #printRFC1123StringOn:;
 	add: #TimeStamp -> #rfc1123String;
+	add: 'DateAndTime class' -> #fromSeconds:;
 	add: 'Locale class' -> #englishUS;
 	add: 'Locale class' -> #evaluate:usingLocale:;
 	yourself.
@@ -73,14 +75,15 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Base64\Dolphin Base64';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream';
-	add: '..\..\..\Core\Object Arts\Dolphin\Sockets\Dolphin Sockets';
-	add: '..\..\..\Core\Object Arts\Dolphin\Sockets\Sockets Connection';
-	yourself).
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Deprecated\Dolphin Base (Deprecated)'
+	'..\..\Core\Object Arts\Dolphin\System\Base64\Dolphin Base64'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\System\Random\Dolphin Random Stream'
+	'..\..\Core\Object Arts\Dolphin\Sockets\Dolphin Sockets'
+	'..\..\Core\Object Arts\Dolphin\Sockets\Sockets Connection').
 
 package!
 
@@ -174,6 +177,29 @@ evaluate: aString in: context to: anObject
 	^SpEnvironment evaluate: aString receiver: anObject in: context! !
 !Compiler categoriesFor: #evaluate:in:to:!public! !
 
+!DateAndTime methodsFor!
+
+asMilliseconds
+	"Answer the number of milliseconds between January 1, 1901, and the time and date
+	represented by the receiver (this will likely be a LargeInteger). Can be used to perform 
+	arithmetic with Dates and Times."
+
+	^self asDate asMilliseconds + self asTime asMilliseconds! !
+!DateAndTime categoriesFor: #asMilliseconds!public! !
+
+!DateAndTime class methodsFor!
+
+fromSeconds: anInteger
+	"Answer a new instance of the receiver representing the point in time
+	anInteger seconds after the epoch."
+
+	| date |
+	date := Date fromSeconds: anInteger.
+	^self 
+		fromDate: date 
+		time: (Time fromSeconds: anInteger - date asSeconds)! !
+!DateAndTime class categoriesFor: #fromSeconds:!public! !
+
 !Locale class methodsFor!
 
 englishUS
@@ -228,7 +254,7 @@ printRFC1123StringOn: stream
 	| lcEnglishUS |
 	lcEnglishUS := Locale englishUS.
 	stream
-		nextPutAll: (lcEnglishUS nameOfDay: self date weekdayIndex abbrev: true);
+		nextPutAll: (lcEnglishUS nameOfDay: self date weekdayIndex "abbrev: true");
 		nextPutAll: ', '.
 	self date printOn: stream locale: lcEnglishUS format: 'dd MMM yyyy'.
 	stream space.

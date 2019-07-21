@@ -141,10 +141,10 @@ modifiedTimestamp
 	timestamp of last file modification"
 
 	| ts |
-	ts := self fileEntry ftLastWriteTime asSYSTEMTIME asTimeStamp.
+	ts := self fileEntry ftLastWriteTime asSYSTEMTIME asDateAndTime.
 	^SpTimestamp
-		fromDate: ts date
-		andTime: (Time fromSeconds: ts time asSeconds) "Truncation of the millisecond precision"
+		fromDate: ts asDate
+		andTime: (Time fromSeconds: ts asTime asSeconds) "Truncation of the millisecond precision"
 !
 
 named: aString 
