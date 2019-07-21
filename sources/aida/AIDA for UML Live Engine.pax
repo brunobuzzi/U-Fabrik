@@ -257,7 +257,7 @@ printShortFormat
 
 actionLogin
 	| webUser umlUser |
-self halt.
+
 	webUser := self findLoggingUser.
 
 	self style loginErrorText: nil.
