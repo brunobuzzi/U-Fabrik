@@ -212,7 +212,6 @@ package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Internal Bitmaps and Icons'
 	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\SHDocVw\Internet Explorer'
 	'..\..\Core\Contributions\Refactory\Refactoring Browser\Formatters\RBFormatters'
-	'..\..\Core\Object Arts\Samples\ActiveX\Web Browser\Simple Web Browser'
 	'..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser'
 	'..\swazoo\Swazoo'
 	'UML Basic Support'

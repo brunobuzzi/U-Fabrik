@@ -168,7 +168,7 @@ webConfigurationBrowserIcon
 webLoginIcon
 
 	^SmalltalkSystemIcon 
-		icon: (WebBrowserShell icon)
+		icon: (Icon fromId: 'Locale.ico')
 		description: 'Web login'
 		openBlock: (MessageSend receiver: self selector: #startWebLogin)!
 
