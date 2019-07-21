@@ -172,12 +172,12 @@ incHistoryCounterOnDate: aDate
 
 incHourlyCounterOnTime: aTime
 	| hours |
-	hours := aTime hours.
+	hours := aTime hour24.
 	self hourlyCounts at: hours+1 	put: (self  hourlyCounts at: hours+1) + 1.!
 
 incHourlyCounterOnTimestamp: aTimestamp
 	| hours |
-	hours := aTimestamp asTime hours.
+	hours := aTimestamp asTime hour24.
 	self hourlyCounts at: hours+1 put: (self  hourlyCounts at: hours+1) + 1.
 	self incTodayHourlyCounterOnTimestamp: aTimestamp!
 
@@ -188,7 +188,7 @@ incTodayHourlyCounterOnTimestamp: aTimestamp
 	self day ~= dayOfYear 	ifTrue: 
 		[self initTodayHourlyCounts.
 		self day: dayOfYear].
-	hours := aTimestamp asTime hours.
+	hours := aTimestamp asTime hour24.
 	self todayHourlyCounts 
 		at: hours+1
 		put: (self  todayHourlyCounts at: hours+1) + 1.!
