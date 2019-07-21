@@ -269,7 +269,7 @@ setSmalltalkClasses
 	(self getUMLClassNamed: 'Block') smalltalkClass: BlockClosure.
 	(self getUMLClassNamed: 'Date') smalltalkClass: Date.
 	(self getUMLClassNamed: 'Time') smalltalkClass: Time.
-	(self getUMLClassNamed: 'TimeStamp') smalltalkClass: TimeStamp.
+	(self getUMLClassNamed: 'DateAndTime') smalltalkClass: DateAndTime.
 
 	(self getUMLClassNamed: 'EditableObject') smalltalkClass: Object.
 	(self getUMLClassNamed: 'ExternalFile') smalltalkClass: ExternalFile.

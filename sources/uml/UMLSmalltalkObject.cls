@@ -110,7 +110,7 @@ simpleObjectClasses
 	^##(OrderedCollection new
 		add: Date;
 		add: Time;
-		add: TimeStamp;
+		add: DateAndTime;
 		add: Number;
 		add: String;
 		add: Float;

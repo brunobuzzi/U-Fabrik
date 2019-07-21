@@ -43,13 +43,13 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\others\BB_Object Server for ReStore';
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: 'UML Basic Support';
-	add: 'UML Live Engine';
-	add: 'XMI Import-Export Interfase II';
-	yourself).
+package setPrerequisites: #(
+	'..\others\BB_Object Server for ReStore'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
+	'UML Basic Support'
+	'UML Live Engine'
+	'XMI Import-Export Interfase II').
 
 package!
 

@@ -32,7 +32,7 @@ initialize
 
 	super initialize.
 
-	stamp := TimeStamp now.
+	stamp := DateAndTime now.
 	annotation := ''.!
 
 isCurtailed

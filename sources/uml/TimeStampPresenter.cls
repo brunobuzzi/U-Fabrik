@@ -26,7 +26,7 @@ model: aTimeStamp
 !
 
 value
-	^TimeStamp date: (datePresenter value) time: (timePresenter value)! !
+	^DateAndTime fromDate: (datePresenter value) time: (timePresenter value)! !
 !TimeStampPresenter categoriesFor: #createComponents!public! !
 !TimeStampPresenter categoriesFor: #model:!public! !
 !TimeStampPresenter categoriesFor: #value!public! !
