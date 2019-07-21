@@ -92,6 +92,7 @@ package setPrerequisites: #(
 	'AIDAWeb'
 	'..\others\BBInteraccionOffice'
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
 	'..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
 	'..\uml\UML Basic Views'
 	'..\uml\UML Compiler'
@@ -256,7 +257,7 @@ printShortFormat
 
 actionLogin
 	| webUser umlUser |
-
+self halt.
 	webUser := self findLoggingUser.
 
 	self style loginErrorText: nil.

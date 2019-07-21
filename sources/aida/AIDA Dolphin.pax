@@ -46,6 +46,8 @@ package methodNames
 	add: #AIDASite -> #watchdogOther;
 	add: #Character -> #isAlphabetic;
 	add: #Date -> #daysInMonth;
+	add: #Date -> #printOn:locale:format:;
+	add: #DateAndTime -> #printRFC1123StringOn:;
 	add: #DefaultWebStyle -> #navHeader:;
 	add: #Exception -> #printMessageText;
 	add: #File -> #extension;
@@ -60,6 +62,7 @@ package methodNames
 	add: #String -> #replaceSpecialCharacters;
 	add: #SwazooServer -> #allAidaInstancesReport;
 	add: #SwazooServer -> #isNewHour;
+	add: #SwazooStream -> #next:put:;
 	add: #TimeStamp -> #asDate;
 	add: #TimeStamp -> #asTime;
 	add: #TimeStamp -> #dayOfYear;
@@ -297,7 +300,7 @@ answerTo: aRequest
 	"VW specific!! "
 	| session object errorResponse |
 
-	[self	log: self cr , (self logStringFor: aRequest) , self cr , '              s'.
+	[self log: self cr , (self logStringFor: aRequest) , self cr , '              s'.
 	self shouldRedirect ifTrue: [^self redirectToOtherHost: aRequest].
 	aRequest isPing ifTrue: [^HTTPResponse ok].  "/ping.html for monitoring the site"
 	session := self sessionManager findOrCreateSessionFor: aRequest.
@@ -341,8 +344,8 @@ backupToFile
 
 createdTimestamp
 	"time and date of  server creation"
-	^TimeStamp fromSeconds:
-		(self timestamps at: #Created ifAbsentPut: 	[TimeStamp now asSeconds])!
+	^DateAndTime fromSeconds:
+		(self timestamps at: #Created ifAbsentPut: 	[DateAndTime now asSeconds])!
 
 finalizeExecutingRequest: aRequest
 	"do all necessary cleanup in execution context"
@@ -370,18 +373,18 @@ httpResponseOnException: anException
 
 lastCommitTimestamp
 	"time and date of last commit to the database. If noone yet, return nil"
-	^TimeStamp fromSeconds: (self timestamps at: #LastCommit ifAbsent: [^nil])!
+	^DateAndTime fromSeconds: (self timestamps at: #LastCommit ifAbsent: [^nil])!
 
 lastRequestTimestamp
 	"time and date of last web request. If noone yet, return nil"
-	^TimeStamp fromSeconds: (self timestamps at: #LastRequest ifAbsent: [^nil])!
+	^DateAndTime fromSeconds: (self timestamps at: #LastRequest ifAbsent: [^nil])!
 
 lastTimeAliveTimestamp
 	"lastTimeAliveThread writes to timestamps every minute and commit. 
 	Used in case of crash to determine, when a server was last time alive 
 	and worked properly"
-	^TimeStamp fromSeconds: 
-		(self timestamps at: #LastTimeAlive ifAbsentPut: [TimeStamp now asSeconds])!
+	^DateAndTime fromSeconds: 
+		(self timestamps at: #LastTimeAlive ifAbsentPut: [DateAndTime now asSeconds])!
 
 objectToWap: aRequest  forSession: aSession
 	| object  |
@@ -443,14 +446,14 @@ redirectToOtherHost: aRequest
 registerTopHourHits: aHitNumber pages: aPageNumber
 	(self topHour at: 2) < aHitNumber ifTrue: 
 		[self topHour
-			at: 1 put: TimeStamp now;
+			at: 1 put: DateAndTime now;
 			at: 2 put: aHitNumber;
 			at: 3 put: aPageNumber].!
 
 registerTopMinuteHits: aHitNumber pages: aPageNumber
 	(self topMinute at: 2) < aHitNumber ifTrue: 
 		[self topMinute
-			at: 1 put: TimeStamp now;
+			at: 1 put: DateAndTime now;
 			at: 2 put: aHitNumber;
 			at: 3 put: aPageNumber].!
 
@@ -486,8 +489,8 @@ runningHistory
 	self runningHistoryCollection do: [:array |
 		newArray := Array new: 5.
 		newArray 
-			at: 1 put: (TimeStamp fromSeconds: (array at: 1));
-			at: 2 put: (TimeStamp fromSeconds: (array at: 2));
+			at: 1 put: (DateAndTime fromSeconds: (array at: 1));
+			at: 2 put: (DateAndTime fromSeconds: (array at: 2));
 			at: 3 put: (((array at: 2) - (array at: 1)) max: 0);
 			at: 4 put: 0;  "we will calculate later"
 			at: 5 put: ((array size < 3) ifTrue: [true] ifFalse: [array at:3]).
@@ -511,24 +514,24 @@ runningHistory
 setCreatedTimestamp
 	"set the server creation timestamp to current date and time."
 	self timestamps 
-		at: #Created put: TimeStamp now asSeconds.!
+		at: #Created put: DateAndTime now asSeconds.!
 
 setLastCommitTimestamp
 	"set the last commit timestamp to current date and time"
 	self critical: [
 		self timestamps 
 			at: #LastCommit 
-			put: TimeStamp now asSeconds].!
+			put: DateAndTime now asSeconds].!
 
 setLastRequestTimestamp
 	"set the last web request timestamp to current date and time"
 	self critical: [
-		self timestamps at: #LastRequest put: TimeStamp now asSeconds].!
+		self timestamps at: #LastRequest put: DateAndTime now asSeconds].!
 
 setLastTimeAliveTimestamp
 	"A lastTimeAliveThread sets this timestamp every minute"
 	self critical: [
-		self timestamps at: #LastTimeAlive put: TimeStamp now asSeconds].!
+		self timestamps at: #LastTimeAlive put: DateAndTime now asSeconds].!
 
 setStartedTimestampCrashed: aBoolean
 	"set the last server startup timestamp to current date and time.  
@@ -536,12 +539,12 @@ setStartedTimestampCrashed: aBoolean
 	Argument shows if server was running, therefore crashed, or was stoped normaly"
 	self addToRunningHistoryCrashed: aBoolean.
 	self timestamps 
-		at: #Started put: TimeStamp now asSeconds.!
+		at: #Started put: DateAndTime now asSeconds.!
 
 startedTimestamp
 	"time and date of last server startup"
-	^TimeStamp fromSeconds:
-		(self timestamps at: #Started ifAbsentPut: [TimeStamp now asSeconds])!
+	^DateAndTime fromSeconds:
+		(self timestamps at: #Started ifAbsentPut: [DateAndTime now asSeconds])!
 
 style
 	style isNil ifTrue: [self style: ((Smalltalk at: self styleClass)  newOnSite: self)].
@@ -550,7 +553,7 @@ style
 topHour
 	"a hour of most hits, an array with timestamp, hits and pages"
 	(self counters includesKey: #TopHour) ifFalse: 
- 		[self counters at: #TopHour put: (Array with: TimeStamp now with: 0 with: 0)].
+ 		[self counters at: #TopHour put: (Array with: DateAndTime now with: 0 with: 0)].
 	^self counters at: #TopHour
 
 "WebServer default topHour"!
@@ -558,7 +561,7 @@ topHour
 topMinute
 	"a minute of most hits, an array with timestamp, hits and pages"
 	(self counters includesKey: #TopMinute) ifFalse: 
- 		[self counters at: #TopMinute put:  (Array with: TimeStamp now with: 0 with: 0)].
+ 		[self counters at: #TopMinute put:  (Array with: DateAndTime now with: 0 with: 0)].
 	^self counters at: #TopMinute
 !
 
@@ -826,8 +829,32 @@ isAlphabetic
 
 daysInMonth
 
-	^self class daysInMonthIndex: self monthIndex forYear: self year! !
+	^self class daysInMonthIndex: self monthIndex forYear: self year!
+
+printOn: aStream locale: aLocale format: aString
+	"Append a short textual description of the receiver to the <puttableStream> argument, aStream. The format is defined by the <readableString> argument, aString, the format characters of which are as described in the Locale>>dateFormat method comment, e.g. 'dd/MM/yyyy', formats to, for example, 27/11/2001). If the format argument is nil then the receiver is printed to the stream in the currently configured default format of the host OS, which can be seen by evaluating `Locale default dateFormat`. See also: https://docs.microsoft.com/en-gb/windows/desktop/Intl/day--month--year--and-era-format-pictures"
+
+	aLocale
+		printDate: self
+		on: aStream
+		format: aString! !
 !Date categoriesFor: #daysInMonth!accessing!aida port error!public! !
+!Date categoriesFor: #printOn:locale:format:!printing!public! !
+
+!DateAndTime methodsFor!
+
+printRFC1123StringOn: stream	
+	| lcEnglishUS |
+
+	lcEnglishUS := Locale englishUS.
+	stream
+		nextPutAll: (lcEnglishUS nameOfDay: self asDate dayOfWeek "abbrev: true");
+		nextPutAll: ', '.
+	self asDate printOn: stream locale: lcEnglishUS format: 'dd MMM yyyy'.
+	stream space.
+	self asTime printOn: stream format: 'HH:mm:ss'.
+	stream nextPutAll: ' GMT'! !
+!DateAndTime categoriesFor: #printRFC1123StringOn:!public! !
 
 !DefaultWebStyle methodsFor!
 
@@ -1039,10 +1066,18 @@ isNewHour
 	" a new hour since last watchdog check"
 	"SwazooServer singleton isNewHour"
 
-	^TimeStamp now hour ~= 
-		(TimeStamp fromSeconds: TimeStamp now asSeconds - self watchdogPeriod) hour! !
+	^DateAndTime now hour ~= 
+		(DateAndTime fromSeconds: DateAndTime now asSeconds - self watchdogPeriod) hour! !
 !SwazooServer categoriesFor: #allAidaInstancesReport!aida port error!public! !
 !SwazooServer categoriesFor: #isNewHour!aida port error!initialize-release!public! !
+
+!SwazooStream methodsFor!
+
+next: anInteger put: anObject
+
+	anInteger timesRepeat: [self nextPut: anObject].
+	^anObject! !
+!SwazooStream categoriesFor: #next:put:!public! !
 
 !TimeStamp methodsFor!
 
@@ -1274,11 +1309,11 @@ incCounter
 
 	"increment daily, hourly and total counter with date and time now"
 
-	self incCounterOnTimestamp: TimeStamp now!
+	self incCounterOnTimestamp: DateAndTime now!
 
 initStarted
 	"set a timestamp to a current time"
-	started := TimeStamp now asSeconds.! !
+	started := DateAndTime now asSeconds.! !
 !WebCounter categoriesFor: #incCounter!aida port error!public! !
 !WebCounter categoriesFor: #initStarted!aida port error!public! !
 
@@ -1593,12 +1628,12 @@ gif: aByteArray
 	"also set a refreshed timestamp"
 
 	gif := aByteArray.
-	self refreshed: TimeStamp now.!
+	self refreshed: DateAndTime now.!
 
 lastUsed
 	"timestamp of last usage. Used for caching algorithms. Set at HTML generation"
 
-	lastUsed isNil ifTrue: [self lastUsed: TimeStamp now].
+	lastUsed isNil ifTrue: [self lastUsed: DateAndTime now].
 	^lastUsed!
 
 lastUsed: aTimestamp
@@ -1614,14 +1649,14 @@ printHTMLPageOn: aStream for: aRequest on: aSession
 		self addToCache].
 	aStream nextPutAll: self gif asByteString.
 	Processor activeProcess priority: (Processor activeProcess priority + 3).
-	self lastUsed: TimeStamp now.
+	self lastUsed: DateAndTime now.
 
 "	aSession server urlResolver removeObject: self "!
 
 refreshed
 	"timestamp of last gif creation. Used for caching algorithms. Set,when calling gif: method"
 
-	refreshed isNil ifTrue: [self refreshed: TimeStamp now].
+	refreshed isNil ifTrue: [self refreshed: DateAndTime now].
 	^refreshed!
 
 resolver
@@ -1667,7 +1702,7 @@ convertToPdf: aHtmlString
 lastUsed
 	"timestamp of last usage. Used for caching algorithms. Set at HTML generation"
 
-	lastUsed isNil ifTrue: [self lastUsed: TimeStamp now].
+	lastUsed isNil ifTrue: [self lastUsed: DateAndTime now].
 	^lastUsed!
 
 makeRoomInCache
@@ -1712,18 +1747,18 @@ everyDayAt: aTimeOrHour  runBlock: aBlock
 	| time |
 	time := aTimeOrHour class == Time 
 		ifTrue: [aTimeOrHour] ifFalse: [Time fromSeconds: aTimeOrHour*60*60].
-	self timestamp: (TimeStamp fromDate: Date today andTime: time).
+	self timestamp: (DateAndTime fromDate: Date today time: time).
 	self block: aBlock.
 	self periodType: #day value: time!
 
 everyHourAt: aMinuteNumber runBlock: aBlock
-	self timestamp: (TimeStamp fromDate: Date today andTime: 
+	self timestamp: (DateAndTime fromDate: Date today time: 
 		(Time fromSeconds: (Time now hours * 3600) + (aMinuteNumber * 60))).
 	self block: aBlock.
 	self periodType: #hour value: aMinuteNumber!
 
 everyMinuteAt: aSecondNumber runBlock: aBlock
-	self timestamp: (TimeStamp fromDate: Date today andTime: 
+	self timestamp: (DateAndTime fromDate: Date today time: 
 		(Time fromSeconds: (Time now hours * 3600) + (Time now minutes * 60) + aSecondNumber)).
 	self block: aBlock.
 	self periodType: #minute value: aSecondNumber!
@@ -1731,11 +1766,11 @@ everyMinuteAt: aSecondNumber runBlock: aBlock
 reschedule
 	"calculate and set a new time to run, according to a period"
 	self isDayPeriod ifTrue: 
-		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + (60*60*24)))].
+		[self timestamp: (DateAndTime fromSeconds: (self timestamp asSeconds + (60*60*24)))].
 	self isHourPeriod ifTrue: 
-		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + (60*60)))].
+		[self timestamp: (DateAndTime fromSeconds: (self timestamp asSeconds + (60*60)))].
 	self isMinutePeriod ifTrue: 
-		[self timestamp: (TimeStamp fromSeconds: (self timestamp asSeconds + 60))].
+		[self timestamp: (DateAndTime fromSeconds: (self timestamp asSeconds + 60))].
 	self parent scheduleEvent: self.! !
 !WebScheduledEvent categoriesFor: #everyDayAt:runBlock:!accessing!aida port error!public! !
 !WebScheduledEvent categoriesFor: #everyHourAt:runBlock:!accessing!aida port error!public! !
@@ -1752,7 +1787,7 @@ removeMissedEvents
 	| now event |
 	self lock critical:
 		[self queue isEmpty ifTrue: [^nil].
-		now := TimeStamp now asSeconds.
+		now := DateAndTime now asSeconds.
 		[now > self queue first timestamp asSeconds] whileTrue:
 			[event := self queue first.
 			self queue removeFirst.
@@ -1767,7 +1802,7 @@ startLoop
 			[| event now |
 			self lock critical: 
 				[self queue notEmpty ifTrue:
-					[event := self queue first. now := TimeStamp now asSeconds.
+					[event := self queue first. now := DateAndTime now asSeconds.
 				 	now = event timestamp asSeconds
 						ifTrue:  [event run. self queue removeFirst]
 						ifFalse: [now > event timestamp asSeconds  ifTrue: [self removeMissedEvents]] ]].
@@ -1805,7 +1840,7 @@ hashPassword: aString
 !WebSession methodsFor!
 
 setCreatedTimestamp
-	created := TimeStamp now.! !
+	created := DateAndTime now.! !
 !WebSession categoriesFor: #setCreatedTimestamp!aida port error!public!security! !
 
 !WebStatistics class methodsFor!
@@ -1821,7 +1856,7 @@ analyzeAndStoreLine: aLineAsArray into: aDictionary forDate:aDate
 			[aLineAsArray at: 2 put: 
 				(Time readFrom: (ReadStream on: (aLineAsArray at: 2))).
 			aLineAsArray at: 1 put: 
-				(TimeStamp new fromDate: datum andTime: (aLineAsArray at: 2)).
+				(DateAndTime new fromDate: datum andTime: (aLineAsArray at: 2)).
 			(aDictionary at:  (aLineAsArray at: 3) ifAbsentPut: [WebCounter new  ] )
 				 incCounterOnTimestamp: (aLineAsArray at: 1).
 			].
@@ -1887,7 +1922,7 @@ noCommitFor10min
 
 	"check if there was no real odb commit more than 10min"
 
-	^(TimeStamp now asSeconds - self lastCommit asSeconds) > (10 * 60)! !
+	^(DateAndTime now asSeconds - self lastCommit asSeconds) > (10 * 60)! !
 !WebTransactionMonitor class categoriesFor: #lock!aida port error!public! !
 !WebTransactionMonitor class categoriesFor: #noCommitFor10min!aida port error!public! !
 

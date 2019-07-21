@@ -416,11 +416,12 @@ loggingPolicy: aSymbol
 	self settings  at: #loggingPolicy put: aSymbol!
 
 logStringFor: aRequest
+
 	^self name, ' ',
  		Date today dayOfMonth printString, '.',
-		Date today monthIndex printString, ' ',
-		Time now hours printString, ':', 
-		Time now minutes printString,
+		Date today month printString, ' ',
+		Time now hour24 printString, ':', 
+		Time now minute printString,
 		' from ', (aRequest peer notNil ifTrue: [aRequest peer] ifFalse: ['']), ' ',
 		aRequest methodName, ' ',
 		aRequest urlString!
