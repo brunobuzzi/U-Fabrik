@@ -78,7 +78,7 @@ writeFrFormInstanceFor: anUMLClass
 
 	formDefinitionStream nextPutAll: '<form-variables-section>'.
 
-	anUMLClass basicTypesVariables do: [:classAttribute | formDefinitionStream nextPutAll: '<', classAttribute name, '/>'].
+	anUMLClass basicVariables do: [:classAttribute | formDefinitionStream nextPutAll: '<', classAttribute name, '/>'].
 
 	formDefinitionStream nextPutAll: '</form-variables-section>'.!
 
