@@ -5,8 +5,12 @@ package paxVersion: 1;
 
 
 package classNames
+	add: #OrbeonFormDefinitionTemplates;
+	add: #OrbeonFormFieldChunk;
 	add: #OrbeonFormGenerator;
+	add: #OrbeonFormInstanceTemplates;
 	add: #OrbeonFormNamespaceChunk;
+	add: #OrbeonFormTemplates;
 	add: #OrbeonFormXmlChunk;
 	yourself.
 
@@ -24,12 +28,32 @@ package!
 "Class Definitions"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream'
+	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #OrbeonFormTemplates
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #OrbeonFormXmlChunk
 	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrbeonFormTemplates subclass: #OrbeonFormDefinitionTemplates
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrbeonFormTemplates subclass: #OrbeonFormInstanceTemplates
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+OrbeonFormXmlChunk subclass: #OrbeonFormFieldChunk
+	instanceVariableNames: 'mainInstance binding resources view'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
