@@ -116,7 +116,7 @@ appendXfInstanceTo: anIXMLDOMElement
 	!
 
 appendXhBody
-	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode isNewRow |
+	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode isNewRow x y |
 
 	xhBodyNode := xhHtmlNode addElement: 'xh:body'.
 
@@ -136,14 +136,16 @@ appendXhBody
 	frGridNode := frSectionNode addElement: 'fr:grid'.
 	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
 
-	isNewRow := true.
-	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode x |
+	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
+		isNewRow := (index <= fieldsPerColumn) ifTrue: [true] ifFalse: [(index rem: fieldsPerColumn) = 1].
+		y := (index <= fieldsPerColumn) ifTrue: [1] ifFalse: [((index rem: fieldsPerColumn) = 1) ifTrue: [y+1] ifFalse: [y]].
+		x := isNewRow ifTrue: [1] ifFalse: [x + 1].
+
 		frNode := frGridNode addElement: 'fr:c'.
 		frNode
-			setAttribute: 'y' value: index printString;
-			setAttribute: 'w' value: (self maxWidth // fieldsPerColumn) printString.
-		x := (isNewRow ifTrue: [1] ifFalse: [x + (self maxWidth // fieldsPerColumn)]) printString.
-		frNode setAttribute: 'x' value: x.
+			setAttribute: 'y' value: y printString;
+			setAttribute: 'w' value: (self maxWidth // fieldsPerColumn) printString;
+			setAttribute: 'x' value: x printString.
 		componentNode := frNode addElement: 'xf:input'.
 		componentNode
 			setAttribute: 'id' value: umlClassAttribute attributeName;
@@ -152,8 +154,6 @@ appendXhBody
 		(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
 		(componentNode addElement: 'xf:hint') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/hint'.
 		(componentNode addElement: 'xf:alert') setAttribute: 'ref' value: '$fr-resources/detail/labels/alert'.
-
-		isNewRow := (index rem: fieldsPerColumn) = 0.
 	].!
 
 appendXhHead
