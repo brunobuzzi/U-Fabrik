@@ -116,7 +116,7 @@ appendXfInstanceTo: anIXMLDOMElement
 	!
 
 appendXhBody
-	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode isNewRow x y |
+	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode x y |
 
 	xhBodyNode := xhHtmlNode addElement: 'xh:body'.
 
@@ -137,9 +137,8 @@ appendXhBody
 	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
 
 	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
-		isNewRow := (index <= fieldsPerColumn) ifTrue: [true] ifFalse: [(index rem: fieldsPerColumn) = 1].
 		y := (index <= fieldsPerColumn) ifTrue: [1] ifFalse: [((index rem: fieldsPerColumn) = 1) ifTrue: [y+1] ifFalse: [y]].
-		x := isNewRow ifTrue: [1] ifFalse: [x + 1].
+		x := ((index rem: fieldsPerColumn) = 1) ifTrue: [1] ifFalse: [x+(self maxWidth // fieldsPerColumn)].
 
 		frNode := frGridNode addElement: 'fr:c'.
 		frNode
