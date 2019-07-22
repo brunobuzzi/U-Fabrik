@@ -10,6 +10,39 @@ OrbeonFormGenerator comment: ''!
 !OrbeonFormGenerator categoriesForClass!Unclassified! !
 !OrbeonFormGenerator methodsFor!
 
+appendAttachmentsTo: anIXMLDOMElement
+
+	anIXMLDOMElement addComment: 'Attachments'.
+
+	(anIXMLDOMElement addElement: 'xf:instance')
+		addElement: 'attachments';
+		setAttribute: 'id' value: 'fr-form-attachments';
+		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
+!
+
+appendMetadataTo: anIXMLDOMElement
+	| xfInstanceNode metadataNode |
+
+	anIXMLDOMElement addComment: 'Metadata'.
+
+	xfInstanceNode := anIXMLDOMElement addElement: 'xf:instance'.
+	xfInstanceNode setAttribute: 'id' value: 'fr-form-metadata';
+		setAttribute: 'xxf:readonly' value: 'true';
+		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
+
+	metadataNode := xfInstanceNode addElement: 'metadata'.
+	(metadataNode addElement: 'application-name') text: applicationName.
+	(metadataNode addElement: 'form-name') text: formName.
+	((metadataNode addElement: 'title') 
+		text: self formTitle; 
+		setAttribute: 'xml:lang' value: 'en').
+
+	(metadataNode addElement: 'description') setAttribute: 'xml:lang' value: 'en'.
+
+	(metadataNode addElement: 'created-with-version') text: '2018.2.3.201905172253 PE'.
+
+!
+
 appendXfBindingsTo: anIXMLDOMElement
 	| xfBindNode sectionBindNode |
 
@@ -392,6 +425,8 @@ xmlnsNamespacesString
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
+!OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendMetadataTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXhBody!api!main tag!public!xml generation! !
