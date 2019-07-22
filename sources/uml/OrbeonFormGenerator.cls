@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks applicationName formName sectionName'
+	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -9,6 +9,72 @@ OrbeonFormGenerator guid: (GUID fromString: '{ef2355ce-a05d-45dc-a164-b87228eb8c
 OrbeonFormGenerator comment: ''!
 !OrbeonFormGenerator categoriesForClass!Unclassified! !
 !OrbeonFormGenerator methodsFor!
+
+appendXfInstanceTo: anIXMLDOMElement
+	| xfInstanceNode sectionNode |
+
+	anIXMLDOMElement addComment: 'Main instance'.
+
+	xfInstanceNode := anIXMLDOMElement addElement: 'xf:instance'.
+
+	xfInstanceNode setAttribute: 'id' value: 'fr-form-instance';
+		setAttribute: 'xxf:exclude-result-prefixes' value: '#all';
+		setAttribute: 'xxf:index' value: 'id'.
+	
+	sectionNode := (xfInstanceNode addElement: 'form') addElement: sectionName.
+
+	umlClass basicVariables do: [:umlClassAttribute | sectionNode addElement: umlClassAttribute attributeName].
+
+	
+
+	!
+
+appendXhBody!
+
+appendXhHead
+	| xhHeadNode xfModel |
+
+	xhHeadNode := xhHtmlNode addElement: 'xh:head'.
+
+	(xhHeadNode addElement: 'xh:title') text: self formTitle.
+
+	xfModel := xhHeadNode addElement: 'xf:model'.
+
+	xfModel setAttribute: 'id' value: 'fr-form-model';
+		setAttribute: 'xxf:expose-xpath-types' value: 'true';
+		setAttribute: 'xxf:analysis.calculate' value: 'true'.
+	xfModel addComment: 'Main instance'.
+
+	self appendXfInstanceTo: xfModel.
+
+	self appendXfBindingsTo: xfModel.
+
+	self appendMetadataTo: xfModel.
+
+	self appendAttachmentsTo: xfModel.
+
+	self appendResourcesTo: xfModel.!
+
+appendXmlnsNamespaces
+
+	xhHtmlNode 
+		setAttribute: 'xmlns:xh' value: 'http://www.w3.org/1999/xhtml';
+		setAttribute: 'xmlns:xf' value: 'http://www.w3.org/2002/xforms';
+		setAttribute: 'xmlns:xs' value: 'http://www.w3.org/2001/XMLSchema';
+		setAttribute: 'xmlns:xsi' value: 'http://www.w3.org/2001/XMLSchema-instance';
+		setAttribute: 'xmlns:ev' value: 'http://www.w3.org/2001/xml-events';
+		setAttribute: 'xmlns:xi' value: 'http://www.w3.org/2001/XInclude';
+		setAttribute: 'xmlns:xxi' value: 'http://orbeon.org/oxf/xml/xinclude';
+		setAttribute: 'xmlns:xxf' value: 'http://orbeon.org/oxf/xml/xforms';
+		setAttribute: 'xmlns:map' value: 'http://www.w3.org/2005/xpath-functions/map';
+		setAttribute: 'xmlns:array' value: 'http://www.w3.org/2005/xpath-functions/array';
+		setAttribute: 'xmlns:exf' value: 'http://www.exforms.org/exf/1-0';
+		setAttribute: 'xmlns:fr' value: 'http://orbeon.org/oxf/xml/form-runner';
+		setAttribute: 'xmlns:saxon' value: 'http://saxon.sf.net/';
+		setAttribute: 'xmlns:sql' value: 'http://orbeon.org/oxf/xml/sql';
+		setAttribute: 'xmlns:soap' value: 'http://schemas.xmlsoap.org/soap/envelope/';
+		setAttribute: 'xmlns:fb' value: 'http://orbeon.org/oxf/xml/form-builder'.
+!
 
 applicationName
 	^applicationName!
@@ -40,6 +106,10 @@ formName
 formName: anObject
 	formName := anObject!
 
+formTitle
+
+	^'Form for UML Class ' , umlClass name!
+
 formTitleFor: anUMLClass
 
 	^'Form for UML Class ' , anUMLClass name!
@@ -63,6 +133,20 @@ generateXmlChunksFor: anUMLClass
 	anUMLClass basicVariables do: [:classAttribute | 
 		xmlChunks add: (OrbeonFormFieldChunk newForUMLField: classAttribute).
 	].!
+
+generateXMLDocumentFor: anUMLClass
+
+	xmlDocument :=  IXMLDOMDocument new.
+
+	self generateXmlChunksFor: anUMLClass.
+
+	xhHtmlNode := xmlDocument addElement: 'xh:html'.
+
+	self appendXmlnsNamespaces.
+	
+	self appendXhHead.
+
+	self appendXhBody.!
 
 initialize
 
@@ -121,6 +205,12 @@ sectionName
 
 sectionName: anObject
 	sectionName := anObject!
+
+umlClass
+	^umlClass!
+
+umlClass: anObject
+	umlClass := anObject!
 
 writeAttachmentFor: anUMLClass
 
@@ -251,9 +341,16 @@ xmlChunks
 xmlChunks: anObject
 	xmlChunks := anObject!
 
+xmlDocument
+	^xmlDocument!
+
+xmlDocument: anObject
+	xmlDocument := anObject!
+
 xmlnsNamespacesString
 
-	^'xmlns:xh="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms"
+	^'xmlns:xh="http://www.w3.org/1999/xhtml" 
+	 xmlns:xf="http://www.w3.org/2002/xforms"
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -268,6 +365,10 @@ xmlnsNamespacesString
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
+!OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendXhBody!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendXhHead!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #applicationName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #closeBodyTagFor:!main tag!public! !
@@ -277,9 +378,11 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #formTitle!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #formTitleFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #generateOrbeonFormFor:!api!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #generateXmlChunksFor:!public!xml chunks! !
+!OrbeonFormGenerator categoriesFor: #generateXMLDocumentFor:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!accessing!private! !
@@ -288,6 +391,8 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #openXfModelTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #umlClass!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #umlClass:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #writeAttachmentFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeFrFormInstanceFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeFrSectionTagFor:!public!write fixed! !
@@ -300,12 +405,21 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #writeXfInstanceFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #xmlChunks!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlChunks:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #xmlDocument!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #xmlDocument:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlnsNamespacesString!public! !
 
 !OrbeonFormGenerator class methodsFor!
 
 new
 
-	^super new initialize! !
+	^super new initialize!
+
+newOn: anUMLClass
+
+	^super new initialize
+		umlClass: anUMLClass;
+		yourself! !
 !OrbeonFormGenerator class categoriesFor: #new!public! !
+!OrbeonFormGenerator class categoriesFor: #newOn:!public! !
 
