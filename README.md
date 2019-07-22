@@ -21,7 +21,7 @@ New functionalities can be added on the fly using **U-Fabrik Simulation** tools:
 
 
 _Note:_<br>
-_Icons from Dolphin and http://www.iconarchive.com/_
+_Icons are Dolphin icons and from http://www.iconarchive.com/_
 
 ### Development Installation
 
