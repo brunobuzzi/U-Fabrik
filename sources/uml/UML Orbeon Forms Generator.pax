@@ -28,7 +28,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks applicatiohName formName sectionName'
+	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks applicationName formName sectionName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

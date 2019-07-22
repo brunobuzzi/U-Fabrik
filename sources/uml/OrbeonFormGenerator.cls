@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks applicatiohName formName sectionName'
+	instanceVariableNames: 'formDefinitionStream isGemStoneForm xmlChunks applicationName formName sectionName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,11 +10,11 @@ OrbeonFormGenerator comment: ''!
 !OrbeonFormGenerator categoriesForClass!Unclassified! !
 !OrbeonFormGenerator methodsFor!
 
-applicatiohName
-	^applicatiohName!
+applicationName
+	^applicationName!
 
-applicatiohName: anObject
-	applicatiohName := anObject!
+applicationName: anObject
+	applicationName := anObject!
 
 closeBodyTagFor: anUMLClass
 
@@ -23,6 +23,10 @@ closeBodyTagFor: anUMLClass
 closeHtmlTagFor: anUMLClass
 
 	formDefinitionStream nextPutAll: '</xh:html>'!
+
+contents
+
+	^formDefinitionStream contents!
 
 formDefinitionStream
 	^formDefinitionStream!
@@ -71,7 +75,9 @@ isGemStoneForm
 isGemStoneForm: anObject
 	isGemStoneForm := anObject!
 
-openBodyTagFor: anUMLClass!
+openBodyTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<xh:body>'!
 
 openHtmlTagFor: anUMLClass
 
@@ -149,9 +155,9 @@ writeMetadataFor: anUMLClass
 
 	formDefinitionStream 
 		nextPutAll: '<!!-- Metadata -->';
-		nextPutAll: 'xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">';
+		nextPutAll: '<xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">';
 		nextPutAll: '<metadata>';
-		nextPutAll: '<application-name>', applicatiohName ,'</application-name>';
+		nextPutAll: '<application-name>', applicationName ,'</application-name>';
 		nextPutAll: '<form-name>', formName ,'</form-name>';
 		nextPutAll: '<title xml:lang="en">U-Fabrik Test Form</title>';
 		nextPutAll: '<description xml:lang="en"/>';
@@ -230,10 +236,11 @@ xmlnsNamespacesString
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
-!OrbeonFormGenerator categoriesFor: #applicatiohName!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #applicatiohName:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #applicationName!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #applicationName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #closeBodyTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #closeHtmlTagFor:!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #contents!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName!accessing!private! !

@@ -43,13 +43,20 @@ view: anObject
 writeBindingOn: aWriteStream
 	| id |
 
-	id := umlField name, '-bind'.
+	id := umlField attributeName, '-bind'.
 
-	aWriteStream nextPutAll: '<xf:bind id="', id, '" name="', umlField name, '" ref="', umlField name, '" xxf:whitespace="trim"/>'!
+	aWriteStream nextPutAll: '<xf:bind id="', id, '" name="', umlField attributeName, '" ref="', umlField attributeName, '" xxf:whitespace="trim"/>'!
 
 writeMainInstanceOn: aWriteStream
 
-	aWriteStream nextPutAll: '<', umlField name, '/>'! !
+	aWriteStream nextPutAll: '<', umlField attributeName, '/>'!
+
+writeResourcesOn: aWriteStream
+
+	aWriteStream nextPutAll:  '<', umlField attributeName, '>'.
+			aWriteStream nextPutAll: '<label>', umlField attributeName capitalized, '</label>'.
+			aWriteStream nextPutAll: '<hint/>'.
+	aWriteStream nextPutAll:  '</', umlField attributeName, '>'.! !
 !OrbeonFormFieldChunk categoriesFor: #binding!accessing!private! !
 !OrbeonFormFieldChunk categoriesFor: #binding:!accessing!private! !
 !OrbeonFormFieldChunk categoriesFor: #mainInstance!accessing!private! !
@@ -62,6 +69,7 @@ writeMainInstanceOn: aWriteStream
 !OrbeonFormFieldChunk categoriesFor: #view:!accessing!private! !
 !OrbeonFormFieldChunk categoriesFor: #writeBindingOn:!public! !
 !OrbeonFormFieldChunk categoriesFor: #writeMainInstanceOn:!public! !
+!OrbeonFormFieldChunk categoriesFor: #writeResourcesOn:!public! !
 
 !OrbeonFormFieldChunk class methodsFor!
 
