@@ -31,7 +31,7 @@ To install U-Fabrik in Dolphin 7.1 follow these steps:
 2. Clone [Dolphin](https://github.com/brunobuzzi/Dolphin) to Documents\Dolphin.
 3. Run Documents\Dolphin\BootPRO.cmd to build the DPRO image.
 4. Clone [U-Fabrik](https://github.com/brunobuzzi/U-Fabrik) to Documents\Dolphin\U-Fabrik.
-5. Run Documents\Dolphin\U-Fabrik\BootUFabrik.cmd to build the UFabrik image.
+5. Run Documents\Dolphin\U-Fabrik\Boot_U-Fabrik.cmd to build the U-Fabrik image.
 6. Evaluate: UFabrikManagerShell show
 
 **By Default a Bank example is installed in the Virtual Machine** <br>
