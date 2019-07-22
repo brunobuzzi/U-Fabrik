@@ -10,6 +10,33 @@ OrbeonFormGenerator comment: ''!
 !OrbeonFormGenerator categoriesForClass!Unclassified! !
 !OrbeonFormGenerator methodsFor!
 
+appendXfBindingsTo: anIXMLDOMElement
+	| xfBindNode sectionBindNode |
+
+	anIXMLDOMElement addComment: 'Bindings'.
+
+	xfBindNode := anIXMLDOMElement addElement: 'xf:bind'.
+	xfBindNode setAttribute: 'id' value: 'fr-form-binds';
+		setAttribute: 'ref' value: 'instance(''fr-form-instance'')'.
+	
+	sectionBindNode := xfBindNode addElement: 'xf:bind'.
+	sectionBindNode setAttribute: 'id' value: (sectionName , '-bind');
+		setAttribute: 'name' value: sectionName;
+		setAttribute: 'ref' value: sectionName. 
+
+	umlClass basicVariables do: [:umlClassAttribute | | attributeBind |
+		attributeBind := sectionBindNode addElement: 'xf:bind'.
+		attributeBind  
+			setAttribute: 'id' value: (umlClassAttribute attributeName, '-bind');
+			setAttribute: 'name' value: umlClassAttribute attributeName;
+			setAttribute: 'ref' value: umlClassAttribute attributeName;
+			setAttribute: 'xxf:whitespace' value: 'trim'.
+	].
+
+	
+
+	!
+
 appendXfInstanceTo: anIXMLDOMElement
 	| xfInstanceNode sectionNode |
 
@@ -365,6 +392,7 @@ xmlnsNamespacesString
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
+!OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXhBody!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXhHead!api!main tag!public!xml generation! !
