@@ -50,6 +50,12 @@ generateOrbeonFormFor: anUMLClass
 
 	self openHtmlTagFor: anUMLClass.
 
+		self openBodyTagFor: anUMLClass.
+
+			self writeFrViewTagFor: anUMLClass.
+
+		self closeBodyTagFor: anUMLClass.
+
 	self closeHtmlTagFor: anUMLClass!
 
 generateXmlChunksFor: anUMLClass
@@ -77,7 +83,7 @@ isGemStoneForm: anObject
 
 openBodyTagFor: anUMLClass
 
-	formDefinitionStream nextPutAll: '<xh:body>'!
+	formDefinitionStream nextPutAll: '<xh:body>'.!
 
 openHtmlTagFor: anUMLClass
 
@@ -90,10 +96,7 @@ openHtmlTagFor: anUMLClass
 
 	self openXfModelTagFor: anUMLClass.
 
-	formDefinitionStream nextPutAll: '</xh:head>'.
-
-	self openBodyTagFor: anUMLClass.
-	self closeBodyTagFor: anUMLClass.!
+	formDefinitionStream nextPutAll: '</xh:head>'.!
 
 openXfModelTagFor: anUMLClass
 
@@ -134,6 +137,35 @@ writeFrFormInstanceFor: anUMLClass
 		xmlChunks do: [:orbeonFormXmlChunk | orbeonFormXmlChunk writeMainInstanceOn: formDefinitionStream].
 
 	formDefinitionStream nextPutAll: '</', sectionName,'>'.!
+
+writeFrSectionTagFor: anUMLClass
+	| id bind |
+
+	id := sectionName, '-section'.
+	bind := sectionName, '-bind'.
+
+	formDefinitionStream nextPutAll: '<fr:section id="', id ,'" bind="', bind ,'">'.
+		formDefinitionStream nextPutAll: '<xf:label ref="$form-resources/', sectionName ,'/label"/>'.
+		formDefinitionStream nextPutAll: '<fr:grid id="grid-1-grid">'.
+
+			xmlChunks keysAndValuesDo: [:index :orbeonFormFieldChunk | orbeonFormFieldChunk writeFrComponentOn: formDefinitionStream index: index printString].
+
+		formDefinitionStream nextPutAll: '</fr:grid>'.
+
+	formDefinitionStream nextPutAll: '</fr:section>'.!
+
+writeFrViewTagFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<fr:view>'.
+		formDefinitionStream nextPutAll: '<fr:body xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
+                     xmlns:oxf="http://www.orbeon.com/oxf/processors">'.
+
+			self writeFrSectionTagFor: anUMLClass.
+
+		formDefinitionStream nextPutAll: '</fr:body>'.
+
+	formDefinitionStream nextPutAll: '</fr:view>'.
+!
 
 writeGemStoneFormSection
 
@@ -258,6 +290,8 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #writeAttachmentFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeFrFormInstanceFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeFrSectionTagFor:!public!write fixed! !
+!OrbeonFormGenerator categoriesFor: #writeFrViewTagFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeGemStoneFormSection!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeMetadataFor:!public!write fixed! !
 !OrbeonFormGenerator categoriesFor: #writeResourcesFor:!public!write fixed! !

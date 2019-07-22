@@ -47,6 +47,26 @@ writeBindingOn: aWriteStream
 
 	aWriteStream nextPutAll: '<xf:bind id="', id, '" name="', umlField attributeName, '" ref="', umlField attributeName, '" xxf:whitespace="trim"/>'!
 
+writeFrComponentOn: aWriteStream index: stringIndex
+	| id bind |
+
+	id := umlField attributeName, '-control'.
+	bind := umlField  attributeName, '-bind'.
+
+	aWriteStream nextPutAll: '<fr:c y="',stringIndex ,'" x="1" w="12">'.
+
+		aWriteStream nextPutAll: '<xf:input id="', id ,'" bind="', bind,'" class="fr-summary fr-search">'.
+
+			aWriteStream nextPutAll: '<xf:label ref="$form-resources/', umlField  attributeName ,'/label"/>'.
+			aWriteStream nextPutAll: '<xf:label ref="$form-resources/', umlField  attributeName ,'/hint"/>'.
+			aWriteStream nextPutAll: '<xf:alert ref="$fr-resources/detail/labels/alert"/>'.
+
+		aWriteStream nextPutAll: '</xf:input>'.
+
+
+	aWriteStream nextPutAll: '</fr:c>'.
+!
+
 writeMainInstanceOn: aWriteStream
 
 	aWriteStream nextPutAll: '<', umlField attributeName, '/>'!
@@ -68,6 +88,7 @@ writeResourcesOn: aWriteStream
 !OrbeonFormFieldChunk categoriesFor: #view!accessing!private! !
 !OrbeonFormFieldChunk categoriesFor: #view:!accessing!private! !
 !OrbeonFormFieldChunk categoriesFor: #writeBindingOn:!public! !
+!OrbeonFormFieldChunk categoriesFor: #writeFrComponentOn:index:!public! !
 !OrbeonFormFieldChunk categoriesFor: #writeMainInstanceOn:!public! !
 !OrbeonFormFieldChunk categoriesFor: #writeResourcesOn:!public! !
 
