@@ -137,14 +137,22 @@ appendXhBody
 	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
 
 	isNewRow := true.
-	umlClass basicVariables keysAndValuesDo: [:index :umlClassAttribute |  | frNode x |
+	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode x |
 		frNode := frGridNode addElement: 'fr:c'.
 		frNode
 			setAttribute: 'y' value: index printString;
 			setAttribute: 'w' value: (self maxWidth // fieldsPerColumn) printString.
-		x := isNewRow ifTrue: [1] ifFalse: [x + (self maxWidth // fieldsPerColumn)].
-		frNode
-			setAttribute: 'x' value: x printString.
+		x := (isNewRow ifTrue: [1] ifFalse: [x + (self maxWidth // fieldsPerColumn)]) printString.
+		frNode setAttribute: 'x' value: x.
+		componentNode := frNode addElement: 'xf:input'.
+		componentNode
+			setAttribute: 'id' value: umlClassAttribute attributeName;
+			setAttribute: 'bind' value: (umlClassAttribute attributeName, '-bind');
+			setAttribute: 'class' value: (umlClassAttribute attributeName, 'fr-summary fr-search').
+		(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
+		(componentNode addElement: 'xf:hint') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/hint'.
+		(componentNode addElement: 'xf:alert') setAttribute: 'ref' value: '$fr-resources/detail/labels/alert'.
+
 		isNewRow := (index rem: fieldsPerColumn) = 0.
 	].!
 
@@ -160,7 +168,6 @@ appendXhHead
 	xfModel setAttribute: 'id' value: 'fr-form-model';
 		setAttribute: 'xxf:expose-xpath-types' value: 'true';
 		setAttribute: 'xxf:analysis.calculate' value: 'true'.
-	xfModel addComment: 'Main instance'.
 
 	self appendXfInstanceTo: xfModel.
 
@@ -492,7 +499,11 @@ xmlnsNamespacesString
          xmlns:saxon="http://saxon.sf.net/"
          xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-         xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
+         xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'!
+
+xmlString
+
+	^xmlDocument xml! !
 !OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendMetadataTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendResourcesTo:!api!main tag!public!xml generation! !
@@ -543,6 +554,7 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #xmlDocument!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlnsNamespacesString!public! !
+!OrbeonFormGenerator categoriesFor: #xmlString!api!main tag!public!xml generation! !
 
 !OrbeonFormGenerator class methodsFor!
 
