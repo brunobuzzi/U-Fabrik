@@ -36,6 +36,10 @@ formName
 formName: anObject
 	formName := anObject!
 
+formTitleFor: anUMLClass
+
+	^'Form for UML Class ' , anUMLClass name!
+
 generateOrbeonFormFor: anUMLClass
 
 	self generateXmlChunksFor: anUMLClass.
@@ -76,7 +80,7 @@ openHtmlTagFor: anUMLClass
 	formDefinitionStream 
 		nextPutAll: '<xh:head>';
 		nextPutAll: '<xh:meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
-		nextPutAll: '<xh:title> Form for UML Class ' , anUMLClass name , '</xh:title>'.
+		nextPutAll: '<xh:title>', (self formTitleFor: anUMLClass),'</xh:title>'.
 
 	self openXfModelTagFor: anUMLClass.
 
@@ -99,7 +103,7 @@ openXfModelTagFor: anUMLClass
 
 	self writeResourcesFor: anUMLClass.
 
-	self writeServicesFor: anUMLClass.
+	isGemStoneForm ifTrue: [self writeServicesFor: anUMLClass].
 
 	formDefinitionStream nextPutAll: '</xf:model>'.!
 
@@ -109,7 +113,13 @@ sectionName
 sectionName: anObject
 	sectionName := anObject!
 
-writeAttachmentFor: anUMLClass!
+writeAttachmentFor: anUMLClass
+
+	formDefinitionStream nextPutAll: 
+'            <!!-- Attachments -->
+            <xf:instance id="fr-form-attachments" xxf:exclude-result-prefixes="#all">
+                <attachments/>
+            </xf:instance>'!
 
 writeFrFormInstanceFor: anUMLClass
 
@@ -135,9 +145,36 @@ writeGemStoneFormSection
 		<processId/>
 </internal-section-user>'.!
 
-writeMetadataFor: anUMLClass!
+writeMetadataFor: anUMLClass
 
-writeResourcesFor: anUMLClass!
+	formDefinitionStream 
+		nextPutAll: '<!!-- Metadata -->';
+		nextPutAll: 'xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">';
+		nextPutAll: '<metadata>';
+		nextPutAll: '<application-name>', applicatiohName ,'</application-name>';
+		nextPutAll: '<form-name>', formName ,'</form-name>';
+		nextPutAll: '<title xml:lang="en">U-Fabrik Test Form</title>';
+		nextPutAll: '<description xml:lang="en"/>';
+		nextPutAll: '<created-with-version>2018.2.3.201905172253 PE</created-with-version>';
+		nextPutAll: '</metadata>';
+		nextPutAll: '</xf:instance>'.
+!
+
+writeResourcesFor: anUMLClass
+
+	formDefinitionStream nextPutAll: '<!!-- All form resources -->'.
+	formDefinitionStream nextPutAll: '<xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">'.
+		formDefinitionStream nextPutAll: '<resources>'.
+			formDefinitionStream nextPutAll: '<resource xml:lang="en">'.
+				formDefinitionStream nextPutAll: '<',sectionName,'>'.
+					formDefinitionStream nextPutAll: '<label>',sectionName capitalized ,'</label>'.
+				formDefinitionStream nextPutAll: '</',sectionName,'>'.
+
+				xmlChunks do: [:orbeonFormFieldChunk | orbeonFormFieldChunk writeResourcesOn: formDefinitionStream].
+
+			formDefinitionStream nextPutAll: '</resource>'.
+		formDefinitionStream nextPutAll: '</resources>'.
+	formDefinitionStream nextPutAll: '</xf:instance>'.!
 
 writeServicesFor: anUMLClass!
 
@@ -201,6 +238,7 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #formTitleFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #generateOrbeonFormFor:!api!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #generateXmlChunksFor:!public!xml chunks! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
