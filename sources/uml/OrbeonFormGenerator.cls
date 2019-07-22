@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode'
+	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -42,6 +42,32 @@ appendMetadataTo: anIXMLDOMElement
 	(metadataNode addElement: 'created-with-version') text: '2018.2.3.201905172253 PE'.
 
 !
+
+appendResourcesTo: anIXMLDOMElement
+	| xfInstanceNode resourceNode |
+
+	anIXMLDOMElement addComment: 'All form resources'.
+
+	xfInstanceNode := anIXMLDOMElement addElement: 'xf:instance'.
+
+	xfInstanceNode setAttribute: 'id' value: 'fr-form-resources';
+		setAttribute: 'xxf:readonly' value: 'true';
+		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
+	
+	resourceNode := (xfInstanceNode addElement: 'resources') addElement: 'resource'.
+	resourceNode setAttribute: 'xml:lang' value: 'en'.
+
+	((resourceNode addElement: sectionName) addElement: 'label') text: sectionName capitalized.
+
+	umlClass basicVariables do: [:umlClassAttribute |  | attributeNode |
+		attributeNode := resourceNode addElement: umlClassAttribute attributeName.
+		(attributeNode addElement: 'label') text: umlClassAttribute attributeName capitalized.
+		attributeNode addElement: 'hint'.
+	].
+
+	
+
+	!
 
 appendXfBindingsTo: anIXMLDOMElement
 	| xfBindNode sectionBindNode |
@@ -89,7 +115,38 @@ appendXfInstanceTo: anIXMLDOMElement
 
 	!
 
-appendXhBody!
+appendXhBody
+	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode isNewRow |
+
+	xhBodyNode := xhHtmlNode addElement: 'xh:body'.
+
+	frViewNode := xhBodyNode addElement: 'fr:view'.
+
+	frBodyNode := frViewNode addElement: 'fr:body'.
+
+	frBodyNode 
+		setAttribute: 'xmlns:xbl' value: 'http://www.w3.org/ns/xbl';
+		setAttribute: 'xmlns:p' value: 'http://www.orbeon.com/oxf/pipeline';
+		setAttribute: 'xmlns:oxf' value: 'http://www.orbeon.com/oxf/processors'.
+
+	frSectionNode := frBodyNode addElement: 'fr:section'.
+
+	(frSectionNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/', sectionName,'/label'.
+
+	frGridNode := frSectionNode addElement: 'fr:grid'.
+	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
+
+	isNewRow := true.
+	umlClass basicVariables keysAndValuesDo: [:index :umlClassAttribute |  | frNode x |
+		frNode := frGridNode addElement: 'fr:c'.
+		frNode
+			setAttribute: 'y' value: index printString;
+			setAttribute: 'w' value: (self maxWidth // fieldsPerColumn) printString.
+		x := isNewRow ifTrue: [1] ifFalse: [x + (self maxWidth // fieldsPerColumn)].
+		frNode
+			setAttribute: 'x' value: x printString.
+		isNewRow := (index rem: fieldsPerColumn) = 0.
+	].!
 
 appendXhHead
 	| xhHeadNode xfModel |
@@ -154,6 +211,12 @@ contents
 
 	^formDefinitionStream contents!
 
+fieldsPerColumn
+	^fieldsPerColumn!
+
+fieldsPerColumn: anObject
+	fieldsPerColumn := anObject!
+
 formDefinitionStream
 	^formDefinitionStream!
 
@@ -217,13 +280,18 @@ initialize
 
 	xmlChunks := OrderedCollection new.
 
-	sectionName := 'form-variables-section'.!
+	sectionName := 'form-variables-section'.
+	fieldsPerColumn := 1.!
 
 isGemStoneForm
 	^isGemStoneForm!
 
 isGemStoneForm: anObject
 	isGemStoneForm := anObject!
+
+maxWidth
+
+	^12!
 
 openBodyTagFor: anUMLClass
 
@@ -427,6 +495,7 @@ xmlnsNamespacesString
          xmlns:fb="http://orbeon.org/oxf/xml/form-builder"'! !
 !OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendMetadataTo:!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendResourcesTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!api!main tag!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #appendXhBody!api!main tag!public!xml generation! !
@@ -437,6 +506,8 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #closeBodyTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #closeHtmlTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #contents!main tag!public! !
+!OrbeonFormGenerator categoriesFor: #fieldsPerColumn!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #fieldsPerColumn:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName!accessing!private! !
@@ -449,6 +520,7 @@ xmlnsNamespacesString
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #openBodyTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #openHtmlTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #openXfModelTagFor:!main tag!public! !

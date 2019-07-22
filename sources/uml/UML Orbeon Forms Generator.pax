@@ -29,7 +29,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode'
+	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
