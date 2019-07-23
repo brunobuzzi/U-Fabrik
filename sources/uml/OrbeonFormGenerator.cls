@@ -57,13 +57,15 @@ appendResourcesTo: anIXMLDOMElement
 	resourceNode := (xfInstanceNode addElement: 'resources') addElement: 'resource'.
 	resourceNode setAttribute: 'xml:lang' value: 'en'.
 
-	((resourceNode addElement: sectionName) addElement: 'label') text: sectionName capitalized.
-
-	self umlClass basicVariables do: [:umlClassAttribute |  | attributeNode |
-		attributeNode := resourceNode addElement: umlClassAttribute attributeName.
-		(attributeNode addElement: 'label') text: umlClassAttribute attributeName capitalized.
-		attributeNode addElement: 'hint'.
+	self sectionFields keysAndValuesDo: [:section :attributes | 
+		((resourceNode addElement: section) addElement: 'label') text: section capitalized.
+		attributes do: [:umlClassAttribute |  | attributeNode |
+			attributeNode := resourceNode addElement: umlClassAttribute attributeName.
+			(attributeNode addElement: 'label') text: umlClassAttribute attributeName capitalized.
+			attributeNode addElement: 'hint'.
+		].
 	].
+
 
 	
 
@@ -77,27 +79,29 @@ appendXfBindingsTo: anIXMLDOMElement
 	xfBindNode := anIXMLDOMElement addElement: 'xf:bind'.
 	xfBindNode setAttribute: 'id' value: 'fr-form-binds';
 		setAttribute: 'ref' value: 'instance(''fr-form-instance'')'.
-	
-	sectionBindNode := xfBindNode addElement: 'xf:bind'.
-	sectionBindNode setAttribute: 'id' value: (sectionName , '-bind');
-		setAttribute: 'name' value: sectionName;
-		setAttribute: 'ref' value: sectionName. 
 
-	self umlClass basicVariables do: [:umlClassAttribute | | attributeBind |
-		attributeBind := sectionBindNode addElement: 'xf:bind'.
-		attributeBind  
-			setAttribute: 'id' value: (umlClassAttribute attributeName, '-bind');
-			setAttribute: 'name' value: umlClassAttribute attributeName;
-			setAttribute: 'ref' value: umlClassAttribute attributeName;
-			setAttribute: 'xxf:whitespace' value: 'trim'.
+	self sectionFields keysAndValuesDo: [:section :attributes | 
+		sectionBindNode := xfBindNode addElement: 'xf:bind'.
+		sectionBindNode setAttribute: 'id' value: (section , '-bind');
+			setAttribute: 'name' value: section;
+			setAttribute: 'ref' value: section. 
+		attributes do: [:umlClassAttribute | | attributeBind |
+			attributeBind := sectionBindNode addElement: 'xf:bind'.
+			attributeBind  
+				setAttribute: 'id' value: (umlClassAttribute attributeName, '-bind');
+				setAttribute: 'name' value: umlClassAttribute attributeName;
+				setAttribute: 'ref' value: umlClassAttribute attributeName;
+				setAttribute: 'xxf:whitespace' value: 'trim'.
+		].
 	].
+
 
 	
 
 	!
 
 appendXfInstanceTo: anIXMLDOMElement
-	| xfInstanceNode sectionNode |
+	| xfInstanceNode formNode |
 
 	anIXMLDOMElement addComment: 'Main instance'.
 
@@ -106,10 +110,15 @@ appendXfInstanceTo: anIXMLDOMElement
 	xfInstanceNode setAttribute: 'id' value: 'fr-form-instance';
 		setAttribute: 'xxf:exclude-result-prefixes' value: '#all';
 		setAttribute: 'xxf:index' value: 'id'.
-	
-	sectionNode := (xfInstanceNode addElement: 'form') addElement: sectionName.
 
-	self umlClass basicVariables do: [:umlClassAttribute | sectionNode addElement: umlClassAttribute attributeName].
+	formNode := xfInstanceNode addElement: 'form'.
+
+	self sectionFields keysAndValuesDo: [:section :attributes |  | sectionNode |
+
+		sectionNode := formNode addElement: section.
+
+		attributes do: [:umlClassAttribute | sectionNode addElement: umlClassAttribute attributeName].
+	].
 
 	
 
@@ -127,7 +136,7 @@ appendXfModelTo: anIXMLDOMElement
 	^xfModel!
 
 appendXhBody
-	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode x y |
+	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode |
 
 	xhBodyNode := xhHtmlNode addElement: 'xh:body'.
 
@@ -140,36 +149,41 @@ appendXhBody
 		setAttribute: 'xmlns:p' value: 'http://www.orbeon.com/oxf/pipeline';
 		setAttribute: 'xmlns:oxf' value: 'http://www.orbeon.com/oxf/processors'.
 
-	frSectionNode := frBodyNode addElement: 'fr:section'.
+	self sectionFields keysAndValuesDo: [:section :attributes | | x y |
+ 
+		frSectionNode := frBodyNode addElement: 'fr:section'.
+		frSectionNode setAttribute: 'id' value: section, '-section';
+			setAttribute: 'bind' value: section ,'-bind'.
 
-	(frSectionNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/', sectionName,'/label'.
+		(frSectionNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/', section,'/label'.
 
-	frGridNode := frSectionNode addElement: 'fr:grid'.
-	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
+		frGridNode := frSectionNode addElement: 'fr:grid'.
+		frGridNode setAttribute: 'id' value: section, '-1-grid'.
 
-	self umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
-		y := (index <= self fieldsPerColumn) 
-			ifTrue: [1] 
-			ifFalse: [(((index rem: self fieldsPerColumn) = 1) or: [self fieldsPerColumn = 1])
-					ifTrue: [y+1] 
-					ifFalse: [y]].
-		x := ((self fieldsPerColumn = 1) or: [(index rem: self fieldsPerColumn) = 1])
-			ifTrue: [1]
-			ifFalse: [x+(self maxWidth // self fieldsPerColumn)].
+		attributes keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
+			y := (index <= self fieldsPerColumn) 
+				ifTrue: [1] 
+				ifFalse: [(((index rem: self fieldsPerColumn) = 1) or: [self fieldsPerColumn = 1])
+						ifTrue: [y+1] 
+						ifFalse: [y]].
+			x := ((self fieldsPerColumn = 1) or: [(index rem: self fieldsPerColumn) = 1])
+				ifTrue: [1]
+				ifFalse: [x+(self maxWidth // self fieldsPerColumn)].
 
-		frNode := frGridNode addElement: 'fr:c'.
-		frNode
-			setAttribute: 'y' value: y printString;
-			setAttribute: 'w' value: (self maxWidth // self fieldsPerColumn) printString;
-			setAttribute: 'x' value: x printString.
-		componentNode := frNode addElement: 'xf:input'.
-		componentNode
-			setAttribute: 'id' value: umlClassAttribute attributeName;
-			setAttribute: 'bind' value: (umlClassAttribute attributeName, '-bind');
-			setAttribute: 'class' value: (umlClassAttribute attributeName, 'fr-summary fr-search').
-		(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
-		(componentNode addElement: 'xf:hint') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/hint'.
-		(componentNode addElement: 'xf:alert') setAttribute: 'ref' value: '$fr-resources/detail/labels/alert'.
+			frNode := frGridNode addElement: 'fr:c'.
+			frNode
+				setAttribute: 'y' value: y printString;
+				setAttribute: 'w' value: (self maxWidth // self fieldsPerColumn) printString;
+				setAttribute: 'x' value: x printString.
+			componentNode := frNode addElement: 'xf:input'.
+			componentNode
+				setAttribute: 'id' value: umlClassAttribute attributeName;
+				setAttribute: 'bind' value: (umlClassAttribute attributeName, '-bind');
+				setAttribute: 'class' value: (umlClassAttribute attributeName, 'fr-summary fr-search').
+			(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
+			(componentNode addElement: 'xf:hint') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/hint'.
+			(componentNode addElement: 'xf:alert') setAttribute: 'ref' value: '$fr-resources/detail/labels/alert'.
+		].
 	].!
 
 appendXhHead
@@ -270,8 +284,7 @@ initialize
 
 	super initialize.
 
-	configuration := OrbeonFormGeneratorConfiguration new.
-	sectionName := 'form-variables-section'.!
+	configuration := OrbeonFormGeneratorConfiguration new.!
 
 isGemStoneForm
 
@@ -284,6 +297,10 @@ isGemStoneForm: aBoolean
 maxWidth
 
 	^12!
+
+sectionFields
+
+	^configuration sectionFields!
 
 sectionName
 	^sectionName!
@@ -352,6 +369,7 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #sectionFields!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #umlClass!configuration!public! !
