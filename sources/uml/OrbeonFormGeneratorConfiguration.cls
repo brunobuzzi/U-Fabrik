@@ -10,11 +10,11 @@ OrbeonFormGeneratorConfiguration comment: ''!
 !OrbeonFormGeneratorConfiguration categoriesForClass!Unclassified! !
 !OrbeonFormGeneratorConfiguration methodsFor!
 
+applicationName
+	^applicationName!
+
 applicationName: anObject
 	applicationName := anObject!
-
-applicationName1
-	^applicationName!
 
 fieldsPerColumn
 	^fieldsPerColumn!
@@ -32,8 +32,8 @@ initialize
 
 	super initialize.
 
-	applicationName := ''.
-	formName := ''.
+	applicationName := 'u-fabrik'.
+	formName := 'test'.
 	fieldsPerColumn := 1. 
 	isGemStoneForm := false.
 	sectionFieds := Dictionary new.!
@@ -55,8 +55,8 @@ umlClass
 
 umlClass: anObject
 	umlClass := anObject! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName:!accessing!private! !
-!OrbeonFormGeneratorConfiguration categoriesFor: #applicationName1!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #formName!accessing!private! !

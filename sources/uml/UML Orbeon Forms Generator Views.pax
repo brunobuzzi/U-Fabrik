@@ -43,7 +43,8 @@ package setPrerequisites: #(
 	'UML Basic Views'
 	'UML Live Engine'
 	'UML Live Engine Views'
-	'UML Orbeon Forms Generator').
+	'UML Orbeon Forms Generator'
+	'..\..\Core\Object Arts\Samples\MVP\XmlPad\XmlPad').
 
 package!
 
@@ -74,7 +75,9 @@ UMLComposite subclass: #UMLOrbeonFormDefinitionConfigurationComposite
 
 createXmlOrbeonFormDefinition
 
-	self halt.! !
+	self selectedClass ifNil: [^self].
+
+	^UMLOrbeonFormDefinitionConfigurationShell showOn: (OrbeonFormGenerator newOn:  self selectedClass)! !
 !UMLClassBrowserComposite categoriesFor: #createXmlOrbeonFormDefinition!public! !
 
 "End of package definition"!

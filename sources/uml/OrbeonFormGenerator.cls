@@ -216,6 +216,10 @@ applicationName
 
 	^configuration applicationName!
 
+applicationName: aString
+
+	^configuration applicationName: aString!
+
 configuration
 	^configuration!
 
@@ -226,7 +230,15 @@ fieldsPerColumn
 
 	^configuration fieldsPerColumn!
 
+fieldsPerColumn: aNumber
+
+	^configuration fieldsPerColumn: aNumber!
+
 formName
+
+	^configuration formName!
+
+formName: aString
 
 	^configuration formName!
 
@@ -260,6 +272,10 @@ initialize
 isGemStoneForm
 
 	^configuration isGemStoneForm!
+
+isGemStoneForm: aBoolean
+
+	^configuration isGemStoneForm: aBoolean!
 
 maxWidth
 
@@ -317,15 +333,19 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #appendXhHead!public!tag-head-main!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #applicationName!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #applicationName:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #configuration!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #configuration:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #fieldsPerColumn:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #formName!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #formName:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #formTitle!public! !
 !OrbeonFormGenerator categoriesFor: #formTitleFor:!public! !
 !OrbeonFormGenerator categoriesFor: #generateXMLDocument!api!public! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #isGemStoneForm:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
