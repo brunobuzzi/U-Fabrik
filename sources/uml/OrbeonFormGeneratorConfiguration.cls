@@ -87,7 +87,10 @@ umlClass: anUMLClass
 
 	umlClass := anUMLClass.
 
-	anUMLClass basicVariables do: [:anUMLClassAttribute | self setSection: anUMLClassAttribute sectionName for: anUMLClassAttribute ]! !
+	anUMLClass basicVariables do: [:anUMLClassAttribute | | sectionName |
+
+		sectionName := anUMLClassAttribute sectionName ifNil: ['default'] ifNotNil: [:value | value].
+		self setSection: sectionName for: anUMLClassAttribute ]! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #add:to:removeFrom:!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName:!accessing!private! !

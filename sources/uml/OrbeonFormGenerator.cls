@@ -177,7 +177,7 @@ appendXhBody
 				setAttribute: 'x' value: x printString.
 			componentNode := frNode addElement: 'xf:input'.
 			componentNode
-				setAttribute: 'id' value: umlClassAttribute attributeName;
+				setAttribute: 'id' value: (umlClassAttribute attributeName, '-control');
 				setAttribute: 'bind' value: (umlClassAttribute attributeName, '-bind');
 				setAttribute: 'class' value: (umlClassAttribute attributeName, 'fr-summary fr-search').
 			(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
