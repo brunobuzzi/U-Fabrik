@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'umlClass isGemStoneForm applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
+	instanceVariableNames: 'configuration sectionName xmlDocument xhHtmlNode xhNode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -31,8 +31,8 @@ appendMetadataTo: anIXMLDOMElement
 		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
 
 	metadataNode := xfInstanceNode addElement: 'metadata'.
-	(metadataNode addElement: 'application-name') text: applicationName.
-	(metadataNode addElement: 'form-name') text: formName.
+	(metadataNode addElement: 'application-name') text: self applicationName.
+	(metadataNode addElement: 'form-name') text: self formName.
 	((metadataNode addElement: 'title') 
 		text: self formTitle; 
 		setAttribute: 'xml:lang' value: 'en').
@@ -59,7 +59,7 @@ appendResourcesTo: anIXMLDOMElement
 
 	((resourceNode addElement: sectionName) addElement: 'label') text: sectionName capitalized.
 
-	umlClass basicVariables do: [:umlClassAttribute |  | attributeNode |
+	self umlClass basicVariables do: [:umlClassAttribute |  | attributeNode |
 		attributeNode := resourceNode addElement: umlClassAttribute attributeName.
 		(attributeNode addElement: 'label') text: umlClassAttribute attributeName capitalized.
 		attributeNode addElement: 'hint'.
@@ -83,7 +83,7 @@ appendXfBindingsTo: anIXMLDOMElement
 		setAttribute: 'name' value: sectionName;
 		setAttribute: 'ref' value: sectionName. 
 
-	umlClass basicVariables do: [:umlClassAttribute | | attributeBind |
+	self umlClass basicVariables do: [:umlClassAttribute | | attributeBind |
 		attributeBind := sectionBindNode addElement: 'xf:bind'.
 		attributeBind  
 			setAttribute: 'id' value: (umlClassAttribute attributeName, '-bind');
@@ -109,7 +109,7 @@ appendXfInstanceTo: anIXMLDOMElement
 	
 	sectionNode := (xfInstanceNode addElement: 'form') addElement: sectionName.
 
-	umlClass basicVariables do: [:umlClassAttribute | sectionNode addElement: umlClassAttribute attributeName].
+	self umlClass basicVariables do: [:umlClassAttribute | sectionNode addElement: umlClassAttribute attributeName].
 
 	
 
@@ -147,20 +147,20 @@ appendXhBody
 	frGridNode := frSectionNode addElement: 'fr:grid'.
 	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
 
-	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
-		y := (index <= fieldsPerColumn) 
+	self umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
+		y := (index <= self fieldsPerColumn) 
 			ifTrue: [1] 
-			ifFalse: [(((index rem: fieldsPerColumn) = 1) or: [fieldsPerColumn = 1])
+			ifFalse: [(((index rem: self fieldsPerColumn) = 1) or: [self fieldsPerColumn = 1])
 					ifTrue: [y+1] 
 					ifFalse: [y]].
-		x := ((fieldsPerColumn = 1) or: [(index rem: fieldsPerColumn) = 1])
+		x := ((self fieldsPerColumn = 1) or: [(index rem: self fieldsPerColumn) = 1])
 			ifTrue: [1]
-			ifFalse: [x+(self maxWidth // fieldsPerColumn)].
+			ifFalse: [x+(self maxWidth // self fieldsPerColumn)].
 
 		frNode := frGridNode addElement: 'fr:c'.
 		frNode
 			setAttribute: 'y' value: y printString;
-			setAttribute: 'w' value: (self maxWidth // fieldsPerColumn) printString;
+			setAttribute: 'w' value: (self maxWidth // self fieldsPerColumn) printString;
 			setAttribute: 'x' value: x printString.
 		componentNode := frNode addElement: 'xf:input'.
 		componentNode
@@ -213,26 +213,26 @@ appendXmlnsNamespaces
 !
 
 applicationName
-	^applicationName!
 
-applicationName: anObject
-	applicationName := anObject!
+	^configuration applicationName!
+
+configuration
+	^configuration!
+
+configuration: anObject
+	configuration := anObject!
 
 fieldsPerColumn
-	^fieldsPerColumn!
 
-fieldsPerColumn: anObject
-	fieldsPerColumn := anObject!
+	^configuration fieldsPerColumn!
 
 formName
-	^formName!
 
-formName: anObject
-	formName := anObject!
+	^configuration formName!
 
 formTitle
 
-	^'Form for UML Class ' , umlClass name!
+	^'Form for UML Class ' , self umlClass name!
 
 formTitleFor: anUMLClass
 
@@ -254,15 +254,12 @@ initialize
 
 	super initialize.
 
-	isGemStoneForm := false.
-	sectionName := 'form-variables-section'.
-	fieldsPerColumn := 1.!
+	configuration := OrbeonFormGeneratorConfiguration new.
+	sectionName := 'form-variables-section'.!
 
 isGemStoneForm
-	^isGemStoneForm!
 
-isGemStoneForm: anObject
-	isGemStoneForm := anObject!
+	^configuration isGemStoneForm!
 
 maxWidth
 
@@ -275,10 +272,12 @@ sectionName: anObject
 	sectionName := anObject!
 
 umlClass
-	^umlClass!
 
-umlClass: anObject
-	umlClass := anObject!
+	^configuration umlClass!
+
+umlClass: anUMLClass
+
+	^configuration umlClass: anUMLClass!
 
 xmlDocument
 	^xmlDocument!
@@ -317,23 +316,21 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #appendXhBody!public!tag-body! !
 !OrbeonFormGenerator categoriesFor: #appendXhHead!public!tag-head-main!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!public!tag-head-xfModel! !
-!OrbeonFormGenerator categoriesFor: #applicationName!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #applicationName:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #fieldsPerColumn!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #fieldsPerColumn:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #formName!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #formName:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #applicationName!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #configuration!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #configuration:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #fieldsPerColumn!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #formName!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #formTitle!public! !
 !OrbeonFormGenerator categoriesFor: #formTitleFor:!public! !
 !OrbeonFormGenerator categoriesFor: #generateXMLDocument!api!public! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
-!OrbeonFormGenerator categoriesFor: #isGemStoneForm!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #isGemStoneForm:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #isGemStoneForm!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #umlClass!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #umlClass:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #umlClass!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #umlClass:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlnsNamespacesString!public! !

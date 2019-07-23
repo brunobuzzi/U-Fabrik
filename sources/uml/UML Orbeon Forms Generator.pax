@@ -7,6 +7,7 @@ package paxVersion: 1;
 package classNames
 	add: #OrbeonFormDefinitionTemplates;
 	add: #OrbeonFormGenerator;
+	add: #OrbeonFormGeneratorConfiguration;
 	add: #OrbeonFormInstanceTemplates;
 	add: #OrbeonFormTemplates;
 	yourself.
@@ -31,7 +32,12 @@ package!
 "Class Definitions"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'umlClass isGemStoneForm applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
+	instanceVariableNames: 'configuration sectionName xmlDocument xhHtmlNode xhNode'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #OrbeonFormGeneratorConfiguration
+	instanceVariableNames: 'umlClass applicationName formName fieldsPerColumn isGemStoneForm sectionFieds'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
