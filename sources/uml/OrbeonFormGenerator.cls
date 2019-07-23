@@ -220,6 +220,10 @@ applicationName: aString
 
 	^configuration applicationName: aString!
 
+basicVariables
+
+	^configuration basicVariables!
+
 configuration
 	^configuration!
 
@@ -334,6 +338,7 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #applicationName!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #applicationName:!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #basicVariables!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #configuration!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #configuration:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn!configuration!public! !

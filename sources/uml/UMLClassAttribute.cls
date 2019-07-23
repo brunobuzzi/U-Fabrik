@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLClassAttribute
-	instanceVariableNames: 'name type umlClass originalType description alias isEnabled isLargeString'
+	instanceVariableNames: 'name type umlClass originalType description alias isEnabled isLargeString sectionName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -77,7 +77,8 @@ initialize
 	originalType := ''.
 	description := ''.
 	isEnabled := true.
-	isLargeString := false.!
+	isLargeString := false.
+	sectionName := ''.!
 
 isAssociationClass
 	^false!
@@ -155,6 +156,12 @@ relationIsOneToOne
 
 	^false!
 
+sectionName
+	^sectionName!
+
+sectionName: anObject
+	sectionName := anObject!
+
 setTypeAsUMLType
 
 	^type := self class mapUMLOriginalType: originalType
@@ -223,6 +230,8 @@ virtualMachine
 !UMLClassAttribute categoriesFor: #relationIsManyToMany!public! !
 !UMLClassAttribute categoriesFor: #relationIsOneToManyOrManyToOne!public! !
 !UMLClassAttribute categoriesFor: #relationIsOneToOne!public! !
+!UMLClassAttribute categoriesFor: #sectionName!accessing!private! !
+!UMLClassAttribute categoriesFor: #sectionName:!accessing!private! !
 !UMLClassAttribute categoriesFor: #setTypeAsUMLType!importing XML!public! !
 !UMLClassAttribute categoriesFor: #type!accessing!private! !
 !UMLClassAttribute categoriesFor: #type:!accessing!private! !

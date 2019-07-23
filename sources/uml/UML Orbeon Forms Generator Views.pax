@@ -12,6 +12,7 @@ package classNames
 
 package methodNames
 	add: #UMLClassBrowserComposite -> #createXmlOrbeonFormDefinition;
+	add: 'ListPresenter class' -> #resource_UMLAttributes_for_Orbeon_view;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -34,6 +35,7 @@ package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
 	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
 	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter'
 	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
 	'..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
@@ -61,7 +63,7 @@ UMLComposite subclass: #UMLCustomizedInspectorComposite
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLComposite subclass: #UMLOrbeonFormDefinitionConfigurationComposite
-	instanceVariableNames: 'isGemStoneFormPresenter applicationNamePresenter formNamePresenter fieldsPerColumnPresenter'
+	instanceVariableNames: 'isGemStoneFormPresenter applicationNamePresenter formNamePresenter fieldsPerColumnPresenter attributesPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -70,6 +72,19 @@ UMLComposite subclass: #UMLOrbeonFormDefinitionConfigurationComposite
 
 
 "Loose Methods"!
+
+!ListPresenter class methodsFor!
+
+resource_UMLAttributes_for_Orbeon_view
+	"Answer the literal data from which the 'UMLAttributes for Orbeon view' resource can be reconstituted.
+	DO NOT EDIT OR RECATEGORIZE THIS METHOD.
+
+	If you wish to modify this resource evaluate:
+	ViewComposer openOn: (ResourceIdentifier class: self selector: #resource_UMLAttributes_for_Orbeon_view)
+	"
+
+	^#(#'!!STL' 4 788558 10 ##(Smalltalk.STBViewProxy) ##(Smalltalk.ListView) 34 30 nil nil 34 2 8 1409355853 1025 416 590662 2 ##(Smalltalk.ListModel) 138 144 8 #() nil 1310726 ##(Smalltalk.IdentitySearchPolicy) 786694 ##(Smalltalk.ColorDefault) 8 4278190080 nil 5 265030 4 ##(Smalltalk.Menu) nil true 34 1 984134 2 ##(Smalltalk.CommandMenuItem) 1 1180998 4 ##(Smalltalk.CommandDescription) #setSection 8 'Set Section' 1 1 nil nil nil 8 '' nil 134217729 nil nil nil nil nil nil nil 416 nil 8 1918035311 459270 ##(Smalltalk.Message) #displayString 8 #() ##(Smalltalk.IconicListAbstract) 1049926 1 ##(Smalltalk.IconImageManager) nil nil nil nil nil nil 138 144 34 3 920646 5 ##(Smalltalk.ListViewColumn) 8 'Attribute Name' 401 #left 786 #getName 8 #() 787814 3 ##(Smalltalk.BlockClosure) 0 nil 1180966 ##(Smalltalk.CompiledExpression) 2 1 976 8 'doIt' 8 '[:a :b | a getName <= b getName]' 8 #[30 105 226 0 226 32 130 106] #getName 992 7 513 nil nil nil 416 nil 1 nil nil 898 8 'Type' 301 #left 786 #typeName 8 #() 978 0 nil 1010 2 1 976 8 'doIt' 8 '[:a :b | a typeName <= b typeName]' 8 #[30 105 226 0 226 32 130 106] #typeName 1152 7 513 nil nil nil 416 nil 1 nil nil 898 8 'Section' 401 #left 786 #sectionName 8 #() 978 0 nil 1010 2 1 ##(Smalltalk.UndefinedObject) 8 'doIt' 8 '[:a :b | a sectionName <= b sectionName]' 8 #[30 105 226 0 226 32 130 106] #sectionName 1296 7 513 nil nil nil 416 nil 1 nil nil #report 528 nil 131169 nil 34 4 nil nil 328198 ##(Smalltalk.Point) 1 1 nil 983302 ##(Smalltalk.MessageSequence) 138 144 34 3 721670 ##(Smalltalk.MessageSend) #createAt:extent: 34 2 1394 1113 21 1394 1621 451 416 1490 #contextMenu: 34 1 640 416 1490 #text: 34 1 8 'Attribute Name' 416 983302 ##(Smalltalk.WINDOWPLACEMENT) 8 #[44 0 0 0 0 0 0 0 1 0 0 0 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 44 2 0 0 10 0 0 0 86 5 0 0 235 0 0 0] 8 #() 1394 193 193 nil 27 )! !
+!ListPresenter class categoriesFor: #resource_UMLAttributes_for_Orbeon_view!public!resources-views! !
 
 !UMLClassBrowserComposite methodsFor!
 
