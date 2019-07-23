@@ -10,6 +10,12 @@ OrbeonFormGeneratorConfiguration comment: ''!
 !OrbeonFormGeneratorConfiguration categoriesForClass!Unclassified! !
 !OrbeonFormGeneratorConfiguration methodsFor!
 
+add: anUMLClassAttribute to: sectionName removeFrom: oldSection
+
+	self removeFromSection: oldSection attribute: anUMLClassAttribute. "is removed from current section"
+
+	^self setSection: sectionName for: anUMLClassAttribute!
+
 applicationName
 	^applicationName!
 
@@ -73,7 +79,10 @@ umlClass
 
 umlClass: anUMLClass
 
-	umlClass := anUMLClass! !
+	umlClass := anUMLClass.
+
+	anUMLClass basicVariables do: [:anUMLClassAttribute | self setSection: anUMLClassAttribute sectionName for: anUMLClassAttribute ]! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #add:to:removeFrom:!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #basicVariables!accessing!public! !

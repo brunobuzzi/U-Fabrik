@@ -45,13 +45,17 @@ model: anOrbeonFormGeneratorConfiguration
 	!
 
 setSection
-	| sectionName |
+	| sectionName oldSection |
 
 	attributesPresenter hasSelection ifFalse: [^self].
 
-	sectionName := Prompter prompt: 'Section Name' caption: 'Set Section for Selected Attribute'.
-self halt.
-	attributesPresenter selection sectionName: sectionName! !
+	oldSection := attributesPresenter selection sectionName.
+
+	sectionName := Prompter on: oldSection asValue prompt: 'Section Name' caption: 'Set Section for Selected Attribute'.
+
+	attributesPresenter selection sectionName: sectionName.
+
+	model configuration add: attributesPresenter selection to: sectionName removeFrom: oldSection! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #createComponents!public! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #generateOrbeonForm!public! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #model:!public! !
