@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'formDefinitionStream umlClass isGemStoneForm xmlChunks applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
+	instanceVariableNames: 'umlClass isGemStoneForm applicationName formName sectionName xmlDocument xhHtmlNode xhNode fieldsPerColumn'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -115,6 +115,17 @@ appendXfInstanceTo: anIXMLDOMElement
 
 	!
 
+appendXfModelTo: anIXMLDOMElement
+	| xfModel |
+
+	xfModel := anIXMLDOMElement addElement: 'xf:model'.
+
+	xfModel setAttribute: 'id' value: 'fr-form-model';
+		setAttribute: 'xxf:expose-xpath-types' value: 'true';
+		setAttribute: 'xxf:analysis.calculate' value: 'true'.
+
+	^xfModel!
+
 appendXhBody
 	| xhBodyNode frViewNode frBodyNode frSectionNode frGridNode x y |
 
@@ -137,8 +148,14 @@ appendXhBody
 	frGridNode setAttribute: 'id' value: 'grid-1-grid'.
 
 	umlClass basicVariables asOrderedCollection keysAndValuesDo: [:index :umlClassAttribute |  | frNode componentNode |
-		y := (index <= fieldsPerColumn) ifTrue: [1] ifFalse: [((index rem: fieldsPerColumn) = 1) ifTrue: [y+1] ifFalse: [y]].
-		x := ((index rem: fieldsPerColumn) = 1) ifTrue: [1] ifFalse: [x+(self maxWidth // fieldsPerColumn)].
+		y := (index <= fieldsPerColumn) 
+			ifTrue: [1] 
+			ifFalse: [(((index rem: fieldsPerColumn) = 1) or: [fieldsPerColumn = 1])
+					ifTrue: [y+1] 
+					ifFalse: [y]].
+		x := ((fieldsPerColumn = 1) or: [(index rem: fieldsPerColumn) = 1])
+			ifTrue: [1]
+			ifFalse: [x+(self maxWidth // fieldsPerColumn)].
 
 		frNode := frGridNode addElement: 'fr:c'.
 		frNode
@@ -156,27 +173,23 @@ appendXhBody
 	].!
 
 appendXhHead
-	| xhHeadNode xfModel |
+	| xhHeadNode xfModelNode |
 
 	xhHeadNode := xhHtmlNode addElement: 'xh:head'.
 
 	(xhHeadNode addElement: 'xh:title') text: self formTitle.
 
-	xfModel := xhHeadNode addElement: 'xf:model'.
+	xfModelNode := self appendXfModelTo: xhHeadNode.
 
-	xfModel setAttribute: 'id' value: 'fr-form-model';
-		setAttribute: 'xxf:expose-xpath-types' value: 'true';
-		setAttribute: 'xxf:analysis.calculate' value: 'true'.
+		self appendXfInstanceTo: xfModelNode.
 
-	self appendXfInstanceTo: xfModel.
+		self appendXfBindingsTo: xfModelNode.
 
-	self appendXfBindingsTo: xfModel.
+		self appendMetadataTo: xfModelNode.
 
-	self appendMetadataTo: xfModel.
+		self appendAttachmentsTo: xfModelNode.
 
-	self appendAttachmentsTo: xfModel.
-
-	self appendResourcesTo: xfModel.!
+		self appendResourcesTo: xfModelNode.!
 
 appendXmlnsNamespaces
 
@@ -205,29 +218,11 @@ applicationName
 applicationName: anObject
 	applicationName := anObject!
 
-closeBodyTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '</xh:body>'!
-
-closeHtmlTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '</xh:html>'!
-
-contents
-
-	^formDefinitionStream contents!
-
 fieldsPerColumn
 	^fieldsPerColumn!
 
 fieldsPerColumn: anObject
 	fieldsPerColumn := anObject!
-
-formDefinitionStream
-	^formDefinitionStream!
-
-formDefinitionStream: anObject
-	formDefinitionStream := anObject!
 
 formName
 	^formName!
@@ -243,31 +238,9 @@ formTitleFor: anUMLClass
 
 	^'Form for UML Class ' , anUMLClass name!
 
-generateOrbeonFormFor: anUMLClass
-
-	self generateXmlChunksFor: anUMLClass.
-
-	self openHtmlTagFor: anUMLClass.
-
-		self openBodyTagFor: anUMLClass.
-
-			self writeFrViewTagFor: anUMLClass.
-
-		self closeBodyTagFor: anUMLClass.
-
-	self closeHtmlTagFor: anUMLClass!
-
-generateXmlChunksFor: anUMLClass
-
-	anUMLClass basicVariables do: [:classAttribute | 
-		xmlChunks add: (OrbeonFormFieldChunk newForUMLField: classAttribute).
-	].!
-
-generateXMLDocumentFor: anUMLClass
+generateXMLDocument
 
 	xmlDocument :=  IXMLDOMDocument new.
-
-	self generateXmlChunksFor: anUMLClass.
 
 	xhHtmlNode := xmlDocument addElement: 'xh:html'.
 
@@ -281,11 +254,7 @@ initialize
 
 	super initialize.
 
-	formDefinitionStream := WriteStream on: String new.
 	isGemStoneForm := false.
-
-	xmlChunks := OrderedCollection new.
-
 	sectionName := 'form-variables-section'.
 	fieldsPerColumn := 1.!
 
@@ -299,41 +268,6 @@ maxWidth
 
 	^12!
 
-openBodyTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<xh:body>'.!
-
-openHtmlTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<xh:html ' , self xmlnsNamespacesString , '>'.
-
-	formDefinitionStream 
-		nextPutAll: '<xh:head>';
-		nextPutAll: '<xh:meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
-		nextPutAll: '<xh:title>', (self formTitleFor: anUMLClass),'</xh:title>'.
-
-	self openXfModelTagFor: anUMLClass.
-
-	formDefinitionStream nextPutAll: '</xh:head>'.!
-
-openXfModelTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<xf:model id="fr-form-model" xxf:expose-xpath-types="true" xxf:analysis.calculate="true">'.
-
-	self writeXfInstanceFor: anUMLClass.
-
-	self writeXfBindingsFor: anUMLClass.
-
-	self writeMetadataFor: anUMLClass.
-
-	self writeAttachmentFor: anUMLClass.
-
-	self writeResourcesFor: anUMLClass.
-
-	isGemStoneForm ifTrue: [self writeServicesFor: anUMLClass].
-
-	formDefinitionStream nextPutAll: '</xf:model>'.!
-
 sectionName
 	^sectionName!
 
@@ -345,135 +279,6 @@ umlClass
 
 umlClass: anObject
 	umlClass := anObject!
-
-writeAttachmentFor: anUMLClass
-
-	formDefinitionStream nextPutAll: 
-'            <!!-- Attachments -->
-            <xf:instance id="fr-form-attachments" xxf:exclude-result-prefixes="#all">
-                <attachments/>
-            </xf:instance>'!
-
-writeFrFormInstanceFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<', sectionName,'>'.
-
-		xmlChunks do: [:orbeonFormXmlChunk | orbeonFormXmlChunk writeMainInstanceOn: formDefinitionStream].
-
-	formDefinitionStream nextPutAll: '</', sectionName,'>'.!
-
-writeFrSectionTagFor: anUMLClass
-	| id bind |
-
-	id := sectionName, '-section'.
-	bind := sectionName, '-bind'.
-
-	formDefinitionStream nextPutAll: '<fr:section id="', id ,'" bind="', bind ,'">'.
-		formDefinitionStream nextPutAll: '<xf:label ref="$form-resources/', sectionName ,'/label"/>'.
-		formDefinitionStream nextPutAll: '<fr:grid id="grid-1-grid">'.
-
-			xmlChunks keysAndValuesDo: [:index :orbeonFormFieldChunk | orbeonFormFieldChunk writeFrComponentOn: formDefinitionStream index: index printString].
-
-		formDefinitionStream nextPutAll: '</fr:grid>'.
-
-	formDefinitionStream nextPutAll: '</fr:section>'.!
-
-writeFrViewTagFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<fr:view>'.
-		formDefinitionStream nextPutAll: '<fr:body xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
-                     xmlns:oxf="http://www.orbeon.com/oxf/processors">'.
-
-			self writeFrSectionTagFor: anUMLClass.
-
-		formDefinitionStream nextPutAll: '</fr:body>'.
-
-	formDefinitionStream nextPutAll: '</fr:view>'.
-!
-
-writeGemStoneFormSection
-
-	formDefinitionStream nextPutAll: 
-'<internal-section-seaside>
-		<s/>
-		<k/>
-		<uuid/>
-		<oop/>
-		<assignmentOop/>
-	</internal-section-seaside>
-	<internal-section-user>
-		<username/>
-		<rol/>
-		<processId/>
-</internal-section-user>'.!
-
-writeMetadataFor: anUMLClass
-
-	formDefinitionStream 
-		nextPutAll: '<!!-- Metadata -->';
-		nextPutAll: '<xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">';
-		nextPutAll: '<metadata>';
-		nextPutAll: '<application-name>', applicationName ,'</application-name>';
-		nextPutAll: '<form-name>', formName ,'</form-name>';
-		nextPutAll: '<title xml:lang="en">U-Fabrik Test Form</title>';
-		nextPutAll: '<description xml:lang="en"/>';
-		nextPutAll: '<created-with-version>2018.2.3.201905172253 PE</created-with-version>';
-		nextPutAll: '</metadata>';
-		nextPutAll: '</xf:instance>'.
-!
-
-writeResourcesFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<!!-- All form resources -->'.
-	formDefinitionStream nextPutAll: '<xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">'.
-		formDefinitionStream nextPutAll: '<resources>'.
-			formDefinitionStream nextPutAll: '<resource xml:lang="en">'.
-				formDefinitionStream nextPutAll: '<',sectionName,'>'.
-					formDefinitionStream nextPutAll: '<label>',sectionName capitalized ,'</label>'.
-				formDefinitionStream nextPutAll: '</',sectionName,'>'.
-
-				xmlChunks do: [:orbeonFormFieldChunk | orbeonFormFieldChunk writeResourcesOn: formDefinitionStream].
-
-			formDefinitionStream nextPutAll: '</resource>'.
-		formDefinitionStream nextPutAll: '</resources>'.
-	formDefinitionStream nextPutAll: '</xf:instance>'.!
-
-writeServicesFor: anUMLClass!
-
-writeXfBindingsFor: anUMLClass
-	| id |
-
-	formDefinitionStream nextPutAll: '<!!-- Bindings -->'.
-	formDefinitionStream nextPutAll: '<xf:bind id="fr-form-binds" ref="instance(''fr-form-instance'')">'.
-	id := sectionName, '-bind'.
-
-		formDefinitionStream nextPutAll: '<xf:bind id="',id,'" name="',sectionName ,'" ref="', sectionName ,'">'.
-
-		xmlChunks do: [:orbeonFormFieldChunk | 
-			orbeonFormFieldChunk writeBindingOn: formDefinitionStream.
-		].
-
-		formDefinitionStream nextPutAll: '</xf:bind>'.
-	formDefinitionStream nextPutAll: '</xf:bind>'.!
-
-writeXfInstanceFor: anUMLClass
-
-	formDefinitionStream nextPutAll: '<xf:instance id="fr-form-instance" xxf:exclude-result-prefixes="#all" xxf:index="id">'.
-	isGemStoneForm ifTrue: [self writeGemStoneFormSection].
-
-	formDefinitionStream nextPutAll: '<form>'.
-
-		self writeFrFormInstanceFor: anUMLClass.
-
-	formDefinitionStream nextPutAll: '</form>'.
-
-	formDefinitionStream nextPutAll: '</xf:instance>'!
-
-xmlChunks
-	^xmlChunks!
-
-xmlChunks: anObject
-	xmlChunks := anObject!
 
 xmlDocument
 	^xmlDocument!
@@ -503,57 +308,36 @@ xmlnsNamespacesString
 xmlString
 
 	^xmlDocument xml! !
-!OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendMetadataTo:!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendResourcesTo:!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendXhBody!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendXhHead!api!main tag!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendMetadataTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendResourcesTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendXfModelTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendXhBody!public!tag-body! !
+!OrbeonFormGenerator categoriesFor: #appendXhHead!public!tag-head-main!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendXmlnsNamespaces!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #applicationName:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #closeBodyTagFor:!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #closeHtmlTagFor:!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #contents!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #formDefinitionStream!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #formDefinitionStream:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #formName:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #formTitle!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #formTitleFor:!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #generateOrbeonFormFor:!api!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #generateXmlChunksFor:!public!xml chunks! !
-!OrbeonFormGenerator categoriesFor: #generateXMLDocumentFor:!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #formTitle!public! !
+!OrbeonFormGenerator categoriesFor: #formTitleFor:!public! !
+!OrbeonFormGenerator categoriesFor: #generateXMLDocument!api!public! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
-!OrbeonFormGenerator categoriesFor: #openBodyTagFor:!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #openHtmlTagFor:!main tag!public! !
-!OrbeonFormGenerator categoriesFor: #openXfModelTagFor:!main tag!public! !
 !OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #umlClass!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #umlClass:!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #writeAttachmentFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeFrFormInstanceFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeFrSectionTagFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeFrViewTagFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeGemStoneFormSection!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeMetadataFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeResourcesFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeServicesFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeXfBindingsFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #writeXfInstanceFor:!public!write fixed! !
-!OrbeonFormGenerator categoriesFor: #xmlChunks!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #xmlChunks:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #xmlnsNamespacesString!public! !
-!OrbeonFormGenerator categoriesFor: #xmlString!api!main tag!public!xml generation! !
+!OrbeonFormGenerator categoriesFor: #xmlString!public! !
 
 !OrbeonFormGenerator class methodsFor!
 
