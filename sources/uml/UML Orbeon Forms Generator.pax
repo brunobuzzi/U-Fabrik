@@ -32,7 +32,7 @@ Object subclass: #OrbeonFormGenerator
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #OrbeonFormGeneratorConfiguration
-	instanceVariableNames: 'umlClass applicationName formName fieldsPerColumn isGemStoneForm sectionFieds'
+	instanceVariableNames: 'umlClass applicationName formName fieldsPerColumn isGemStoneForm sectionFields'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

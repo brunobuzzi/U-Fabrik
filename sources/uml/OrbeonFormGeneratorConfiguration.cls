@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGeneratorConfiguration
-	instanceVariableNames: 'umlClass applicationName formName fieldsPerColumn isGemStoneForm sectionFieds'
+	instanceVariableNames: 'umlClass applicationName formName fieldsPerColumn isGemStoneForm sectionFields'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -48,7 +48,7 @@ initialize
 	formName := 'test'.
 	fieldsPerColumn := 1. 
 	isGemStoneForm := false.
-	sectionFieds := Dictionary new.!
+	sectionFields := Dictionary new.!
 
 isGemStoneForm
 	^isGemStoneForm!
@@ -58,9 +58,9 @@ isGemStoneForm: anObject
 
 removeFromSection: sectionName attribute: anUMLClassAttribute
 
-	(sectionFieds includesKey: sectionName) ifFalse: [^self].
+	(sectionFields includesKey: sectionName) ifFalse: [^self].
 
-	^(sectionFieds at: sectionName) remove: anUMLClassAttribute ifAbsent: []!
+	^(sectionFields at: sectionName) remove: anUMLClassAttribute ifAbsent: []!
 
 sectionFieds
 	^sectionFieds!
@@ -68,11 +68,17 @@ sectionFieds
 sectionFieds: anObject
 	sectionFieds := anObject!
 
+sectionFields
+	^sectionFields!
+
+sectionFields: anObject
+	sectionFields := anObject!
+
 setSection: sectionName for: anUMLClassAttribute
 
-	(sectionFieds includesKey: sectionName) ifFalse: [sectionFieds at: sectionName put: OrderedCollection new].
+	(sectionFields includesKey: sectionName) ifFalse: [sectionFields at: sectionName put: OrderedCollection new].
 
-	^(sectionFieds at: sectionName) add: anUMLClassAttribute!
+	^(sectionFields at: sectionName) add: anUMLClassAttribute!
 
 umlClass
 	^umlClass!
@@ -96,6 +102,8 @@ umlClass: anUMLClass
 !OrbeonFormGeneratorConfiguration categoriesFor: #removeFromSection:attribute:!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #sectionFieds!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #sectionFieds:!accessing!private! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #sectionFields!accessing!private! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #sectionFields:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #setSection:for:!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #umlClass!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #umlClass:!accessing!public! !
