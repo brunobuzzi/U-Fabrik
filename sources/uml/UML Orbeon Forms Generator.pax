@@ -6,12 +6,13 @@ package paxVersion: 1;
 
 package classNames
 	add: #OrbeonFormDefinitionTemplates;
-	add: #OrbeonFormFieldChunk;
 	add: #OrbeonFormGenerator;
 	add: #OrbeonFormInstanceTemplates;
-	add: #OrbeonFormNamespaceChunk;
 	add: #OrbeonFormTemplates;
-	add: #OrbeonFormXmlChunk;
+	yourself.
+
+package methodNames
+	add: #UMLClassBrowserComposite -> #createXmlOrbeonFormDefinition;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -22,6 +23,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'UML Live Engine Views'
 	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM').
 
 package!
@@ -38,11 +40,6 @@ Object subclass: #OrbeonFormTemplates
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #OrbeonFormXmlChunk
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 OrbeonFormTemplates subclass: #OrbeonFormDefinitionTemplates
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -53,21 +50,18 @@ OrbeonFormTemplates subclass: #OrbeonFormInstanceTemplates
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-OrbeonFormXmlChunk subclass: #OrbeonFormFieldChunk
-	instanceVariableNames: 'mainInstance binding resources view umlField'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-OrbeonFormXmlChunk subclass: #OrbeonFormNamespaceChunk
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 
 "Global Aliases"!
 
 
 "Loose Methods"!
+
+!UMLClassBrowserComposite methodsFor!
+
+createXmlOrbeonFormDefinition
+
+	self halt.! !
+!UMLClassBrowserComposite categoriesFor: #createXmlOrbeonFormDefinition!public! !
 
 "End of package definition"!
 
