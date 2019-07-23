@@ -24,10 +24,17 @@ model: anOrbeonFormGeneratorConfiguration
 
 	super model: anOrbeonFormGeneratorConfiguration.
 
-	configurationComposite model: anOrbeonFormGeneratorConfiguration.! !
+	configurationComposite model: anOrbeonFormGeneratorConfiguration.!
+
+onViewOpened
+
+	super onViewOpened.
+
+	view caption: 'Generate Orbeon Form Definition for UML Class: [', model umlClass name, ']'! !
 !UMLOrbeonFormDefinitionConfigurationShell categoriesFor: #createComponents!public! !
 !UMLOrbeonFormDefinitionConfigurationShell categoriesFor: #generateOrbeonForm!public! !
 !UMLOrbeonFormDefinitionConfigurationShell categoriesFor: #model:!public! !
+!UMLOrbeonFormDefinitionConfigurationShell categoriesFor: #onViewOpened!public! !
 
 !UMLOrbeonFormDefinitionConfigurationShell class methodsFor!
 

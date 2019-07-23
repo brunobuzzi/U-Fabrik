@@ -21,6 +21,7 @@ createComponents
 	attributesPresenter := self add: ListPresenter new name: 'attributes'.!
 
 generateOrbeonForm
+	| xmlPad |
 
 	model 
 		applicationName: applicationNamePresenter value;
@@ -30,7 +31,10 @@ generateOrbeonForm
 
 	model generateXMLDocument.
 
-	(XmlPad showOn: model xmlString) reformatXml!
+	xmlPad := XmlPad showOn: model xmlString.
+	xmlPad reformatXml.
+
+	Clipboard current setText: xmlPad model value!
 
 model: anOrbeonFormGeneratorConfiguration
 

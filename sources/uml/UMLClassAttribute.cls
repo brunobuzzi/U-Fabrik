@@ -78,7 +78,7 @@ initialize
 	description := ''.
 	isEnabled := true.
 	isLargeString := false.
-	sectionName := ''.!
+	sectionName := 'default'.!
 
 isAssociationClass
 	^false!
