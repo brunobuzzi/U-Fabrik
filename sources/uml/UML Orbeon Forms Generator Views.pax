@@ -4,6 +4,16 @@ package paxVersion: 1;
 	basicComment: ''.
 
 
+package classNames
+	add: #UMLCustomizedInspectorComposite;
+	add: #UMLOrbeonFormDefinitionConfigurationComposite;
+	add: #UMLOrbeonFormDefinitionConfigurationShell;
+	yourself.
+
+package methodNames
+	add: #UMLClassBrowserComposite -> #createXmlOrbeonFormDefinition;
+	yourself.
+
 package binaryGlobalNames: (Set new
 	yourself).
 
@@ -11,17 +21,61 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-).
+	'..\others\BB Interfase Goodies'
+	'..\others\BB MVP Basic Support'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Boolean\Dolphin Boolean Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Cards\Dolphin Card Containers'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Message Box'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Number\Dolphin Number Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Gdiplus\Gdiplus'
+	'..\..\Core\Object Arts\Dolphin\MVP\Icons\Internal Bitmaps and Icons'
+	'UML Basic Views'
+	'UML Live Engine'
+	'UML Live Engine Views'
+	'UML Orbeon Forms Generator').
 
 package!
 
 "Class Definitions"!
 
+UMLToolShell subclass: #UMLOrbeonFormDefinitionConfigurationShell
+	instanceVariableNames: 'configurationComposite'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLCustomizedInspectorComposite
+	instanceVariableNames: 'cardPresenter viewStructure headerContainer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+UMLComposite subclass: #UMLOrbeonFormDefinitionConfigurationComposite
+	instanceVariableNames: 'isGemStoneFormPresenter applicationNamePresenter formNamePresenter fieldsPerColumnPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 
 "Global Aliases"!
 
 
 "Loose Methods"!
+
+!UMLClassBrowserComposite methodsFor!
+
+createXmlOrbeonFormDefinition
+
+	self halt.! !
+!UMLClassBrowserComposite categoriesFor: #createXmlOrbeonFormDefinition!public! !
 
 "End of package definition"!
 

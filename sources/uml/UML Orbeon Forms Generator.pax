@@ -12,10 +12,6 @@ package classNames
 	add: #OrbeonFormTemplates;
 	yourself.
 
-package methodNames
-	add: #UMLClassBrowserComposite -> #createXmlOrbeonFormDefinition;
-	yourself.
-
 package binaryGlobalNames: (Set new
 	yourself).
 
@@ -24,7 +20,6 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'UML Live Engine Views'
 	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM').
 
 package!
@@ -61,13 +56,6 @@ OrbeonFormTemplates subclass: #OrbeonFormInstanceTemplates
 
 
 "Loose Methods"!
-
-!UMLClassBrowserComposite methodsFor!
-
-createXmlOrbeonFormDefinition
-
-	self halt.! !
-!UMLClassBrowserComposite categoriesFor: #createXmlOrbeonFormDefinition!public! !
 
 "End of package definition"!
 

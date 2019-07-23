@@ -36,7 +36,6 @@ package classNames
 	add: #UMLClassWorkspaceComposite;
 	add: #UMLCommandListComposite;
 	add: #UMLCommandListShell;
-	add: #UMLCustomizedInspectorComposite;
 	add: #UMLCustomizedInspectorShell;
 	add: #UMLCustomizedInspectorWorkspaceComposite;
 	add: #UMLDebugerComposite;
@@ -400,11 +399,6 @@ UMLToolShell subclass: #UMLWorkspaceShell
 	classInstanceVariableNames: ''!
 UMLToolShell subclass: #WebServerConfigurationShell
 	instanceVariableNames: 'ipAddressPresenter portPresenter hostPresenter isServingPresenter sitePresenter stylesPresenter'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-UMLComposite subclass: #UMLCustomizedInspectorComposite
-	instanceVariableNames: 'cardPresenter viewStructure headerContainer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
