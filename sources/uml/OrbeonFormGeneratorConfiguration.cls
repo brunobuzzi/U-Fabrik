@@ -18,7 +18,7 @@ add: anUMLClassAttribute to: sectionName removeFrom: oldSection
 
 addGemStoneFields
 
-	#('s' 'k' 'oop' 'oop2') do: [:each | | attr |
+	self defaultBPMRedirectFields do: [:each | | attr |
 		attr := UMLClassAttribute new.
 		attr name: each;
 			originalType: 'String';
@@ -52,6 +52,14 @@ basicVariables
 defaultBPMInternalSectionName
 
 	^'internal-section'!
+
+defaultBPMRedirectFields
+
+	^#('s' 'k' 'oop' 'oop2') !
+
+defaultBPMUserFields
+
+	^#('username' 'rol' 'processId')!
 
 defaultBPMUserSectionName
 
@@ -138,6 +146,8 @@ umlClass: anUMLClass
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #basicVariables!accessing!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMInternalSectionName!accessing!gemstone fields!public! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMRedirectFields!gemstone fields!public! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMUserFields!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMUserSectionName!accessing!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn:!accessing!private! !

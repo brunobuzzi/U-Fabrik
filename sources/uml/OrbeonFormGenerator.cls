@@ -113,7 +113,7 @@ appendSecurityActionTo: anIXMLDOMElement
 	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-name';
-		setAttribute: 'value' value: 'username'.
+		setAttribute: 'value' value: '''username'''.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-value';
 		setAttribute: 'value' value: '/result/username'.
@@ -122,7 +122,7 @@ appendSecurityActionTo: anIXMLDOMElement
 	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-name';
-		setAttribute: 'value' value: 'rol'.
+		setAttribute: 'value' value: '''rol'''.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-value';
 		setAttribute: 'value' value: '/result/rol'.
@@ -131,7 +131,7 @@ appendSecurityActionTo: anIXMLDOMElement
 	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-name';
-		setAttribute: 'value' value: 'processId'.
+		setAttribute: 'value' value: '''processId'''.
 	(actionChildNode addElement: 'xf:var')
 		setAttribute: 'name' value: 'control-value';
 		setAttribute: 'value' value: '/result/processId'.
@@ -202,6 +202,20 @@ appendXfBindingsTo: anIXMLDOMElement
 				setAttribute: 'name' value: umlClassAttribute attributeName;
 				setAttribute: 'ref' value: umlClassAttribute attributeName;
 				setAttribute: 'xxf:whitespace' value: 'trim'.
+			(self isGemStoneForm and: [self defaultBPMRedirectFields includes: umlClassAttribute attributeName])
+			ifTrue: [
+				attributeBind
+					setAttribute: 'xxf:default' value: 'xxf:get-request-parameter(''', umlClassAttribute attributeName,''')';
+					setAttribute: 'calculate' value: 'xxf:get-request-parameter(''', umlClassAttribute attributeName,''')';
+					setAttribute: 'required' value: 'true()';
+					setAttribute: 'readonly' value: 'true()'.
+			].
+			(self isGemStoneForm and:[self defaultBPMUserFields includes: umlClassAttribute attributeName])
+			ifTrue: [
+				attributeBind
+					setAttribute: 'required' value: 'true()';
+					setAttribute: 'readonly' value: 'true()'.
+			].
 		].
 	].
 
@@ -289,7 +303,7 @@ appendXhBody
 			componentNode
 				setAttribute: 'id' value: (umlClassAttribute attributeName, '-control');
 				setAttribute: 'bind' value: (umlClassAttribute attributeName, '-bind');
-				setAttribute: 'class' value: (umlClassAttribute attributeName, 'fr-summary fr-search').
+				setAttribute: 'class' value: 'fr-summary fr-search'.
 			(componentNode addElement: 'xf:label') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/label'.
 			(componentNode addElement: 'xf:hint') setAttribute: 'ref' value: '$form-resources/',umlClassAttribute attributeName,'/hint'.
 			(componentNode addElement: 'xf:alert') setAttribute: 'ref' value: '$fr-resources/detail/labels/alert'.
@@ -355,6 +369,14 @@ configuration
 
 configuration: anObject
 	configuration := anObject!
+
+defaultBPMRedirectFields
+
+	^configuration defaultBPMRedirectFields!
+
+defaultBPMUserFields
+
+	^configuration defaultBPMUserFields!
 
 fieldsPerColumn
 
@@ -478,6 +500,8 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #basicVariables!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #configuration!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #configuration:!accessing!private! !
+!OrbeonFormGenerator categoriesFor: #defaultBPMRedirectFields!configuration!public! !
+!OrbeonFormGenerator categoriesFor: #defaultBPMUserFields!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #fieldsPerColumn:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #formName!configuration!public! !
