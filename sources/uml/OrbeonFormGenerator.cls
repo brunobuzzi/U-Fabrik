@@ -51,7 +51,7 @@ appendResourcesTo: anIXMLDOMElement
 	xfInstanceNode := anIXMLDOMElement addElement: 'xf:instance'.
 
 	xfInstanceNode setAttribute: 'id' value: 'fr-form-resources';
-		setAttribute: 'xxf:readonly' value: 'true';
+		setAttribute: 'xxf:readonly' value: self isGemStoneForm not printString; "if there are services then readonly must be <false>"
 		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
 	
 	resourceNode := (xfInstanceNode addElement: 'resources') addElement: 'resource'.
@@ -70,6 +70,116 @@ appendResourcesTo: anIXMLDOMElement
 	
 
 	!
+
+appendSecurityActionTo: anIXMLDOMElement
+	| actionMainNode actionLocalNode actionChildNode |
+
+	anIXMLDOMElement addComment: 'React to event... on control... '.
+	actionMainNode := anIXMLDOMElement addElement: 'xf:action'.
+	actionMainNode setAttribute: 'id' value: 'security-action-binding'.
+
+
+	actionLocalNode := actionMainNode addElement: 'xf:action'.
+	actionLocalNode
+		setAttribute: 'event' value: 'fr-run-form-load-action-after-controls';
+		setAttribute: 'if' value: 'true()';
+		setAttribute: 'ev:observer' value: 'fr-form-model'.
+	actionLocalNode addComment: 'Service to call'.
+	(actionLocalNode addElement: 'xf:send') setAttribute: 'submission' value: 'security-token-submission'.
+
+
+	actionMainNode addComment: 'Request actions'.
+	actionLocalNode := actionMainNode addElement: 'xf:action'.
+	actionLocalNode setAttribute: 'event' value: 'xforms-submit';
+		setAttribute: 'ev:observer' value: 'security-token-submission'.
+	actionLocalNode addComment: 'Get reference to initial request'.
+	(actionLocalNode addElement: 'xf:var') setAttribute: 'as' value: 'xs:string';
+		setAttribute: 'name' value: 'request-instance-name';
+		setAttribute: 'value' value: '''security-token-instance'''.
+	actionLocalNode addComment: 'Copy over to read-write request instance'.
+	(actionLocalNode addElement: 'xf:insert') setAttribute: 'origin' value: 'saxon:parse(instance($request-instance-name))';
+		setAttribute: 'ref' value: 'instance(''fr-service-request-instance'')';
+		addComment: 'Set values if needed'.
+	(actionLocalNode addElement: 'xf:action') setAttribute: 'context' value: 'instance(''fr-service-request-instance'')'.
+
+	
+	actionMainNode addComment: 'Response actions'.
+	actionLocalNode := actionMainNode addElement: 'xf:action'.
+	actionLocalNode 
+		setAttribute: 'context' value: 'instance(''fr-service-response-instance'')';
+		setAttribute: 'event' value: 'xforms-submit-done';
+		setAttribute: 'ev:observer' value: 'security-token-submission'.
+	actionChildNode := actionLocalNode addElement: 'xf:action'.
+	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-name';
+		setAttribute: 'value' value: 'username'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-value';
+		setAttribute: 'value' value: '/result/username'.
+
+	actionChildNode := actionLocalNode addElement: 'xf:action'.
+	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-name';
+		setAttribute: 'value' value: 'rol'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-value';
+		setAttribute: 'value' value: '/result/rol'.
+
+	actionChildNode := actionLocalNode addElement: 'xf:action'.
+	actionChildNode setAttribute: 'class' value: 'fr-set-control-value-action'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-name';
+		setAttribute: 'value' value: 'processId'.
+	(actionChildNode addElement: 'xf:var')
+		setAttribute: 'name' value: 'control-value';
+		setAttribute: 'value' value: '/result/processId'.
+
+
+
+!
+
+appendSecurityTokenInstanceTo: anIXMLDOMElement
+	| xfInstance |
+
+	xfInstance := anIXMLDOMElement addElement: 'xf:instance'.
+
+	xfInstance 
+		setAttribute: 'id' value: 'security-token-instance';
+		setAttribute: 'class' value: 'fr-service';
+		setAttribute: 'xxf:exclude-result-prefixes' value: '#all'.
+
+	(xfInstance addElement: 'body')
+		setAttribute: 'xmlns:fbf' value: 'java:org.orbeon.oxf.fb.FormBuilder';
+		setAttribute: 'xmlns:frf' value: 'java:org.orbeon.oxf.fr.FormRunner';
+		setAttribute: 'xmlns:p' value: 'http://www.orbeon.com/oxf/pipeline';
+		setAttribute: 'xmlns:secure' value: 'java:org.orbeon.oxf.util.SecureUtils';
+		text: '<uuid></uuid>'.
+!
+
+appendServicesTo: anIXMLDOMElement
+
+	self appendSecurityTokenInstanceTo: anIXMLDOMElement.
+
+	self appendSubmissionTo: anIXMLDOMElement.
+
+	self appendSecurityActionTo: anIXMLDOMElement.
+
+	!
+
+appendSubmissionTo: anIXMLDOMElement
+
+	(anIXMLDOMElement addElement: 'xf:submission')
+		setAttribute: 'id' value: 'security-token-submission';
+		setAttribute: 'class' value: 'fr-service';
+		setAttribute: 'instance' value: 'fr-service-response-instance';
+		setAttribute: 'mediatype' value: 'application/xml';
+		setAttribute: 'method' value: 'get';
+		setAttribute: 'ref' value: 'instance(''fr-service-request-instance'')';
+		setAttribute: 'replace' value: 'instance';
+		setAttribute: 'resource' value: 'http://gemstoneIP:8787/orbeon-gemstone-api/securityToken?token={xxf:get-request-parameter(''token'')}';
+		setAttribute: 'serialization' value: 'application/xml'.!
 
 appendXfBindingsTo: anIXMLDOMElement
 	| xfBindNode sectionBindNode |
@@ -203,7 +313,9 @@ appendXhHead
 
 		self appendAttachmentsTo: xfModelNode.
 
-		self appendResourcesTo: xfModelNode.!
+		self appendResourcesTo: xfModelNode.
+
+		self isGemStoneForm ifTrue: [self appendServicesTo: xfModelNode].!
 
 appendXmlnsNamespaces
 
@@ -351,6 +463,10 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #appendAttachmentsTo:!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendMetadataTo:!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendResourcesTo:!public!tag-head-xfModel! !
+!OrbeonFormGenerator categoriesFor: #appendSecurityActionTo:!public!tag-head-services! !
+!OrbeonFormGenerator categoriesFor: #appendSecurityTokenInstanceTo:!public!tag-head-services! !
+!OrbeonFormGenerator categoriesFor: #appendServicesTo:!public!tag-head-services! !
+!OrbeonFormGenerator categoriesFor: #appendSubmissionTo:!public!tag-head-services! !
 !OrbeonFormGenerator categoriesFor: #appendXfBindingsTo:!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendXfInstanceTo:!public!tag-head-xfModel! !
 !OrbeonFormGenerator categoriesFor: #appendXfModelTo:!public!tag-head-xfModel! !
