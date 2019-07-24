@@ -280,6 +280,10 @@ generateXMLDocument
 
 	self appendXhBody.!
 
+getBPMFields
+
+	^configuration getBPMFields!
+
 initialize
 
 	super initialize.
@@ -365,6 +369,7 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #formTitle!public! !
 !OrbeonFormGenerator categoriesFor: #formTitleFor:!public! !
 !OrbeonFormGenerator categoriesFor: #generateXMLDocument!api!public! !
+!OrbeonFormGenerator categoriesFor: #getBPMFields!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #initialize!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!configuration!public! !

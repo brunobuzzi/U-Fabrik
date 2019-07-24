@@ -20,6 +20,12 @@ createComponents
 	fieldsPerColumnPresenter := self add: NumberPresenter new name: 'fieldsPerColumn'.
 	attributesPresenter := self add: ListPresenter new name: 'attributes'.!
 
+createSchematicWiring
+
+	super createSchematicWiring.
+
+	isGemStoneFormPresenter when: #valueChanged send: #onIsGemStoneFormChanged to: self!
+
 generateOrbeonForm
 	| xmlPad |
 
@@ -36,17 +42,25 @@ generateOrbeonForm
 
 	Clipboard current setText: xmlPad model value!
 
-model: anOrbeonFormGeneratorConfiguration
+model: anOrbeonFormGenerator
 
-	super model: anOrbeonFormGeneratorConfiguration.
+	super model: anOrbeonFormGenerator.
 
-	isGemStoneFormPresenter model: (anOrbeonFormGeneratorConfiguration aspectValue: #isGemStoneForm).
-	applicationNamePresenter model: (anOrbeonFormGeneratorConfiguration aspectValue: #applicationName).
-	formNamePresenter model: (anOrbeonFormGeneratorConfiguration aspectValue: #formName).
-	fieldsPerColumnPresenter model: (anOrbeonFormGeneratorConfiguration aspectValue: #fieldsPerColumn).
+	isGemStoneFormPresenter model: (anOrbeonFormGenerator aspectValue: #isGemStoneForm).
+	applicationNamePresenter model: (anOrbeonFormGenerator aspectValue: #applicationName).
+	formNamePresenter model: (anOrbeonFormGenerator aspectValue: #formName).
+	fieldsPerColumnPresenter model: (anOrbeonFormGenerator aspectValue: #fieldsPerColumn).
 
-	attributesPresenter model: (ListModel on: anOrbeonFormGeneratorConfiguration basicVariables).
+	attributesPresenter model: (ListModel on: anOrbeonFormGenerator basicVariables).
 	!
+
+onIsGemStoneFormChanged
+
+	model isGemStoneForm: isGemStoneFormPresenter value.
+
+	self model: self model.
+
+	model getBPMFields do: [:each | attributesPresenter model add: each].!
 
 setSection
 	| sectionName oldSection |
@@ -61,8 +75,10 @@ setSection
 
 	model configuration add: attributesPresenter selection to: sectionName removeFrom: oldSection! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #createComponents!public! !
+!UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #createSchematicWiring!public! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #generateOrbeonForm!public! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #model:!public! !
+!UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #onIsGemStoneFormChanged!public! !
 !UMLOrbeonFormDefinitionConfigurationComposite categoriesFor: #setSection!public! !
 
 !UMLOrbeonFormDefinitionConfigurationComposite class methodsFor!

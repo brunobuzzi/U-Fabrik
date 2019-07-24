@@ -20,6 +20,8 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'UML Basic Support'
+	'UML Live Engine'
 	'..\..\Core\Object Arts\Dolphin\ActiveX\Components\XML DOM\XML DOM').
 
 package!

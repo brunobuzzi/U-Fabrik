@@ -16,6 +16,27 @@ add: anUMLClassAttribute to: sectionName removeFrom: oldSection
 
 	^self setSection: sectionName for: anUMLClassAttribute!
 
+addGemStoneFields
+
+	#('s' 'k' 'oop' 'oop2') do: [:each | | attr |
+		attr := UMLClassAttribute new.
+		attr name: each;
+			originalType: 'String';
+			type: (UMLVirtualMachine default virtualMachineClassNamed: 'String');
+			sectionName: self defaultBPMInternalSectionName.
+		self setSection: self defaultBPMInternalSectionName for: attr.
+	].
+
+	#('username' 'rol' 'processId') do: [:each | | attr |
+		attr := UMLClassAttribute new.
+		attr name: each;
+			originalType: 'String';
+			type: (UMLVirtualMachine default virtualMachineClassNamed: 'String');
+			sectionName: self defaultBPMUserSectionName.
+		self setSection: self defaultBPMUserSectionName for: attr.
+	].
+!
+
 applicationName
 	^applicationName!
 
@@ -28,6 +49,14 @@ basicVariables
 
 	^umlClass basicVariables asOrderedCollection!
 
+defaultBPMInternalSectionName
+
+	^'internal-section'!
+
+defaultBPMUserSectionName
+
+	^'user'!
+
 fieldsPerColumn
 	^fieldsPerColumn!
 
@@ -39,6 +68,10 @@ formName
 
 formName: anObject
 	formName := anObject!
+
+getBPMFields
+
+	^(sectionFields at: self defaultBPMInternalSectionName ifAbsent: [#()]), (sectionFields at: self defaultBPMUserSectionName ifAbsent: [#()])!
 
 initialize
 
@@ -53,8 +86,15 @@ initialize
 isGemStoneForm
 	^isGemStoneForm!
 
-isGemStoneForm: anObject
-	isGemStoneForm := anObject!
+isGemStoneForm: aBooelan
+
+	(isGemStoneForm == aBooelan) ifTrue: [^self].
+
+	isGemStoneForm := aBooelan.
+
+	aBooelan 
+	ifTrue: [self addGemStoneFields] 
+	ifFalse: [self removeGemStoneFields]!
 
 removeFromSection: sectionName attribute: anUMLClassAttribute
 
@@ -62,11 +102,12 @@ removeFromSection: sectionName attribute: anUMLClassAttribute
 
 	^(sectionFields at: sectionName) remove: anUMLClassAttribute ifAbsent: []!
 
-sectionFieds
-	^sectionFieds!
+removeGemStoneFields
 
-sectionFieds: anObject
-	sectionFieds := anObject!
+	sectionFields removeKey: self defaultBPMInternalSectionName ifAbsent: [].
+
+	sectionFields removeKey: self defaultBPMUserSectionName ifAbsent: [].
+!
 
 sectionFields
 	^sectionFields!
@@ -92,19 +133,22 @@ umlClass: anUMLClass
 		sectionName := anUMLClassAttribute sectionName ifNil: ['default'] ifNotNil: [:value | value].
 		self setSection: sectionName for: anUMLClassAttribute ]! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #add:to:removeFrom:!public! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #addGemStoneFields!accessing!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #applicationName:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #basicVariables!accessing!public! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMInternalSectionName!accessing!gemstone fields!public! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #defaultBPMUserSectionName!accessing!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #fieldsPerColumn:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #formName!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #formName:!accessing!private! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #getBPMFields!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #initialize!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #isGemStoneForm!accessing!private! !
-!OrbeonFormGeneratorConfiguration categoriesFor: #isGemStoneForm:!accessing!private! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #isGemStoneForm:!accessing!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #removeFromSection:attribute:!public! !
-!OrbeonFormGeneratorConfiguration categoriesFor: #sectionFieds!accessing!private! !
-!OrbeonFormGeneratorConfiguration categoriesFor: #sectionFieds:!accessing!private! !
+!OrbeonFormGeneratorConfiguration categoriesFor: #removeGemStoneFields!accessing!gemstone fields!public! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #sectionFields!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #sectionFields:!accessing!private! !
 !OrbeonFormGeneratorConfiguration categoriesFor: #setSection:for:!public! !
