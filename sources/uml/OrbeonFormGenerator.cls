@@ -2,7 +2,7 @@
 
 Object subclass: #OrbeonFormGenerator
 	instanceVariableNames: 'configuration sectionName xmlDocument xhHtmlNode xhNode'
-	classVariableNames: ''
+	classVariableNames: 'OrbeonTypeMappings'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 OrbeonFormGenerator guid: (GUID fromString: '{ef2355ce-a05d-45dc-a164-b87228eb8c8e}')!
@@ -201,7 +201,8 @@ appendXfBindingsTo: anIXMLDOMElement
 				setAttribute: 'id' value: (umlClassAttribute attributeName, '-bind');
 				setAttribute: 'name' value: umlClassAttribute attributeName;
 				setAttribute: 'ref' value: umlClassAttribute attributeName;
-				setAttribute: 'xxf:whitespace' value: 'trim'.
+				setAttribute: 'xxf:whitespace' value: 'trim';
+				setAttribute: 'type' value: (self class getOrbeonTypeFor: umlClassAttribute typeName).
 			(self isGemStoneForm and: [self defaultBPMRedirectFields includes: umlClassAttribute attributeName])
 			ifTrue: [
 				attributeBind
@@ -526,6 +527,10 @@ xmlString
 
 !OrbeonFormGenerator class methodsFor!
 
+getOrbeonTypeFor: typeName
+
+	^self orbeonTypeMappings at: typeName ifAbsent: ['xf:string']!
+
 new
 
 	^super new initialize!
@@ -534,7 +539,31 @@ newOn: anUMLClass
 
 	^super new initialize
 		umlClass: anUMLClass;
-		yourself! !
+		yourself!
+
+orbeonTypeMappings
+
+	OrbeonTypeMappings 
+	ifNil: [OrbeonTypeMappings := Dictionary new.
+		self setOrbeonTypeMappings].
+
+	^OrbeonTypeMappings!
+
+setOrbeonTypeMappings
+
+	self orbeonTypeMappings
+		at: 'String' put: 'xf:string';
+		at: 'Boolean' put: 'xf:boolean';
+		at: 'Number' put: 'xf:decimal';
+		at: 'Number' put: 'xf:integer';
+		at: 'Date' put: 'xf:date';
+		at: 'Time' put: 'xf:time';
+		at: 'TimeStamp' put: 'xf:dateTime'.
+
+! !
+!OrbeonFormGenerator class categoriesFor: #getOrbeonTypeFor:!public! !
 !OrbeonFormGenerator class categoriesFor: #new!public! !
 !OrbeonFormGenerator class categoriesFor: #newOn:!public! !
+!OrbeonFormGenerator class categoriesFor: #orbeonTypeMappings!public! !
+!OrbeonFormGenerator class categoriesFor: #setOrbeonTypeMappings!public! !
 
