@@ -57,13 +57,17 @@ atVariableName: stringName
 atVariableName: stringName ifAbsent: aBlock 
 	^instancesVariables at: stringName asSymbol ifAbsent: [instancesVariables at: stringName asString ifAbsent: aBlock]!
 
+basicAndObjectVariables
+
+	^instancesVariables reject: [:each | each hasMultipleInstances]!
+
 basicImplementationNamed: aSymbol
 
 	^implementations at: aSymbol ifAbsent: [nil]!
 
 basicVariables
 
-	^instancesVariables reject: [:each | each hasMultipleInstances]!
+	^instancesVariables select: [:each | each isBasic]!
 
 belongToVirtualMachine
 
@@ -317,6 +321,7 @@ vmPerform: aSymbol withArguments: anArray  parentSnapshot: anUMLExecutionSnapsho
 !UMLObjectBehavior categoriesFor: #attributes!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #atVariableName:!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #atVariableName:ifAbsent:!instance variables!public! !
+!UMLObjectBehavior categoriesFor: #basicAndObjectVariables!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #basicImplementationNamed:!behavior!public! !
 !UMLObjectBehavior categoriesFor: #basicVariables!instance variables!public! !
 !UMLObjectBehavior categoriesFor: #belongToVirtualMachine!public! !

@@ -392,7 +392,7 @@ getAspectsForStClass: aidaWebClass aspect: aspectSymbol
 		ifFalse: [(aspectObject smalltalkObject first umlClass getImplementationsFor: UMLGUICollectionAspectsCategory current) collect: [:each | each name]].
 	aspectsArray := '#('.
 	aspectsNames isEmpty "ifNone: display basicVariables. ifNone then the collection aspects has not been configured"
-		ifTrue: [aspectsNames := aspectObject umlClass basicVariables collect: [:each | each name]].
+		ifTrue: [aspectsNames := aspectObject umlClass basicAndObjectVariables collect: [:each | each name]].
 	aspectsNames do: [:each | aspectsArray := aspectsArray, each, ' '].
 	aspectsArray := aspectsArray, ')'.
 	^aspectsArray .

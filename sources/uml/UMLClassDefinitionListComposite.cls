@@ -51,7 +51,7 @@ showImplementationsOf: anUMLClass
 
 	implementationsPresenter model: (ListModel on: (anUMLClass implementations asSortedCollection: [:a :b | a name <= b name])).
 
-	instVarPresenter model: (ListModel on: (anUMLClass basicVariables asSortedCollection: [:a :b | a name <= b name])).
+	instVarPresenter model: (ListModel on: (anUMLClass basicAndObjectVariables asSortedCollection: [:a :b | a name <= b name])).
 
 	relationsPresenter model: (ListModel on: (anUMLClass relations asSortedCollection: [:a :b | a printName <= b printName])).! !
 !UMLClassDefinitionListComposite categoriesFor: #classes!public! !
