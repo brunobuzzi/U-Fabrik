@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'configuration sectionName xmlDocument xhHtmlNode xhNode'
+	instanceVariableNames: 'configuration xmlDocument xhHtmlNode xhNode'
 	classVariableNames: 'OrbeonTypeMappings'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -441,12 +441,6 @@ sectionFields
 
 	^configuration sectionFields!
 
-sectionName
-	^sectionName!
-
-sectionName: anObject
-	sectionName := anObject!
-
 umlClass
 
 	^configuration umlClass!
@@ -516,8 +510,6 @@ xmlString
 !OrbeonFormGenerator categoriesFor: #isGemStoneForm:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #maxWidth!public!xml generation! !
 !OrbeonFormGenerator categoriesFor: #sectionFields!configuration!public! !
-!OrbeonFormGenerator categoriesFor: #sectionName!accessing!private! !
-!OrbeonFormGenerator categoriesFor: #sectionName:!accessing!private! !
 !OrbeonFormGenerator categoriesFor: #umlClass!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #umlClass:!configuration!public! !
 !OrbeonFormGenerator categoriesFor: #xmlDocument!accessing!private! !

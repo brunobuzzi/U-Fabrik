@@ -29,7 +29,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #OrbeonFormGenerator
-	instanceVariableNames: 'configuration sectionName xmlDocument xhHtmlNode xhNode'
+	instanceVariableNames: 'configuration xmlDocument xhHtmlNode xhNode'
 	classVariableNames: 'OrbeonTypeMappings'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
