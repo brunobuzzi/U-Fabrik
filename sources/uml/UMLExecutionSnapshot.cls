@@ -494,7 +494,11 @@ processMessageNode: aStMessageNode context: anUMLObject parameters: anArray
 	receiver := self getObjectFromProgramNode: aStMessageNode.
 	arguments := (aStMessageNode arguments collect: [:each | 
 		each isBlock 
-		ifTrue: [self createBlockFrom: each] "if the argument is a block (aStBlockNode) we must create it in this context"
+		ifTrue: [ | block | "fix #177"
+			block := self createBlockFrom: each.
+			block smalltalkObject selfObject: anUMLObject.
+			block.
+			] "if the argument is a block (aStBlockNode) we must create it in this context"
 		ifFalse: [each isMessage 
 			ifTrue: [self processMessageNode: each context: anUMLObject parameters: anArray] "ïs a message node"
 			ifFalse: [(self includesObjectNamed: each name) 
@@ -503,7 +507,10 @@ processMessageNode: aStMessageNode context: anUMLObject parameters: anArray
 
 	result := aStMessageNode receiver isMessage 
 		ifTrue: [self processMessageNode: aStMessageNode receiver context: anUMLObject parameters: #()]
-		ifFalse: [receiver].
+		ifFalse: [(aStMessageNode receiver isSelfVariable and: [receiver isBlock and: [receiver smalltalkObject selfObject notNil]]) "fix #177"
+			ifFalse: [receiver]
+			ifTrue: [receiver smalltalkObject selfObject]
+		].
 
 	executedNodes add: aStMessageNode.
 
