@@ -131,32 +131,42 @@ testIssue51
 	self externaFileClass removeImplementationNamed: implementation methodName.!
 
 testIssue53
-	| parsedCode result |
+	"Test mismatch instance variable setting"
+	| result umlClass umlInstance |
 
-	parsedCode := self umlCompiler parseExpression: 'Card new account: 9'. "type mismatch to get an error"
+	umlClass := self createUMLClassNamed: 'Foo' withAttributes: (Dictionary new at: 'name' put: 'char'; yourself). "char variable"
 
-	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+	umlInstance := umlClass newInstance.
 
-	self assert: (result umlClass name = 'Error').!
+	"test inst var type mismatch"
+	result := umlInstance vmPerform: #name: withArguments: (Array with: (2 asUMLObject: self defaultVirualMachine)). "char variable is set with an integer --> error"
+
+	"U-Fabrik objects testing"
+	self assert: result class equals: UMLVirtualMachineInstance.
+	self assert: result umlClassName equals: 'Error'.
+
+	"Underlined Smalltalk objects testing"
+	self assert: (result smalltalkObject messageText indexOfSubCollection: 'Mismatch error [name(String)] with [2(Number)]')  equals: 1.
+	self assert: result smalltalkObject class equals: Error.!
 
 testIssue54
-	| isActive parsedCode |
+	| result umlClass umlInstance isActive |
 
 	isActive := virtualMachine transLog logIsActive.
 	virtualMachine transLog cleanAll; logIsActive: true.
 
-	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate: Date new'. 
-	virtualMachine executeSequenceNode: parsedCode in: nil.
+	umlClass := self createUMLClassNamed: 'Foo' withAttributes: (Dictionary new at: 'name' put: 'char'; yourself).
 
-	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate:)] ifNone: [self assert: false]) notNil.
+	umlInstance := umlClass newInstance.
 
-	parsedCode := self umlCompiler parseExpression: 'Card new expirationDate'. 
-	virtualMachine executeSequenceNode: parsedCode in: nil.
+	"test inst var type mismatch"
+	result := umlInstance vmPerform: #name: withArguments: (Array with: ('foo' asUMLObject: self defaultVirualMachine)).
+	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #name:)] ifNone: [self assert: false]) notNil.
 
-	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #expirationDate)] ifNone: [self assert: false]) notNil.
+	result := umlInstance vmPerform: #name withArguments: #().
+	self assert: (virtualMachine transLog logs detect: [:each | (each methodName = #name)] ifNone: [self assert: false]) notNil.
 
-	virtualMachine transLog logIsActive: isActive.
-!
+	virtualMachine transLog logIsActive: isActive.!
 
 testIssue56
 	| parsedCode result |
@@ -300,8 +310,8 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #testIssue141_fibonacci!public!tests! !
 !UMLVirtualMachineTest categoriesFor: #testIssue146!public!tests! !
 !UMLVirtualMachineTest categoriesFor: #testIssue51!public!tests! !
-!UMLVirtualMachineTest categoriesFor: #testIssue53!bank tests!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue54!bank tests!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue53!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue54!public!tests! !
 !UMLVirtualMachineTest categoriesFor: #testIssue56!public!tests! !
 !UMLVirtualMachineTest categoriesFor: #testIssue56_b!public!tests! !
 !UMLVirtualMachineTest categoriesFor: #testIssue56_c!public!tests! !

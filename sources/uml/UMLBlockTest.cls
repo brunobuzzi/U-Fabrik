@@ -45,7 +45,7 @@ testIncorrentNumberOfArguments
 	self assert: (result umlClass name = 'Error').
 !
 
-testOnValueDo
+testOnErrorDo
 	| parsedCode result |
 
 	parsedCode := self umlCompiler parseExpression: '[4 foo] on: Error do: [:ex | | a | a := 4]'. 
@@ -128,7 +128,7 @@ testValueWithArguments
 	self assert: (result smalltalkObject = 'cba').! !
 !UMLBlockTest categoriesFor: #testComplexBlock!public! !
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
-!UMLBlockTest categoriesFor: #testOnValueDo!public! !
+!UMLBlockTest categoriesFor: #testOnErrorDo!public! !
 !UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
 !UMLBlockTest categoriesFor: #testReEntrantBlock!public! !
 !UMLBlockTest categoriesFor: #testReEntrantDetection!public! !
