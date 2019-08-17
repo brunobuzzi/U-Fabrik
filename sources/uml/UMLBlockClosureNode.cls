@@ -123,6 +123,12 @@ restoreExecutionContext: anUMLExecutionSnapshot
 
 	snapshot := anUMLExecutionSnapshot.!
 
+selfObject
+	^selfObject!
+
+selfObject: anObject
+	selfObject := anObject!
+
 sequenceNode
 	^sequenceNode!
 
@@ -197,6 +203,8 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #reEntrantVarName!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #reEntrantVarName:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #restoreExecutionContext:!public!re entrant processing! !
+!UMLBlockClosureNode categoriesFor: #selfObject!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #selfObject:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #sequenceNode:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #snapshot!accessing!private! !

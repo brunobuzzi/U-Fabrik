@@ -40,6 +40,7 @@ package methodNames
 	add: #StLiteralArrayNode -> #getUMLObjectFrom:;
 	add: #StLiteralArrayNode -> #name;
 	add: #StLiteralArrayNode -> #processInsideSnapshot:context:parameters:;
+	add: #StLiteralArrayNode -> #receiverName;
 	add: #StLiteralNode -> #asUMLObject:;
 	add: #StLiteralNode -> #nodes;
 	add: #StLiteralToken -> #asUMLObject:;
@@ -119,14 +120,13 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\..\Core\Object Arts\Dolphin\IDE\Base\Development System';
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser';
-	add: 'UML Basic Support';
-	yourself).
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\IDE\Base\Development System'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models'
+	'..\..\Core\Object Arts\Dolphin\System\Compiler\Smalltalk Parser'
+	'UML Basic Support').
 
 package!
 
@@ -291,12 +291,17 @@ name
 processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: anArray 
 
 	^self asUMLObject
-! !
+!
+
+receiverName
+
+	^contents collect: [:each | each token realValue asUMLObject: self defaultVirtualMachine ] "fix #177"! !
 !StLiteralArrayNode categoriesFor: #asUMLObject!public! !
 !StLiteralArrayNode categoriesFor: #asUMLObject:!public! !
 !StLiteralArrayNode categoriesFor: #getUMLObjectFrom:!public! !
 !StLiteralArrayNode categoriesFor: #name!public! !
 !StLiteralArrayNode categoriesFor: #processInsideSnapshot:context:parameters:!public! !
+!StLiteralArrayNode categoriesFor: #receiverName!public! !
 
 !StLiteralNode methodsFor!
 
