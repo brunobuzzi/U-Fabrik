@@ -27,6 +27,18 @@ testAdd
 
 	self assert: (collection smalltalkObject includes: virtualMachine trueObject)!
 
+testAddAll
+	| parsedCode result code |
+
+	code := ' OrderedCollection new addAll: #(1 2); yourself'.
+
+	parsedCode := self umlCompiler parseExpression: code. 
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+
+	self assert: ((result smalltalkObject at: 1) smalltalkObject = 1).
+	self assert: ((result smalltalkObject at: 2) smalltalkObject = 2).
+!
+
 testIncludes
 	| result |
 
@@ -82,6 +94,7 @@ testSize
 ! !
 !UMLOrderedCollectionTest categoriesFor: #setUp!public! !
 !UMLOrderedCollectionTest categoriesFor: #testAdd!public! !
+!UMLOrderedCollectionTest categoriesFor: #testAddAll!public! !
 !UMLOrderedCollectionTest categoriesFor: #testIncludes!public! !
 !UMLOrderedCollectionTest categoriesFor: #testIsEmpty!public! !
 !UMLOrderedCollectionTest categoriesFor: #testRemove!public! !

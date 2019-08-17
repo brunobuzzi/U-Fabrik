@@ -35,15 +35,15 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit';
-	add: 'UML Basic Support';
-	add: 'UML Compiler';
-	add: 'UML Live Engine';
-	add: 'UML Live Engine Views';
-	add: 'XMI Import-Export Interfase II';
-	yourself).
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
+	'..\..\Core\Contributions\Camp Smalltalk\SUnit\SUnit'
+	'UML Basic Support'
+	'UML Compiler'
+	'UML Live Engine'
+	'UML Live Engine Views'
+	'XMI Import-Export Interfase II').
 
 package!
 

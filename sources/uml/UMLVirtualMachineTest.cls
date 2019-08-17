@@ -161,7 +161,7 @@ testIssue54
 testIssue56
 	| parsedCode result |
 
-	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex |]'. 
+	parsedCode := self umlCompiler parseExpression: '[Array foo] on: Error do: [:ex |]'. 
 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
@@ -172,7 +172,7 @@ testIssue56
 testIssue56_b
 	| parsedCode result |
 
-	parsedCode := self umlCompiler parseExpression: '[Card foo] on: Error do: [:ex | 97]'. 
+	parsedCode := self umlCompiler parseExpression: '[Array new foo] on: Error do: [:ex | 97]'. 
 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
@@ -183,7 +183,7 @@ testIssue56_b
 testIssue56_c
 	| parsedCode result |
 
-	parsedCode := self umlCompiler parseExpression: '[Array new. String new. Card foo. Array new] on: Error do: [:ex | 97]'. 
+	parsedCode := self umlCompiler parseExpression: '[Array new. String new. Array foo. Array new] on: Error do: [:ex | 97]'. 
 
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 
@@ -295,19 +295,19 @@ testIssue92
 !UMLVirtualMachineTest categoriesFor: #msWordClass!public! !
 !UMLVirtualMachineTest categoriesFor: #setUp!public! !
 !UMLVirtualMachineTest categoriesFor: #tearDown!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue105!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue141_factorial!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue141_fibonacci!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue146!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue51!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue53!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue54!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue56!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue56_b!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue56_c!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue66!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue69and97!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue69and97_b!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue72!public! !
-!UMLVirtualMachineTest categoriesFor: #testIssue92!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue105!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue141_factorial!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue141_fibonacci!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue146!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue51!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue53!bank tests!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue54!bank tests!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue56!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue56_b!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue56_c!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue66!bank tests!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue69and97!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue69and97_b!public!tests! !
+!UMLVirtualMachineTest categoriesFor: #testIssue72!bank tests!public! !
+!UMLVirtualMachineTest categoriesFor: #testIssue92!public!tests! !
 
