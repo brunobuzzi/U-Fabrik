@@ -37,12 +37,23 @@ onNodeSelectionChanged
 
 	treePresenter hasSelection ifFalse: [^self].
 
-	codePresenter model: treePresenter selection printString asValue! !
+	codePresenter model: treePresenter selection printString asValue.
+
+	codePresenter view styler: (treePresenter selection isMethod ifTrue: [SmalltalkMethodStyler new] ifFalse: [SmalltalkExpressionStyler new]).!
+
+onViewOpened
+
+	super onViewOpened.
+
+	codePresenter view lexer: #container.
+	codePresenter view textStyles: SmalltalkWorkspace textStyles.
+! !
 !UMLParsedCodeComposite categoriesFor: #cleanTree!public! !
 !UMLParsedCodeComposite categoriesFor: #createComponents!public! !
 !UMLParsedCodeComposite categoriesFor: #createSchematicWiring!public! !
 !UMLParsedCodeComposite categoriesFor: #model:!public! !
 !UMLParsedCodeComposite categoriesFor: #onNodeSelectionChanged!public! !
+!UMLParsedCodeComposite categoriesFor: #onViewOpened!public! !
 
 !UMLParsedCodeComposite class methodsFor!
 
