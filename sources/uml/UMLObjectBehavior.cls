@@ -148,7 +148,7 @@ getVariableNamed: aSymbol ifNone: aBlock
 
 getVariableNamed: aSymbol snapshot: anUMLExecutionSnapshot
 
-	virtualMachine logIsActive 
+	self virtualMachine logIsActive 
 	ifTrue: [virtualMachine registerTransLogFor: self methodName: aSymbol arguments: #() snapshot: anUMLExecutionSnapshot].
 
 	^self getVariableNamed: aSymbol ifNone: [self virtualMachine nilObject]!
