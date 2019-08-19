@@ -52,6 +52,19 @@ add2 value: 3.'.
 
 	self assert: (result smalltalkObject = 5).!
 
+testEmbeddedBlocks_3
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: 
+'block_1 := [ :x | [ :y | [:z | x + y +z ] ] ].
+block_2 := block_1 value: 2.
+block_3 := block_2 value: 3.
+block_3 value: 7.'. 
+
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+
+	self assert: (result smalltalkObject = 12).!
+
 testIncorrentNumberOfArguments
 	| parsedCode result |
 
@@ -152,6 +165,7 @@ testValueWithArguments
 !UMLBlockTest categoriesFor: #testComplexBlock!public! !
 !UMLBlockTest categoriesFor: #testEmbeddedBlocks_1!public! !
 !UMLBlockTest categoriesFor: #testEmbeddedBlocks_2!public! !
+!UMLBlockTest categoriesFor: #testEmbeddedBlocks_3!public! !
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
 !UMLBlockTest categoriesFor: #testOnErrorDo!public! !
 !UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
