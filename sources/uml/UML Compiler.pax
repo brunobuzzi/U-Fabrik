@@ -138,7 +138,7 @@ StParseNodeVisitor subclass: #UMLTreeVisitor
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant reEntrantVarName'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant reEntrantVarName parentBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -245,7 +245,12 @@ processInsideSnapshot: anUMLExecutionSnapshot context: anUMLObject parameters: a
 	| block |
 
 	block := anUMLExecutionSnapshot createBlockFrom: self.
-	^block vmPerform: #value! !
+	anUMLObject isBlock 
+	ifTrue: [block smalltalkObject parentBlock: anUMLObject.].
+
+	^block
+
+	"^block vmPerform: #value withArguments: blockArguments."! !
 !StBlockNode categoriesFor: #isSuperSend!public! !
 !StBlockNode categoriesFor: #name!public! !
 !StBlockNode categoriesFor: #nodes!public! !

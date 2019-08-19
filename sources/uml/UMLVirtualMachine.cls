@@ -1302,7 +1302,7 @@ processPrimitiveCall_203: anUMLInstance withArguments: anArray snapshot: anUMLEx
 
 	anUMLBlockClosureNode := anUMLInstance smalltalkObject.
 	currentBlockContext := anUMLBlockClosureNode snapshot.
-	anUMLBlockClosureNode hasParentBlock ifTrue: [currentBlockContext temporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot addTemporary: value named: key]].
+	currentBlockContext temporaries keysAndValuesDo: [:key :value | anUMLExecutionSnapshot addTemporary: value named: key]. "fix #179 - pass Block temporaries to the new context "
 	anUMLBlockClosureNode updateExecutionContext: anUMLExecutionSnapshot. "this is to support re entrant Blocks issue #141"
 
 	(anUMLBlockClosureNode arguments size = 1) ifFalse: [^self errorClass newInstance smalltalkObject: (Error new messageText: 'Block: Incorrect number of arguments')].

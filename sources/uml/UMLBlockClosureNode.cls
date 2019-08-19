@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk 7"!
 
 UMLObject subclass: #UMLBlockClosureNode
-	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant reEntrantVarName'
+	instanceVariableNames: 'arguments sequenceNode selfObject snapshot umlInstance isReEntrant reEntrantVarName parentBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -90,6 +90,12 @@ nodes
 
 	^sequenceNode nodes!
 
+parentBlock
+	^parentBlock!
+
+parentBlock: anObject
+	parentBlock := anObject!
+
 printMessage
 
 	^sequenceNode printString
@@ -139,6 +145,7 @@ snapshot
 	^snapshot!
 
 snapshot: anObject
+
 	snapshot := anObject!
 
 source
@@ -197,6 +204,8 @@ UMLVirtualMachine>>processPrimitiveCall_127:withArguments:snapshot:
 !UMLBlockClosureNode categoriesFor: #isReEntrant:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #messagesCollect:!public! !
 !UMLBlockClosureNode categoriesFor: #nodes!public! !
+!UMLBlockClosureNode categoriesFor: #parentBlock!accessing!private! !
+!UMLBlockClosureNode categoriesFor: #parentBlock:!accessing!private! !
 !UMLBlockClosureNode categoriesFor: #printMessage!public! !
 !UMLBlockClosureNode categoriesFor: #printOn:!public! !
 !UMLBlockClosureNode categoriesFor: #printSource!public! !
