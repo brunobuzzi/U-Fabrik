@@ -323,12 +323,12 @@ variableName: variableName ifNone: aBlock
 vmPerform: aSymbol withArguments: anArray 
 	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
 
-	^[self vmPerform: aSymbol withArguments: anArray parentSnapshot: nil] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code']!
+	^[self vmPerform: aSymbol withArguments: anArray parentSnapshot: nil] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code: [', ex description , ']']!
 
 vmPerform: aSymbol withArguments: anArray parentSnapshot: anUMLExecutionSnapshot
 	"The receiver perform the UMLImplementation named <aSymbol> with arguments <anArray>"
 
-	^[umlClass virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: anUMLExecutionSnapshot] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code']! !
+	^[umlClass virtualMachine send: aSymbol to: self withAll: anArray parentSnapshot: anUMLExecutionSnapshot] on: Error do: [:ex | (UMLVirtualMachineExecutionError newFrom: ex) signal: 'Error while executing VM code: [', ex description ,']']! !
 !UMLInstance categoriesFor: #allAttributes!attributes!public! !
 !UMLInstance categoriesFor: #allImplementations!public!relations! !
 !UMLInstance categoriesFor: #allImplementationsButObject!public!relations! !
