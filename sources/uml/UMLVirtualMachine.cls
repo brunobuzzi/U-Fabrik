@@ -22,10 +22,13 @@ packages			- aDictionary to group virtual machine core classes.'!
 
 addNumber: aNumber
 	"The environment has request a number that not exist in the receiver, so we proceed to create it"
-	| newNumberInstance |
+	| newNumberInstance stringNumber |
 
 	newNumberInstance := self numberClass newInstanceWith: aNumber. "we create the primitive insntace"
-	numbers at: aNumber printString put: newNumberInstance. "we store it in the cache"
+	stringNumber := aNumber isFraction
+		ifTrue: [aNumber printFractionString] 
+		ifFalse: [aNumber printString].
+	numbers at: stringNumber put: newNumberInstance. "we store it in the cache"
 	newNumberInstance virtualMachine: self. "we set the virtual machine of the instance "
 	^newNumberInstance!
 

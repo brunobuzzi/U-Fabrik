@@ -97,6 +97,7 @@ package methodNames
 	add: #Dictionary -> #uml_removeKey:;
 	add: #Error -> #asUMLObject:;
 	add: #False -> #asUMLObject:;
+	add: #Fraction -> #printFractionString;
 	add: #Interval -> #asUMLObject:;
 	add: #Number -> #asString;
 	add: #Number -> #asSymbol;
@@ -649,6 +650,20 @@ asUMLObject: aVirtualMachine
 
 	^aVirtualMachine falseObject! !
 !False categoriesFor: #asUMLObject:!public! !
+
+!Fraction methodsFor!
+
+printFractionString
+	| writeStream |
+
+	writeStream := WriteStream on: String new.
+	writeStream 
+		print: numerator;
+		nextPut: $/;
+		print: denominator.
+	^writeStream contents
+! !
+!Fraction categoriesFor: #printFractionString!printing!public! !
 
 !Interval methodsFor!
 
