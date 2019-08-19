@@ -29,6 +29,29 @@ f].
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result smalltalkObject = 8).!
 
+testEmbeddedBlocks_1
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: 
+'makeAdder := [ :x | [ :y | x + y ]].
+add2 := makeAdder value: 2.'. 
+
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+
+	self assert: (result smalltalkObject class = UMLBlockClosureNode).!
+
+testEmbeddedBlocks_2
+	| parsedCode result |
+
+	parsedCode := self umlCompiler parseExpression: 
+'makeAdder := [ :x | [ :y | x + y ]].
+add2 := makeAdder value: 2.
+add2 value: 3.'. 
+
+	result := virtualMachine executeSequenceNode: parsedCode in: nil.
+
+	self assert: (result smalltalkObject = 5).!
+
 testIncorrentNumberOfArguments
 	| parsedCode result |
 
@@ -127,6 +150,8 @@ testValueWithArguments
 	result := virtualMachine executeSequenceNode: parsedCode in: nil.
 	self assert: (result smalltalkObject = 'cba').! !
 !UMLBlockTest categoriesFor: #testComplexBlock!public! !
+!UMLBlockTest categoriesFor: #testEmbeddedBlocks_1!public! !
+!UMLBlockTest categoriesFor: #testEmbeddedBlocks_2!public! !
 !UMLBlockTest categoriesFor: #testIncorrentNumberOfArguments!public! !
 !UMLBlockTest categoriesFor: #testOnErrorDo!public! !
 !UMLBlockTest categoriesFor: #testOuterContextVariable!public! !
