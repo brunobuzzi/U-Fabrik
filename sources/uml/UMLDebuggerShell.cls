@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLDebuggerShell
 	classInstanceVariableNames: ''!
 UMLDebuggerShell guid: (GUID fromString: '{abd40fc1-d2a1-4051-b5c3-0a3fa1075abb}')!
 UMLDebuggerShell comment: ''!
-!UMLDebuggerShell categoriesForClass!Unclassified! !
+!UMLDebuggerShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLDebuggerShell methodsFor!
 
 addAllSnapshots: aCollection

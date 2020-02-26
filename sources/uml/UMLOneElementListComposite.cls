@@ -7,7 +7,7 @@ UMLListComposite subclass: #UMLOneElementListComposite
 	classInstanceVariableNames: ''!
 UMLOneElementListComposite guid: (GUID fromString: '{b2970314-22f5-4ccc-b721-fa8be7f718a2}')!
 UMLOneElementListComposite comment: ''!
-!UMLOneElementListComposite categoriesForClass!Unclassified! !
+!UMLOneElementListComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLOneElementListComposite methodsFor!
 
 addNewObject

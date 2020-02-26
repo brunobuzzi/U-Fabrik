@@ -7,7 +7,7 @@ UMLShell subclass: #UMLModelsBrowserShell
 	classInstanceVariableNames: ''!
 UMLModelsBrowserShell guid: (GUID fromString: '{d2e0d72c-955a-47af-b55e-c3fcf9bb55ae}')!
 UMLModelsBrowserShell comment: ''!
-!UMLModelsBrowserShell categoriesForClass!Unclassified! !
+!UMLModelsBrowserShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelsBrowserShell methodsFor!
 
 createComponents

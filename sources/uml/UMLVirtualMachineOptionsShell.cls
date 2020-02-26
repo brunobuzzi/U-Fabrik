@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLVirtualMachineOptionsShell
 	classInstanceVariableNames: ''!
 UMLVirtualMachineOptionsShell guid: (GUID fromString: '{23985449-c39e-4d98-8a8d-739c61b5393c}')!
 UMLVirtualMachineOptionsShell comment: ''!
-!UMLVirtualMachineOptionsShell categoriesForClass!Unclassified! !
+!UMLVirtualMachineOptionsShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLVirtualMachineOptionsShell methodsFor!
 
 createComponents

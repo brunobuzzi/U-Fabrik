@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLVMTransLogComposite
 	classInstanceVariableNames: ''!
 UMLVMTransLogComposite guid: (GUID fromString: '{03106ed5-262c-493b-b2a0-50cb8d6835c5}')!
 UMLVMTransLogComposite comment: ''!
-!UMLVMTransLogComposite categoriesForClass!Unclassified! !
+!UMLVMTransLogComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLVMTransLogComposite methodsFor!
 
 cleanAll

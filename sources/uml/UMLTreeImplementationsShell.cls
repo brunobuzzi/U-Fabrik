@@ -7,7 +7,7 @@ UMLShell subclass: #UMLTreeImplementationsShell
 	classInstanceVariableNames: ''!
 UMLTreeImplementationsShell guid: (GUID fromString: '{177313e9-abcc-4bfe-ae7a-30847fff873f}')!
 UMLTreeImplementationsShell comment: ''!
-!UMLTreeImplementationsShell categoriesForClass!Unclassified! !
+!UMLTreeImplementationsShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLTreeImplementationsShell methodsFor!
 
 createComponents

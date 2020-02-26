@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLParsedCodeComposite
 	classInstanceVariableNames: ''!
 UMLParsedCodeComposite guid: (GUID fromString: '{5a7e40d9-8aa7-4d98-ac0d-c79e811bafe1}')!
 UMLParsedCodeComposite comment: ''!
-!UMLParsedCodeComposite categoriesForClass!Unclassified! !
+!UMLParsedCodeComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLParsedCodeComposite methodsFor!
 
 cleanTree

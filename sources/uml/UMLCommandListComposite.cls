@@ -7,7 +7,7 @@ UMLSimpleListComposite subclass: #UMLCommandListComposite
 	classInstanceVariableNames: ''!
 UMLCommandListComposite guid: (GUID fromString: '{3d30ff77-d835-4355-a005-58483170a296}')!
 UMLCommandListComposite comment: ''!
-!UMLCommandListComposite categoriesForClass!Unclassified! !
+!UMLCommandListComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCommandListComposite methodsFor!
 
 exitInspector

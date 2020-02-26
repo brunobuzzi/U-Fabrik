@@ -7,7 +7,7 @@ UMLToolShell subclass: #UFabrikManagerShell
 	classInstanceVariableNames: ''!
 UFabrikManagerShell guid: (GUID fromString: '{f77ab2b4-987a-4168-956a-eb22c6b878cc}')!
 UFabrikManagerShell comment: ''!
-!UFabrikManagerShell categoriesForClass!Unclassified! !
+!UFabrikManagerShell categoriesForClass!MVP-Resources-UFabrik! !
 !UFabrikManagerShell methodsFor!
 
 categoryBrowserIcon

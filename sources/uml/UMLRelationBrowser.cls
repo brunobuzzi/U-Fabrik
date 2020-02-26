@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLRelationBrowser
 	classInstanceVariableNames: ''!
 UMLRelationBrowser guid: (GUID fromString: '{67121c7d-8b26-4975-bbaa-b50fc80bbed6}')!
 UMLRelationBrowser comment: ''!
-!UMLRelationBrowser categoriesForClass!Unclassified! !
+!UMLRelationBrowser categoriesForClass!MVP-Resources-UFabrik! !
 !UMLRelationBrowser methodsFor!
 
 createComponents

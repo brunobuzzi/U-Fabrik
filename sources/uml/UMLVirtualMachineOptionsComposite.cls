@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLVirtualMachineOptionsComposite
 	classInstanceVariableNames: ''!
 UMLVirtualMachineOptionsComposite guid: (GUID fromString: '{9c9e5979-b334-49fa-b360-18fa0f28b4ed}')!
 UMLVirtualMachineOptionsComposite comment: ''!
-!UMLVirtualMachineOptionsComposite categoriesForClass!Unclassified! !
+!UMLVirtualMachineOptionsComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLVirtualMachineOptionsComposite methodsFor!
 
 closeWindow

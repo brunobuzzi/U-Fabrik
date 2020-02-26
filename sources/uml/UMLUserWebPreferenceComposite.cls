@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLUserWebPreferenceComposite
 	classInstanceVariableNames: ''!
 UMLUserWebPreferenceComposite guid: (GUID fromString: '{928def38-bd37-4058-a342-3711a4442bb0}')!
 UMLUserWebPreferenceComposite comment: ''!
-!UMLUserWebPreferenceComposite categoriesForClass!Unclassified! !
+!UMLUserWebPreferenceComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLUserWebPreferenceComposite methodsFor!
 
 allButtons

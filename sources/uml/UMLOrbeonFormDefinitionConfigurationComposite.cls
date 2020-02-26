@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLOrbeonFormDefinitionConfigurationComposite
 	classInstanceVariableNames: ''!
 UMLOrbeonFormDefinitionConfigurationComposite guid: (GUID fromString: '{8bf7aee3-e298-4721-b82a-cc6c81bab3b4}')!
 UMLOrbeonFormDefinitionConfigurationComposite comment: ''!
-!UMLOrbeonFormDefinitionConfigurationComposite categoriesForClass!Unclassified! !
+!UMLOrbeonFormDefinitionConfigurationComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLOrbeonFormDefinitionConfigurationComposite methodsFor!
 
 createComponents

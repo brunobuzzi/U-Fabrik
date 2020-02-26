@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLOrbeonFormDefinitionConfigurationShell
 	classInstanceVariableNames: ''!
 UMLOrbeonFormDefinitionConfigurationShell guid: (GUID fromString: '{9742c4dc-4a51-48ac-91c3-a0d1c038ad8a}')!
 UMLOrbeonFormDefinitionConfigurationShell comment: ''!
-!UMLOrbeonFormDefinitionConfigurationShell categoriesForClass!Unclassified! !
+!UMLOrbeonFormDefinitionConfigurationShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLOrbeonFormDefinitionConfigurationShell methodsFor!
 
 createComponents

@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLAttributeBrowserComposite
 	classInstanceVariableNames: ''!
 UMLAttributeBrowserComposite guid: (GUID fromString: '{8194a927-2f83-4d8c-9b31-5a0fb6e89ead}')!
 UMLAttributeBrowserComposite comment: ''!
-!UMLAttributeBrowserComposite categoriesForClass!Unclassified! !
+!UMLAttributeBrowserComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLAttributeBrowserComposite methodsFor!
 
 attributesPresenter

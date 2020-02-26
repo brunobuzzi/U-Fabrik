@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLModelShell
 	classInstanceVariableNames: ''!
 UMLModelShell guid: (GUID fromString: '{fd5f32e2-1f5d-4ad8-9a00-39cf5d02aa71}')!
 UMLModelShell comment: ''!
-!UMLModelShell categoriesForClass!Unclassified! !
+!UMLModelShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelShell methodsFor!
 
 checkSelectedMethod

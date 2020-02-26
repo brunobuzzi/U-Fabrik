@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLTraitBrowserShell
 	classInstanceVariableNames: ''!
 UMLTraitBrowserShell guid: (GUID fromString: '{c5ec27aa-d973-4217-8115-224553090fab}')!
 UMLTraitBrowserShell comment: ''!
-!UMLTraitBrowserShell categoriesForClass!Unclassified! !
+!UMLTraitBrowserShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLTraitBrowserShell methodsFor!
 
 createComponents

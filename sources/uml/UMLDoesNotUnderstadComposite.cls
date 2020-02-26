@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLDoesNotUnderstadComposite
 	classInstanceVariableNames: ''!
 UMLDoesNotUnderstadComposite guid: (GUID fromString: '{d78e9f3a-7b60-43ba-961f-233a93e9a371}')!
 UMLDoesNotUnderstadComposite comment: ''!
-!UMLDoesNotUnderstadComposite categoriesForClass!Unclassified! !
+!UMLDoesNotUnderstadComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLDoesNotUnderstadComposite methodsFor!
 
 caption: aString

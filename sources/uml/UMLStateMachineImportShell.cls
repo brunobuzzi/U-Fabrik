@@ -7,7 +7,7 @@ UMLShell subclass: #UMLStateMachineImportShell
 	classInstanceVariableNames: ''!
 UMLStateMachineImportShell guid: (GUID fromString: '{61610e88-1b18-421f-b98c-188761240900}')!
 UMLStateMachineImportShell comment: ''!
-!UMLStateMachineImportShell categoriesForClass!Unclassified! !
+!UMLStateMachineImportShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLStateMachineImportShell methodsFor!
 
 createComponents

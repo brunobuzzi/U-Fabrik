@@ -7,7 +7,7 @@ UMLParametricObjectsShell subclass: #UMLModelSetupObjectsShell
 	classInstanceVariableNames: ''!
 UMLModelSetupObjectsShell guid: (GUID fromString: '{29204295-d07e-48fa-9950-184c925e49e0}')!
 UMLModelSetupObjectsShell comment: ''!
-!UMLModelSetupObjectsShell categoriesForClass!Unclassified! !
+!UMLModelSetupObjectsShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelSetupObjectsShell methodsFor!
 
 addToRepository: anUMLInstance 

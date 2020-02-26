@@ -7,7 +7,7 @@ UMLAbstractButtonStructureComposite subclass: #UMLButtonCollectionStructureCompo
 	classInstanceVariableNames: ''!
 UMLButtonCollectionStructureComposite guid: (GUID fromString: '{238bf907-f4f8-4057-b43d-7b88d9039cfb}')!
 UMLButtonCollectionStructureComposite comment: ''!
-!UMLButtonCollectionStructureComposite categoriesForClass!Unclassified! !
+!UMLButtonCollectionStructureComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLButtonCollectionStructureComposite methodsFor!
 
 checkNumberOfArgumentsWithMethodName

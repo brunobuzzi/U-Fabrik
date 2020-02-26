@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLDebugerComposite
 	classInstanceVariableNames: ''!
 UMLDebugerComposite guid: (GUID fromString: '{0c18d82e-ea1f-4ef2-8133-1542a292bb44}')!
 UMLDebugerComposite comment: ''!
-!UMLDebugerComposite categoriesForClass!Unclassified! !
+!UMLDebugerComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLDebugerComposite methodsFor!
 
 addMessageToImplementation

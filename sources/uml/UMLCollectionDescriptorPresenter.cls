@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLCollectionDescriptorPresenter
 	classInstanceVariableNames: ''!
 UMLCollectionDescriptorPresenter guid: (GUID fromString: '{732dd47f-3135-4a96-9a8c-6856ac336927}')!
 UMLCollectionDescriptorPresenter comment: ''!
-!UMLCollectionDescriptorPresenter categoriesForClass!Unclassified! !
+!UMLCollectionDescriptorPresenter categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCollectionDescriptorPresenter methodsFor!
 
 createComponents

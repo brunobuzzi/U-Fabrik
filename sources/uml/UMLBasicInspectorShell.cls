@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLBasicInspectorShell
 	classInstanceVariableNames: ''!
 UMLBasicInspectorShell guid: (GUID fromString: '{0d2e96c4-1cba-4085-9ce3-22abe31332c5}')!
 UMLBasicInspectorShell comment: ''!
-!UMLBasicInspectorShell categoriesForClass!Unclassified! !
+!UMLBasicInspectorShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLBasicInspectorShell methodsFor!
 
 createComponents

@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLClassListShell
 	classInstanceVariableNames: ''!
 UMLClassListShell guid: (GUID fromString: '{fd38d68f-9b03-4b2f-9878-ee7a789f773e}')!
 UMLClassListShell comment: ''!
-!UMLClassListShell categoriesForClass!Unclassified! !
+!UMLClassListShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLClassListShell methodsFor!
 
 createComponents

@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLLoginShell
 	classInstanceVariableNames: ''!
 UMLLoginShell guid: (GUID fromString: '{196ebbb1-4297-4a88-9444-800ec38bd839}')!
 UMLLoginShell comment: ''!
-!UMLLoginShell categoriesForClass!Unclassified! !
+!UMLLoginShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLLoginShell methodsFor!
 
 createComponents

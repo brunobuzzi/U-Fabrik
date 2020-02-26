@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLModelComparisionComposite
 	classInstanceVariableNames: ''!
 UMLModelComparisionComposite guid: (GUID fromString: '{63b93338-52d5-4fef-bf8e-0b1f3cf13da6}')!
 UMLModelComparisionComposite comment: ''!
-!UMLModelComparisionComposite categoriesForClass!Unclassified! !
+!UMLModelComparisionComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelComparisionComposite methodsFor!
 
 compare

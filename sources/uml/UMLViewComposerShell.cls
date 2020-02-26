@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLViewComposerShell
 	classInstanceVariableNames: ''!
 UMLViewComposerShell guid: (GUID fromString: '{10601294-5cbe-4e47-aa3b-22349d4de546}')!
 UMLViewComposerShell comment: ''!
-!UMLViewComposerShell categoriesForClass!Unclassified! !
+!UMLViewComposerShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLViewComposerShell methodsFor!
 
 createComponents

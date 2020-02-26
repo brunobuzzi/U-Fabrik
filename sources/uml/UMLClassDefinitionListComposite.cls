@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLClassDefinitionListComposite
 	classInstanceVariableNames: ''!
 UMLClassDefinitionListComposite guid: (GUID fromString: '{20450628-5aca-4569-9608-9a1ab8f93aae}')!
 UMLClassDefinitionListComposite comment: ''!
-!UMLClassDefinitionListComposite categoriesForClass!Unclassified! !
+!UMLClassDefinitionListComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLClassDefinitionListComposite methodsFor!
 
 classes

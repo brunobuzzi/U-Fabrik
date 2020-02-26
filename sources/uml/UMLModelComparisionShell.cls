@@ -7,7 +7,7 @@ UMLShell subclass: #UMLModelComparisionShell
 	classInstanceVariableNames: ''!
 UMLModelComparisionShell guid: (GUID fromString: '{02e08415-76a1-4504-a340-9aaeadebe405}')!
 UMLModelComparisionShell comment: ''!
-!UMLModelComparisionShell categoriesForClass!Unclassified! !
+!UMLModelComparisionShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelComparisionShell methodsFor!
 
 createComponents

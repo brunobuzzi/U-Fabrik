@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLBasicWorkspaceComposite
 	classInstanceVariableNames: ''!
 UMLBasicWorkspaceComposite guid: (GUID fromString: '{c3ddc0fe-521b-4d40-87de-6434cf235be5}')!
 UMLBasicWorkspaceComposite comment: ''!
-!UMLBasicWorkspaceComposite categoriesForClass!Unclassified! !
+!UMLBasicWorkspaceComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLBasicWorkspaceComposite methodsFor!
 
 aboutThisTool

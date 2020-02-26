@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLModelParametricObjectBrowserComposite
 	classInstanceVariableNames: ''!
 UMLModelParametricObjectBrowserComposite guid: (GUID fromString: '{4a567fa8-06f7-4aa3-815d-84dba6a5da4a}')!
 UMLModelParametricObjectBrowserComposite comment: ''!
-!UMLModelParametricObjectBrowserComposite categoriesForClass!Unclassified! !
+!UMLModelParametricObjectBrowserComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelParametricObjectBrowserComposite methodsFor!
 
 addGlobalClass

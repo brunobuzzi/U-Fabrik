@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLCustomizedInspectorComposite
 	classInstanceVariableNames: ''!
 UMLCustomizedInspectorComposite guid: (GUID fromString: '{12f1959a-0c0b-49a3-9f58-d775ea6d03ab}')!
 UMLCustomizedInspectorComposite comment: ''!
-!UMLCustomizedInspectorComposite categoriesForClass!Unclassified! !
+!UMLCustomizedInspectorComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCustomizedInspectorComposite methodsFor!
 
 addCommandArgsButtonsFor: aSetOfUMLImplementation 

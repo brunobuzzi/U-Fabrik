@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLImplementationComposite
 	classInstanceVariableNames: ''!
 UMLImplementationComposite guid: (GUID fromString: '{c20599f8-1a70-42b9-817b-740a6b12e77f}')!
 UMLImplementationComposite comment: ''!
-!UMLImplementationComposite categoriesForClass!Unclassified! !
+!UMLImplementationComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLImplementationComposite methodsFor!
 
 backcolorFor: anUMLImplementation

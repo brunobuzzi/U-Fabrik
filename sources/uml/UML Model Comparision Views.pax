@@ -21,21 +21,21 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\ListTree\Dolphin List Tree Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models';
-	add: '..\..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
-	add: 'UML Basic Views';
-	add: 'UML Model Comparision';
-	yourself).
+package setPrerequisites: #(
+	'..\..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\Core\Object Arts\Dolphin\MVP\Views\Common Controls\Dolphin Common Controls'
+	'..\..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\ListTree\Dolphin List Tree Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Rich Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
+	'..\..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models'
+	'..\..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
+	'UML Basic Views'
+	'UML Model Comparision').
 
 package!
 

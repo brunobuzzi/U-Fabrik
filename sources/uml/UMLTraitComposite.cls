@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLTraitComposite
 	classInstanceVariableNames: ''!
 UMLTraitComposite guid: (GUID fromString: '{3acd16e7-57f3-4335-be13-dc0045cbb8ba}')!
 UMLTraitComposite comment: ''!
-!UMLTraitComposite categoriesForClass!Unclassified! !
+!UMLTraitComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLTraitComposite methodsFor!
 
 addMethod

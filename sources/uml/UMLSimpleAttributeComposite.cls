@@ -7,7 +7,7 @@ UMLAttributeComposite subclass: #UMLSimpleAttributeComposite
 	classInstanceVariableNames: ''!
 UMLSimpleAttributeComposite guid: (GUID fromString: '{d150fec2-89b4-4fcf-a528-08feb9a97f0b}')!
 UMLSimpleAttributeComposite comment: ''!
-!UMLSimpleAttributeComposite categoriesForClass!Unclassified! !
+!UMLSimpleAttributeComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLSimpleAttributeComposite methodsFor!
 
 createComponents

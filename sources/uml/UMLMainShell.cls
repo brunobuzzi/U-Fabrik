@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLMainShell
 	classInstanceVariableNames: ''!
 UMLMainShell guid: (GUID fromString: '{1de20130-258e-48ce-a67b-897d70e56087}')!
 UMLMainShell comment: ''!
-!UMLMainShell categoriesForClass!Unclassified! !
+!UMLMainShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLMainShell methodsFor!
 
 container

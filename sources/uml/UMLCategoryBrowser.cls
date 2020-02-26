@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLCategoryBrowser
 	classInstanceVariableNames: ''!
 UMLCategoryBrowser guid: (GUID fromString: '{259991d1-2941-4974-865d-9952bb351ea2}')!
 UMLCategoryBrowser comment: ''!
-!UMLCategoryBrowser categoriesForClass!Unclassified! !
+!UMLCategoryBrowser categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCategoryBrowser methodsFor!
 
 aboutThisTool

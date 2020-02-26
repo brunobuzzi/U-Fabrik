@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLBasicInspectorComposite
 	classInstanceVariableNames: ''!
 UMLBasicInspectorComposite guid: (GUID fromString: '{5a0a53a3-3b58-4174-a8c4-75690f31f7ec}')!
 UMLBasicInspectorComposite comment: ''!
-!UMLBasicInspectorComposite categoriesForClass!Unclassified! !
+!UMLBasicInspectorComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLBasicInspectorComposite methodsFor!
 
 aspectPresenter

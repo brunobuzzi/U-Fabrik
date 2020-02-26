@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLDynamicViewComposer
 	classInstanceVariableNames: ''!
 UMLDynamicViewComposer guid: (GUID fromString: '{4b0e246b-7852-48ce-8b7a-ca924207464a}')!
 UMLDynamicViewComposer comment: ''!
-!UMLDynamicViewComposer categoriesForClass!Unclassified! !
+!UMLDynamicViewComposer categoriesForClass!MVP-Resources-UFabrik! !
 !UMLDynamicViewComposer methodsFor!
 
 addBasicObject

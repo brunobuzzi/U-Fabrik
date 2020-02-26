@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLParsedCodeShell
 	classInstanceVariableNames: ''!
 UMLParsedCodeShell guid: (GUID fromString: '{69fbca3c-6c38-4de9-800b-4d6c598a7116}')!
 UMLParsedCodeShell comment: ''!
-!UMLParsedCodeShell categoriesForClass!Unclassified! !
+!UMLParsedCodeShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLParsedCodeShell methodsFor!
 
 createComponents

@@ -7,7 +7,7 @@ UMLShell subclass: #UMLRelationShell
 	classInstanceVariableNames: ''!
 UMLRelationShell guid: (GUID fromString: '{3cea556b-b1c7-4efe-b8de-8c32801de8ac}')!
 UMLRelationShell comment: ''!
-!UMLRelationShell categoriesForClass!Unclassified! !
+!UMLRelationShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLRelationShell methodsFor!
 
 createComponents

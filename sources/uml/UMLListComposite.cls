@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLListComposite
 	classInstanceVariableNames: ''!
 UMLListComposite guid: (GUID fromString: '{c8ebb7e9-20c0-4977-95b4-f293d424dbfb}')!
 UMLListComposite comment: ''!
-!UMLListComposite categoriesForClass!Unclassified! !
+!UMLListComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLListComposite methodsFor!
 
 addColumn: aListViewColumn 

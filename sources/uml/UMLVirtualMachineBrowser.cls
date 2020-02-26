@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLVirtualMachineBrowser
 	classInstanceVariableNames: ''!
 UMLVirtualMachineBrowser guid: (GUID fromString: '{ed01a6e8-b50c-433b-a912-3bc360ba1845}')!
 UMLVirtualMachineBrowser comment: ''!
-!UMLVirtualMachineBrowser categoriesForClass!Unclassified! !
+!UMLVirtualMachineBrowser categoriesForClass!MVP-Resources-UFabrik! !
 !UMLVirtualMachineBrowser methodsFor!
 
 aboutThisTool

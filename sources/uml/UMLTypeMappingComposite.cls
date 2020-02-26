@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLTypeMappingComposite
 	classInstanceVariableNames: ''!
 UMLTypeMappingComposite guid: (GUID fromString: '{56b285e5-16bb-4420-8fbf-2f0fcc2d81a5}')!
 UMLTypeMappingComposite comment: ''!
-!UMLTypeMappingComposite categoriesForClass!Unclassified! !
+!UMLTypeMappingComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLTypeMappingComposite methodsFor!
 
 createComponents

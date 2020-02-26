@@ -7,7 +7,7 @@ UMLBasicContainer subclass: #UMLGridContainer
 	classInstanceVariableNames: ''!
 UMLGridContainer guid: (GUID fromString: '{59eca27a-61ee-4517-be82-84555d73b692}')!
 UMLGridContainer comment: 'Used for set of basic objects (string, number, date, time), has GridLayout configuration to hold a number of basic object presenters.'!
-!UMLGridContainer categoriesForClass!Unclassified! !
+!UMLGridContainer categoriesForClass!MVP-Resources-UFabrik! !
 !UMLGridContainer methodsFor!
 
 container

@@ -7,7 +7,7 @@ UMLAbstractButtonStructureComposite subclass: #UMLButtonStoredArgumentsStructure
 	classInstanceVariableNames: ''!
 UMLButtonStoredArgumentsStructureComposite guid: (GUID fromString: '{d479dedc-01ac-4b73-85cc-8d38300cead5}')!
 UMLButtonStoredArgumentsStructureComposite comment: '"This version of the UML Almighty only allow one argument in the Web Commands"'!
-!UMLButtonStoredArgumentsStructureComposite categoriesForClass!Unclassified! !
+!UMLButtonStoredArgumentsStructureComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLButtonStoredArgumentsStructureComposite methodsFor!
 
 addClass

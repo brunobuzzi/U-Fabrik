@@ -7,7 +7,7 @@ UMLShell subclass: #UMLListAttributeShell
 	classInstanceVariableNames: ''!
 UMLListAttributeShell guid: (GUID fromString: '{fb61f7b0-a9d0-4d7d-b5b3-767c6274b471}')!
 UMLListAttributeShell comment: ''!
-!UMLListAttributeShell categoriesForClass!Unclassified! !
+!UMLListAttributeShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLListAttributeShell methodsFor!
 
 createComponents

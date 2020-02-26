@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLDuplicatedAttributesComposite
 	classInstanceVariableNames: ''!
 UMLDuplicatedAttributesComposite guid: (GUID fromString: '{4ba977ba-f0d4-41ea-92bb-1ac5f58b4e35}')!
 UMLDuplicatedAttributesComposite comment: ''!
-!UMLDuplicatedAttributesComposite categoriesForClass!Unclassified! !
+!UMLDuplicatedAttributesComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLDuplicatedAttributesComposite methodsFor!
 
 createComponents

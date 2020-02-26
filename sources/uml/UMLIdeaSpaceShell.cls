@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLIdeaSpaceShell
 	classInstanceVariableNames: ''!
 UMLIdeaSpaceShell guid: (GUID fromString: '{9e0ffb6c-65e1-4bb3-84f1-ce83dd583a05}')!
 UMLIdeaSpaceShell comment: ''!
-!UMLIdeaSpaceShell categoriesForClass!Unclassified! !
+!UMLIdeaSpaceShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLIdeaSpaceShell methodsFor!
 
 checkSelectedMethod

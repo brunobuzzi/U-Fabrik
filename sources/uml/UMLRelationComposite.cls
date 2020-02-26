@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLRelationComposite
 	classInstanceVariableNames: ''!
 UMLRelationComposite guid: (GUID fromString: '{3119ac57-2217-4dc5-b967-ef8d2d9dba4d}')!
 UMLRelationComposite comment: ''!
-!UMLRelationComposite categoriesForClass!Unclassified! !
+!UMLRelationComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLRelationComposite methodsFor!
 
 cancel

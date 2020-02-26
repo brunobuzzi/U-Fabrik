@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLCustomizedInspectorShell
 	classInstanceVariableNames: ''!
 UMLCustomizedInspectorShell guid: (GUID fromString: '{53a4c376-d9dc-4da4-beff-d3c421ff158e}')!
 UMLCustomizedInspectorShell comment: ''!
-!UMLCustomizedInspectorShell categoriesForClass!Unclassified! !
+!UMLCustomizedInspectorShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCustomizedInspectorShell methodsFor!
 
 addCommandArgsButtonsFor: anOrderedCollection 

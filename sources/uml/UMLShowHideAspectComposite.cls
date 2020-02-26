@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLShowHideAspectComposite
 	classInstanceVariableNames: ''!
 UMLShowHideAspectComposite guid: (GUID fromString: '{63968ef9-02ff-45f8-8f65-a86f26c9b75e}')!
 UMLShowHideAspectComposite comment: ''!
-!UMLShowHideAspectComposite categoriesForClass!Unclassified! !
+!UMLShowHideAspectComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLShowHideAspectComposite methodsFor!
 
 createComponents

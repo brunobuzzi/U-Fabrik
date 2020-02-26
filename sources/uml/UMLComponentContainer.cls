@@ -7,7 +7,7 @@ UMLBasicContainer subclass: #UMLComponentContainer
 	classInstanceVariableNames: ''!
 UMLComponentContainer guid: (GUID fromString: '{5f684361-02df-42a9-91cc-79ad02c533b2}')!
 UMLComponentContainer comment: 'Used for colections and UMLBasicContainers, it has ProportionalLayout to hold various collections or another "CustomizedPresenter".'!
-!UMLComponentContainer categoriesForClass!Unclassified! !
+!UMLComponentContainer categoriesForClass!MVP-Resources-UFabrik! !
 !UMLComponentContainer class methodsFor!
 
 resource_Default_view

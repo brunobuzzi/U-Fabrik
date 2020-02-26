@@ -7,7 +7,7 @@ UMLShell subclass: #UMLUserWebPreferenceShell
 	classInstanceVariableNames: ''!
 UMLUserWebPreferenceShell guid: (GUID fromString: '{e9019b34-f1a7-471c-94dd-2740dd86ddd5}')!
 UMLUserWebPreferenceShell comment: ''!
-!UMLUserWebPreferenceShell categoriesForClass!Unclassified! !
+!UMLUserWebPreferenceShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLUserWebPreferenceShell methodsFor!
 
 createComponents

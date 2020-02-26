@@ -7,7 +7,7 @@ UMLComposite subclass: #UMLStateMachineImportComposite
 	classInstanceVariableNames: ''!
 UMLStateMachineImportComposite guid: (GUID fromString: '{79452ac2-f0cb-44c8-b135-0dcc6ca5655d}')!
 UMLStateMachineImportComposite comment: ''!
-!UMLStateMachineImportComposite categoriesForClass!Unclassified! !
+!UMLStateMachineImportComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLStateMachineImportComposite methodsFor!
 
 clearAll!

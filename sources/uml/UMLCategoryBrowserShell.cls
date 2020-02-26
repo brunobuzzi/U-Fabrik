@@ -7,7 +7,7 @@ UMLToolShell subclass: #UMLCategoryBrowserShell
 	classInstanceVariableNames: ''!
 UMLCategoryBrowserShell guid: (GUID fromString: '{751a409c-cc0b-4b35-b12e-35674efaaa51}')!
 UMLCategoryBrowserShell comment: ''!
-!UMLCategoryBrowserShell categoriesForClass!Unclassified! !
+!UMLCategoryBrowserShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLCategoryBrowserShell methodsFor!
 
 checkSelectedMethod

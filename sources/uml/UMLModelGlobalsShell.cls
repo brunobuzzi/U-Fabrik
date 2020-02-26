@@ -7,7 +7,7 @@ UMLParametricObjectsShell subclass: #UMLModelGlobalsShell
 	classInstanceVariableNames: ''!
 UMLModelGlobalsShell guid: (GUID fromString: '{4ed82049-7b91-4469-8b88-02495e12d3d3}')!
 UMLModelGlobalsShell comment: ''!
-!UMLModelGlobalsShell categoriesForClass!Unclassified! !
+!UMLModelGlobalsShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLModelGlobalsShell methodsFor!
 
 addToRepository: anUMLInstance 

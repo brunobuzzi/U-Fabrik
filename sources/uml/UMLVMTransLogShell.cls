@@ -7,7 +7,7 @@ UMLShell subclass: #UMLVMTransLogShell
 	classInstanceVariableNames: ''!
 UMLVMTransLogShell guid: (GUID fromString: '{14a962f9-9b91-41a9-9701-7c52285e0fb5}')!
 UMLVMTransLogShell comment: ''!
-!UMLVMTransLogShell categoriesForClass!Unclassified! !
+!UMLVMTransLogShell categoriesForClass!MVP-Resources-UFabrik! !
 !UMLVMTransLogShell methodsFor!
 
 createComponents

@@ -7,7 +7,7 @@ UMLEnvironmentTool subclass: #UMLClassBrowserComposite
 	classInstanceVariableNames: ''!
 UMLClassBrowserComposite guid: (GUID fromString: '{60a8c8e6-5038-43cb-b727-b2ca4d030b74}')!
 UMLClassBrowserComposite comment: ''!
-!UMLClassBrowserComposite categoriesForClass!Unclassified! !
+!UMLClassBrowserComposite categoriesForClass!MVP-Resources-UFabrik! !
 !UMLClassBrowserComposite methodsFor!
 
 addCategory
